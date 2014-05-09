@@ -1,9 +1,10 @@
 <!--headerは後でパーシャルに置く -->
 
+
 <div class="order_new_content">
 	<div id="order_new_select">
 		<h2>ほしいお茶と数を選択してください</h2>
-		<p id="same_quantity"><input type="checkbox" >前回と同じ数量を指定</p>
+		<p id="same_quantity"><input type="checkbox" >前回と同じ注文を指定</p>
 		<div id="select_caption">
 	  	<p><span id="name_and_price">品名と単価</span><span id="quantity">数量</span></p>
 		</div>
@@ -12,9 +13,7 @@
 			<div id="tea_and_quantity_select">
 				<div class="tea_select">
 					<select id="tea_select">
-						<option>アールグレイ（７５６円）</option>
-						<option>アイスティー（７５６円）</option>
-						<option>ミントティー（７５６円）</option>
+						<%= options_for_select(item_name_price) %>
 					</select>
 					<select id="number_select">
 						<option>0個</option>
@@ -25,9 +24,7 @@
 
 				<div class="tea_select">
 					<select id="tea_select">
-						<option>アールグレイ（７５６円）</option>
-						<option selected>アイスティー（７５６円）</option>
-						<option>ミントティー（７５６円）</option>
+						<%= options_for_select(item_name_price) %>
 					</select>
 					<select id="number_select">
 						<option>0個</option>
@@ -38,9 +35,7 @@
 
 				<div class="tea_select">
 					<select id="tea_select">
-						<option>アールグレイ（７５６円）</option>
-						<option>アイスティー（７５６円）</option>
-						<option selected>ミントティー（７５６円）</option>
+						<%= options_for_select(item_name_price) %>
 					</select>
 					<select id="number_select">
 						<option>0個</option>
