@@ -1,0 +1,12 @@
+<% if flash[:error] %>
+<p><%= flash[:error] %></p>
+<% end %>
+<h1>ログイン</h1>
+
+<%= form_for(:sessions, url: sessions_path) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit "送信する"%>
+<% end %>
+
+<p>新規ユーザーの場合、<%= link_to "ユーザー登録", new_user_path %>をしてください。</p>

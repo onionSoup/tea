@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tea02</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<header>
+  <p>デバッグ用スペース</p>
+  <% if signed_in? %>
+    <p>こんにちは<%= @current_user.name %>さん</p>
+    <%= link_to "サインアウトする", '/signout', method: "delete" %>
+  <% end %>
+</header>
+
+<%= yield %>
+
+<footer>
+	<% if(Rails.env.development?) %>
+  <%= debug(params) %>
+  <%= debug( @user) %>
+  <%= debug(flash) %>
+  <span>@current_user <%= debug(@current_user) %></span>
+  <span>cookies[:remember_token] :<%= debug(cookies[:remember_token]) %></span>
+  <span>User.encrypt(cookies[:remember_token]:<%= debug(User.encrypt(cookies[:remember_token])) %></span>
+  <% end %>
+</footer>
+</body>
+</html>

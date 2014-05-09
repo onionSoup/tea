@@ -1,0 +1,94 @@
+<!--headerは後でパーシャルに置く -->
+<header>
+	<% if( @user&&@user.name ) %>
+	  <% name = @user.name %>
+	<% else %>
+	  <% name = "ゲスト"  %>
+	<% end  %>
+
+
+  <h1 id="title">お茶注文用サイト</h1>
+	<p id="greeting">こんにちは、<%= name %><span>さん</span></p>
+	<% if(@user&&@admin_order) %>
+	  <p id="mypage"><a href= <% users_path(@user)%> ><%= name %>さんのマイページ</a></p>
+	  <p id="admin_page"><a href= <%= admin_order(@admin_order) %> >管理者用ページ</a>
+	<% else  %>
+	  <p id="mypage">名前を入力すれば、マイページが使えます</p>
+	<% end %>
+
+	<nav id="bread">
+		<p><a href=root_path>TOP</a>
+		  <span>&gt;</span>
+		  <span><a href="new_order_path">購入用ページ</a></span>
+		</p>
+	</nav>
+</header>
+
+<div class="content">
+	<div id="select">
+		<h2>ほしいお茶と数を選択してください</h2>
+		<p id="same_quantity"><input type="checkbox" >前回と同じ数量を指定</p>
+		<div id="select_caption">
+	  	<p><span id="name_and_price">品名と単価</span><span id="quantity">数量</span></p>
+		</div>
+
+		<div class="float_wrap">
+			<div id="tea_and_quantity_select">
+				<div class="tea_select">
+					<select id="tea_select">
+						<option>アールグレイ（７５６円）</option>
+						<option>アイスティー（７５６円）</option>
+						<option>ミントティー（７５６円）</option>
+					</select>
+					<select id="number_select">
+						<option>0個</option>
+						<option>1個</option>
+						<option>2個</option>
+					</select>
+				</div>
+
+				<div class="tea_select">
+					<select id="tea_select">
+						<option>アールグレイ（７５６円）</option>
+						<option selected>アイスティー（７５６円）</option>
+						<option>ミントティー（７５６円）</option>
+					</select>
+					<select id="number_select">
+						<option>0個</option>
+						<option>1個</option>
+						<option>2個</option>
+					</select>
+				</div>
+
+				<div class="tea_select">
+					<select id="tea_select">
+						<option>アールグレイ（７５６円）</option>
+						<option>アイスティー（７５６円）</option>
+						<option selected>ミントティー（７５６円）</option>
+					</select>
+					<select id="number_select">
+						<option>0個</option>
+						<option>1個</option>
+						<option>2個</option>
+					</select>
+				</div>
+		  </div><!--tea_and_number_and_quantity_select-->
+
+			<div id="fixedness">
+				<div id="fixedness_inner">
+	 	  		<div id="sum">小計:0円</div>
+		  		<button type="button">注文を確定する</button>
+		  	</div>
+			</div>
+		</div><!-- float wrap -->
+		<div class="clear">
+		</div>
+	</div><!-- div#select -->
+</div><!-- div.content -->
+
+
+<div class="footer">
+	<p>詳しい商品情報は
+		<a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
+	</p>
+<div>

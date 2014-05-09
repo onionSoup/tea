@@ -1,0 +1,25 @@
+<%= form_for(@time_limit) do |f| %>
+  <% if @time_limit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@time_limit.errors.count, "error") %> prohibited this time_limit from being saved:</h2>
+
+      <ul>
+      <% @time_limit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start %><br>
+    <%= f.date_select :start %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br>
+    <%= f.date_select :end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

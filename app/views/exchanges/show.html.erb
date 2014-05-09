@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @exchange.order_id %>
+</p>
+
+<p>
+  <strong>Exchange flag:</strong>
+  <%= @exchange.exchange_flag %>
+</p>
+
+<%= link_to 'Edit', edit_exchange_path(@exchange) %> |
+<%= link_to 'Back', exchanges_path %>

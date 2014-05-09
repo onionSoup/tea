@@ -1,0 +1,27 @@
+<h1>Listing time_limits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_limits.each do |time_limit| %>
+      <tr>
+        <td><%= time_limit.start %></td>
+        <td><%= time_limit.end %></td>
+        <td><%= link_to 'Show', time_limit %></td>
+        <td><%= link_to 'Edit', edit_time_limit_path(time_limit) %></td>
+        <td><%= link_to 'Destroy', time_limit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time limit', new_time_limit_path %>

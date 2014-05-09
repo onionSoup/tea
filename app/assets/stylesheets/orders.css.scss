@@ -1,0 +1,134 @@
+// Place all the styles related to the Orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+//header
+header {
+	background: linear-gradient(white,#c8c8c8);
+}
+
+header h1,p {
+  display: inline-block;
+}
+header h1#title {
+  margin-right: 25%;
+}
+
+header p#greeting {
+  margin-right: 2%;
+  text-align: left;
+}
+
+header nav#bread {
+  background: white;
+}
+
+
+//universal
+div.content {
+  margin-left: 3%;
+}
+
+div.float_wrap {
+  overflow: hidden;
+}
+div.clear {
+  clear: both;
+}
+
+h2 {
+  margin-top: 2em;
+  font-size: 1.3em;
+
+  width: 20em;
+  border-bottom: solid thin #c8c8c8;
+}
+
+/*
+div#same_quantity {
+  text-align: left;
+  padding-top: 1em;
+
+  width: 40%;
+  margin: 2em 0.5em 0;
+  float: left;
+}
+*/
+
+//選択欄
+div#select {
+ }
+
+div#select_caption {
+  margin-top: 0.3em;
+}
+
+div#tea_and_quantity_select {
+  margin: 0em 8em 3em 0em;
+  width: 40%;
+  float: left;
+}
+
+div p span#name_and_price {
+	margin-right: 17em;
+}
+
+div p span#quantity {
+ }
+
+div.tea_select {
+	margin: 0 0 1em ;
+}
+
+div.tea_select:nth-of-type(odd) {  //奇数番目の要素に適用
+  background: linear-gradient(white,#b8b8b8);
+}
+
+div.tea_select:nth-of-type(even) {  //偶数番目の要素に適用
+  background: linear-gradient(white,#c8c8c8);
+}
+
+
+select#tea_select{
+  font-size: 1.4em;
+}
+
+select#number_select{
+  font-size: 1.4em;
+  margin-left: 5em;
+}
+
+
+//fixdness(注文確定ボタン周辺)
+div#fixedness {
+  line-height: 3.0em;
+}
+
+div#fixedness div#fixedness_inner {
+  //この箱にborderをつけたい
+  //例えば以下のコメントを外せば、一応、線はつく。が、画面を横に動かすとすぐにスタイルが崩れる。
+  /*
+  margin-left: 10em;
+  border: solid thin #8c8c8c;
+  width: 20em;
+  */
+}
+
+div#fixedness div#sum {
+  font-size: 1.1em;
+}
+
+div#fixedness button {
+  font-size: 1.1em;
+  padding: 0.5em 1.5em;
+}
+
+
+
+//footer
+div.footer {
+  background: linear-gradient(white,#c8c8c8);
+  margin-bottom: 4em;
+}

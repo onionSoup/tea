@@ -1,0 +1,25 @@
+<%= form_for(@exchange) do |f| %>
+  <% if @exchange.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exchange.errors.count, "error") %> prohibited this exchange from being saved:</h2>
+
+      <ul>
+      <% @exchange.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :order_id %><br>
+    <%= f.number_field :order_id %>
+  </div>
+  <div class="field">
+    <%= f.label :exchange_flag %><br>
+    <%= f.check_box :exchange_flag %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
