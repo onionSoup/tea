@@ -1,3 +1,5 @@
+/*scaffoldはデバッグ用に便利なので使う。あとはいらない
+  ただし、body部分だけはapplication.css.scssで使う。
 body {
   background-color: #fff;
   color: #333;
@@ -11,12 +13,13 @@ p, ol, ul, td {
   font-size: 13px;
   line-height: 18px;
 }
-
+*/
 pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
 }
+
 
 /* 標準的な色を使いたいので、ここではカラーを付けない。
 a {

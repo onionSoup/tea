@@ -1,3 +1,22 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//Sessions#new.html.erb
+h2#sessions_new_title {
+	font-size: 1.9em;
+	margin-top: 1em;
+	margin-left: 1em;
+	width: 40%;
+  border-bottom: solid thin #c8c8c8;
+}
+
+div#sessions_new_main_content {
+  margin-left: 5em;
+  padding: 2em 0 4em;
+}
+
+p#sessions_prompt_register {
+	padding-top: 1em;
+  margin-top: 3em;
+}

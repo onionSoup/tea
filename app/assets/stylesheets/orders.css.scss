@@ -3,42 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-
-//header
-header {
-	background: linear-gradient(white,#c8c8c8);
-}
-
-header h1,p {
-  display: inline-block;
-}
-header h1#title {
-  margin-right: 25%;
-}
-
-header p#greeting {
-  margin-right: 2%;
-  text-align: left;
-}
-
-header nav#bread {
-  background: white;
-}
-
-
-//universal
-div.content {
+//以下はorder#newに関係する部分
+div.order_new_content {
   margin-left: 3%;
 }
 
-div.float_wrap {
+divorder_new_content div.float_wrap {
   overflow: hidden;
 }
-div.clear {
+div.order_new_content div.clear {
   clear: both;
 }
 
-h2 {
+div.order_new_content h2 {
   margin-top: 2em;
   font-size: 1.3em;
 
@@ -58,7 +35,7 @@ div#same_quantity {
 */
 
 //選択欄
-div#select {
+div#order_new_select {
  }
 
 div#select_caption {
@@ -124,8 +101,6 @@ div#fixedness button {
   font-size: 1.1em;
   padding: 0.5em 1.5em;
 }
-
-
 
 //footer
 div.footer {

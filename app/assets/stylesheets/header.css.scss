@@ -1,0 +1,47 @@
+
+//header
+header div#for_header_menu_position {
+	background: linear-gradient(white,#c8c8c8);
+  position: relative;
+  height: 5em;
+}
+
+header h1#title {
+  display: inline;
+}
+
+header div#flex{
+  width: 60%;
+  display: inline-flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+header div#flex > p{
+  padding-right: 3%;
+  padding-left: 3%;
+  border-right: solid thin #c8c8c8;
+}
+
+header nav#bread {
+  background: white;
+}
+
+
+header p#flash_error_p {
+  background-color: #EEADB5;
+  color: #C1091F;
+  width: 40%;
+  text-align: center;
+}
+
+header p#flash_success_p {
+  background-color: #bbe8be;
+  color: #09c14d;
+  width: 40%;
+  text-align: center;
+}
