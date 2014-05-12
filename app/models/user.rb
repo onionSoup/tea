@@ -10,7 +10,7 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :orders
+  has_many :orders, dependent: :destroy
   #before_create :create_remember_token
 
 

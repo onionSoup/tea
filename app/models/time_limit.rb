@@ -10,4 +10,5 @@
 #
 
 class TimeLimit < ActiveRecord::Base
+  has_one :admin_order ,dependent: :destroy
 end

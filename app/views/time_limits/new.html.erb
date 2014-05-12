@@ -1,5 +1,22 @@
 <h1>New time_limit</h1>
 
-<%= render 'form' %>
+<%= form_for(@time_limit) do |f| %>
+	<div class="field">
+    <%= f.label :start %><br>
+    <%= f.date_select :start %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br>
+    <%= f.date_select :end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <div>
+    <%= f.fields_for :admin_order do |admin_order_form| %>
+    <%# admin_orderにはtime_limit_id以外を渡す必要がないので、何も書かなくていい %>
+    <% end %>
+  </div>
+<% end %>
 
 <%= link_to 'Back', time_limits_path %>

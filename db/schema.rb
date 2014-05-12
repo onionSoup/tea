@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512035326) do
+ActiveRecord::Schema.define(version: 20140512050156) do
 
   create_table "admin_orders", force: true do |t|
     t.integer  "time_limit_id"

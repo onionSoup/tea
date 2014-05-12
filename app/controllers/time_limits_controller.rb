@@ -15,6 +15,7 @@ class TimeLimitsController < ApplicationController
   # GET /time_limits/new
   def new
     @time_limit = TimeLimit.new
+    @time_limit.build_admin_order
   end
 
   # GET /time_limits/1/edit
@@ -69,6 +70,6 @@ class TimeLimitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_limit_params
-      params.require(:time_limit).permit(:start, :end)
+      params.require(:time_limit).permit(:start, :end, admin_order_attributes:[:id])
     end
 end
