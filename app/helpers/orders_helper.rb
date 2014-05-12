@@ -21,10 +21,9 @@ module OrdersHelper
   end
 
   def ignore_item_if_zero_quantity(params)
-    size = params["order_details_attributes"].size
 
-    params["order_details_attributes"].each_with_index  do |attributes,i|
-      if ( attributes["#{i}"]["quantity"] == 0 )
+    params["order_details_attributes"].each do |attributes|
+      if ( attributes["quantity"] == 0 )
       end
     end
   end
