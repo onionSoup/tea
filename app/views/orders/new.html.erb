@@ -28,7 +28,7 @@
 					<div class="tea_select">
 						<%= form_for(@order) do |f|%>
 							<%= f.hidden_field :user_id, { :value => @current_user.id } %>
-							<%= f.hidden_field :time_limits_id, { :value => now_time_limit_id } %>
+							<%= f.hidden_field :time_limit_id, { :value => now_time_limit_id } %>
 							<%= f.fields_for :order_details do |order_details_form| %>
 								<%= order_details_form.select :item_id, Item.all.map{|it| [it.name + "(" + it.price.to_s + "円" + ")" , it.id]} %>
 								<%= order_details_form.select :quantity, item_count %>

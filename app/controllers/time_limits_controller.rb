@@ -15,7 +15,6 @@ class TimeLimitsController < ApplicationController
   # GET /time_limits/new
   def new
     @time_limit = TimeLimit.new
-    @time_limit.build_admin_order
   end
 
   # GET /time_limits/1/edit
@@ -29,6 +28,8 @@ class TimeLimitsController < ApplicationController
 
     respond_to do |format|
       if @time_limit.save
+        @time_limit.create_admin_order
+        binding.pry
         format.html { redirect_to @time_limit, notice: 'Time limit was successfully created.' }
         format.json { render :show, status: :created, location: @time_limit }
       else
