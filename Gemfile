@@ -42,3 +42,6 @@ gem 'spring',        group: :development
 gem 'pry-rails',        group: :development
 gem 'pry-doc',        group: :development
 gem 'pry-stack_explorer',        group: :development
+
+# スキーマを書く
+gem 'annotate'

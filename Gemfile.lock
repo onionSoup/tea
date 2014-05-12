@@ -27,6 +27,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    annotate (2.5.0)
+      rake
     arel (5.0.1.20140414130214)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -132,6 +134,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
