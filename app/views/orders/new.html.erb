@@ -6,8 +6,10 @@
       <h2>ほしいお茶と数を選択してください</h2>
       <!--このチェックボックスはJSが勉強終わったら使うためのプレースホルダーです -->
       <p id="same_quantity"><input type="checkbox" >前回と同じ注文を指定</p>
+      <% if false %>
       <div class="float_wrap">
-        <div id="tea_and_quantity_select">
+      <% end %>
+        <div id="order_flex_box">
           <div class="tea_select">
             <%= form_for(@order) do |f|%>
               <%= f.hidden_field :user_id, { :value => @current_user.id } %>
@@ -21,19 +23,23 @@
                 </div>
               <% end %>
           </div>
-          <div id="order_confirm">
-              <p>小計：０円</p>
-              <%= f.button :submit %>
-          </div>
-              <% end %>
+            <div id="order_confirm">
+                <p><span id="sum">小計：０円</span></p>
+                <%= f.button :注文を確定する %>
+            </div>
+          <% end %>
         </div><!--tea_and_number_and_quantity_select-->
+        <%if false %>
         <div id="fixedness">
           <div id="fixedness_inner">
             <div id="sum">小計:0円</div>
             <button type="button">注文を確定する</button>
           </div>
         </div>
+        <% end %>
+        <% if false%>
       </div><!-- float wrap -->
+      <% end %>
       <div class="clear">
       </div>
     </div>

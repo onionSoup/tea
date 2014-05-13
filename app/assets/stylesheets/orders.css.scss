@@ -39,10 +39,29 @@ div#select_caption {
   margin-top: 0.3em;
 }
 
-div#tea_and_quantity_select {
+div#order_flex_box {
   margin: 0em 8em 3em 0em;
-  width: 40%;
-  float: left;
+  display: flex;
+}
+
+div#order_confirm {
+  margin-left: 10em;
+  height: 20%;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2em 1em 1.2em;
+  background-color: #B3CED7;
+}
+
+div#order_confirm button {
+  font-size: 1.1em;
+  padding: 0.5em 1.5em;
+}
+div#order_confirm p span#sum {
+  vertical-align: bottom;
+}
+div#order_confirm p  {
+  border-bottom: thin solid gray;
 }
 
 div p span#name_and_price {

@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140513003349) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admin_orders", force: true do |t|
     t.integer  "time_limit_id"
     t.datetime "created_at"
@@ -62,6 +65,6 @@ ActiveRecord::Schema.define(version: 20140513003349) do
     t.string   "remember_token"
   end
 
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end
