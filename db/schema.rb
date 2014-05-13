@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512050156) do
+ActiveRecord::Schema.define(version: 20140513003349) do
 
   create_table "admin_orders", force: true do |t|
     t.integer  "time_limit_id"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140512050156) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
-    t.integer  "time_limits_id"
+    t.integer  "time_limit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

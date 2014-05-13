@@ -3,81 +3,70 @@
 <% if !signed_in? %>
 <p>サインインしてください</p>
 <% else %>
-	<div class="order_new_content">
-		<div id="order_new_select">
-			<h2>ほしいお茶と数を選択してください</h2>
-			<p id="same_quantity"><input type="checkbox" >前回と同じ注文を指定</p>
-			<div id="select_caption">
-		  	<p><span id="name_and_price">品名と単価</span><span id="quantity">数量</span></p>
-			</div>
+  <div class="order_new_content">
+    <div id="order_new_select">
+      <h2>ほしいお茶と数を選択してください</h2>
+      <p id="same_quantity"><input type="checkbox" >前回と同じ注文を指定</p>
+      <div id="select_caption">
+        <p><span id="name_and_price">品名と単価</span><span id="quantity">数量</span></p>
+      </div>
 
-			<div class="float_wrap">
-				<div id="tea_and_quantity_select">
-					<div class="tea_select">
-						<select id="tea_select">
-							<%= options_for_select(item_name_price) %>
-						</select>
-						<select id="number_select">
-							<option>0個</option>
-							<option>1個</option>
-							<option>2個</option>
-						</select>
-					</div>
+      <div class="float_wrap">
+        <div id="tea_and_quantity_select">
+          <div class="tea_select">
+            <select id="tea_select">
+              <%= options_for_select(item_name_price) %>
+            </select>
+            <select id="number_select">
+              <option>0個</option>
+              <option>1個</option>
+              <option>2個</option>
+            </select>
+          </div>
 
 <%#ここに挿入%>
-					<div class="tea_select">
-						<%= form_for(@order) do |f|%>
-							<%= f.hidden_field :user_id, { :value => @current_user.id } %>
-							<%= f.hidden_field :time_limit_id, { :value => now_time_limit_id } %>
-							<%= f.fields_for :order_details do |order_details_form| %>
-								<%= order_details_form.select :item_id, Item.all.map{|it| [it.name + "(" + it.price.to_s + "円" + ")" , it.id]} %>
-								<%= order_details_form.select :quantity, item_count %>
-							<% end %>
-							<%= f.button :submit %>
-						<% end %>
-					</div>
+          <div class="tea_select">
+            <%= form_for(@order) do |f|%>
+              <%= f.hidden_field :user_id, { :value => @current_user.id } %>
+              <%= f.hidden_field :time_limit_id, { :value => now_time_limit_id } %>
+              <%= f.fields_for :order_details do |order_details_form| %>
+              <%= order_details_form.select :item_id, Item.all.map{|it| [it.name + "(" + it.price.to_s + "円" + ")" , it.id]} %>
+              <%= order_details_form.select :quantity, item_count %>
+              <% end %>
+              <%= f.button :submit %>
+              <% end %>
+            </div>
 <%#ここまで%>
 
 
-					<div class="tea_select">
-						<select id="tea_select">
-							<%= options_for_select(item_name_price) %>
-						</select>
-						<select id="number_select">
-							<option>0個</option>
-							<option>1個</option>
-							<option>2個</option>
-						</select>
-					</div>
+          <div class="tea_select">
+            <select id="tea_select">
+              <%= options_for_select(item_name_price) %>
+            </select>
+            <select id="number_select">
+              <option>0個</option>
+              <option>1個</option>
+              <option>2個</option>
+            </select>
+          </div>
+        </div><!--tea_and_number_and_quantity_select-->
 
-					<div class="tea_select">
-						<select id="tea_select">
-							<%= options_for_select(item_name_price) %>
-						</select>
-						<select id="number_select">
-							<option>0個</option>
-							<option>1個</option>
-							<option>2個</option>
-						</select>
-					</div>
-			  </div><!--tea_and_number_and_quantity_select-->
-
-				<div id="fixedness">
-					<div id="fixedness_inner">
-		 	  		<div id="sum">小計:0円</div>
-			  		<button type="button">注文を確定する</button>
-			  	</div>
-				</div>
-			</div><!-- float wrap -->
-			<div class="clear">
-			</div>
-		</div><!-- div#select -->
-	</div><!-- div.content -->
+        <div id="fixedness">
+          <div id="fixedness_inner">
+            <div id="sum">小計:0円</div>
+            <button type="button">注文を確定する</button>
+          </div>
+        </div>
+      </div><!-- float wrap -->
+      <div class="clear">
+      </div>
+    </div><!-- div#select -->
+  </div><!-- div.content -->
 
 
-	<div class="footer">
-		<p>詳しい商品情報は
-			<a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
-		</p>
-	<div>
+  <div class="footer">
+    <p>詳しい商品情報は
+      <a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
+    </p>
+  <div>
 <% end %>
