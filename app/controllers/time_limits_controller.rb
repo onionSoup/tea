@@ -29,7 +29,6 @@ class TimeLimitsController < ApplicationController
     respond_to do |format|
       if @time_limit.save
         @time_limit.create_admin_order
-        binding.pry
         format.html { redirect_to @time_limit, notice: 'Time limit was successfully created.' }
         format.json { render :show, status: :created, location: @time_limit }
       else
