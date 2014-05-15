@@ -7,7 +7,7 @@ module AdminOrdersHelper
 
   def price_sum
     sum = 0
-    time_to_admin(Time.now).time_limit.orders.each do |o|
+    time_limit_in(Time.now).orders.each do |o|
       o.order_details.each do |od|
         sum += od.item.price * od.quantity
       end
