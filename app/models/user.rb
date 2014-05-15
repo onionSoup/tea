@@ -11,8 +11,8 @@
 
 class User < ActiveRecord::Base
   has_many :orders, dependent: :destroy
-  #before_create :create_remember_token
-
+  #rails tutorialだと、before_createをやっている。でもコメントアウトしても動く、と思う。
+    #before_create :create_remember_token
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

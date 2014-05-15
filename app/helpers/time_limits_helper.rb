@@ -1,4 +1,6 @@
 module TimeLimitsHelper
+#TimeLimit.where〜の共通部分をくくることはできる。
+#でも１行だけなので、くくるとかえってダメな気がする。
   def now_time_limit_id
     now = Time.now.midnight
     #whereはActiveRecordObjectのArrayを返す。そのためwhere.idではなくfirstが間に必要。
