@@ -11,5 +11,6 @@
 
 class TimeLimit < ActiveRecord::Base
   has_one :admin_order ,dependent: :destroy
+  has_one :exchange
   has_many :orders
 end

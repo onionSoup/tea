@@ -24,6 +24,7 @@ class TimeLimitsController < ApplicationController
     @time_limit = TimeLimit.new(time_limit_params)
     if @time_limit.save
       @time_limit.create_admin_order
+      @time_limit.create_exchange(exchange_flag: false)
       redirect_to @time_limit, notice: 'Time limit was successfully created.'
     else
       render :new

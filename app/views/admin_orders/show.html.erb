@@ -1,15 +1,5 @@
 <div id="admin_flex_box">
-  <nav id="admin_side_nav">
-    <ul>
-      <h3>トピック</h3>
-      <li><%= link_to 'ガイド', '#' %></li>
-      <li><%= link_to '注文期間の設定', new_time_limit_path %></li>
-      <li><%= link_to 'ネスレ入力用シート', admin_order_path(time_to_admin(Time.now)) %></li>
-      <li><%= link_to '引換用情報', '#' %></li>
-      <li><%= link_to '注文履歴', '#' %></li>
-      <li><%= link_to '引換履歴', '#' %></li>
-    </ul>
-  </nav>
+  <%= render 'layouts/admin_side_nav' %>
   <div><%# 子をまとめて１つのflexitemにするため %>
     <div id="admin_show_time_limit_display">
       <h3>注文募集期間</h3>
