@@ -1,9 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div id="admin_flex_box">
+  <nav id="admin_side_nav">
+    <ul>
+      <h3>トピック</h3>
+      <li><%= link_to "ガイド", "#" %></li>
+      <li><%= link_to "注文期間の設定", new_time_limit_path %></li>
+      <li><%= link_to "ネスレ入力用シート", admin_order_path(time_to_admin(Time.now)) %></li>
+      <li><%= link_to "引換用情報", "#exchange_path(@exchange)" %></li>
+      <li><%= link_to "注文履歴", "#" %></li>
+      <li><%= link_to "引換履歴", "#" %></li>
+    </ul>
+  </nav>
 
-<p>
-  <strong>Time limit:</strong>
-  <%= @admin_order.time_limit_id %>
-</p>
+  <div><%# 子をまとめて１つのflexitemにするため %>
+    <div id="admin_show_time_limit_display">
+      <h3>注文募集期間</h3>
+        <div>
+          <p>
+            <span>開始:</span><span><%= @admin_order.time_limit.start %></span><br />
+            <span>終了:</span><span><%= @admin_order.time_limit.end %></span><br />
+          </p>
+          <%= link_to "期間を変更する", new_time_limit_path %>
+        </div>
+    </div>
 
-<%= link_to 'Edit', edit_admin_order_path(@admin_order) %> |
-<%= link_to 'Back', admin_orders_path %>
+    <div id="nestle_input_sheet">
+      <h3>ネスレ入力用シート</h3>
+        <div>
+          <p>上記の注文募集期間に、esmの皆様が入力したお茶注文情報を表示しています。</p>
+          <p>以下のお茶注文情報を見ながら<%= link_to "ネスレ通販サイト", "https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/" %>で注文してください。</p>
+          <div id="nestle_input_sheet_flex_box">
+            <table id="admin_order_table">
+              <tr><div><th>商品名</th><th>単価</th><th>合計数量</th></div></tr>
+              <% arr = name_price_quantity_sum %>
+              <% arr.each do  |a| %>
+                <tr><td class="name"><%= a.name %></td><td class="price"><%= a.price %></td><td class="sum"><%= a.sum %></td></tr>
+              <% end %>
+            </table>
+            <div id="payment"><span>支払い金額:</span><span><%= price_sum%>円</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

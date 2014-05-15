@@ -7,11 +7,17 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-#Time
+#users
+  if(!User.first)
+    User.create(name: "user1",remember_token: "94cf4ddb27b4e3e5343081999e780fe6816c878d")
+  end
+
+#time  #admin
   if(!TimeLimit.first)
     d1 = Date.new(2014,5,10)
     d2 = Date.new(2014,6,10)
-    TimeLimit.create(start: d1, end: d2)
+    t = TimeLimit.create(start: d1, end: d2)
+    t.create_admin_order
   end
 
 

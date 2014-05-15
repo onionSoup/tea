@@ -11,9 +11,8 @@
       <p id="greeting">こんにちは<%= name %>さん</p>
       <% if @current_user %>
         <p id="sign_out"><%= link_to "ログアウト", '/signout', method: "delete" %></p>
-        <p id="mypage"><%= link_to "マイページ",user_path(@current_user) %></p>
-        <!-- 管理者用は今はスタブ-->
-        <p id="admin_page"><%= link_to "管理者用","#admin_order_path(@admin_order)" %></p>
+        <p id="mypage" style="display: none;"><%= link_to "マイページ",user_path(@current_user) %></p>
+        <p id="admin_page"><%= link_to "管理者用",admin_order_path(time_to_admin(Time.now)) %></p>
       <% else  %>
         <p id="mypage"><%= link_to "ログイン",new_session_path %>すれば、マイページが使えます</p>
       <% end %>
@@ -26,7 +25,6 @@
       <span>&gt;</span>
       <span>#</span>
       </p>
-
       <% if false %>
       <span><%= link_to "購入用ページ", new_order_path %></span>
       ここを、動的に変えたい。どうするかというと、各ページに<% provide(:title, 'そのページのタイトル') %>を書く。
