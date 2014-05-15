@@ -1,9 +1,8 @@
 # == Schema Information
 #
-# Table name: orders
+# Table name: admin_orders
 #
 #  id            :integer          not null, primary key
-#  user_id       :integer
 #  time_limit_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
@@ -12,9 +11,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
-  time_limits_id: 1
+  time_limit_id: 1
 
 two:
-  user_id: 1
-  time_limits_id: 1
+  time_limit_id: 1

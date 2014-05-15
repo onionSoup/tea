@@ -28,6 +28,7 @@ class TimeLimitsController < ApplicationController
 
     respond_to do |format|
       if @time_limit.save
+        @time_limit.create_admin_order
         format.html { redirect_to @time_limit, notice: 'Time limit was successfully created.' }
         format.json { render :show, status: :created, location: @time_limit }
       else
@@ -69,6 +70,6 @@ class TimeLimitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_limit_params
-      params.require(:time_limit).permit(:start, :end)
+      params.require(:time_limit).permit(:start, :end, admin_order_attributes:[:id])
     end
 end

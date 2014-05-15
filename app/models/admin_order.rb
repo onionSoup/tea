@@ -1,15 +1,13 @@
 # == Schema Information
 #
-# Table name: exchanges
+# Table name: admin_orders
 #
 #  id            :integer          not null, primary key
-#  order_id      :integer
-#  exchange_flag :boolean
+#  time_limit_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
 #
 
-class Exchange < ActiveRecord::Base
+class AdminOrder < ActiveRecord::Base
   belongs_to :time_limit
-  belongs_to :user
 end

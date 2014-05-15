@@ -1,5 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  remember_token :string(255)
+#
+
 class User < ActiveRecord::Base
-  has_many :orders
+  has_many :orders, dependent: :destroy
   #before_create :create_remember_token
 
 

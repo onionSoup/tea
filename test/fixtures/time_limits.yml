@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: time_limits
+#
+#  id         :integer          not null, primary key
+#  start      :date
+#  end        :date
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

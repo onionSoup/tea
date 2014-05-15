@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :admin_orders
+
   root to: 'users#new'
 
   resources :exchanges
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:new, :create]
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+
+  resources :admin_order
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

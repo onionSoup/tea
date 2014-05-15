@@ -1,10 +1,16 @@
 source 'https://rubygems.org'
-
+gem 'pg'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
+
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
+
+group :production do
+  gem 'rails_12factor'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,6 +45,10 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 # pry
-gem 'pry-rails',        group: :development
-gem 'pry-doc',        group: :development
-gem 'pry-stack_explorer',        group: :development
+group :development do
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+end
+# スキーマを書く
+gem 'annotate',       group: :development

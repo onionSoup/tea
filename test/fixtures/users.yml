@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  remember_token :string(255)
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

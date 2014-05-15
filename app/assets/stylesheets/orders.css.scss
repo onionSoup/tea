@@ -7,18 +7,15 @@
 div.order_new_content {
   margin-left: 3%;
 }
-
-divorder_new_content div.float_wrap {
+div.order_new_content div.float_wrap {
   overflow: hidden;
 }
 div.order_new_content div.clear {
   clear: both;
 }
-
 div.order_new_content h2 {
   margin-top: 2em;
   font-size: 1.3em;
-
   width: 20em;
   border-bottom: solid thin #c8c8c8;
 }
@@ -42,21 +39,40 @@ div#select_caption {
   margin-top: 0.3em;
 }
 
-div#tea_and_quantity_select {
+div#order_flex_box {
   margin: 0em 8em 3em 0em;
-  width: 40%;
-  float: left;
+  display: flex;
+}
+
+div#order_confirm {
+  margin-left: 10em;
+  height: 20%;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2em 1em 1.2em;
+  background-color: #B3CED7;
+}
+
+div#order_confirm button {
+  font-size: 1.1em;
+  padding: 0.5em 1.5em;
+}
+div#order_confirm p span#sum {
+  vertical-align: bottom;
+}
+div#order_confirm p  {
+  border-bottom: thin solid gray;
 }
 
 div p span#name_and_price {
-	margin-right: 17em;
+  margin-right: 17em;
 }
 
 div p span#quantity {
  }
 
 div.tea_select {
-	margin: 0 0 1em ;
+  margin: 0 0 1em ;
 }
 
 div.tea_select:nth-of-type(odd) {  //奇数番目の要素に適用
@@ -66,8 +82,9 @@ div.tea_select:nth-of-type(odd) {  //奇数番目の要素に適用
 div.tea_select:nth-of-type(even) {  //偶数番目の要素に適用
   background: linear-gradient(white,#c8c8c8);
 }
-
-
+div.order_details_form{
+  margin-bottom: 1em;
+}
 select#tea_select{
   font-size: 1.4em;
 }

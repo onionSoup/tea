@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: exchanges
+#
+#  id            :integer          not null, primary key
+#  order_id      :integer
+#  exchange_flag :boolean
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

@@ -23,6 +23,10 @@
     （なお、cookies[:remember_token]がnilなら da39a3ee5e6b4b0d3255bfef95601890afd80709になる）
     <%= debug(User.encrypt(cookies[:remember_token])) %>
   </span>
+  <span>
+    Order.joins(order_details: :item).group("items.id").select("SUM(quantity),items.name"):
+    <%= debug(Order.joins(order_details: :item).group("items.id").select("SUM(quantity),items.name")) %>
+  </span>
   <% end %>
 </footer>
 </body>
