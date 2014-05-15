@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(name: params[:sessions][:name])
-    #パスワードを持たないので、これにする
+    #パスワードが必要になったらここに書く。
     if user
       #ログインさせる
       sign_in user
@@ -14,7 +14,6 @@ class SessionsController < ApplicationController
       flash.now[:error] = 'そのユーザは存在しません。新規ユーザー登録してください'
       render 'new'
     end
-
   end
 
   def destroy
@@ -22,5 +21,4 @@ class SessionsController < ApplicationController
     flash[:success] = 'ログアウトしました。'
     redirect_to root_url
   end
-
 end

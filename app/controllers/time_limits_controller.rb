@@ -2,13 +2,11 @@ class TimeLimitsController < ApplicationController
   before_action :set_time_limit, only: [:show, :edit, :update, :destroy]
 
   # GET /time_limits
-  # GET /time_limits.json
   def index
     @time_limits = TimeLimit.all
   end
 
   # GET /time_limits/1
-  # GET /time_limits/1.json
   def show
   end
 
@@ -22,44 +20,29 @@ class TimeLimitsController < ApplicationController
   end
 
   # POST /time_limits
-  # POST /time_limits.json
   def create
     @time_limit = TimeLimit.new(time_limit_params)
-
-    respond_to do |format|
-      if @time_limit.save
-        @time_limit.create_admin_order
-        format.html { redirect_to @time_limit, notice: 'Time limit was successfully created.' }
-        format.json { render :show, status: :created, location: @time_limit }
-      else
-        format.html { render :new }
-        format.json { render json: @time_limit.errors, status: :unprocessable_entity }
-      end
+    if @time_limit.save
+      @time_limit.create_admin_order
+      redirect_to @time_limit, notice: 'Time limit was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /time_limits/1
-  # PATCH/PUT /time_limits/1.json
   def update
-    respond_to do |format|
-      if @time_limit.update(time_limit_params)
-        format.html { redirect_to @time_limit, notice: 'Time limit was successfully updated.' }
-        format.json { render :show, status: :ok, location: @time_limit }
-      else
-        format.html { render :edit }
-        format.json { render json: @time_limit.errors, status: :unprocessable_entity }
-      end
+    if @time_limit.update(time_limit_params)
+      redirect_to @time_limit, notice: 'Time limit was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # DELETE /time_limits/1
-  # DELETE /time_limits/1.json
   def destroy
     @time_limit.destroy
-    respond_to do |format|
-      format.html { redirect_to time_limits_url, notice: 'Time limit was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to time_limits_url, notice: 'Time limit was successfully destroyed.'
   end
 
   private
