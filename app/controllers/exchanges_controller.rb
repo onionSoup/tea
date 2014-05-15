@@ -23,7 +23,7 @@ class ExchangesController < ApplicationController
   def create
     @exchange = Exchange.new(exchange_params)
     if @exchange.save
-     redirect_to @exchange, notice: 'Exchange was successfully created.'
+      redirect_to @exchange, notice: 'Exchange was successfully created.'
     else
       render :new
     end
@@ -41,7 +41,7 @@ class ExchangesController < ApplicationController
   # DELETE /exchanges/1
   def destroy
     @exchange.destroy
-      redirect_to exchanges_url, notice: 'Exchange was successfully destroyed.'
+    redirect_to exchanges_url, notice: 'Exchange was successfully destroyed.'
   end
 
   private

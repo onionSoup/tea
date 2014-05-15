@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   def destroy
     @order.destroy
-      redirect_to orders_url, notice: 'Order was successfully destroyed.'
+    redirect_to orders_url, notice: 'Order was successfully destroyed.'
   end
 
   private
