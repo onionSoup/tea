@@ -20,7 +20,6 @@ div.order_new_content h2 {
 
 //選択欄
 div#order_flex_box {
-  margin: 0em 8em 3em 0em;
   display: flex;
 }
 
@@ -30,7 +29,7 @@ div#order_confirm {
   border: none;
   border-radius: 8px;
   padding: 1.2em 1em 1.2em;
-  background-color: #B3CED7;
+  background-color: #E3EAF6;
 }
 
 div#order_confirm button {
@@ -54,28 +53,16 @@ div.tea_select {
   margin: 0 0 1em ;
 }
 
-div.order_details_form:nth-child(odd) {
-  background: linear-gradient(white,#b8b8b8);
-}
-
 div.order_details_form:nth-child(even) {
-  background: linear-gradient(white,#c8c8c8);
+  background: #E3EAF6
 }
 
 div.order_details_form{
   margin-bottom: 1em;
 }
-select#tea_select{
-  font-size: 1.4em;
-}
-
-select#number_select{
-  font-size: 1.4em;
-  margin-left: 5em;
-}
 
 //footer
 div.footer {
-  background: linear-gradient(white,#c8c8c8);
-  margin-bottom: 4em;
+  margin: 1em 0 1em 2em;
+  width: 50%;
 }

@@ -1,38 +1,9 @@
-/*scaffoldはデバッグ用に便利なので使う。あとはいらない
-  ただし、body部分だけはapplication.css.scssで使う。
-body {
-  background-color: #fff;
-  color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-*/
+/*scaffoldはデバッグ用に便利なので使う。あとはいらない*/
 pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
 }
-
-
-/* 標準的な色を使いたいので、ここではカラーを付けない。
-a {
-  color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
-}
-*/
 
 div {
   &.field, &.actions {
