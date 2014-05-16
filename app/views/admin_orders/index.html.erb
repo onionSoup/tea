@@ -13,13 +13,9 @@
       <tr>
         <td><%= admin_order.time_limit_id %></td>
         <td><%= link_to 'Show', admin_order %></td>
-        <td><%= link_to 'Edit', edit_admin_order_path(admin_order) %></td>
         <td><%= link_to 'Destroy', admin_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Admin order', new_admin_order_path %>

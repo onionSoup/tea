@@ -50,5 +50,7 @@ group :development do
   gem 'pry-doc'
   gem 'pry-stack_explorer'
 end
+
 # スキーマを書く
 gem 'annotate',       group: :development
+

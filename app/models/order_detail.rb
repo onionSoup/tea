@@ -13,7 +13,4 @@
 class OrderDetail < ActiveRecord::Base
   belongs_to :order
   belongs_to :item
-
-  #量が０のものは、保存したくない。ただこれだとOrderを作るとき、一緒に０以上のものがあっても保存されなくなってしまう。
-  #validates :quantity, numericality: { greater_than: 0 }
 end

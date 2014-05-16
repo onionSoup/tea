@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Order</th>
+      <th>time_limit_id</th>
       <th>Exchange flag</th>
       <th colspan="3"></th>
     </tr>
@@ -12,10 +12,9 @@
   <tbody>
     <% @exchanges.each do |exchange| %>
       <tr>
-        <td><%= exchange.order_id %></td>
+        <td><%= exchange.time_limit_id %></td>
         <td><%= exchange.exchange_flag %></td>
         <td><%= link_to 'Show', exchange %></td>
-        <td><%= link_to 'Edit', edit_exchange_path(exchange) %></td>
         <td><%= link_to 'Destroy', exchange, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -23,5 +22,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Exchange', new_exchange_path %>

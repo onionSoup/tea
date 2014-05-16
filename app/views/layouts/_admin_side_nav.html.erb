@@ -1,0 +1,11 @@
+<nav id="admin_side_nav">
+  <h3>トピック</h3>
+  <ul>
+    <li style="display: none;"><%= link_to 'ガイド', '#' %></li>
+    <li><%= link_to '注文期間の設定', new_time_limit_path %></li>
+    <li><%= link_to 'ネスレ入力用シート', admin_order_path(time_limit_in(Time.now).admin_order) %></li>
+    <li><%= link_to '引換用情報', exchange_path(Exchange.find(time_limit_in(Time.now).id))%></li>
+    <li style="display: none;"><%= link_to '注文履歴', '#' %></li>
+    <li style="display: none;"><%= link_to '引換履歴', '#' %></li>
+  </ul>
+</nav>
