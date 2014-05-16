@@ -20,3 +20,14 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
 }
+
+.child-align-box {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -o-box;
+  display: -ms-box;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+}
+
