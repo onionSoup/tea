@@ -1,3 +1,19 @@
-// Place all the styles related to the Time_limits controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+div#new_time_limit_flex {
+  display: flex;
+}
+
+div#new_time_limit_flex h2 {
+  border-bottom: solid thin #dcdcdc;
+}
+
+div#new_time_limit_field {
+  margin-left: 2em;
+}
+
+form#new_time_limit {
+  margin-top: 3em;
+}
+
+form#new_time_limit input {
+  margin-left: 1em;
+}

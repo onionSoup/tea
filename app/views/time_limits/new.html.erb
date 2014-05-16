@@ -1,15 +1,17 @@
-<h1>New time_limit</h1>
-
-<%= form_for(@time_limit) do |f| %>
-  <div class="field">
-    <%= f.label :start %><br>
-    <%= f.date_select :start %>
+<div id="new_time_limit_flex">
+  <%= render 'layouts/admin_side_nav' %>
+  <div>
+    <h2>注文募集期間の設定</h2>
+    <div id ="new_time_limit_field">
+      <p>esmの皆様が希望するお茶の入力ができる期間を設定します。</p>
+      <%= form_for(@time_limit) do |f| %>
+        <%= f.label :start, '開始日時:'%>
+        <%= f.date_select :start, :use_month_numbers => true, :default => Date.today - 1  %>
+        <br />
+        <%= f.label :end, '終了日時:' %>
+        <%= f.date_select :end, :use_month_numbers => true, :default => Date.today >> 1 %>
+        <%= f.submit '設定する' %>
+      <% end %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :end %><br>
-    <%= f.date_select :end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
