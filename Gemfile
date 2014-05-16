@@ -54,5 +54,3 @@ end
 # スキーマを書く
 gem 'annotate',       group: :development
 
-#フッターにデバッグ情報を書ける
-gem 'rails-footnotes', '>= 4.0.0', '<5'
