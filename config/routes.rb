@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :users
 
   resources :sessions, only: [:new, :create]
+
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   resources :admin_order
