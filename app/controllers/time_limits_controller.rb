@@ -25,8 +25,10 @@ class TimeLimitsController < ApplicationController
     if @time_limit.save
       @time_limit.create_admin_order
       @time_limit.create_exchange(exchange_flag: false)
-      redirect_to @time_limit, notice: 'Time limit was successfully created.'
+      flash[:success] = '注文期間が設定されました。'
+      redirect_to @time_limit.admin_order
     else
+      flash[:error].now = '注文期間の設定に失敗しました。'
       render :new
     end
   end

@@ -1,5 +1,5 @@
 class ExchangesController < ApplicationController
-  before_action :set_exchange, only: [:show, :edit, :update, :destroy]
+  before_action :set_exchange, only: [:edit, :update, :destroy]
 
   # GET /exchanges
   def index
@@ -8,6 +8,7 @@ class ExchangesController < ApplicationController
 
   # GET /exchanges/1
   def show
+    @exchange = Exchange.joins(:time_limit).where('exchange_flag =?', false).order('start DESC').first
   end
 
   # GET /exchanges/new
