@@ -7,8 +7,8 @@ module AdminOrdersHelper
 
   def price_sum
     sum = 0
-    time_limit_in(Time.now).orders.each do |o|
-      sum += price_sum_of_this_order(o)
+    Order.registered.each do |order|
+      sum += price_sum_of_this_order(order)
     end
     return sum
   end

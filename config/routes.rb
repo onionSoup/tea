@@ -1,25 +1,18 @@
 Rails.application.routes.draw do
-  resources :admin_orders
-
   root to: 'users#new'
-
-  resources :exchanges
 
   resources :items
 
-  resources :time_limits
-
   resources :order_details
 
-  resources :orders
+  resources :orders, only: [:new, :create]
+  match 'orders', to: 'orders#new',     via: 'get'
 
   resources :users
 
   resources :sessions, only: [:new, :create]
 
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-
-  resources :admin_order
 
   resource :term
 
