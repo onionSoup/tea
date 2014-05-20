@@ -21,11 +21,13 @@ Rails.application.routes.draw do
 
   resources :admin_order
 
-  resource  :term
+  resource :term
 
-  resource  :trade, :only => [:show]
+  resource :trade, only: [:show]
 
-  resource  :nestle_input, :only => [:show]
+  resource :nestle_input, only: [:show]
+
+  resource :undispatched, only: [:show]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -4,7 +4,6 @@
   <% else %>
     <% name = 'ゲスト'  %>
   <% end %>
-
   <div id="for_header_menu_position">
     <h1 id="title">お茶注文用サイト</h1>
     <div id="flex">
@@ -12,25 +11,16 @@
       <% if @current_user %>
         <p id="sign_out"><%= link_to 'ログアウト', '/signout', method: 'delete' %></p>
         <p id="mypage" style="display: none;"><%= link_to 'マイページ',user_path(@current_user) %></p>
-        <p id="admin_page"><%= link_to '管理者用',admin_order_path(time_limit_in(Time.now).admin_order) %></p>
+        <p id="admin_page"><%= link_to '管理者用',nestle_input_path %></p>
       <% else  %>
         <p id="mypage"><%= link_to 'ログイン',new_session_path %>すれば、マイページが使えます</p>
       <% end %>
     </div>
   </div>
-
-
   <nav id="bread">
-      <p><%= link_to "TOP", root_path %>
-      <span>&gt;</span>
-      <span>#</span>
-      </p>
-      <% if false %>
-      <span><%= link_to '購入用ページ', new_order_path %></span>
-      ここを、動的に変えたい。どうするかというと、各ページに<% provide(:title, 'そのページのタイトル') %>を書く。
-      で、それをyield(:title)で取り出すようにしてやる。さらに <span>&gt;</span>は:beforeで出したほうがいいだろう。
-      ただ、それは後からでいいと思う。今は仮に#をしておく
-      <% end %>
+    <p><%= link_to "TOP", root_path %>
+    <span>&gt;</span><span>#</span>
+    </p>
   </nav>
   <% if flash[:error] %>
     <p id="flash_error_p"><%= flash[:error] %></p>

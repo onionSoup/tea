@@ -2,16 +2,8 @@
   <h3>トピック</h3>
   <ul>
     <li style="display: none;"><%= link_to 'ガイド', '#' %></li>
-    <li><%= link_to '注文募集期間の設定', new_term_path %></li>
     <li><%= link_to 'ネスレ入力用シート', nestle_input_path %></li>
-    <%if false %>
-      <% if Exchange.take %>
-        <% f =  first_false_exchange %>
-        <%# 全て引換が終了してるなら、admin_orderに移す。 %>
-        <li><%= link_to '引換用情報',f ? exchange_path(f) : admin_order_path(time_limit_in(Time.now).admin_order) %></li>
-      <% end %>
-    <% end %>
-    <li style="display: none;"><%= link_to '注文履歴', '#' %></li>
-    <li style="display: none;"><%= link_to '引換履歴', '#' %></li>
+    <li><%= link_to 'ネスレ発送まち情報', undispatched_path %></li>
+    <li><%= link_to '引換用ページ', trade_path %></li>
   </ul>
 </nav>
