@@ -1,0 +1,2 @@
+module NestleInputsHelper
+end

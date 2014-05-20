@@ -1,0 +1,17 @@
+<div id="new_time_limit_flex">
+  <%= render 'layouts/admin_side_nav' %>
+  <div>
+    <h2>注文募集期間の設定</h2>
+    <div id ="new_time_limit_field">
+      <p>esmの皆様が希望するお茶の入力ができる期間を設定します。</p>
+      <%= form_for @term, url: term_path do |f| %>
+        <%= f.label :beginning, '開始日時:'%>
+        <%= f.datetime_select :beginning, :use_month_numbers => true, :default => Date.today - 1  %>
+        <br />
+        <%= f.label :beginning, '終了日時:' %>
+        <%= f.datetime_select :deadline, :use_month_numbers => true, :default => Date.today >> 1 %>
+        <%= f.submit '設定する' %>
+      <% end %>
+    </div>
+  </div>
+</div>

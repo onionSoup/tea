@@ -8,7 +8,7 @@ class ExchangesController < ApplicationController
 
   # GET /exchanges/1
   def show
-    @exchange = Exchange.joins(:time_limit).where('exchange_flag =?', false).order('start DESC').first
+    @exchange = Exchange.false_and_older.first
   end
 
   # GET /exchanges/new
