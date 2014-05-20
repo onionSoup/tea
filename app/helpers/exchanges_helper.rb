@@ -1,5 +1,4 @@
 module ExchangesHelper
-
   def first_false_exchange
     exchanges = Exchange.false_and_older
     case exchanges.size
@@ -12,7 +11,7 @@ module ExchangesHelper
     when 2
       if in_now_time_limit?(exchanges.second)
         #最新のexchangeは注文募集中。その前は引換可能
-        flash[:exchange_success] ='正常に引換が可能です。'
+        flash[:exchange_success] ='正常に引換が可能。'
         return exchanges.first
       else
         #前回と前々回の引換が、両方とも終わってない。
