@@ -19,7 +19,7 @@
         <% end %>
       </table>
       <div id="total_price" class="child-align-box">
-        <p>合計金額<%= price_sum_of_this_order(@order) %>円</p>
+        <p>合計金額<%= Order.price_sum_of_this_order(@order) %>円</p>
       </div>
     </div>
     <p>後日、担当のesm社員がお茶をお渡しに伺います。その際に代金をお支払いください。</p>

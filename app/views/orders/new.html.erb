@@ -15,7 +15,7 @@
                 <%= order_details_form.label :item_id, '品名：' %>
                 <%= order_details_form.select :item_id, Item.all.map{|it| ["#{it.name}(#{it.price}円)", it.id]} %>
                 <%= order_details_form.label :quantity, '数量：' %>
-                <%= order_details_form.select :quantity, item_count %>
+                <%= order_details_form.select :quantity, Item.item_count %>
               </div>
             <% end %>
           </div>

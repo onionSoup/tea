@@ -10,13 +10,13 @@
         <div id="nestle_input_sheet_flex_box">
           <table id="admin_order_table">
             <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-            <% arr = name_price_quantity_sum %>
+            <% arr = Order.name_price_quantity_sum %>
             <% arr.each do  |a| %>
               <tr><td class="name"><%= a.name %></td><td class="price"><%= a.price %></td><td class="sum"><%= a.sum %></td></tr>
             <% end %>
           </table>
           <p id="payment" class="child-align-box">
-            支払い金額:<%= price_sum %>円
+            支払い金額:<%= Order.price_sum %>円
           </p>
         </div>
         <p>ネスレ公式での注文が終わったら、以下のボタンを押してください。</p>
