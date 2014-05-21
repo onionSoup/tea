@@ -16,13 +16,16 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :time_limit
 
+  scope :user_order_table -> {arrived arrived.joins(:user ,order: {order_detail: :item}) }
+
   enum state: [:registered, :shipped, :arrived, :exchanged]
 
-  accepts_nested_attributes_for :order_details, reject_if: proc { |attributes| attributes['quantity'].to_i.zero? }
+  accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
 
   class << self
-    def name_price_quantity_sum
-      Order.registered.joins(order_details: :item).group("items.id").select("items.name, items.price, SUM(quantity)")
+    #引数を取るときはscopeよりクラスメソッドの方がpreferred way
+    def name_price_quantity_sum(state_sym)
+      Order.method(state_sym).call.joins(order_details: :item).group('items.id').select('items.name, items.price, SUM(quantity)')
     end
 
     def price_sum
@@ -39,6 +42,10 @@ class Order < ActiveRecord::Base
         sum += detail.quantity * detail.item.price
       end
       return sum
+    end
+
+    def
+      Order.arrived.joins(:user ,order: {order_detail: :item})
     end
   end
 end
