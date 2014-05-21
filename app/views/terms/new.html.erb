@@ -8,7 +8,7 @@
         <%= f.label :beginning, '開始日時:'%>
         <%= f.datetime_select :beginning, :use_month_numbers => true, :default => Date.today - 1  %>
         <br />
-        <%= f.label :beginning, '終了日時:' %>
+        <%= f.label :deadline, '終了日時:' %>
         <%= f.datetime_select :deadline, :use_month_numbers => true, :default => Date.today >> 1 %>
         <%= f.submit '設定する' %>
       <% end %>
