@@ -16,7 +16,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :time_limit
 
-  scope :user_order_table -> {arrived arrived.joins(:user ,order: {order_detail: :item}) }
+  scope :user_order_table, -> {arrived arrived.joins(:user ,order: {order_detail: :item}) }
 
   enum state: [:registered, :shipped, :arrived, :exchanged]
 
@@ -42,10 +42,6 @@ class Order < ActiveRecord::Base
         sum += detail.quantity * detail.item.price
       end
       return sum
-    end
-
-    def
-      Order.arrived.joins(:user ,order: {order_detail: :item})
     end
   end
 end
