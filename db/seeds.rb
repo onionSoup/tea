@@ -11,15 +11,6 @@ if(!User.first)
   User.create(name: 'user1')
 end
 
-#time  #admin #exchange
-if(!TimeLimit.first)
-  d1 = Date.new(2014,5,10)
-  d2 = Date.new(2014,6,10)
-  t = TimeLimit.create(start: d1, end: d2)
-  t.create_admin_order
-  t.create_exchange(exchange_flag: false)
-end
-
 #items
 items =
 [
@@ -53,4 +44,10 @@ if(!Item.first)
   items.each { |item|
     Item.create(name: item[0], price: item[1])
   }
+end
+
+#order_details
+if(!Order.first)
+  user = User.first
+  user.orders.order_details.build(item_id: 1, quanity: 2)
 end

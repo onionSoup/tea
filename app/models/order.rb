@@ -18,7 +18,7 @@ class Order < ActiveRecord::Base
 
   scope :user_order_table, -> {arrived arrived.joins(:user ,order: {order_detail: :item}) }
 
-  enum state: [:registered, :shipped, :arrived, :exchanged]
+  enum state: [:registered, :undispatched, :arrived, :exchanged]
 
   accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
 

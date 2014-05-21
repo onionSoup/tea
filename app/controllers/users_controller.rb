@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = "ユーザー登録しました。"
-      redirect_to new_order_path
+      redirect_to orders_path
     else
       render 'new'
     end

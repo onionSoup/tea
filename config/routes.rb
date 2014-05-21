@@ -5,8 +5,7 @@ Rails.application.routes.draw do
 
   resources :order_details
 
-  resources :orders, only: [:new, :create, :edit]
-  match 'orders', to: 'orders#new',     via: 'get'
+  resources :orders, only: [:index, :create, :edit]
 
   resources :users
 
@@ -16,11 +15,16 @@ Rails.application.routes.draw do
 
   resource :term
 
-  resource :trade, only: [:show]
-
-  resource :nestle_input, only: [:show, :update]
-
-  resource :undispatched, only: [:show, :update]
+  resources :orders do
+    collection do
+      get :registered
+      put :registered
+      get :undispatched
+      put :undispatched
+      get :arrived
+      put :arrived
+    end
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

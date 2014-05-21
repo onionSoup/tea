@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       #ログインさせる
       sign_in user
       flash[:success] = 'ログインしました。'
-      redirect_to new_order_path
+      redirect_to orders_path
     else
       flash.now[:error] = 'そのユーザは存在しません。新規ユーザー登録してください'
       render 'new'

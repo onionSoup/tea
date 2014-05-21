@@ -1,0 +1,35 @@
+<% if !signed_in? %>
+<p>サインインしてください</p>
+<% else %>
+  <div class="order_new_content">
+    <div id="order_new_select">
+      <h2>ほしいお茶と数を選択してください</h2>
+      <!--このチェックボックスはJSが勉強終わったら使うためのプレースホルダーです -->
+      <p id="same_quantity" style="display: none;"><input type="checkbox" >前回と同じ注文を指定</p>
+      <%= form_for(@order) do |f|%>
+        <div id="order_flex_box">
+          <div class="tea_select">
+            <%= f.hidden_field :user_id, { :value => @current_user.id } %>
+            <%= f.fields_for :order_details do |order_details_form| %>
+              <div class="order_details_form">
+                <%= order_details_form.label :item_id, '品名：' %>
+                <%= order_details_form.select :item_id, Item.all.map{|it| ["#{it.name}(#{it.price}円)", it.id]} %>
+                <%= order_details_form.label :quantity, '数量：' %>
+                <%= order_details_form.select :quantity, Item.item_count %>
+              </div>
+            <% end %>
+          </div>
+          <div id="order_confirm">
+            <p><span id="sum">小計：０円</span></p>
+            <%= f.button :注文を確定する %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="footer">
+    <p>詳しい商品情報は
+      <a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
+    </p>
+  </div>
+<% end %>
