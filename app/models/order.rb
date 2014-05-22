@@ -43,5 +43,21 @@ class Order < ActiveRecord::Base
       end
       return sum
     end
+
+    #たぶんもっと良いやり方がある
+    def before_state(state_string)
+      case state_string.to_sym
+      when :registered
+        return :nil
+      when :ordered
+        return :registered
+      when :arrived
+        return :ordered
+      when :exchanged
+        return :arrived
+      else
+        return :nil
+      end
+    end
   end
 end

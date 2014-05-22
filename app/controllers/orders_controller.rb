@@ -64,7 +64,8 @@ class OrdersController < ApplicationController
 
     def order_state_save(state_string, flash_message)
       if(params[:order][:state_by_hand] == state_string)
-        Order.registered.each do |order|
+        before_state = Order.before_state(state_string)
+        Order.method(before_state).call.each do |order|
           order.state = state_string.to_sym
           order.save
         end
