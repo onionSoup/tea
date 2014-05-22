@@ -1,4 +1,3 @@
-<p><%= flash[:notice] %></p>
 <div id="admin_flex_box">
   <%= render 'layouts/admin_side_nav' %>
   <div>
@@ -7,9 +6,9 @@
       <div>
         <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
         <p>引換を完了した方は、引換完了チェックを入れてください。</p>
-        <p>確認ボタンを押すと、引換完了チェックを入れた人について、引換が終了したことが登録されます</p>
+        <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
         <div id="nestle_input_sheet_flex_box">
-          <%= form_for :trade, url: trade_path, method: "PUT" do |f| %>
+          <%= form_for :order, url: exchanged_orders_path, method: "get" do |f| %>
           <table id="admin_order_table">
             <tr><th>お名前</th><th>支払い金額</th><th>商品内訳</th><th>引換完了チェック</th></tr>
             <% orders = Order.arrived %>
@@ -26,14 +25,14 @@
                   </td>
                   <td>
                     <%= f.hidden_field :order_id, { :value => order.id }  %>
-                    <%=  f.check_box :trade_complete %>
+                    <%=  f.check_box :exhanged_complete %>
                   </td>
                 </tr>
               <% end %>
           </table>
           <% end %>
         </div>
-        <p>ネスレ公式での注文が終わったら、以下のボタンを押してください。</p>
+        <p>引換が終わったら以下のボタンを押してください。</p>
       </div>
     </div>
   </div>

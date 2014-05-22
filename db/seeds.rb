@@ -49,5 +49,8 @@ end
 #order_details
 if(!Order.first)
   user = User.first
-  user.orders.order_details.build(item_id: 1, quanity: 2)
+  user.orders.create(state: 0)
+  user.orders.each do |order|
+    order.order_details.create(item_id: 1, quantity: 2)
+  end
 end

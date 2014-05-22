@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :order_details
 
-  resources :orders, only: [:index, :create, :edit]
+  resources :orders, only: [:index, :create]
 
   resources :users
 
@@ -18,11 +18,9 @@ Rails.application.routes.draw do
   resources :orders do
     collection do
       get :registered
-      put :registered
-      get :undispatched
-      put :undispatched
+      get :ordered
       get :arrived
-      put :arrived
+      get :exchanged
     end
   end
 

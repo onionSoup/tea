@@ -1,4 +1,3 @@
-<p><%= flash[:notice] %></p>
 <div id="admin_flex_box">
   <%= render 'layouts/admin_side_nav' %>
   <div>
@@ -7,17 +6,20 @@
       <div id="nestle_input_sheet_flex_box">
         <table id="admin_order_table">
           <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-          <% arr = Order.name_price_quantity_sum(:undispatched) %>
+          <% arr = Order.name_price_quantity_sum(:ordered) %>
           <% arr.each do  |a| %>
             <tr><td class="name"><%= a.name %></td><td class="price"><%= a.price %></td><td class="sum"><%= a.sum %></td></tr>
           <% end %>
         </table>
         <p id="payment" class="child-align-box">支払い金額:<%= Order.price_sum %>円</p>
       </div>
-      <p>ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />商品の引換情報が管理できるようになります。</p>
-      <%= form_for :orders, url: arrived_orders_path, method: "PUT" do |f| %>
-        <%= f.hidden_field :undispatched_complete, { :value => true }  %>
-        <%=  f.submit '注文完了'%>
+      <p>
+        ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
+        お茶が到着したことをシステムに登録します。<br />
+      </p>
+      <%= form_for :order, url: arrived_orders_path, method: "get" do |f| %>
+        <%= f.hidden_field :state_by_hand, { :value => 'arrived'  }  %>
+        <%=  f.submit 'お茶の受領をシステムに登録'%>
       <% end %>
     </div>
   </div>
