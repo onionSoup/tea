@@ -23,7 +23,6 @@ class OrdersController < ApplicationController
     end
   end
 
-=begin
   def update
     if @order.update(order_params)
       redirect_to @order, notice: 'Order was successfully updated.'
@@ -31,7 +30,6 @@ class OrdersController < ApplicationController
       render :edit
     end
   end
-=end
 
   def destroy
     @order.destroy

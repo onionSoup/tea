@@ -28,20 +28,34 @@ class Order < ActiveRecord::Base
       Order.method(state_sym).call.joins(order_details: :item).group('items.id').select('items.name, items.price, SUM(quantity)')
     end
 
-    def price_sum
-      sum = 0
-      Order.registered.each do |order|
-        sum += Order.price_sum_of_this_order(order)
-      end
-      return sum
+    def price_sum_of_this_state_orders(state_sym)
+      orders = Order.method(state_sym).call
+      price_sum_of_orders(orders)
     end
 
-    def price_sum_of_this_order(order)
+    #ビューではこれが別途あったほうが便利。かもしれない。
+    #ビューをモデルに合わせた方がいいかもしれない
+    def price_sum_of_details(order)
       sum  = 0
-      order.order_details.each do |detail|
-        sum += detail.quantity * detail.item.price
+      if order
+        order.order_details.each do |detail|
+          sum += detail.quantity * detail.item.price
+        end
       end
-      return sum
+      sum
+    end
+
+    #モデルでの重複を排除するために書いた
+    def price_sum_of_orders(orders)
+      sum  = 0
+      if orders
+        orders.each do |order|
+          if order
+            sum += price_sum_of_details(order)
+          end
+        end
+      end
+      sum
     end
 
     #たぶんもっと良いやり方がある
@@ -58,6 +72,16 @@ class Order < ActiveRecord::Base
       else
         return :nil
       end
+    end
+
+    def this_state_orders_of_user(user, state_sym)
+      user_id = user.id
+      Order.method(state_sym).call.where(user_id: user_id)
+    end
+
+    def price_sum_of_this_user(user, state_sym)
+      orders = this_state_orders_of_user(user,state_sym)
+      price_sum_of_orders(orders)
     end
   end
 end
