@@ -8,6 +8,7 @@
 #  quantity   :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  then_price :integer
 #
 
 class OrderDetail < ActiveRecord::Base

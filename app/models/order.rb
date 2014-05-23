@@ -7,8 +7,7 @@
 #  time_limit_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
-#  state         :integer
-#  then_price    :integer
+#  state         :integer          default(0)
 #
 
 class Order < ActiveRecord::Base

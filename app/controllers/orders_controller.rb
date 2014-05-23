@@ -16,7 +16,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    params = add_then_price(order_params)
+    @order = Order.new(params)
     if @order.save
     else
       render :new
@@ -69,5 +70,14 @@ class OrdersController < ApplicationController
         end
         flash.now[:success] = flash_message
       end
+    end
+
+    def add_then_price(params)
+      params[:"order_details_attributes"].each do |param|
+        if (  param.second[:quantity].to_i > 0 )
+          param.second["then_price"] = Item.find(param.second[:item_id].to_i).price
+        end
+      end
+      params
     end
 end
