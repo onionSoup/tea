@@ -2,17 +2,35 @@
   <%= render 'layouts/admin_side_nav' %>
   <div>
     <div id="nestle_input_sheet">
-      <h3>引換済みのお茶</h3>
-      <div id="nestle_input_sheet_flex_box">
-        <table id="admin_order_table">
-          <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-          <% orders = Order.name_price_quantity_sum(:exchanged) %>
-          <% order.each do  |order| %>
-            <tr><td class="name"><%= a.name %></td><td class="price"><%= a.price %></td><td class="sum"><%= a.sum %></td></tr>
-          <% end %>
-        </table>
-        <%# WIP %>
-        <p id="payment" class="child-align-box">支払い金額:<%= Order.price_sum_of_this_user(user, :exchanged) %>円</p>
+      <h3>引換情報</h3>
+      <div>
+        <p>以下のお茶は、引換が終了しています。</p>
+        <div id="nestle_input_sheet_flex_box">
+          <table id="admin_order_table">
+            <tr><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
+            <% User.all.each do |user| %>
+              <% orders =  Order.this_state_orders_of_user(user, :exchanged) %>
+              <% unless orders.empty? %>
+                <tr>
+                  <td><%= user.name %></td>
+                  <td><%= Order.price_sum_of_this_user(user, :exchanged) %></td>
+                  <td>
+                    <table>
+                      <% orders.each do |order| %>
+                        <%  order.order_details.each do |detail| %>
+                          <tr>
+                            <td><%= "#{detail.item.name}(#{detail.item.price})円" %></td>
+                            <td><%= "#{detail.quantity}個" %></td>
+                          </tr>
+                        <% end %>
+                      <% end %>
+                    </table>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        </div>
       </div>
     </div>
   </div>
