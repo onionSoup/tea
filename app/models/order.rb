@@ -2,18 +2,16 @@
 #
 # Table name: orders
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  time_limit_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#  state         :integer          default(0)
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  state      :integer          default(0)
 #
 
 class Order < ActiveRecord::Base
   has_many :order_details, dependent: :destroy
   belongs_to :user
-  belongs_to :time_limit
 
   scope :user_order_table, -> {arrived arrived.joins(:user ,order: {order_detail: :item}) }
 
