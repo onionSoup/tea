@@ -7,8 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 #users
-if(!User.first)
+if(!User.first && !User.second)
   User.create(name: 'user1')
+  User.create(name: 'user2')
 end
 
 #items
@@ -52,5 +53,16 @@ if(!Order.first)
   user.orders.create(state: 0)
   user.orders.each do |order|
     order.order_details.create(item_id: 1, quantity: 2, then_price: 756)
+    order.order_details.create(item_id: 2, quantity: 3, then_price: 756)
+    order.order_details.create(item_id: 3, quantity: 4, then_price: 756)
+    order.order_details.create(item_id: 4, quantity: 5, then_price: 756)
+  end
+  user2 = User.second
+  user2.orders.create(state: 0)
+  user2.orders.each do |order|
+    order.order_details.create(item_id: 1, quantity: 2, then_price: 756)
+    order.order_details.create(item_id: 2, quantity: 3, then_price: 756)
+    order.order_details.create(item_id: 3, quantity: 4, then_price: 756)
+    order.order_details.create(item_id: 4, quantity: 5, then_price: 756)
   end
 end

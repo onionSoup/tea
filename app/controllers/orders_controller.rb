@@ -49,7 +49,28 @@ class OrdersController < ApplicationController
   end
 
   def exchanged
-    order_state_save('exchanged','お茶とお金の引換が完了したことを登録しました。(exchange complete)')
+#params
+#=>{"order"=>
+#    {"user_hash"=>{"user1"=>"0", "user2"=>"1"}
+    if(params[:order][:state_by_hand] == 'exchanged' )
+      checked_user =[]
+      params[:order][:user_hash].each do |name, checked|
+        if checked == "1"
+          checked_user << name
+        end
+      end
+      if checked_user
+        checked_user.map! do |user|
+          user = User.find_by(name: user)
+        end
+      end
+      checked_user.each do |user|
+        user.orders.arrived.each do |order|
+          order.state = :exchanged
+          order.save
+        end
+      end
+    end
   end
 
   private
