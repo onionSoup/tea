@@ -9,7 +9,7 @@
         <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
         <div id="nestle_input_sheet_flex_box">
           <%= form_for :order, url: exchanged_orders_path, method: "get" do |f| %>
-          <table id="admin_order_table">
+          <table id="admin_order_table" class="exchange_table">
             <tr><th>引換完了チェック</th><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
             <% User.all.each do |user| %>
               <% orders =  Order.this_state_orders_of_user(user, :arrived) %>

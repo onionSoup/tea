@@ -29,6 +29,7 @@ div#nestle_input_sheet p {
 
 div#nestle_input_sheet_flex_box {
   display: flex;
+  align-items: flex-start;
   margin-top: 2em;
   margin-left: 2em;
 }
@@ -47,7 +48,11 @@ table#admin_order_table tr:first-child th{
 }
 
 table#admin_order_table {
-   border: thin solid #dcdcdc;
+  border: thin solid #dcdcdc;
+}
+
+table.exchange_table td:nth-child(n+2){
+  border-left: dotted thin #dcdcdc
 }
 
 table#admin_order_table td.name {
@@ -55,19 +60,21 @@ table#admin_order_table td.name {
 }
 
 table#admin_order_table td.price {
-  padding: 0 2em 0;
+  padding: 0 0 0 3em;
+  text-align: right;
 }
 
-table#admin_order_table #inner_table tr {
-  background: transparent;
+table#admin_order_table td.sum {
+  text-align: right;
 }
 
-table#admin_order_table #inner_table tr td:nth-child(2) {
-  margin-right: 0;
-}
 table#admin_order_table div#inner_table {
   display: flex;
   justify-content: space-between;
+}
+
+table.exchange_table div#inner_table:nth-child(even) {
+  background: #f5f5f5;
 }
 
 p#payment {

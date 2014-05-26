@@ -6,7 +6,7 @@
       <div>
         <p>以下のお茶は、引換が終了しています。</p>
         <div id="nestle_input_sheet_flex_box">
-          <table id="admin_order_table">
+          <table id="admin_order_table" class="exchange_table">
             <tr><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
             <% User.all.each do |user| %>
               <% orders =  Order.this_state_orders_of_user(user, :exchanged) %>
