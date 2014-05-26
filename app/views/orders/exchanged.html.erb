@@ -15,16 +15,14 @@
                   <td><%= user.name %></td>
                   <td><%= Order.price_sum_of_this_user(user, :exchanged) %></td>
                   <td>
-                    <table id="inner_table">
-                      <% orders.each do |order| %>
-                        <%  order.order_details.each do |detail| %>
-                          <tr>
-                            <td><%= "#{detail.item.name}(#{detail.then_price}円)" %></td>
-                            <td><%= "#{detail.quantity}個" %></td>
-                          </tr>
-                        <% end %>
+                    <% orders.each do |order| %>
+                      <%  order.order_details.each do |detail| %>
+                      <div id="inner_table">
+                        <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
+                        <div><%= "#{detail.quantity}個" %></div>
+                      </div>
                       <% end %>
-                    </table>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>
