@@ -15,7 +15,7 @@
                   <td><%= user.name %></td>
                   <td><%= Order.price_sum_of_this_user(user, :exchanged) %></td>
                   <td>
-                    <table>
+                    <table id="inner_table">
                       <% orders.each do |order| %>
                         <%  order.order_details.each do |detail| %>
                           <tr>
