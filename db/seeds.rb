@@ -51,6 +51,6 @@ if(!Order.first)
   user = User.first
   user.orders.create(state: 0)
   user.orders.each do |order|
-    order.order_details.create(item_id: 1, quantity: 2)
+    order.order_details.create(item_id: 1, quantity: 2, then_price: 756)
   end
 end

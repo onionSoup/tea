@@ -19,7 +19,7 @@
                       <% orders.each do |order| %>
                         <%  order.order_details.each do |detail| %>
                           <tr>
-                            <td><%= "#{detail.item.name}(#{detail.item.price})円" %></td>
+                            <td><%= "#{detail.item.name}(#{detail.then_price}円)" %></td>
                             <td><%= "#{detail.quantity}個" %></td>
                           </tr>
                         <% end %>

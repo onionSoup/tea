@@ -24,7 +24,7 @@ class Order < ActiveRecord::Base
   class << self
     #引数を取るときはscopeよりクラスメソッドの方がpreferred way
     def name_price_quantity_sum(state_sym)
-      Order.method(state_sym).call.joins(order_details: :item).group('items.id').select('items.name, items.price, SUM(quantity)')
+      Order.method(state_sym).call.joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
     end
 
     def price_sum_of_this_state_orders(state_sym)
@@ -38,7 +38,7 @@ class Order < ActiveRecord::Base
       sum  = 0
       if order
         order.order_details.each do |detail|
-          sum += detail.quantity * detail.item.price
+          sum += detail.quantity * detail.then_price
         end
       end
       sum

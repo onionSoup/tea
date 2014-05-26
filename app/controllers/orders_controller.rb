@@ -72,6 +72,7 @@ class OrdersController < ApplicationController
       end
     end
 
+    #これはbefore_saveか何かに書きなおした方がいい。
     def add_then_price(params)
       params[:"order_details_attributes"].each do |param|
         if (  param.second[:quantity].to_i > 0 )

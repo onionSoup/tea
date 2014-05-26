@@ -8,9 +8,9 @@
         <div id="nestle_input_sheet_flex_box">
           <table id="admin_order_table">
             <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-            <% arr = Order.name_price_quantity_sum(:registered) %>
-            <% arr.each do  |a| %>
-              <tr><td class="name"><%= a.name %></td><td class="price"><%= a.price %></td><td class="sum"><%= a.sum %></td></tr>
+            <% orders = Order.name_price_quantity_sum(:registered) %>
+            <% orders.each do  |order| %>
+              <tr><td class="name"><%= order.name %></td><td class="price"><%= order.then_price %></td><td class="sum"><%= order.sum %></td></tr>
             <% end %>
           </table>
           <p id="payment" class="child-align-box">
