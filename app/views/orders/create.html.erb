@@ -10,7 +10,7 @@
           <th class="quantity">数量</th>
           <th class="price">金額</th>
         </tr>
-        <% @order.order_details.each do |detail|%>
+        <% @order.order_details.each do |detail| %>
           <tr>
             <td class="name"><%= detail.item.name %></td>
             <td class="quantity"><%= detail.quantity %>個</td>

@@ -20,8 +20,8 @@
         <p>ネスレ公式での注文が終わったら以下のボタンを押してください。<br />
         注文が終わったことをシステムに登録します。</p>
         <%= form_for :order, url: ordered_orders_path, method: "get" do |f| %>
-          <%= f.hidden_field :state_by_hand, { :value => 'ordered' }  %>
-          <%=  f.submit '注文の完了をシステムに登録'%>
+          <%= f.hidden_field :state_by_hand, {:value => 'ordered'} %>
+          <%=  f.submit '注文の完了をシステムに登録' %>
         <% end %>
       </div>
     </div>

@@ -6,4 +6,7 @@
     <%= f.text_field :name %>
     <%= f.submit '登録する' %>
   <% end %>
+  <p id="sessions_prompt_register">
+  登録済みユーザーの場合、<%= link_to 'ログイン', new_session_path %>をしてください。
+  </p>
 </div>

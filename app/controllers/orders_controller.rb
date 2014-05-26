@@ -71,9 +71,11 @@ class OrdersController < ApplicationController
     end
 
     def checked_user_list(user,params)
-      params[:order][:user_hash].each do |name, checked|
-        if checked == "1"
-          user << name
+      if params[:order][:user_hash]
+        params[:order][:user_hash].each do |name, checked|
+          if checked == '1'
+            user << name
+          end
         end
       end
     end
@@ -100,14 +102,16 @@ class OrdersController < ApplicationController
         Order.method(before_state).call.each do |order|
           state_convert_to(order, state_string)
         end
-        flash.now[:success] = flash_message
+        unless Order.method(before_state).call.empty?
+          flash.now[:success] = flash_message
+        end
       end
     end
 
     def add_then_price(params)
       params[:"order_details_attributes"].each do |param|
         if(param.second[:quantity].to_i > 0)
-          param.second["then_price"] = Item.find(param.second[:item_id].to_i).price
+          param.second['then_price'] = Item.find(param.second[:item_id].to_i).price
         end
       end
       params

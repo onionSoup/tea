@@ -5,6 +5,6 @@
     <li><%= link_to 'ネスレ入力用シート', registered_orders_path %></li>
     <li><%= link_to 'ネスレ発送待ち商品', ordered_orders_path(order:{state_by_hand: 'unchanged'}) %></li>
     <li><%= link_to '引換用ページ', arrived_orders_path(order: {state_by_hand: 'unchanged'}) %></li>
-    <li><%= link_to '引換済み商品', exchanged_orders_path(order: {state_by_hand: 'unchanged', user_hash: '{}'} ) %></li>
+    <li><%= link_to '引換済み商品', exchanged_orders_path(order: {state_by_hand: 'unchanged', user_hash: '{}'}) %></li>
   </ul>
 </nav>

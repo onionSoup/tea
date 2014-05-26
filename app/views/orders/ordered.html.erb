@@ -16,8 +16,8 @@
       <p>ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
       お茶が到着したことをシステムに登録します。</p>
       <%= form_for :order, url: arrived_orders_path, method: "get" do |f| %>
-        <%= f.hidden_field :state_by_hand, { :value => 'arrived'  }  %>
-        <%=  f.submit 'お茶の受領をシステムに登録'%>
+        <%= f.hidden_field :state_by_hand, {:value => 'arrived'} %>
+        <%=  f.submit 'お茶の受領をシステムに登録' %>
       <% end %>
     </div>
   </div>

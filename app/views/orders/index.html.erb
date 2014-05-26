@@ -9,7 +9,7 @@
       <%= form_for(@order) do |f|%>
         <div id="order_flex_box">
           <div class="tea_select">
-            <%= f.hidden_field :user_id, { :value => @current_user.id } %>
+            <%= f.hidden_field :user_id, {:value => @current_user.id} %>
             <%= f.fields_for :order_details do |order_details_form| %>
               <div class="order_details_form">
                 <%= order_details_form.label :item_id, '品名：' %>
@@ -28,8 +28,7 @@
     </div>
   </div>
   <div class="footer">
-    <p>詳しい商品情報は
-      <a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
+    <p>詳しい商品情報は<a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
     </p>
   </div>
 <% end %>
