@@ -56,10 +56,11 @@ class Order < ActiveRecord::Base
     end
 
     #たぶんもっと良いやり方がある
+=begin
     def before_state(state_string)
       case state_string.to_sym
       when :registered
-        return :nil
+        return nil
       when :ordered
         return :registered
       when :arrived
@@ -67,8 +68,15 @@ class Order < ActiveRecord::Base
       when :exchanged
         return :arrived
       else
-        return :nil
+        return nil
       end
+    end
+=end
+    def before_state(state_string)
+      states = [:registered, :ordered, :arrived, :exchanged]
+      state_string = state_string.to_sym
+      index = states.index(state_string)
+      states[index -1]  if index
     end
 
     def this_state_orders_of_user(user, state_sym)
