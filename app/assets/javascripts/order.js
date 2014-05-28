@@ -4,7 +4,7 @@ function getPriceQuantityElements(i){
       price_id = 0,
       quantity_id = 0,
       price_element = 0,
-      quantity_element = 0;
+      quantity_element = 0,
       elements = 0;
 
   index_str = i.toString();

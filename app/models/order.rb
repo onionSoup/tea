@@ -13,8 +13,6 @@ class Order < ActiveRecord::Base
   has_many :order_details, dependent: :destroy
   belongs_to :user
 
-  scope :user_order_table, -> {arrived arrived.joins(:user ,order: {order_detail: :item}) }
-
   enum state: [:registered, :ordered, :arrived, :exchanged]
 
   accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
@@ -55,23 +53,6 @@ class Order < ActiveRecord::Base
       sum
     end
 
-    #たぶんもっと良いやり方がある
-=begin
-    def before_state(state_string)
-      case state_string.to_sym
-      when :registered
-        return nil
-      when :ordered
-        return :registered
-      when :arrived
-        return :ordered
-      when :exchanged
-        return :arrived
-      else
-        return nil
-      end
-    end
-=end
     def before_state(state_string)
       states = [:registered, :ordered, :arrived, :exchanged]
       state_string = state_string.to_sym
