@@ -65,3 +65,7 @@ function calc(){
   total = '合計：' + total + '円';
   document.getElementById("order_create_price_sum").textContent = total;
 }
+
+
+
+

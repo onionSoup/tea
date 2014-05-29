@@ -16,8 +16,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    params = add_then_price(order_params)
-    @order = Order.new(params)
+    @order = order_factory(order_params)
     if @order.save
     else
       render :new
@@ -108,12 +107,19 @@ class OrdersController < ApplicationController
       end
     end
 
-    def add_then_price(params)
+    #order_factory
+      #params
+        #=>{"user_id"=>"1",
+        #   "order_details_attributes"=>
+        #   {"0"=>{"item_id"=>"1", "quantity"=>"4"},
+        #    "1"=>{"item_id"=>"1", "quantity"=>"0"}...
+        #    "24"=>{"item_id"=>"1", "quantity"=>"0"}}}
+    def order_factory(params)
       params[:"order_details_attributes"].each do |param|
         if(param.second[:quantity].to_i > 0)
           param.second['then_price'] = Item.find(param.second[:item_id].to_i).price
         end
       end
-      params
+      Order.new(params)
     end
 end

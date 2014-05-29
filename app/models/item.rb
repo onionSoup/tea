@@ -13,6 +13,6 @@ class Item < ActiveRecord::Base
   has_many :order_details
 
   def self.item_count
-    (0..19).map! {|i| ["#{i}個", i] }
+    (0..19).map {|i| ["#{i}個", i] }
   end
 end
