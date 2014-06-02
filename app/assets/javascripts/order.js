@@ -26,17 +26,17 @@ $(function() {
     }
     for (var i = 0; i < selectpairLength; i++){
       (function(lockedIndex){
-        var price = priceAry[lockedIndex].text(),
-            quantity = quantityText = quantityAry[lockedIndex].text(),
+        var price_japanese = priceAry[lockedIndex].text(),
+            quantity_japanese = quantityText = quantityAry[lockedIndex].text(),
             priceYenRegex = /\(\d+円\)/,
             priceRegex = /\d+/,
             priceNumberWithYen,
             priceNumberStr,
             quantityStr,
             quantityRegex = /\d+/;
-        priceNumberWithYen = priceYenRegex.exec(price);
+        priceNumberWithYen = priceYenRegex.exec(price_japanese);
         priceNumberStr = priceRegex.exec(priceNumberWithYen);
-        quantityStr = quantityRegex.exec(quantity);
+        quantityStr = quantityRegex.exec(quantity_japanese);
         totalSum += priceNumberStr * quantityStr;
       })(i);
     }
