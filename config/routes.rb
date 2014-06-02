@@ -1,19 +1,15 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  resources :items
-
-  resources :order_details
+  #resources :items
 
   resources :orders, only: [:index, :create]
 
-  resources :users
+  resources :users, only: [:new, :create, :show]
 
   resources :sessions, only: [:new, :create]
 
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-
-  resource :term
 
   resources :orders do
     collection do

@@ -5,14 +5,8 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-  end
-
   def new
     @user = User.new
-  end
-
-  def edit
   end
 
   def create
@@ -24,19 +18,6 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-  end
-
-  def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
-    else
-      render 'edit'
-    end
-  end
-
-  def destroy
-    @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
   private

@@ -6,34 +6,12 @@ class OrdersController < ApplicationController
     25.times { @order.order_details.build }
   end
 
-  def show
-  end
-
-  def new
-  end
-
-  def edit
-  end
-
   def create
     @order = order_factory(order_params)
     if @order.save
     else
       render :new
     end
-  end
-
-  def update
-    if @order.update(order_params)
-      redirect_to @order, notice: 'Order was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @order.destroy
-    redirect_to orders_url, notice: 'Order was successfully destroyed.'
   end
 
   def registered

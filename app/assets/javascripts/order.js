@@ -1,11 +1,11 @@
 $(function() {
   $('.name_price_options , .quantity_options').change(function() {
     var div = $('div.order_details_form'),
-        option = div.find('option:selected'),
+        selectedOptions = div.find('option:selected'),
         priceAry = [],
         quantityAry = [],
-        priceOptions = option.filter('.name_price_options > option'),
-        quantityOptions = option.filter('.quantity_options > option'),
+        priceOptions = selectedOptions.filter('.name_price_options > option'),
+        quantityOptions = selectedOptions.filter('.quantity_options > option'),
         totalSum = 0,
         selectPairLength = 0;
     if(priceOptions.length == quantityOptions.length) {
@@ -15,7 +15,7 @@ $(function() {
       return;
     }
     for (var i =0; i < selectPairLength; i++) {
-      (function(lockedIndex){
+      (function(lockedIndex) {
         var tmpPrice = 0,
             tmpQuantity = 0;
         tmpPrice = priceOptions.eq(lockedIndex);
@@ -25,7 +25,7 @@ $(function() {
       })(i);
     }
     for (var j = 0; j < selectPairLength; j++) {
-      (function(lockedIndex){
+      (function(lockedIndex) {
         var priceJapanese = priceAry[lockedIndex].text(),
             quantityJapanese = quantityText = quantityAry[lockedIndex].text(),
             priceYenRegex = /\(\d+円\)/,
