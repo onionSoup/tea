@@ -8,9 +8,11 @@ class OrdersController < ApplicationController
 
   def create
     @order = order_factory(order_params)
-    if @order.save
+    @order.save
+    if @order.order_details.empty?
+      redirect_to orders_path
     else
-      render :new
+      #createビューを通常通り表示
     end
   end
 
@@ -18,11 +20,11 @@ class OrdersController < ApplicationController
   end
 
   def ordered
-    order_state_save('ordered', 'ネスレ公式へ注文したことを登録しました。(order complete)')
+    order_state_save('ordered', 'ネスレ公式へ注文したことを登録しました。')
   end
 
   def arrived
-    order_state_save('arrived', 'ネスレ公式からお茶が届いたことを登録しました。(arrival complete)')
+    order_state_save('arrived', 'ネスレ公式からお茶が届いたことを登録しました。')
   end
 
   def exchanged
@@ -32,7 +34,9 @@ class OrdersController < ApplicationController
       map_checked_user_to_user_object(checked_user)
       checked_user.each do |user|
         user.orders.arrived.each do |order|
-          state_convert_to(order,:exchanged)
+          if state_convert_to(order, 'exchanged')
+            flash.now[:success] = '引換したことを登録しました。'
+          end
         end
       end
     end
@@ -78,8 +82,6 @@ class OrdersController < ApplicationController
         before_state = Order.before_state(state_string)
         Order.method(before_state).call.each do |order|
           state_convert_to(order, state_string)
-        end
-        unless Order.method(before_state).call.empty?
           flash.now[:success] = flash_message
         end
       end

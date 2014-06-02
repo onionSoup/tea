@@ -11,6 +11,7 @@
 
 class Order < ActiveRecord::Base
   has_many :order_details, dependent: :destroy
+
   belongs_to :user
 
   scope :name_price_quantity_sum, ->(state_sym) {
