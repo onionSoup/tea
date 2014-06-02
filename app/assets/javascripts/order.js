@@ -1,49 +1,48 @@
 $(function() {
-  $(".name_price_options , .quantity_options").change( function() {
-    var div = $("div.order_details_form");
-    var option = div.find("option:selected");
-    var priceAry = [];
-    var quantityAry = [];
-    var priceFil = option.filter(".name_price_options > option");
-    var quantityFil = option.filter(".quantity_options > option");
-    var tmpPrice = 0;
-    var tmpQuantity = 0;
-    var totalSum = 0;
-    var selectPearLength = 0;
-    var price_yen_regex = /\(\d+円\)/;
-    var price_regex = /\d+/;
-    var price_number_with_yen;
-    var price_number_str;
-    var quantity_regex = /\d+/;
-
-    if( priceFil.length == quantityFil.length ){
-      selectPearLength = priceFil.length;
-    }
-    else {
-      consol.log("priceFil.length != quantityFil.length");
+  $(".name_price_options , .quantity_options").change(function() {
+    var div = $("div.order_details_form"),
+        option = div.find("option:selected"),
+        priceAry = [],
+        quantityAry = [],
+        priceOptions = option.filter(".name_price_options > option"),
+        quantityOptions = option.filter(".quantity_options > option"),
+        totalSum = 0,
+        selectPearLength = 0;
+    if(priceOptions.length == quantityOptions.length) {
+      selectPearLength = priceOptions.length;
+    } else {
+      console.log("priceOptions.length != quantityOptions.length");
       return;
     }
     for (var i =0; i < selectPearLength; i++){
-      (function( lockedIndex ){
-        tmpPrice = priceFil.eq(lockedIndex);
-        tmpQuantity = quantityFil.eq(lockedIndex);
-        priceAry.push(tmpPrice);
-        quantityAry.push(tmpQuantity);
-      })( i );
+      (function(lockedIndex){
+        var tmpPrice = 0,
+            tmpQuantity = 0;
+        tmpPrice = priceOptions.eq(lockedIndex);
+        tmpQuantity = quantityOptions.eq(lockedIndex);
+        priceAry[lockedIndex] = tmpPrice;
+        quantityAry[lockedIndex] = tmpQuantity;
+      })(i);
     }
-
     for (var i = 0; i < selectPearLength; i++){
-      (function( lockedIndex ){
-        tmpPrice = priceAry[ lockedIndex ].text();
-        price_number_with_yen = price_yen_regex.exec(tmpPrice);
-        price_number_str = price_regex.exec(price_number_with_yen);
-        tmpQuantity = quantityAry[ lockedIndex ].text();
-        quantity_str = quantity_regex.exec(tmpQuantity);
-        totalSum += price_number_str * quantity_str;
-      })( i );
+      (function(lockedIndex){
+        var priceText = 0,
+            quantityText = 0,
+            priceYenRegex = /\(\d+円\)/,
+            priceRegex = /\d+/,
+            priceNumberWithYen,
+            priceNumberStr,
+            quantityStr,
+            quantityRegex = /\d+/;
+        priceText = priceAry[lockedIndex].text();
+        priceNumberWithYen = priceYenRegex.exec(priceText);
+        priceNumberStr = priceRegex.exec(priceNumberWithYen);
+        quantityText = quantityAry[lockedIndex].text();
+        quantityStr = quantityRegex.exec(quantityText);
+        totalSum += priceNumberStr * quantityStr;
+      })(i);
     }
-
-    $( "#order_create_price_sum" ).text("合計: "+ totalSum + "円" );
+    $("#order_create_price_sum").text("合計: "+ totalSum + "円");
   });
 });
 
