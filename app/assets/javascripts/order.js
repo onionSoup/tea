@@ -1,20 +1,20 @@
 $(function() {
-  $(".name_price_options , .quantity_options").change(function() {
-    var div = $("div.order_details_form"),
-        option = div.find("option:selected"),
+  $('.name_price_options , .quantity_options').change(function() {
+    var div = $('div.order_details_form'),
+        option = div.find('option:selected'),
         priceAry = [],
         quantityAry = [],
-        priceOptions = option.filter(".name_price_options > option"),
-        quantityOptions = option.filter(".quantity_options > option"),
+        priceOptions = option.filter('.name_price_options > option'),
+        quantityOptions = option.filter('.quantity_options > option'),
         totalSum = 0,
-        selectpairLength = 0;
+        selectPairLength = 0;
     if(priceOptions.length == quantityOptions.length) {
-      selectpairLength = priceOptions.length;
+      selectPairLength = priceOptions.length;
     } else {
-      console.log("priceOptions.length != quantityOptions.length");
+      console.log('priceOptions.length != quantityOptions.length');
       return;
     }
-    for (var i =0; i < selectpairLength; i++){
+    for (var i =0; i < selectPairLength; i++) {
       (function(lockedIndex){
         var tmpPrice = 0,
             tmpQuantity = 0;
@@ -24,23 +24,23 @@ $(function() {
         quantityAry[lockedIndex] = tmpQuantity;
       })(i);
     }
-    for (var i = 0; i < selectpairLength; i++){
+    for (var j = 0; j < selectPairLength; j++) {
       (function(lockedIndex){
-        var price_japanese = priceAry[lockedIndex].text(),
-            quantity_japanese = quantityText = quantityAry[lockedIndex].text(),
+        var priceJapanese = priceAry[lockedIndex].text(),
+            quantityJapanese = quantityText = quantityAry[lockedIndex].text(),
             priceYenRegex = /\(\d+円\)/,
             priceRegex = /\d+/,
             priceNumberWithYen,
             priceNumberStr,
             quantityStr,
             quantityRegex = /\d+/;
-        priceNumberWithYen = priceYenRegex.exec(price_japanese);
+        priceNumberWithYen = priceYenRegex.exec(priceJapanese);
         priceNumberStr = priceRegex.exec(priceNumberWithYen);
-        quantityStr = quantityRegex.exec(quantity_japanese);
+        quantityStr = quantityRegex.exec(quantityJapanese);
         totalSum += priceNumberStr * quantityStr;
-      })(i);
+      })(j);
     }
-    $("#order_create_price_sum").text("合計: "+ totalSum + "円");
+    $('#order_create_price_sum').text('合計: '+ totalSum + '円');
   });
 });
 
