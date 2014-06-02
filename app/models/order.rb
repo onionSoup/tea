@@ -13,15 +13,23 @@ class Order < ActiveRecord::Base
   has_many :order_details, dependent: :destroy
   belongs_to :user
 
+  scope :name_price_quantity_sum, ->(state_sym) {
+    Order.method(state_sym).call.joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
+  }
+  scope :this_state_orders_of_user, ->(user, state_sym) {
+    user_id = user.id
+    Order.method(state_sym).call.where(user_id: user_id)
+  }
+
   enum state: [:registered, :ordered, :arrived, :exchanged]
 
   accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
 
   class << self
     #引数を取るときはscopeよりクラスメソッドの方がpreferred way
-    def name_price_quantity_sum(state_sym)
-      Order.method(state_sym).call.joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
-    end
+#    def name_price_quantity_sum(state_sym)
+#     Order.method(state_sym).call.joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
+#    end
 
     def price_sum_of_this_state_orders(state_sym)
       orders = Order.method(state_sym).call
@@ -60,10 +68,10 @@ class Order < ActiveRecord::Base
       states[index -1]  if index
     end
 
-    def this_state_orders_of_user(user, state_sym)
-      user_id = user.id
-      Order.method(state_sym).call.where(user_id: user_id)
-    end
+#    def this_state_orders_of_user(user, state_sym)
+#      user_id = user.id
+#      Order.method(state_sym).call.where(user_id: user_id)
+#    end
 
     def price_sum_of_this_user(user, state_sym)
       orders = this_state_orders_of_user(user,state_sym)

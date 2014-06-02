@@ -7,14 +7,14 @@ $(function() {
         priceOptions = option.filter(".name_price_options > option"),
         quantityOptions = option.filter(".quantity_options > option"),
         totalSum = 0,
-        selectPearLength = 0;
+        selectpairLength = 0;
     if(priceOptions.length == quantityOptions.length) {
-      selectPearLength = priceOptions.length;
+      selectpairLength = priceOptions.length;
     } else {
       console.log("priceOptions.length != quantityOptions.length");
       return;
     }
-    for (var i =0; i < selectPearLength; i++){
+    for (var i =0; i < selectpairLength; i++){
       (function(lockedIndex){
         var tmpPrice = 0,
             tmpQuantity = 0;
@@ -24,21 +24,19 @@ $(function() {
         quantityAry[lockedIndex] = tmpQuantity;
       })(i);
     }
-    for (var i = 0; i < selectPearLength; i++){
+    for (var i = 0; i < selectpairLength; i++){
       (function(lockedIndex){
-        var priceText = 0,
-            quantityText = 0,
+        var price = priceAry[lockedIndex].text(),
+            quantity = quantityText = quantityAry[lockedIndex].text(),
             priceYenRegex = /\(\d+円\)/,
             priceRegex = /\d+/,
             priceNumberWithYen,
             priceNumberStr,
             quantityStr,
             quantityRegex = /\d+/;
-        priceText = priceAry[lockedIndex].text();
-        priceNumberWithYen = priceYenRegex.exec(priceText);
+        priceNumberWithYen = priceYenRegex.exec(price);
         priceNumberStr = priceRegex.exec(priceNumberWithYen);
-        quantityText = quantityAry[lockedIndex].text();
-        quantityStr = quantityRegex.exec(quantityText);
+        quantityStr = quantityRegex.exec(quantity);
         totalSum += priceNumberStr * quantityStr;
       })(i);
     }
