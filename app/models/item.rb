@@ -2,11 +2,12 @@
 #
 # Table name: items
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  price      :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id                        :integer          not null, primary key
+#  name                      :string(255)
+#  price                     :integer
+#  created_at                :datetime
+#  updated_at                :datetime
+#  nestle_index_from_the_top :integer
 #
 
 class Item < ActiveRecord::Base
