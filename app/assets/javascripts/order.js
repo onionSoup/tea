@@ -13,7 +13,7 @@ $(function() {
 
         //正規表現で処理する前の、生(crude)のpriceとquantityを返す
         crudeOptionContents = function() {
-          var prices =[],
+          var prices = [],
               quantities = [];
 
           selectedOptions.price.each(function(index, options) {
