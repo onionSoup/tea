@@ -1,15 +1,3 @@
 %h1= @item.name
 
-- unless @item.valid?
-  %ul
-    - @item.errors.full_messages.each do |message|
-      %li= message
-
-= form_for @item, url: admin_item_path(@item) do |f|
-  = f.label :name
-  = f.text_field :name
-
-  = f.label :price
-  = f.number_field :price
-
-  = f.submit
+= render 'form'
