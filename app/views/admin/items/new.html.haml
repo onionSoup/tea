@@ -1,0 +1,15 @@
+%h1 商品の登録
+
+%ul
+  - @item.errors.full_messages.each do |message|
+    %li= message
+
+= form_for [:admin, @item] do |f|
+  = f.label :name
+  = f.text_field :name
+
+  = f.label :price
+  = f.number_field :price
+
+  = f.submit
+

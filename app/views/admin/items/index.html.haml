@@ -1,0 +1,17 @@
+%h1 商品の管理
+
+%p= link_to '新しい商品を登録する', new_admin_item_path
+
+%table
+  %tr
+    %th 商品名
+    %th 価格
+    %th
+    %th
+
+  - @items.each do |item|
+    %tr
+      %td= item.name
+      %td= item.price
+      %th= link_to '編集', edit_admin_item_path(item)
+      %th= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}
