@@ -2,14 +2,14 @@ $(function() {
   $('.name_price_options , .quantity_options').change(function() {
     //選択したoptionを、priceとquantityでわけて取り出す
     var selectedOptions = function() {
-      var $div = $('div.order_details_form'),
-          $selectedBothOptions = $div.find('option:selected');
+          var $div = $('div.order_details_form'),
+              $selectedBothOptions = $div.find('option:selected');
 
-      return {
-        price:     $selectedBothOptions.filter('.name_price_options > option'),
-        quantity:  $selectedBothOptions.filter('.quantity_options > option')
-      };
-    }(),
+          return {
+            price:     $selectedBothOptions.filter('.name_price_options > option'),
+            quantity:  $selectedBothOptions.filter('.quantity_options > option')
+          };
+        }(),
 
         //正規表現で処理する前の、生(crude)のpriceとquantityを返す
         crudeOptionContents = function() {
