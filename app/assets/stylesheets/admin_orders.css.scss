@@ -67,12 +67,12 @@ table#admin_order_table td.sum {
   text-align: right;
 }
 
-table#admin_order_table div#inner_table {
+table#admin_order_table div.inner_table {
   display: flex;
   justify-content: space-between;
 }
 
-table.exchange_table div#inner_table:nth-child(even) {
+table.exchange_table div.inner_table:nth-child(even) {
   background: #f5f5f5;
 }
 
