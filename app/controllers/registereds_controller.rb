@@ -4,7 +4,7 @@ class RegisteredsController < ApplicationController
   end
 
   def order
-    unless( (Order.registered.update_all state: Order.states["ordered"] ) == 0 )
+    unless (Order.registered.update_all state: Order.states['ordered']) == 0
       updated_flag = true
     end
     flash.now[:success] = 'ネスレ公式へ注文したことを登録しました。' if updated_flag

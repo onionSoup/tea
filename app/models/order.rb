@@ -13,13 +13,13 @@ class Order < ActiveRecord::Base
   ORDER_DETAILS_COUNT_MIN = 1
 
   has_many :order_details, dependent: :destroy
-
   belongs_to :user
+
+  accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
 
   validate do
     check_order_details_number
   end
-
 
   scope :name_price_quantity_sum, ->(state_sym) {
     Order.where(state: Order.states[state_sym]).joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
@@ -31,11 +31,9 @@ class Order < ActiveRecord::Base
 
   enum state: [:registered, :ordered, :arrived, :exchanged]
 
-  accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
-
   class << self
     def price_sum_of_this_state_orders(state_sym)
-      orders = Order.send(state_sym)
+      orders = Order.where(state: Order.states[state_sym])
       price_sum_of_orders(orders) || 0
     end
 
@@ -44,11 +42,7 @@ class Order < ActiveRecord::Base
 
       #注文画面では、まだthen_priceは使えないため。
       order.order_details.map {|d|
-        if d.then_price
-          d.quantity * d.then_price
-        else
-          d.quantity * Item.find(d.item_id).price
-        end
+        d.then_price ? d.quantity * d.then_price : d.quantity * Item.find(d.item_id).price
       }.inject(&:+)
     end
 
@@ -57,12 +51,6 @@ class Order < ActiveRecord::Base
       return 0 unless orders
 
       orders.map {|order| price_sum_of_details(order) }.inject(&:+)
-    end
-
-    def before_state(state_string)
-      states = Order.states.keys.map{|i| i.to_sym}
-      index =  Order.states[state_string]
-      states[index -1]  if index
     end
 
     def price_sum_of_this_user(user, state_sym)

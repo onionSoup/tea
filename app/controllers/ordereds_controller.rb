@@ -4,7 +4,7 @@ class OrderedsController < ApplicationController
   end
 
   def arrive
-    unless( (Order.ordered.update_all state: Order.states["arrived"] ) == 0 )
+    unless (Order.ordered.update_all state: Order.states['arrived']) == 0
       updated_flag = true
     end
     flash.now[:success] = 'ネスレからお茶が届いたことを登録しました。' if updated_flag

@@ -6,8 +6,7 @@ class ArrivedsController < ApplicationController
     checked_user_names = checked_user_names(params)
     checked_users = User.where(name: checked_user_names)
     checked_users.each do |user|
-      unless user.orders.update_all(state: Order.states["exchanged"])
-        #flashをここに書くなら、カウンタ変数はいらない
+      unless user.orders.update_all state: Order.states['exchanged']
         updated_flag = true
       end
     flash.now[:success] = '引換したことを登録しました。' if updated_flag

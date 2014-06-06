@@ -7,11 +7,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    if @order.save
-      #create.html.erbをrender
-    else
-      redirect_to orders_path
-    end
+    redirect_to orders_path unless @order.save
   end
 
   private

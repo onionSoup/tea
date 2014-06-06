@@ -7,7 +7,7 @@ $(function () {
         $selected = $div.find('option:selected'),
         detailSize = $selected.length / 2,
         i,
-        detail_factory = function (index) {
+        detailFactory = function (index) {
           var detail = {};
           detail.price = $selected.slice(index * 2, index * 2 + 2)[0]//<option value="1">ジャスミン フラワー(756円)</option>
                                   .text.match(/(\d+)円/)[1];
@@ -17,7 +17,7 @@ $(function () {
         };
 
     for (i = 0; i < detailSize; i++) {
-      order.push(detail_factory(i));
+      order.push(detailFactory(i));
     }
 
     sum = order.reduce(function (memo, detail) {
