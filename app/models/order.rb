@@ -42,7 +42,7 @@ class Order < ActiveRecord::Base
 
       #注文画面では、まだthen_priceは使えないため。
       order.order_details.map {|d|
-        d.then_price ? d.quantity * d.then_price : d.quantity * Item.find(d.item_id).price
+        d.then_price ? d.quantity * d.then_price : d.quantity * d.item.price
       }.inject(&:+)
     end
 

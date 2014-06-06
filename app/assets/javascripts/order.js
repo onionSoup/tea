@@ -1,28 +1,18 @@
 $(function () {
-  var $div = $('div.order_details_form');
-
   $('.name_price_options , .quantity_options').change(function () {
-    var order = [],
-        sum = 0,
-        $selected = $div.find('option:selected'),
-        detailSize = $selected.length / 2,
-        i,
-        detailFactory = function (index) {
-          var detail = {};
-          detail.price = $selected.slice(index * 2, index * 2 + 2)[0]//<option value="1">ジャスミン フラワー(756円)</option>
-                                  .text.match(/(\d+)円/)[1];
-          detail.quantity = $selected.slice(index * 2, index * 2 + 2)[1]//<option value="0">0個</option>
-                                     .text.match(/\d+/)[0];
-          return detail;
-        };
+    var $div = $('div.order_details_form'),
+        sum = $.makeArray($div).reduce(function (memo,div){
+          //このチェーンをもっと綺麗に書き直したい
+          price = $(div).children().filter(".name_price_options")
+                        .children().filter("option:selected")
+                        .text().match(/(\d+)円/)[1];
 
-    for (i = 0; i < detailSize; i++) {
-      order.push(detailFactory(i));
-    }
+          quantity = $(div).children().filter(".quantity_options")
+                           .children().filter("option:selected")
+                           .text().match(/\d+/)[0];
 
-    sum = order.reduce(function (memo, detail) {
-      return memo + detail.price * detail.quantity;
-    }, 0);
+          return memo + price * quantity;
+        }, 0);
 
     $('#order_create_price_sum').text('合計: ' + sum + '円');
   });
