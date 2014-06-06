@@ -41,9 +41,10 @@ class Order < ActiveRecord::Base
       return 0 unless order
 
       #注文画面では、まだthen_priceは使えないため。
-      order.order_details.map {|d|
-        d.then_price ? d.quantity * d.then_price : d.quantity * d.item.price
-      }.inject(&:+)
+      order.order_details.inject(0) {|sum, d|
+        price = d.then_price || d.item.price
+        sum += d.quantity * price
+      }
     end
 
     #モデルでの重複を排除するために書いた

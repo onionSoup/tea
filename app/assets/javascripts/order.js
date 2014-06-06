@@ -1,6 +1,7 @@
 $(function () {
   $('.name_price_options , .quantity_options').change(function () {
     var $div = $('div.order_details_form'),
+        //$div.reduce(...);が使えない理由が分からなかった。$div.constructor.prototype => [] なのに...
         sum = $.makeArray($div).reduce(function (memo,div){
           //このチェーンをもっと綺麗に書き直したい
           price = $(div).children().filter(".name_price_options")
