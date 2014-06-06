@@ -10,16 +10,26 @@
 #
 
 class Order < ActiveRecord::Base
+  ORDER_DETAILS_COUNT_MIN = 1
+
   has_many :order_details, dependent: :destroy
 
   belongs_to :user
 
+  validate do
+    check_order_details_number
+  end
+
+
   scope :name_price_quantity_sum, ->(state_sym) {
-    Order.method(state_sym).call.joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
+    Order.where(state: Order.states[state_sym]).joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
   }
   scope :this_state_orders_of_user, ->(user, state_sym) {
+
     user_id = user.id
-    Order.method(state_sym).call.where(user_id: user_id)
+    Order.where(state: Order.states[state_sym], user_id: user_id)
+    #Order.method(state_sym).call.where(user_id: user_id)をリファクタリング。かえって長い。
+    #Order.where(state: state_sym)だとinvalid input syntax for integer
   }
 
   enum state: [:registered, :ordered, :arrived, :exchanged]
@@ -28,39 +38,35 @@ class Order < ActiveRecord::Base
 
   class << self
     def price_sum_of_this_state_orders(state_sym)
-      orders = Order.method(state_sym).call
-      price_sum_of_orders(orders)
+      orders = Order.send(state_sym)
+      price_sum_of_orders(orders) || 0
     end
 
     #ビューではこれが別途あったほうが便利。かもしれない。
     #ビューをモデルに合わせた方がいいかもしれない
     def price_sum_of_details(order)
-      sum  = 0
-      if order
-        order.order_details.each do |detail|
-          sum += detail.quantity * detail.then_price
+      return 0 unless order
+
+      #注文画面では、まだthen_priceは使えないため。
+      order.order_details.map {|d|
+        if d.then_price
+          d.quantity * d.then_price
+        else
+          d.quantity * Item.find(d.item_id).price
         end
-      end
-      sum
+      }.inject(&:+)
     end
 
     #モデルでの重複を排除するために書いた
     def price_sum_of_orders(orders)
-      sum  = 0
-      if orders
-        orders.each do |order|
-          if order
-            sum += price_sum_of_details(order)
-          end
-        end
-      end
-      sum
+      return 0 unless orders
+
+      orders.map {|order| price_sum_of_details(order) }.inject(&:+)
     end
 
     def before_state(state_string)
-      states = [:registered, :ordered, :arrived, :exchanged]
-      state_string = state_string.to_sym
-      index = states.index(state_string)
+      states = Order.states.keys.map{|i| i.to_sym}
+      index =  Order.states[state_string]
       states[index -1]  if index
     end
 
@@ -69,4 +75,15 @@ class Order < ActiveRecord::Base
       price_sum_of_orders(orders)
     end
   end
+
+  private
+    def order_details_count_valid?
+      order_details.reject(&:marked_for_destruction?).count >= ORDER_DETAILS_COUNT_MIN
+    end
+
+    def check_order_details_number
+      unless order_details_count_valid?
+        errors.add(:base, :order_details_too_short, :count => ORDER_DETAILS_COUNT_MIN)
+      end
+    end
 end

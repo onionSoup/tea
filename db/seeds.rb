@@ -48,21 +48,20 @@ if(!Item.first)
 end
 
 #order_details
-if(!Order.first)
-  user = User.first
-  user.orders.create(state: 0)
-  user.orders.each do |order|
-    order.order_details.create(item_id: 1, quantity: 2, then_price: 756)
-    order.order_details.create(item_id: 2, quantity: 3, then_price: 756)
-    order.order_details.create(item_id: 3, quantity: 4, then_price: 756)
-    order.order_details.create(item_id: 4, quantity: 5, then_price: 756)
-  end
-  user2 = User.second
-  user2.orders.create(state: 0)
-  user2.orders.each do |order|
-    order.order_details.create(item_id: 1, quantity: 2, then_price: 756)
-    order.order_details.create(item_id: 2, quantity: 3, then_price: 756)
-    order.order_details.create(item_id: 3, quantity: 4, then_price: 756)
-    order.order_details.create(item_id: 4, quantity: 5, then_price: 756)
-  end
-end
+  #first_user
+user = User.first
+order = user.orders.build(state: 0)
+order.order_details.build(item_id: 1, quantity: 2, then_price: 756)
+order.order_details.build(item_id: 2, quantity: 3, then_price: 756)
+order.order_details.build(item_id: 3, quantity: 4, then_price: 756)
+order.order_details.build(item_id: 4, quantity: 5, then_price: 756)
+order.save
+
+  #second_user
+user = User.second
+order = user.orders.build(state: 0)
+order.order_details.build(item_id: 1, quantity: 2, then_price: 756)
+order.order_details.build(item_id: 2, quantity: 3, then_price: 756)
+order.order_details.build(item_id: 3, quantity: 4, then_price: 756)
+order.order_details.build(item_id: 4, quantity: 5, then_price: 756)
+order.save

@@ -1,0 +1,45 @@
+<div id="admin_flex_box">
+  <%= render 'layouts/admin_side_nav' %>
+  <div>
+    <div id="nestle_input_sheet">
+      <h3>引換情報</h3>
+      <div>
+        <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
+        <p>引換を完了した方は、引換完了チェックを入れてください。</p>
+        <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
+        <%= form_for :order, url: exchange_arrived_path, method: "post" do |f| %>
+          <div id="nestle_input_sheet_flex_box">
+            <table id="admin_order_table" class="exchange_table">
+              <tr><th>引換完了チェック</th><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
+              <% User.all.each_with_index do |user, index| %>
+                <% orders =  Order.this_state_orders_of_user(user, :arrived) %>
+                <% unless orders.empty? %>
+                  <tr>
+                    <td><%= f.check_box "user_hash[#{user.name}]" %></td>
+                    <td><%= user.name %></td>
+                    <td><%= Order.price_sum_of_this_user(user, :arrived) %></td>
+                    <td>
+                      <% orders.each do |order| %>
+                        <%  order.order_details.each do |detail| %>
+                        <div id="inner_table">
+                          <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
+                          <div><%= "#{detail.quantity}個" %></div>
+                        </div>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </table>
+          </div>
+          <p>引換が終わったら以下のボタンを押してください。
+          引換が終了したことを、システムに登録します。</p>
+          <%= f.hidden_field :state_by_hand, {:value => 'exchanged'} %>
+          <%=  f.submit '引換の完了をシステムに登録' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

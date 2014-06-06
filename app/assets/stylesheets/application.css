@@ -26,8 +26,7 @@ body {
   display: -webkit-box;
   display: -o-box;
   display: -ms-box;
-  /* W3CのCSSValidatorによれば、box_alignは不要らしい。*/
-  /* box-align: center; */
+  box-align: center;
   -webkit-box-align: center;
   -moz-box-align: center;
 }

@@ -14,4 +14,14 @@
 class OrderDetail < ActiveRecord::Base
   belongs_to :order
   belongs_to :item
+
+  before_create :copy_then_price
+
+  validates :item_id,  presence: true
+
+
+#これを保存するときに呼ぶ
+  def copy_then_price
+    self.then_price = item.price
+  end
 end

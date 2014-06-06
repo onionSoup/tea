@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  #before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   def index
     @order = Order.new
@@ -7,39 +6,44 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = order_factory(order_params)
-    @order.save
-    if @order.order_details.empty?
-      redirect_to orders_path
+    @order = Order.new(order_params)
+    if @order.save
     else
-      #createビューを通常通り表示
+      redirect_to orders_path
     end
+
   end
 
   def registered
   end
 
   def ordered
+    #これ良くない。getアクションで、副作用（保存）を伴ってはいけない
+    # リソースを変えて、getとpost２つに対応させる。orderedな一覧を取るgetとその更新処理をするpostで厳密に分けるべき
     order_state_save('ordered', 'ネスレ公式へ注文したことを登録しました。')
   end
 
   def arrived
-    order_state_save('arrived', 'ネスレ公式からお茶が届いたことを登録しました。')
+    order_state_save('arrived', 'ネスレからお茶が届いたことを登録しました。')
   end
 
   def exchanged
-    if(params[:order][:state_by_hand] == 'exchanged')
-      checked_user = []
-      checked_user_list(checked_user, params)
-      map_checked_user_to_user_object(checked_user)
-      checked_user.each do |user|
-        user.orders.arrived.each do |order|
-          if state_convert_to(order, 'exchanged')
-            flash.now[:success] = '引換したことを登録しました。'
-          end
-        end
+    return unless params[:order][:state_by_hand] == 'exchanged'
+    checked_user_names = checked_user_names(params)
+    checked_users = User.where(name: checked_user_names);
+    checked_users.each do |user|
+      unless user.orders.update_all(state: Order.state_sym2int(:exchanged))
+        #flashをここに書くなら、カウンタ変数はいらない
+        updated_flag = true
       end
-    end
+    flash.now[:success] = '引換したことを登録しました。' if updated_flag
+  end
+#これのリファクタリングだけど、かえってわかりづらいかも
+#        user.orders.arrived.each do |order|
+#          if order.update_attributes state: :exchanged
+#            flash.now[:success] = '引換したことを登録しました。'
+#          end
+#       end
   end
 
   private
@@ -51,55 +55,27 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:user_id, :time_limit_id, order_details_attributes: [:id, :item_id, :order_id, :quantity ] )
     end
 
-    def checked_user_list(user,params)
-      if params[:order][:user_hash]
-        params[:order][:user_hash].each do |name, checked|
-          if checked == '1'
-            user << name
-          end
-        end
-      end
-    end
+    def checked_user_names(params)
+      return [] unless params[:order][:user_hash]
 
-    def map_checked_user_to_user_object(checked_user)
-      unless checked_user.empty?
-        checked_user.map! do |user|
-          user = User.find_by(name: user)
-        end
-      end
-    end
-
-    def state_convert_to(order, after_state)
-      if after_state.class == String
-        after_state = after_state.to_sym
-      end
-      order.state = after_state
-      order.save
+      params[:order][:user_hash].map {|name, checked| name if checked == '1'}.compact
     end
 
     def order_state_save(state_string, flash_message)
-      if(params[:order][:state_by_hand] == state_string)
-        before_state = Order.before_state(state_string)
-        Order.method(before_state).call.each do |order|
-          state_convert_to(order, state_string)
-          flash.now[:success] = flash_message
-        end
-      end
-    end
+      return unless params[:order][:state_by_hand] == state_string
 
-    #order_factory
-      #params
-        #=>{"user_id"=>"1",
-        #   "order_details_attributes"=>
-        #   {"0"=>{"item_id"=>"1", "quantity"=>"4"},
-        #    "1"=>{"item_id"=>"1", "quantity"=>"0"}...
-        #    "24"=>{"item_id"=>"1", "quantity"=>"0"}}}
-    def order_factory(params)
-      params[:"order_details_attributes"].each do |param|
-        if(param.second[:quantity].to_i > 0)
-          param.second['then_price'] = Item.find(param.second[:item_id].to_i).price
-        end
+
+      before_state = Order.before_state(state_string)
+      #（）を付けないと意図通りに動かない
+      unless( (Order.send(before_state).update_all state: Order.state_sym2int(state_string) ) == 0 )
+        updated_flag = true
       end
-      Order.new(params)
+      flash.now[:success] = flash_message if updated_flag
+
+
+      #最初教えて頂いたのはOrder.where(state: before_state).update_all state: state_string.to_sym
+      #where(state: before_state) でinvalid input syntax for integerになったので書きなおした。
+
+      #flashはピンと来ないそうだ 上手く説明ができないとのこと
     end
 end

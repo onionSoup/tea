@@ -8,18 +8,15 @@
         <div id="nestle_input_sheet_flex_box">
           <table id="admin_order_table">
             <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-            <% orders = Order.name_price_quantity_sum(:registered) %>
-            <% orders.each do  |order| %>
-              <tr><td class="name"><%= order.name %></td><td class="price"><%= order.then_price %></td><td class="sum"><%= order.sum %></td></tr>
+            <% @registereds.each do  |registered| %>
+              <tr><td class="name"><%= registered.name %></td><td class="price"><%= registered.then_price %></td><td class="sum"><%= registered.sum %></td></tr>
             <% end %>
           </table>
-
-
+          <p id="payment" class="child-align-box">支払い金額:<%= Order.price_sum_of_this_state_orders(:registered) %>円</p>
         </div>
         <p>ネスレ公式での注文が終わったら以下のボタンを押してください。<br />
         注文が終わったことをシステムに登録します。</p>
-        <%= form_for :order, url: ordered_orders_path, method: "get" do |f| %>
-          <%= f.hidden_field :state_by_hand, {:value => 'ordered'} %>
+        <%= form_for :order, url: order_registered_path, method: "post" do |f| %>
           <%=  f.submit '注文の完了をシステムに登録' %>
         <% end %>
       </div>

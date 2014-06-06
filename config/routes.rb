@@ -11,12 +11,21 @@ Rails.application.routes.draw do
 
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
+
+
+
   resources :orders do
     collection do
-      get :registered
-      get :ordered
-      get :arrived
-      get :exchanged
+      resource :registered, only: :show do
+        post :order
+      end
+      resource :ordered, only: :show do
+        post :arrive
+      end
+      resource :arrived, only: :show do
+        post :exchange
+      end
+      resource :exchanged, only: [:show, :destroy]
     end
   end
 

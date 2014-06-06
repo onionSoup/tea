@@ -1,0 +1,36 @@
+<div id="admin_flex_box">
+  <%= render 'layouts/admin_side_nav' %>
+  <div>
+    <div id="nestle_input_sheet">
+      <h3>引換情報</h3>
+      <div>
+        <p>以下のお茶は、引換が終了しています。</p>
+        <div id="nestle_input_sheet_flex_box">
+          <table id="admin_order_table" class="exchange_table">
+            <tr><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
+            <% User.all.each do |user| %>
+              <% orders =  Order.this_state_orders_of_user(user, :exchanged) %>
+              <% unless orders.empty? %>
+                <tr>
+                  <td><%= user.name %></td>
+                  <td><%= Order.price_sum_of_this_user(user, :exchanged) %></td>
+                  <td>
+                    <% orders.each do |order| %>
+                      <%  order.order_details.each do |detail| %>
+                      <div id="inner_table">
+                        <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
+                        <div><%= "#{detail.quantity}個" %></div>
+                      </div>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

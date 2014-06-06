@@ -1,41 +1,38 @@
 $(function() {
-  $('.name_price_options , .quantity_options').change(function() {
     //選択したoptionを、priceとquantityでわけて取り出す
-    var selectedOptions = function() {
-          var $div = $('div.order_details_form'),
+    var selectedOptions = function(){
+      var $div = $('div.order_details_form'),
               $selectedBothOptions = $div.find('option:selected');
-
-          return {
+        return {
             price:     $selectedBothOptions.filter('.name_price_options > option'),
             quantity:  $selectedBothOptions.filter('.quantity_options > option')
           };
-        }(),
+        };
 
+  $('.name_price_options , .quantity_options').change(function() {
         //正規表現で処理する前の、生(crude)のpriceとquantityを返す
         crudeOptionContents = function() {
           var prices = [],
               quantities = [];
 
-          selectedOptions.price.each(function(index, options) {
+          selectedOptions().price.each(function(index, options) {
             prices[index] = $(options).text();
           });
-          selectedOptions.quantity.each(function(index, options) {
+          selectedOptions().quantity.each(function(index, options) {
             quantities[index] = $(options).text();
           });
 
           return {
-            price:     prices ,
-            quantity:  quantities
+            price:    prices ,
+            quantity: quantities
           };
         }(),
 
         // 価格と個数の数字だけをとりだす。
         numberOptionContents = function() {
-          var tmp,
-              priceNumbers = crudeOptionContents.price.map(function(price) {
-                tmp = (/\(\d+円\)/).exec(price);
-                return (/\d+/).exec(tmp);
-              });
+          var priceNumbers = crudeOptionContents.price.map(function(price) {
+            return price.match(/(\d+)円/)[1];
+          });
           var quantityNumbers = crudeOptionContents.quantity.map(function(quantity) {
                 return (/\d+/).exec(quantity);
               });
@@ -47,14 +44,8 @@ $(function() {
         }(),
 
         //Pairの数を返す。１Pairは１つのpriceと１つのquantityのoptionからなる。
-        selectPairLength = function() {
-          if(selectedOptions.price.length === selectedOptions.quantity.length) {
-            return selectedOptions.price.length;
-          } else {
-            alert('selectedOptions.price.length != selectedOptions.quantity.length');
-            return 0;
-          }
-        }(),
+        //なお、右辺はselectedOptions().quantity.lengthでも良い（同じになる）
+        selectPairLength = selectedOptions().price.length,
 
         //合計を計算して、ページに反映する。
         updateTotalSum = function() {
