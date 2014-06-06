@@ -4,7 +4,7 @@ class ArrivedsController < ApplicationController
 
   def exchange
     checked_user_names = checked_user_names(params)
-    checked_users = User.where(name: checked_user_names);
+    checked_users = User.where(name: checked_user_names)
     checked_users.each do |user|
       unless user.orders.update_all(state: Order.states["exchanged"])
         #flashをここに書くなら、カウンタ変数はいらない
@@ -17,7 +17,7 @@ class ArrivedsController < ApplicationController
 
   private
     def checked_user_names(params)
-      return [] unless params[:order][:user_hash]
+      return [] unless params[:order]
 
       params[:order][:user_hash].map {|name, checked| name if checked == '1'}.compact
     end

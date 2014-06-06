@@ -25,11 +25,8 @@ class Order < ActiveRecord::Base
     Order.where(state: Order.states[state_sym]).joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
   }
   scope :this_state_orders_of_user, ->(user, state_sym) {
-
     user_id = user.id
     Order.where(state: Order.states[state_sym], user_id: user_id)
-    #Order.method(state_sym).call.where(user_id: user_id)をリファクタリング。かえって長い。
-    #Order.where(state: state_sym)だとinvalid input syntax for integer
   }
 
   enum state: [:registered, :ordered, :arrived, :exchanged]
@@ -42,8 +39,6 @@ class Order < ActiveRecord::Base
       price_sum_of_orders(orders) || 0
     end
 
-    #ビューではこれが別途あったほうが便利。かもしれない。
-    #ビューをモデルに合わせた方がいいかもしれない
     def price_sum_of_details(order)
       return 0 unless order
 
