@@ -1,20 +1,23 @@
-$(function () {
-  $('.name_price_options , .quantity_options').change(function () {
-    var $div = $('div.order_details_form'),
-        //$div.reduce(...);が使えない理由が分からなかった。$div.constructor.prototype => [] なのに...
-        sum = $.makeArray($div).reduce(function (memo,div){
-          //このチェーンをもっと綺麗に書き直したい
-          price = $(div).children().filter(".name_price_options")
-                        .children().filter("option:selected")
-                        .text().match(/(\d+)円/)[1];
+$(function() {
+   //増えると後から
+   var $sumLabel = $('#order_create_price_sum'),
+   //ｓだけでaryの意味は組まれる
+       $details = $('div.order_details_form').toArray();
 
-          quantity = $(div).children().filter(".quantity_options")
-                           .children().filter("option:selected")
-                           .text().match(/\d+/)[0];
+  $('.name_price_options, .quantity_options').change(function() {
+    var sum = $details.reduce(function(acc, detail) {
+      var $detail   = $(detail),
+          //説明用の変数
+          itemLabel = $detail.find('select.name_price_options option:selected').text(),
+          price     = itemLabel.match(/(\d+)円/)[1],
+          //value属性
+          quantity  = $detail.find('select.quantity_options').val();
 
-          return memo + price * quantity;
-        }, 0);
+      return acc + price * quantity;
+    }, 0);
 
-    $('#order_create_price_sum').text('合計: ' + sum + '円');
+    //sumは数字  sumLabelは表現
+    //データ（プログラム内部で使う）と表現（ユーザーが見る）の分離
+    $sumLabel.text('合計: ' + sum + '円');
   });
 });
