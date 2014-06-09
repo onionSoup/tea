@@ -12,7 +12,7 @@
               <tr><td class="name"><%= registered.name %></td><td class="price"><%= registered.then_price %></td><td class="sum"><%= registered.sum %></td></tr>
             <% end %>
           </table>
-          <p id="payment" class="child-align-box">支払い金額:<%= Order.price_sum_of_this_state_orders(:registered) %>円</p>
+          <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
         </div>
         <p>ネスレ公式での注文が終わったら以下のボタンを押してください。<br />
         注文が終わったことをシステムに登録します。</p>

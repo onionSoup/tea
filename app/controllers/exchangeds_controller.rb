@@ -1,5 +1,9 @@
 class ExchangedsController < ApplicationController
   def show
+    #これで書くと、元のページと動作が変わる。最もビューを書き換えればそれで良いのでこれは選択肢にはいる
+    #@orders = Order.includes(:user, order_details: :item).exchanged
+    #そのため、今回は@usersを使う。
+    @users = User.includes(orders: {order_details: :item}).where('orders.state = ?', Order.states['exchanged']).references(:orders)
   end
 
   def destroy

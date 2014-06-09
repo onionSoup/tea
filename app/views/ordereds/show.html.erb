@@ -10,7 +10,7 @@
             <tr><td class="name"><%= ordered.name %></td><td class="price"><%= ordered.then_price %></td><td class="sum"><%= ordered.sum %></td></tr>
           <% end %>
         </table>
-        <p id="payment" class="child-align-box">支払い金額:<%= Order.price_sum_of_this_state_orders(:ordered) %>円</p>
+        <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
       </div>
       <p>ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
       お茶が到着したことをシステムに登録します。</p>

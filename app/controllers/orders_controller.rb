@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   def index
     @order = Order.new
     25.times { @order.order_details.build }
+    @items = Item.order(:id)
   end
 
   def create

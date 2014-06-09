@@ -1,6 +1,9 @@
 class OrderedsController < ApplicationController
   def show
     @ordereds = Order.name_price_quantity_sum(:ordered)
+    @total_sum = @ordereds.inject(0) {|memo,order|
+      memo + order.sum * order.then_price
+    }
   end
 
   def arrive

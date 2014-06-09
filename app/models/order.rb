@@ -60,6 +60,19 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def price_sum_of_details
+    return 0 unless self
+    return 0 unless self.order_details
+    #注文画面では、まだthen_priceは使えないため。
+    self.order_details.inject(0) {|sum, d|
+      price = d.then_price || d.item.price
+      sum += d.quantity * price
+    }
+  end
+
+
+
+
   private
     def order_details_count_valid?
       order_details.reject(&:marked_for_destruction?).count >= ORDER_DETAILS_COUNT_MIN
