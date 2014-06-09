@@ -53,3 +53,11 @@ end
 
 # スキーマを書く
 gem 'annotate',       group: :development
+
+# N+1問題を検出する
+group :development do
+  gem 'bullet', group: :development
+end
+
+#railsのpipeline logを非表示にする https://github.com/evrone/quiet_assets
+gem 'quiet_assets', :group => :development

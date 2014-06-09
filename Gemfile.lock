@@ -33,6 +33,9 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    bullet (4.10.0)
+      activesupport
+      uniform_notifier (~> 1.6.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -81,6 +84,8 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -138,6 +143,7 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.6.1)
     yard (0.8.7.4)
 
 PLATFORMS
@@ -145,6 +151,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  bullet
   coffee-rails (~> 4.0.0)
   haml-rails
   jbuilder (~> 2.0)
@@ -153,6 +160,7 @@ DEPENDENCIES
   pry-doc
   pry-rails
   pry-stack_explorer
+  quiet_assets
   rails (= 4.1.0)
   rails_12factor
   sass-rails (~> 4.0.3)

@@ -9,7 +9,7 @@ class ArrivedsController < ApplicationController
     if exchanged_order_count.zero?
       redirect_to action: :show
     else
-      flash.now[:success] = '引換したことを登録しました。'
+      flash[:success] = '引換したことを登録しました。'
       redirect_to exchanged_path
     end
   end
