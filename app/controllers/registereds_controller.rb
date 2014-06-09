@@ -3,7 +3,7 @@ class RegisteredsController < ApplicationController
     @registereds = Order.registered.name_price_quantity_sum
 
     @total_sum = @registereds.inject(0) {|memo,order|
-      memo + order.sum * order.then_price
+      memo + order.quantity * order.then_price
     }
   end
 

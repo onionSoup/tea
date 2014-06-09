@@ -9,7 +9,7 @@
           <table id="admin_order_table">
             <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
             <% @registereds.each do  |registered| %>
-              <tr><td class="name"><%= registered.name %></td><td class="price"><%= registered.then_price %></td><td class="sum"><%= registered.sum %></td></tr>
+              <tr><td class="name"><%= registered.name %></td><td class="price"><%= registered.then_price %></td><td class="sum"><%= registered.quantity %></td></tr>
             <% end %>
           </table>
           <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
