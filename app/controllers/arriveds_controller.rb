@@ -1,23 +1,16 @@
 class ArrivedsController < ApplicationController
   def show
+    @orders = Order.includes(:user, order_details: :item).arrived
   end
 
   def exchange
-    checked_user_names = checked_user_names(params)
-    checked_users = User.where(name: checked_user_names)
-    checked_users.each do |user|
-      unless user.orders.update_all state: Order.states['exchanged']
-        updated_flag = true
-      end
-    flash.now[:success] = '引換したことを登録しました。' if updated_flag
+    exchanged_order_count = Order.where(id: params[:order_ids]).update_all(state: Order.states[:exchanged])
+
+    if exchanged_order_count.zero?
+      redirect_to action: :show
+    else
+      flash.now[:success] = '引換したことを登録しました。'
+      redirect_to exchanged_path
     end
-    redirect_to exchanged_path
   end
-
-  private
-    def checked_user_names(params)
-      return [] unless params[:order]
-
-      params[:order][:user_hash].map {|name, checked| name if checked == '1'}.compact
-    end
 end
