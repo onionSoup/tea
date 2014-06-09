@@ -21,8 +21,8 @@ class Order < ActiveRecord::Base
     check_order_details_number
   end
 
-  scope :name_price_quantity_sum, ->(state_sym) {
-    Order.where(state: Order.states[state_sym]).joins(order_details: :item).group('items.name','order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
+  scope :name_price_quantity_sum, -> {
+    joins(order_details: :item).group('items.id', 'order_details.then_price').select('items.name, order_details.then_price, SUM(quantity)')
   }
   scope :this_state_orders_of_user, ->(user, state_sym) {
     user_id = user.id
