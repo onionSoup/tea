@@ -4,12 +4,8 @@
   <div class="order_new_content">
     <div id="order_new_select">
       <h2>ほしいお茶と数を選択してください</h2>
-      <!--このチェックボックスはJSが勉強終わったら使うためのプレースホルダーです -->
       <p id="same_quantity" style="display: none;"><input type="checkbox" >前回と同じ注文を指定</p>
       <%= form_for(@order) do |f|%>
-      <%= javascript_tag do %>
-        window.order_details_size = '<%= @order.order_details.size %>';
-      <% end %>
         <div id="order_flex_box">
           <div class="tea_select">
             <%= f.hidden_field :user_id, {:value => @current_user.id} %>
