@@ -13,7 +13,7 @@
               <% unless orders.empty? %>
                 <tr>
                   <td><%= user.name %></td>
-                  <td><%= Order.price_sum_of_orders(orders) %></td>
+                  <td><%= orders.price_sum %></td>
                   <td>
                     <% orders.each do |order| %>
                       <%  order.order_details.each do |detail| %>

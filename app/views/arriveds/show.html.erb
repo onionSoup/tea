@@ -20,7 +20,7 @@
                 <tr>
                   <td><%= check_box_tag 'order_ids[]', order.id %></td>
                   <td><%= order.user.name %></td>
-                  <td><%= Order.price_sum_of_details(order)  %></td>
+                  <td><%= order.order_details.price_sum  %></td>
                   <td>
                     <% order.order_details.each do |detail| %>
                       <div class="inner_table">

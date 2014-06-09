@@ -24,4 +24,12 @@ class OrderDetail < ActiveRecord::Base
   def copy_then_price
     self.then_price = item.price
   end
+
+  class << self
+    def price_sum
+      all.inject(0) {|acc, detail|
+        acc + detail.quantity * (detail.then_price || detail.item.price)
+      }
+    end
+  end
 end
