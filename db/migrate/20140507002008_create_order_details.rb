@@ -4,7 +4,7 @@ class CreateOrderDetails < ActiveRecord::Migration
       t.integer :order_id
       t.integer :item_id
       t.integer :quantity
-
+      t.integer :then_price
       t.timestamps
     end
   end

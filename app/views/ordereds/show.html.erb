@@ -1,0 +1,23 @@
+<div id="admin_flex_box">
+  <%= render 'layouts/admin_side_nav' %>
+  <div>
+    <div id="nestle_input_sheet">
+      <h3>ネスレ発送待ちページ</h3>
+      <div id="nestle_input_sheet_flex_box">
+        <table id="admin_order_table">
+          <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
+          <% @ordereds.each do  |ordered| %>
+            <tr><td class="name"><%= ordered.name %></td><td class="price"><%= ordered.then_price %></td><td class="sum"><%= ordered.quantity %></td></tr>
+          <% end %>
+        </table>
+        <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
+      </div>
+      <p>ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
+      お茶が到着したことをシステムに登録します。</p>
+      <%= form_for :order, url: arrive_ordered_path, method: "post" do |f| %>
+        <%=  f.submit 'お茶の受領をシステムに登録' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

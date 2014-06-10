@@ -7,17 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 #users
-if(!User.first)
+if(!User.first && !User.second)
   User.create(name: 'user1')
-end
-
-#time  #admin #exchange
-if(!TimeLimit.first)
-  d1 = Date.new(2014,5,10)
-  d2 = Date.new(2014,6,10)
-  t = TimeLimit.create(start: d1, end: d2)
-  t.create_admin_order
-  t.create_exchange(exchange_flag: false)
+  User.create(name: 'user2')
 end
 
 #items
@@ -54,3 +46,22 @@ if(!Item.first)
     Item.create(name: item[0], price: item[1])
   }
 end
+
+#order_details
+  #first_user
+user = User.first
+order = user.orders.build(state: 0)
+order.order_details.build(item_id: 1, quantity: 2, then_price: 756)
+order.order_details.build(item_id: 2, quantity: 3, then_price: 756)
+order.order_details.build(item_id: 3, quantity: 4, then_price: 756)
+order.order_details.build(item_id: 4, quantity: 5, then_price: 756)
+order.save
+
+  #second_user
+user = User.second
+order = user.orders.build(state: 0)
+order.order_details.build(item_id: 1, quantity: 2, then_price: 756)
+order.order_details.build(item_id: 2, quantity: 3, then_price: 756)
+order.order_details.build(item_id: 3, quantity: 4, then_price: 756)
+order.order_details.build(item_id: 4, quantity: 5, then_price: 756)
+order.save

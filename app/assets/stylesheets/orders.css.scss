@@ -3,6 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 //order#new
+div#number_of_selector {
+  display: none;
+}
+
 div.order_new_content {
   margin-left: 3%;
 }
@@ -72,6 +76,7 @@ p#order_create_user_name {
 
 div#order_create_flex {
   display: flex;
+  align-items: flex-start;
 }
 
 div#order_create_content h2 {
