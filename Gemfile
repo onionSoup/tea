@@ -12,15 +12,16 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'annotate'
   gem 'bullet'
-  gem 'pry-rails'
-  gem 'pry-doc'
-  gem 'pry-stack_explorer'
   gem 'quiet_assets'
   gem 'spring'
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+  gem 'factory_girl'
 end
 
 group :production do
