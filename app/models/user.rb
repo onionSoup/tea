@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   has_many :orders, dependent: :destroy
   before_create :create_remember_token
 
+  validates :name,  presence: true, uniqueness: true
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
