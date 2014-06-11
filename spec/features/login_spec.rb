@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'ログインする' do
   scenario '有効な名前を入力して送信ボタンを押すとログインしてユーザー名がでる' do
     User.create(name: 'Bob')

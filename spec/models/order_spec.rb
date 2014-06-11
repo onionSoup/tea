@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Order do
   describe 'association test' do
     it 'has many order_details' do

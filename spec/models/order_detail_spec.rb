@@ -1,6 +1,4 @@
 #TO DO beforeやsubjectを使って書き直す
-require 'rails_helper'
-
 describe OrderDetail do
   describe 'association test' do
     it 'belongs_to item' do

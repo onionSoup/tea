@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'ユーザー作成' do
   scenario '有効な名前を入力して送信ボタンを押すとユーザーができてユーザー名がでる' do
     visit new_user_path

@@ -23,6 +23,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem "capybara-webkit"
 end
 
 group :production do

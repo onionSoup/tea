@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe User do
   it 'has many orders' do
     association = User.reflect_on_association(:orders).macro

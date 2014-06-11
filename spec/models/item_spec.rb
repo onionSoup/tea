@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Item do
   it 'has many order_details' do
     association = Item.reflect_on_association(:order_details).macro
