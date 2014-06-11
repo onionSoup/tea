@@ -2,6 +2,8 @@
 <div id="users_new_main_content">
   <p id="users_new_prompt_name">このサイトで使用する、ユーザー名を入力してください。</p>
   <%= form_for(@user) do |f|%>
+    <%# あとでパーシャルにする方法を考える %>
+    <% flash[:error] = f.object.errors.messages[:name].join() if f.object.errors.any? %>
     <%= f.label :name, 'ユーザー名' %>
     <%= f.text_field :name %>
     <%= f.submit '登録する' %>

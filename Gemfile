@@ -21,7 +21,8 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-stack_explorer'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'capybara'
 end
 
 group :production do
