@@ -1,9 +1,4 @@
 describe Item do
-  it 'has many order_details' do
-    association = Item.reflect_on_association(:order_details).macro
-    expect(association).to eq(:has_many)
-  end
-
   describe 'validation test' do
     it 'is valid with an unique name and positive number price' do
       item = Item.new(name: '紅茶', price: '1')

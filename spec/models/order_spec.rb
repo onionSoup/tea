@@ -1,16 +1,4 @@
 describe Order do
-  describe 'association test' do
-    it 'has many order_details' do
-      association = Order.reflect_on_association(:order_details).macro
-      expect(association).to eq(:has_many)
-    end
-
-    it 'belongs_to user' do
-      association = Order.reflect_on_association(:user).macro
-      expect(association).to eq(:belongs_to)
-    end
-  end
-
   describe 'validation test' do
     it 'is valid with user and order_details' do
       order = Order.new(user_id: 1)

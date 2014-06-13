@@ -1,17 +1,18 @@
 feature 'ログインする' do
-  scenario '有効な名前を入力して送信ボタンを押すとログインしてユーザー名がでる' do
-    User.create(name: 'Bob')
-
+  before do
     visit new_session_path
-    fill_in 'sessions_name' , :with => 'Bob'
+    User.create! name: 'Bob'
+  end
 
+  scenario '有効な名前を入力して送信ボタンを押すとログインしてユーザー名がでる' do
+    fill_in 'ユーザー名' , :with => 'Bob'
     click_button 'ログイン'
 
     expect(page).to have_content 'こんにちはBobさん'
   end
+
   scenario '無効な名前を入力して送信ボタンを押すとログイン失敗メッセージがでる' do
-    visit new_session_path
-    fill_in 'sessions_name' , :with => 'Bob'
+    fill_in 'ユーザー名' , :with => 'Alice'
 
     click_button 'ログイン'
 

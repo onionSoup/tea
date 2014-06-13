@@ -17,13 +17,14 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem "capybara-webkit"
+  gem 'database_rewinder'
+  gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-stack_explorer'
-  gem 'factory_girl_rails'
-  gem 'capybara'
-  gem "capybara-webkit"
+  gem 'rspec-rails', '~> 3.0.0'
 end
 
 group :production do
