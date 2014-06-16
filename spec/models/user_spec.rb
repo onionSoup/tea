@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  remember_token :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 describe User do
   it 'has remember_token by before_create callback' do
     user = User.create(name: 'Smith')

@@ -5,8 +5,7 @@ feature '注文作成', :js do
 
     #ログインする。
     create(:user, name: 'Bob')
-    visit 'sessions/new'
-    #binding.pry
+    visit '/sessions/new'
     fill_in 'ユーザー名', :with => 'Bob'
     click_button 'ログイン'
   end

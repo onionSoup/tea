@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: order_details
+#
+#  id         :integer          not null, primary key
+#  order_id   :integer
+#  item_id    :integer
+#  quantity   :integer
+#  then_price :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 #TO DO beforeやsubjectを使って書き直す
 describe OrderDetail do
   describe '.price_sum' do

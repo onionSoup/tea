@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: items
+#
+#  id                        :integer          not null, primary key
+#  name                      :string(255)
+#  price                     :integer
+#  nestle_index_from_the_top :integer
+#  created_at                :datetime
+#  updated_at                :datetime
+#
+
 describe Item do
   describe 'validation test' do
     it 'is valid with an unique name and positive number price' do

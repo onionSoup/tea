@@ -21,6 +21,7 @@ group :development, :test do
   gem "capybara-webkit"
   gem 'database_rewinder'
   gem 'factory_girl_rails'
+  gem 'launchy'
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-stack_explorer'

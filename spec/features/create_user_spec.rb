@@ -1,6 +1,6 @@
 feature 'ユーザー登録' do
   background do
-    visit 'users/new'
+    visit '/users/new'
   end
 
   scenario '有効な名前を入力して送信ボタンを押すとユーザーができてユーザー名がでる' do

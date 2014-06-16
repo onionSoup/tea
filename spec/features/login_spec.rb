@@ -1,6 +1,6 @@
 feature 'ログインする' do
   before do
-    visit new_session_path
+    visit '/sessions/new'
     User.create! name: 'Bob'
   end
 
