@@ -24,6 +24,7 @@ feature '引換済み商品' do
     click_button 'このページの引換情報を削除'
 
     expect(page.current_path).to eq('/orders/exchanged')
+    expect(page).to have_content('商品の削除が完了しました。')
     expect(page).not_to have_content('Alice')
   end
 end

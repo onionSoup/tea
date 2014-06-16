@@ -12,14 +12,17 @@ feature '引換用ページ' do
 
   scenario '何もチェックを入れないとき、ボタンを押しても移動しない' do
     click_button '引換の完了をシステムに登録'
+
     expect(page.current_path).to eq('/orders/arrived')
   end
 
-  scenario '注文をチェックして、登録ボタンを押す場合' do
+  scenario '注文をチェックして登録ボタンを押す場合、引換済みページに移動して成功メッセージがでる' do
     #これが良くない。しかし、後々１ユーザー１オーダーにした際には、userのラベルからcheckboxを特定できるようになる。
     check 'checkbox_no_0'
     click_button '引換の完了をシステムに登録'
+
     expect(page.current_path).to eq('/orders/exchanged')
+    expect(page).to have_content('引換したことを登録しました。')
     expect(page).to have_content('Alice')
   end
 end

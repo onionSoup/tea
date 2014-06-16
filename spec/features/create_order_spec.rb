@@ -2,8 +2,6 @@ feature '注文作成', :js do
   background do
     create(:item, name: 'アイスミント')
     create(:item, name: '紅茶')
-
-    #ログインする。
     login_as('Bob')
   end
 

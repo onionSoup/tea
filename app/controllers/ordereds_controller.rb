@@ -10,8 +10,7 @@ class OrderedsController < ApplicationController
   def arrive
     updated = Order.ordered.update_all(state: Order.states['arrived']).nonzero?
     if updated
-      flash[:success] = 'ネスレからお茶が届いたことを登録しました。'
-      redirect_to arrived_path
+      redirect_to arrived_path, flash: {success: 'ネスレからお茶が届いたことを登録しました。'}
     else
       redirect_to ordered_path
     end
