@@ -7,7 +7,8 @@ class ExchangedsController < ApplicationController
   end
 
   def destroy
-    Order.destroy_all state: Order.states['exchanged']
-    redirect_to registered_path, :flash => {:success => '商品の削除が完了しました。'}
+    update = Order.destroy_all(state: Order.states['exchanged'])
+    message = {:success => '商品の削除が完了しました。'} if update.any?
+    redirect_to exchanged_path, :flash => message
   end
 end
