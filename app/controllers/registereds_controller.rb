@@ -9,8 +9,11 @@ class RegisteredsController < ApplicationController
 
   def order
     updated = Order.registered.update_all(state: Order.states['ordered']).nonzero?
-
-    flash[:success] = 'ネスレ公式へ注文したことを登録しました。' if updated
-    redirect_to ordered_path
+    if updated
+      flash[:success] = 'ネスレ公式へ注文したことを登録しました。'
+      redirect_to ordered_path
+    else
+      redirect_to registered_path
+    end
   end
 end

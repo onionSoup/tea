@@ -1,5 +1,6 @@
+#これとは別に、ExampleHelper.login_as()を用意。
 feature 'ログインする' do
-  before do
+  background do
     visit '/sessions/new'
     User.create! name: 'Bob'
   end

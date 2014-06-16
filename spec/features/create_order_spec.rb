@@ -4,10 +4,7 @@ feature '注文作成', :js do
     create(:item, name: '紅茶')
 
     #ログインする。
-    create(:user, name: 'Bob')
-    visit '/sessions/new'
-    fill_in 'ユーザー名', :with => 'Bob'
-    click_button 'ログイン'
+    login_as('Bob')
   end
 
   #selecter_indexは上から何個目（０スタート）を数える
