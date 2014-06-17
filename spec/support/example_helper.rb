@@ -5,8 +5,8 @@ module ExampleHelper
     red_tea = create(:item, name: '紅茶', price: 756)
 
     order = build(:order, user_id: user.id, state: Order.states[state]) do |order|
-      order.order_details.build(attributes_for(:order_detail, item_id: ice_mint.id, quantity: 1))
-      order.order_details.build(attributes_for(:order_detail, item_id: red_tea.id, quantity: 9))
+      order.order_details.build attributes_for :order_detail, item_id: ice_mint.id, quantity: 1
+      order.order_details.build attributes_for :order_detail, item_id: red_tea.id, quantity: 9
     end
     order.save
     order

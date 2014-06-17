@@ -1,19 +1,14 @@
 describe Order do
   describe 'validation test' do
     it 'is valid with user and order_details' do
-      order = Order.new(user_id: 1)
-      order.order_details.build(item_id: 1, quantity: 1, then_price: 100)
+      order = build(:order, user_id: 1) do |order|
+        order.order_details.build attributes_for :order_detail, item_id: 1
+      end
       expect(order).to be_valid
     end
 
-    it 'is invalid without user' do
-      order = Order.new
-      order.order_details.build(item_id: 1, quantity: 1, then_price: 100)
-      expect(order).to be_invalid
-    end
-
     it 'is invalid without order_details' do
-      order = Order.new(user_id: 1)
+      order = build(:order)
       expect(order).to be_invalid
     end
   end

@@ -2,7 +2,7 @@
 feature 'ログインする' do
   background do
     visit '/sessions/new'
-    create(:user, name: 'Bob')
+    create :user, name: 'Bob'
   end
 
   scenario '有効な名前を入力して送信ボタンを押すとログインしてユーザー名がでる' do
