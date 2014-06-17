@@ -3,6 +3,7 @@ RSpec.configure do |config|
   # additional factory_girl configuration
 
 #orderとorder_detailのlintに通る書き方を考えたらコメントをはずす
+=begin
   config.before(:suite) do
     begin
       DatabaseRewinder.start
@@ -11,4 +12,5 @@ RSpec.configure do |config|
       DatabaseRewinder.clean
     end
   end
+=end
 end
