@@ -3,7 +3,6 @@ module ExampleHelper
     user = create(:user, name: 'Alice')
     ice_mint = create(:item, name: 'アイスミント', price: 756)
     red_tea = create(:item, name: '紅茶', price: 756)
-
     create(:order,
       user_id: user.id,
       state:   Order.states[state],
