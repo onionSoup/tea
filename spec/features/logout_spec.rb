@@ -9,9 +9,7 @@ feature 'ログアウトする' do
     expect(page).to have_content 'ログアウトしました'
   end
 
-  #descriptionが長くなるので、シナリオを分ける
   scenario 'ログアウトした後は、新規ユーザー登録ページに飛ぶ' do
-    #backgroundにまとめられるけど、ユーザー目線のシナリオとしてはここに書いたほうがいいと思う。
     click_link 'ログアウト'
 
     expect(page).to have_content '新規ユーザー登録'

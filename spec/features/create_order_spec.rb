@@ -43,7 +43,7 @@ feature '注文作成', :js do
     expect(page).to have_content '注文を確定する'
   end
 
-  scenario '空白の注文明細と、品名価格ともに指令された注文明細が混じった場合、後者のみ注文される。' do
+  scenario '空白の注文明細と、品名価格ともに指定された注文明細が混じった場合、後者のみ注文される。' do
     choose_item_quantity_at_nth_selector 'アイスミント', 0, 0
     choose_item_quantity_at_nth_selector '紅茶', 10, 1
     click_button '注文を確定する'

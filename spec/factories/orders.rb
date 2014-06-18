@@ -21,6 +21,5 @@ FactoryGirl.define do
 
   factory :order do
     user
-    #このファクトリの定義が完了する前にorder_detailをつくって、このorderのidをいれることができれば、lintに通るファクトリができる。
   end
 end

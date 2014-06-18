@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       flash[:success] = "ユーザー登録しました。"
       redirect_to orders_path
     else
+      @invalid_error_message =  @user.errors.messages[:name].join
       render 'new'
     end
   end
