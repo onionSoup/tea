@@ -9,13 +9,12 @@ feature '注文作成', :js do
   #もっと良い名前があるはず
   def choose_item_quantity_at_nth_selector(item, quantity,selecter_index)
     select item, :from => "order_order_details_attributes_#{selecter_index}_item_id"
-    #こっちは日本語をつけないと動かない
     if quantity.nonzero?
       target = "#{quantity}個"
     else
       target = ''
     end
-      select target, :from => "order_order_details_attributes_#{selecter_index}_quantity"
+    select target, :from => "order_order_details_attributes_#{selecter_index}_quantity"
   end
 
   scenario '何も選択せずに注文ボタンを押すと、同じ画面に' do

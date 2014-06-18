@@ -32,9 +32,9 @@ FactoryGirl.define do
     after(:build) do |detail, evaluator|
       #ガード節で書きたいけど、breakはlocal jump errorになる
       if evaluator.make_order
-        detail.item_id = create(:index_name_tea).id
+        #関連に直接入れられる
+        detail.item = create(:index_name_tea)
         order = create :order, order_details: [detail]
-        binding.pry
       end
     end
     #例えば以下のようなテストを作った時、ちゃんと通る。

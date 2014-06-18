@@ -1,6 +1,6 @@
 feature '商品の削除' do
   def create_order_of_herb_tea
-    item = create :item, name: 'herb_tea'
+    item = create(:item, name: 'herb_tea')
     create :order, order_details: [build(:order_detail, item_id: item.id)]
     visit '/admin/items'
   end
