@@ -10,7 +10,12 @@ feature '注文作成', :js do
   def choose_item_quantity_at_nth_selector(item, quantity,selecter_index)
     select item, :from => "order_order_details_attributes_#{selecter_index}_item_id"
     #こっちは日本語をつけないと動かない
-    select "#{quantity}個", :from => "order_order_details_attributes_#{selecter_index}_quantity"
+    if quantity.nonzero?
+      target = "#{quantity}個"
+    else
+      target = ''
+    end
+      select target, :from => "order_order_details_attributes_#{selecter_index}_quantity"
   end
 
   scenario '何も選択せずに注文ボタンを押すと、同じ画面に' do
@@ -31,5 +36,23 @@ feature '注文作成', :js do
     click_button '注文を確定する'
 
     expect(page).to have_content 'ご注文の確認'
+  end
+
+  scenario '品名と量のいずれかが空白の注文明細だけの場合、注文はされない' do
+    choose_item_quantity_at_nth_selector 'アイスミント', 0, 0
+    choose_item_quantity_at_nth_selector '', 8, 1
+    click_button '注文を確定する'
+
+    expect(page).to have_content '注文を確定する'
+  end
+
+  scenario '空白の注文明細と、品名価格ともに指令された注文明細が混じった場合、後者のみ注文される。' do
+    choose_item_quantity_at_nth_selector 'アイスミント', 0, 0
+    choose_item_quantity_at_nth_selector '紅茶', 10, 1
+    click_button '注文を確定する'
+
+    expect(page).to have_content 'ご注文の確認'
+    expect(page).not_to have_content 'アイスミント'
+    expect(page).to have_content '紅茶'
   end
 end
