@@ -8,10 +8,12 @@ $(function() {
     var sum = $details.reduce(function(acc, detail) {
       var $detail   = $(detail),
           //説明用の変数
-          itemLabel = $detail.find('select.name_price_options option:selected').text(),
-          price     = itemLabel.match(/(\d+)円/)[1],
-          //value属性
+          itemLabel = $detail.find('select.name_price_options option:selected').text();
+      if(!itemLabel) return acc;
+
+      var price     = itemLabel.match(/(\d+)円/)[1],
           quantity  = $detail.find('select.quantity_options').val();
+      if(!quantity) return acc;
 
       return acc + price * quantity;
     }, 0);

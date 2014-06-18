@@ -23,7 +23,7 @@ class Order < ActiveRecord::Base
 
   validates :user_id, presence: true
 
-  scope :name_price_quantity_sum, -> {
+  scope :select_name_and_price_and_sum_of_quantity, -> {
     joins(order_details: :item).group('items.id', 'order_details.then_price').select('items.name, order_details.then_price, SUM(quantity) AS quantity')
   }
 
