@@ -19,13 +19,13 @@ feature '引換済み商品' do
     create_order 'exchanged'
     visit '/orders/exchanged'
 
-    expect(page).to have_content 'Alice'
+    expect(page).to have_content 'アイスミント'
 
     click_button 'このページの引換情報を削除'
 
     expect(page.current_path).to eq '/orders/exchanged'
     expect(page).to have_content '商品の削除が完了しました。'
-    expect(page).not_to have_content 'Alice'
+    expect(page).not_to have_content 'アイスミント'
   end
 end
 

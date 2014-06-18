@@ -30,8 +30,12 @@ class Admin::ItemsController < ApplicationController
   end
 
   def destroy
-    Item.destroy params[:id]
-
+    @item = Item.find(params[:id])
+    if @item.order_details.any?
+      flash[:error] = 'この商品を使った注文情報があるので、削除できません。'
+    else
+      Item.destroy @item
+    end
     redirect_to :admin_items
   end
 
