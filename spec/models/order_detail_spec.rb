@@ -8,6 +8,8 @@ describe OrderDetail do
     end
   end
 
+  #これはメソッドのテストではなくて、振る舞いのテスト（describeを書き換えること）
+  #.copy_then_priceはクラスメソッドと思われる。インスタンスメソッドなら#copy_then_priceを
   describe '.copy_then_price' do
     it 'copy item.price to detail.then_price' do
       item = create(:item, price: 100)

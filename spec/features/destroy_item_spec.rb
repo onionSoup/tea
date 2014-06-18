@@ -2,7 +2,6 @@ feature '商品の削除' do
   def create_order_of_herb_tea
     item = create(:item, name: 'herb_tea')
     create :order, order_details: [build(:order_detail, item_id: item.id)]
-    visit '/admin/items'
   end
 
   scenario '削除リンクを押せば、既存の商品を削除できる' do
@@ -17,6 +16,7 @@ feature '商品の削除' do
 
   scenario '商品Aを含む注文情報がある場合、商品Aは削除できない' do
     create_order_of_herb_tea
+    visit '/admin/items'
     click_link 'destroy_0th_item'
 
     expect(page).to have_content 'この商品を使った注文情報があるので、削除できません。'
@@ -26,6 +26,7 @@ feature '商品の削除' do
   scenario '商品Aを含む注文情報を削除すれば、商品Aを削除できる。' do
     login_as 'Alice'
     create_order_of_herb_tea
+    visit '/admin/items'
 
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     click_link '管理者用'
