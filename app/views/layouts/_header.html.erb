@@ -29,4 +29,7 @@
   <% if flash[:success] %>
     <p id="flash_success_p"><%= flash[:success] %></p>
   <% end %>
+  <% if @invalid_error %>
+    <p id="invalid_error_p"><%= @invalid_error %></p>
+  <% end %>
 </header>
