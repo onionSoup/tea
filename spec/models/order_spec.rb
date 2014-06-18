@@ -1,9 +1,10 @@
 describe Order do
   describe 'validation test' do
     it 'is valid with user and order_details' do
-      order = build(:order, user_id: 1) do |order|
-        order.order_details.build attributes_for :order_detail, item_id: 1
-      end
+      order = build(:order, user_id: 1) {|order|
+        order.order_details.build attributes_for(:order_detail, item_id: 1)
+      }
+      
       expect(order).to be_valid
     end
 

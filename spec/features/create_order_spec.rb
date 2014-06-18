@@ -7,14 +7,12 @@ feature '注文作成', :js do
 
   #selecter_indexは上から何個目（０スタート）を数える
   #もっと良い名前があるはず
-  def choose_item_quantity_at_nth_selector(item, quantity,selecter_index)
-    select item, :from => "order_order_details_attributes_#{selecter_index}_item_id"
-    if quantity.nonzero?
-      target = "#{quantity}個"
-    else
-      target = ''
-    end
-    select target, :from => "order_order_details_attributes_#{selecter_index}_quantity"
+  def choose_item_quantity_at_nth_selector(item, quantity, selecter_index)
+    select item, from: "order_order_details_attributes_#{selecter_index}_item_id"
+    #こっちは日本語をつけないと動かない
+    target = quantity.zero? ? '' : "#{quantity}個"
+
+    select target, from: "order_order_details_attributes_#{selecter_index}_quantity"
   end
 
   scenario '何も選択せずに注文ボタンを押すと、同じ画面に' do

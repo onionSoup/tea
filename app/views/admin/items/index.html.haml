@@ -9,9 +9,9 @@
     %th
     %th
 
-  - @items.each_with_index do |item, index|
+  - @items.each_with_index do |item, i|
     %tr
       %td= item.name
       %td= item.price
-      %th= link_to '編集', edit_admin_item_path(item), id: "edit_#{index}th_item"
-      %th= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_#{index}th_item"
+      %th= link_to '編集', edit_admin_item_path(item), id: "edit_#{i}th_item"
+      %th= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_#{i}th_item"
