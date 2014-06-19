@@ -12,6 +12,8 @@
 class User < ActiveRecord::Base
   has_many :orders, dependent: :destroy
   before_create :create_remember_token
+  #後でi18nを使う必要がある。
+  validates :name,  presence: {message: '名前を入力してください。'}, uniqueness: {message: 'その名前は既に使われています。別の名前を入力してください'}
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

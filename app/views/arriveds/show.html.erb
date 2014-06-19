@@ -16,9 +16,9 @@
                 <th>合計支払い金額</th>
                 <th>商品内訳</th>
               </tr>
-              <% @orders.each do |order| %>
+              <% @orders.each_with_index do |order, index| %>
                 <tr>
-                  <td><%= check_box_tag 'order_ids[]', order.id %></td>
+                  <td><%= check_box_tag 'order_ids[]', order.id, false , :id => "checkbox_no_#{index}" %></td>
                   <td><%= order.user.name %></td>
                   <td><%= order.order_details.price_sum  %></td>
                   <td>

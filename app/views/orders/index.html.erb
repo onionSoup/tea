@@ -14,14 +14,14 @@
                 <%= order_details_form.label :item_id, '品名：' %>
                 <%= order_details_form.select(
                   :item_id ,
-                  Item.all.map{|it| ["#{it.name}(#{it.price}円)", it.id] } ,
+                  item_options ,
                   {} ,
                   class: 'name_price_options'
                 ) %>
                 <%= order_details_form.label :quantity, '数量：' %>
                 <%= order_details_form.select(
                   :quantity ,
-                  (0..19).map {|i| ["#{i}個", i] },
+                  quantity_options ,
                   {} ,
                   class: 'quantity_options'
                 ) %>

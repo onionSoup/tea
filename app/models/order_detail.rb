@@ -17,10 +17,9 @@ class OrderDetail < ActiveRecord::Base
 
   before_create :copy_then_price
 
-  validates :item_id,  presence: true
+  validates :item_id, presence: true
+  validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
-
-#これを保存するときに呼ぶ
   def copy_then_price
     self.then_price = item.price
   end

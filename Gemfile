@@ -12,11 +12,20 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'annotate'
   gem 'bullet'
+  gem 'quiet_assets'
+  gem 'spring'
+end
+
+group :development, :test do
+  gem 'capybara'
+  gem "capybara-webkit"
+  gem 'database_rewinder'
+  gem 'factory_girl_rails'
+  gem 'launchy'
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-stack_explorer'
-  gem 'quiet_assets'
-  gem 'spring'
+  gem 'rspec-rails', '~> 3.0.0'
 end
 
 group :production do
