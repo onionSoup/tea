@@ -1,6 +1,7 @@
 class ArrivedsController < ApplicationController
   def show
-    @orders = Order.includes(:user, order_details: :item).arrived
+    #@orders = Order.includes(:user, order_details: :item).arrived
+    @users = User.includes(order: {order_details: :item}).where(orders: { state: Order.states['arrived'] })
   end
 
   def exchange

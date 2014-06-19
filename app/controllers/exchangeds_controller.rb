@@ -1,6 +1,6 @@
 class ExchangedsController < ApplicationController
   def show
-    @users = User.includes(orders: {order_details: :item}).where('orders.state = ?', Order.states['exchanged']).references(:orders)
+    @users = User.includes(order: {order_details: :item}).where(orders: { state: Order.states['exchanged'] })
   end
 
   def destroy
