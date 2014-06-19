@@ -3,16 +3,13 @@ Rails.application.routes.draw do
 
   #resources :items
 
-  resources :orders, only: [:index, :create]
+  resource :order
 
   resources :users, only: [:new, :create, :show]
 
   resources :sessions, only: [:new, :create]
 
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-
-
-
 
   resources :orders do
     collection do

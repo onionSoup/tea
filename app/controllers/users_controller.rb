@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:success] = "ユーザー登録しました。"
-      redirect_to orders_path
+      redirect_to new_order_path
     else
       @invalid_error_message =  @user.errors.messages[:name].join
       render 'new'

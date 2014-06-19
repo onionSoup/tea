@@ -10,7 +10,7 @@
       <p id="greeting">こんにちは<%= name %>さん</p>
       <% if @current_user %>
         <p id="sign_out"><%= link_to 'ログアウト', '/signout', method: 'delete' %></p>
-        <p><%= link_to '注文画面', orders_path %></p>
+        <p><%= link_to '注文画面', new_order_path %></p>
         <p id="mypage" style="display: none;"><%= link_to 'マイページ',user_path(@current_user) %></p>
         <p id="admin_page"><%= link_to '管理者用', registered_path %></p>
       <% else  %>

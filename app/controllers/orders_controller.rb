@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
-
-  def index
+  def new
     @order = Order.new
     25.times { @order.order_details.build }
     @items = Item.order(:id)
@@ -8,7 +7,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    redirect_to orders_path unless @order.save
+    redirect_to new_order_path unless @order.save
   end
 
   private
