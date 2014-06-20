@@ -12,15 +12,29 @@ describe Order do
     expect(order).to be_invalid
   end
 
-  it 'is invalid with order_details of same item' do
-    item = create(:item)
-    order = build(:order,
-      order_details: [
-        build(:order_detail, item: item),
-        build(:order_detail, item: item)
-      ]
-    )
-    expect(order) .to be_invalid
-    expect(order.errors.messages[:base].join).to match /order_details_must_have_unique_item_within_same_order/
+  context 'when there is same item' do
+    it 'is invalid with order_details of same item' do
+      item = create(:item)
+      order = build(:order,
+        order_details: [
+          build(:order_detail, item: item),
+          build(:order_detail, item: item)
+        ]
+      )
+      expect(order).to be_invalid
+      expect(order.errors.messages[:base].join).to match /order_details_must_have_unique_item_within_same_order/
+    end
+
+    it 'is valid with two orders of same item' do
+      alice = create(:user, name: 'Alice')
+      bob = create(:user, name: 'Bob')
+      same_item = create(:item)
+
+      alice.order = build(:plain_order, order_details: [build(:order_detail, item: same_item)])
+      bob.order = build(:plain_order, order_details: [build(:order_detail, item: same_item)])
+
+      expect(alice.order).to be_valid
+      expect(bob.order).to be_valid
+    end
   end
 end

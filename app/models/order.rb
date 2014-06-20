@@ -50,7 +50,7 @@ class Order < ActiveRecord::Base
   #validates :item_id, uniqueness: {scope: :order}をvalidates_associated :order_details から呼ぶことで近いことはできる。しかしorder.id == nilの時validになる。そのため以下を用意。
   def check_uniqueness_of_item_id_within_same_order
     item_order_ids = order_details.map {|detail| [detail.item_id, self.id] }.sort
-    duplication = item_order_ids.select.with_index {|target,i| target == item_order_ids[i+1] }
-    errors.add(:base, :order_details_must_have_unique_item_within_same_order) if duplication.any?
+    duplication_counter = item_order_ids.size - item_order_ids.uniq.size
+    errors.add(:base, :order_details_must_have_unique_item_within_same_order) if duplication_counter.nonzero?
   end
 end

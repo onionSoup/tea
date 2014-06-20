@@ -21,4 +21,7 @@ FactoryGirl.define do
   factory :order do
     user
   end
+
+  factory :plain_order, class: Order do
+  end
 end
