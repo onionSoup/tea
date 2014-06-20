@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   has_many :order_details, dependent: :destroy
   belongs_to :user
 
-  accepts_nested_attributes_for :order_details, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
+  accepts_nested_attributes_for :order_details, allow_destroy: true, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
 
   validate do
     check_order_details_number

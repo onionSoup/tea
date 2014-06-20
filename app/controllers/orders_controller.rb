@@ -22,7 +22,10 @@ class OrdersController < ApplicationController
     if @order.update_attributes(order_params)
       render :create
     else
+      binding.pry
+
       redirect_to edit_order_path
+
     end
   end
 
