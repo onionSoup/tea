@@ -19,8 +19,8 @@ class Order < ActiveRecord::Base
 
   validate do
     check_order_details_number
+    check_uniqueness_of_item_id_within_same_order
   end
-
   validates :user_id, presence: true
 
   scope :select_name_and_price_and_sum_of_quantity, -> {
@@ -45,5 +45,12 @@ class Order < ActiveRecord::Base
     unless order_details_count_valid?
       errors.add(:base, :order_details_too_short, :count => ORDER_DETAILS_COUNT_MIN)
     end
+  end
+
+  #validates :item_id, uniqueness: {scope: :order}をvalidates_associated :order_details から呼ぶことで近いことはできる。しかしorder.id == nilの時validになる。そのため以下を用意。
+  def check_uniqueness_of_item_id_within_same_order
+    item_order_ids = order_details.map {|detail| [detail.item_id, self.id] }.sort
+    duplication = item_order_ids.select.with_index {|target,i| target == item_order_ids[i+1] }
+    errors.add(:base, :order_details_must_have_unique_item_within_same_order) if duplication.any?
   end
 end

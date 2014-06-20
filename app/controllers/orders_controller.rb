@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
 
   def edit
     @order = User.find(current_user).order
+    size = @order.order_details.size
+    (25 - size).times { @order.order_details.build } if size < 25
     @items = Item.order(:id)
   end
 

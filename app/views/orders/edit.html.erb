@@ -5,12 +5,11 @@
   <div class="order_new_content">
     <div id="order_new_select">
       <h2>ほしいお茶と数を選択してください</h2>
-      <p id="same_quantity" style="display: none;"><input type="checkbox" >前回と同じ注文を指定</p>
       <%= form_for(@order) do |f|%>
         <div id="order_flex_box">
           <div class="tea_select">
             <%= f.hidden_field :user_id, {:value => @current_user.id} %>
-            <%= f.fields_for :order_details do |order_details_form| %>
+            <%= f.fields_for :order_details, include_id: false do |order_details_form| %>
               <div class="order_details_form">
                 <%= order_details_form.label :item_id, '品名：' %>
                 <%= order_details_form.select(
