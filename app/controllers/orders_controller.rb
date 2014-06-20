@@ -11,14 +11,24 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @order = User.find(current_user).order
+    @order = current_user.order
     size = @order.order_details.size
     (25 - size).times { @order.order_details.build } if size < 25
     @items = Item.order(:id)
   end
 
-  private
-    def order_params
-      params.require(:order).permit(:user_id, order_details_attributes: [:id, :item_id, :order_id, :quantity ] )
+  def update
+    @order = current_user.order
+    if @order.update_attributes(order_params)
+      render :create
+    else
+      redirect_to edit_order_path
     end
+  end
+
+  private
+
+  def order_params
+    params.require(:order).permit(:user_id, order_details_attributes: [:id, :item_id, :order_id, :quantity ] )
+  end
 end
