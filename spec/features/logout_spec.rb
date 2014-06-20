@@ -1,6 +1,6 @@
 feature 'ログアウトする' do
   background do
-    login_as 'Alice'
+    create_user_and_login_as 'Alice'
   end
 
   scenario 'ログインしてるとき、リンクを踏んでログアウトができて、成功メッセージが出る' do

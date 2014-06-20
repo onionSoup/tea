@@ -10,8 +10,13 @@ class OrdersController < ApplicationController
     redirect_to new_order_path unless @order.save
   end
 
+  def edit
+    @order = User.find(current_user).order
+    @items = Item.order(:id)
+  end
+
   private
     def order_params
-      params.require(:order).permit(:user_id, :time_limit_id, order_details_attributes: [:id, :item_id, :order_id, :quantity ] )
+      params.require(:order).permit(:user_id, order_details_attributes: [:id, :item_id, :order_id, :quantity ] )
     end
 end

@@ -8,4 +8,8 @@ module OrdersHelper
   def quantity_options
     (1..19).map {|i| ["#{i}個", i] }.unshift(['', ''])
   end
+
+  def create_or_edit_order_path_of(user)
+    user.order ?  edit_order_path : new_order_path
+  end
 end

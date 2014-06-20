@@ -13,8 +13,12 @@ module ExampleHelper
     )
   end
 
-  def login_as(name)
+  def create_user_and_login_as(name)
     create :user, name: name
+    login_as name
+  end
+
+  def login_as(name)
     visit '/sessions/new'
     fill_in 'ユーザー名', :with => name
     click_button 'ログイン'

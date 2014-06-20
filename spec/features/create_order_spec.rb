@@ -2,7 +2,7 @@ feature '注文作成', :js do
   background do
     create :item, name: 'アイスミント'
     create :item, name: '紅茶'
-    login_as 'Bob'
+    create_user_and_login_as 'Bob'
   end
 
   #selecter_indexは上から何個目（０スタート）を数える

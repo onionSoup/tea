@@ -24,7 +24,7 @@ feature '商品の削除' do
   end
 
   scenario '商品Aを含む注文情報を削除すれば、商品Aを削除できる。' do
-    login_as 'Alice'
+    create_user_and_login_as 'Alice'
     create_order_of_herb_tea
     visit '/admin/items'
 
