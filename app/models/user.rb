@@ -12,6 +12,7 @@
 class User < ActiveRecord::Base
   has_one :order, dependent: :destroy
   before_create :create_remember_token
+  after_create :create_order
   #後でi18nを使う必要がある。
   validates :name,  presence: {message: '名前を入力してください。'}, uniqueness: {message: 'その名前は既に使われています。別の名前を入力してください'}
 

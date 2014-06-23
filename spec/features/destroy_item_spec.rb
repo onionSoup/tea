@@ -20,13 +20,14 @@ feature '商品の削除' do
     click_link 'destroy_0th_item'
 
     expect(page).to have_content 'この商品を使った注文情報があるので、削除できません。'
-    expect(page). to have_content 'herb_tea'
+    expect(page).to have_content 'herb_tea'
   end
 
   scenario '商品Aを含む注文情報を削除すれば、商品Aを削除できる。' do
-    create_user_and_login_as 'Alice'
-    create_order_of_herb_tea
-    visit '/admin/items'
+    alice = create(:user, name: 'Alice')
+    item = create(:item, name: 'herb_tea')
+    alice.order.order_details << OrderDetail.new(item: item, quantity: 1)
+    login_as('Alice')
 
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     click_link '管理者用'
@@ -34,6 +35,7 @@ feature '商品の削除' do
     click_button 'お茶の受領をシステムに登録'
     check 'checkbox_no_0'
     click_button '引換の完了をシステムに登録'
+
     click_button 'このページの引換情報を削除'
 
     #商品管理ページで、herb_teaを削除する。

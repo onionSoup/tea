@@ -1,21 +1,11 @@
 class OrdersController < ApplicationController
   before_action :need_signed_in, :guide_to_appropriate_form, only: [:new, :edit]
-
-  def new
-    @order = Order.new
-    (Constants::DETAILS_SIZE_OF_FORM).times { @order.order_details.build }
-    @items = Item.order(:id)
-  end
-
-  def create
-    @order = Order.create(params_without_blank_details)
-    redirect_to new_order_path unless @order.order_details.any?
-  end
+  DETAILS_SIZE_OF_FORM = 25
 
   def edit
     @order = current_user.order
     size = @order.order_details.size
-    (Constants::DETAILS_SIZE_OF_FORM - size).times { @order.order_details.build } if size < Constants::DETAILS_SIZE_OF_FORM
+    (DETAILS_SIZE_OF_FORM - size).times { @order.order_details.build } if size < DETAILS_SIZE_OF_FORM
     @items = Item.order(:id)
   end
 

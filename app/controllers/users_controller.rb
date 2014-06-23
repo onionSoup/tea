@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.create_order
       sign_in @user
       flash[:success] = "ユーザー登録しました。"
       redirect_to new_order_path

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   #resources :items
 
-  resource :order
+  resource :order, only: [:edit, :update]
 
   resources :users, only: [:new, :create, :show]
 
