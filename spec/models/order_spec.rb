@@ -37,4 +37,16 @@ describe Order do
       expect(bob.order).to be_valid
     end
   end
+
+  context 'when destroy' do
+    it 'should create new order after destroy order' do
+      alice = create(:user, name: 'Alice')
+      item = create(:item)
+      alice.order.order_details << OrderDetail.new(item: item, quantity: 1)
+
+      Order.find(alice.order).destroy
+      order_of_alice = User.find(alice).order
+      expect(order_of_alice.order_details).to eq([])
+    end
+  end
 end
