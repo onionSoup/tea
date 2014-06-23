@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    25.times { @order.order_details.build }
+    (Constants::DETAILS_SIZE_OF_FORM).times { @order.order_details.build }
     @items = Item.order(:id)
   end
 
@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
 
   def edit
     @order = current_user.order
-    redirect_to new_session_path and return unless @order
     size = @order.order_details.size
     (Constants::DETAILS_SIZE_OF_FORM - size).times { @order.order_details.build } if size < Constants::DETAILS_SIZE_OF_FORM
     @items = Item.order(:id)
@@ -22,7 +21,8 @@ class OrdersController < ApplicationController
 
   def update
     @order = current_user.order
-    if @order.update_attributes(params_without_blank_details)
+    @order.update_attributes(params_without_blank_details)
+    if params_without_blank_details[:order_details_attributes].any?
       render :create
     else
       redirect_to edit_order_path
