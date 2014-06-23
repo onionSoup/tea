@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :need_signed_in, only: :new
   def new
-    redirect_to new_session_path unless signed_in?
     @order = Order.new
     25.times { @order.order_details.build }
     @items = Item.order(:id)
@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     @order = current_user.order
     redirect_to new_session_path unless @order
     size = @order.order_details.size
-    (25 - size).times { @order.order_details.build } if size < 25
+    (Constants::DETAILS_SIZE_OF_FORM - size).times { @order.order_details.build } if size < Constants::DETAILS_SIZE_OF_FORM
     @items = Item.order(:id)
   end
 
@@ -33,5 +33,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:user_id, order_details_attributes: [:id, :item_id, :order_id, :quantity ] )
+  end
+
+  def need_signed_in
+    redirect_to new_session_path unless signed_in?
   end
 end

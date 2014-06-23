@@ -1,4 +1,4 @@
-function calc_sum($sumLabel, $details) {
+function calcSum($sumLabel, $details) {
     var sum = $details.reduce(function(acc, detail) {
       var $detail   = $(detail),
           itemLabel = $detail.find('select.name_price_options option:selected').text();
@@ -18,8 +18,8 @@ $(function() {
    var $sumLabel = $('#order_create_price_sum'),
        $details = $('div.order_details_form').toArray();
 
-  calc_sum($sumLabel, $details);
+  calcSum($sumLabel, $details);
   $('.name_price_options, .quantity_options').change(function(){
-    calc_sum($sumLabel, $details)
+    calcSum($sumLabel, $details)
   });
 });
