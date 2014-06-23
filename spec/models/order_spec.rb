@@ -7,9 +7,9 @@ describe Order do
     expect(order).to be_valid
   end
 
-  it 'is invalid without order_details' do
+  it 'is valid without order_details' do
     order = build(:order)
-    expect(order).to be_invalid
+    expect(order).to be_valid
   end
 
   context 'when there is same item' do

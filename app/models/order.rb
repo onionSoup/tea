@@ -18,7 +18,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :order_details, allow_destroy: true, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
 
   validate do
-    check_order_details_number
+    #check_order_details_number
     check_uniqueness_of_item_id_within_same_order
   end
   validates :user_id, presence: true
