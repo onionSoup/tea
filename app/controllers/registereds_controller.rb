@@ -8,7 +8,10 @@ class RegisteredsController < ApplicationController
   end
 
   def order
-    updated = Order.registered.update_all(state: Order.states['ordered']).nonzero?
+    updated = Order.registered
+                   .where(id: OrderDetail.select('order_id'))#.reject {|one_order| one_order.order_details.empty? }がarray返すので書いたが自信がない。
+                   .update_all(state: Order.states['ordered'])
+                   .nonzero?
     if updated
       flash[:success] = 'ネスレ公式へ注文したことを登録しました。'
       redirect_to ordered_path

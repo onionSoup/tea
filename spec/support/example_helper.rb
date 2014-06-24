@@ -23,4 +23,12 @@ module ExampleHelper
     fill_in 'ユーザー名', :with => name
     click_button 'ログイン'
   end
+
+  #上から#{selecter_index +1 }番目のセレクタで商品#{item}を#{quantity}個選ぶ。
+  def choose_item_quantity_at_nth_selector(item, quantity, selecter_index)
+    select item, from: "order_order_details_attributes_#{selecter_index}_item_id"
+    target = quantity.zero? ? '' : "#{quantity}個"
+    select target, from: "order_order_details_attributes_#{selecter_index}_quantity"
+  end
+
 end

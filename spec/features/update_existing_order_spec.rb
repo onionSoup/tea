@@ -1,44 +1,45 @@
 feature '既存の注文を修正する'do
   background do
-    create_order 'registered'
-
-    visit '/sessions/new'
-    fill_in 'ユーザー名', :with => 'Alice'
-    click_button 'ログイン'
+    alice = create(:user, name: 'Alice')
+    item = create(:item, name: 'herb_tea')
+    alice.order.order_details << OrderDetail.new(item: item, quantity: 1)
+    login_as('Alice')
   end
 
-  scenario '注文情報がある場合、新規注文はできない' do
-    pending('未実装')
-
-    visit 'order/new'
-    choose_item_quantity_at_nth_selector 'アイスミント', 2, 0
-    click_button '注文を確定する'
-    expect(page).not_to have_content 'ご注文の確認'
-  end
-
-  scenario 'まだネスレ入力用シートで入力してなければ注文の修正ができる' do
-    pending('未実装')
-    visit 'order/edit'
-    choose_item_quantity_at_nth_selector 'アイスミント', 2, 0
-    click_button '注文を確定する'
-    expect(page).to have_content 'ご注文の確認'
-  end
-
-  scenario 'ネスレ入力用シートで入力した場合、注文の修正はできない' do
-    pending('未実装')
-
-    visit 'orders/registered'
+  scenario 'ネスレ入力用シートでボタンを押した後、注文の修正はできない' do
+    visit '/orders/registered'
     click_button '注文の完了をシステムに登録'
 
-    visit 'order/edit'
-    choose_item_quantity_at_nth_selector 'アイスミント', 2, 0
-    click_button '注文を確定する'
-    expect(page).not_to have_content 'ご注文の確認'
+    visit '/order/edit'
+    expect(page).to have_content '注文の修正はできません。'
   end
 
-  scenario '注文情報を削除した後、再度注文を作れる。' do
-    pending('未実装')
+   scenario '注文が空の時、ネスレ入力用シートでボタンを押した後でも、注文作成、修正ができる。' do
+    #Bobでログインし直す
+    click_link 'ログアウト'
+    create_user_and_login_as 'Bob'
 
+    #ネスレ入力用シートでボタンを押す。Aliceの注文はネスレ公式に発注したことになる。
+    visit '/orders/registered'
+    click_button '注文の完了をシステムに登録'
+
+    #Bobは注文できる。ハーブティーを２個注文できるのを確認
+    visit '/order/edit'
+    expect(page).not_to have_content '注文の修正はできません。'
+                                         #item,      quantity, at_selector_number_form_top
+    choose_item_quantity_at_nth_selector 'herb_tea', 2,        0
+    click_button '注文を確定する'
+    expect(page).to have_content 'ご注文の確認'
+
+    #Aliceの注文は発注されたので修正できない
+    click_link 'ログアウト'
+    login_as 'Alice'
+    visit '/order/edit'
+    expect(page).to have_content '注文の修正はできません。'
+  end
+
+
+  scenario '注文情報を削除した後、再度注文を作れる。' do
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。DRYにしたいが名前が思いつかない。
     click_link '管理者用'
     click_button '注文の完了をシステムに登録'
@@ -47,8 +48,13 @@ feature '既存の注文を修正する'do
     click_button '引換の完了をシステムに登録'
     click_button 'このページの引換情報を削除'
 
-    visit 'order/new'
-    choose_item_quantity_at_nth_selector 'アイスミント', 2, 0
+    #注文情報削除後は、注文画面にいけることを確認する
+    click_link '注文画面'
+    expect(page).not_to have_content '注文の修正はできません。'
+
+    #注文情報削除後は、注文できることを確認する。
+                                         #item,      quantity, at_selector_number_form_topp
+    choose_item_quantity_at_nth_selector 'herb_tea', 2,        0
     click_button '注文を確定する'
     expect(page).to have_content 'ご注文の確認'
   end
