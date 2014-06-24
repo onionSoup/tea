@@ -1,11 +1,8 @@
 class OrdersController < ApplicationController
-  before_action :need_signed_in, :guide_to_appropriate_form, only: [:new, :edit]
-  DETAILS_SIZE_OF_FORM = 25
-
+  before_action :need_signed_in, only: [:edit]
   def edit
     @order = current_user.order
-    size = @order.order_details.size
-    (DETAILS_SIZE_OF_FORM - size).times { @order.order_details.build } if size < DETAILS_SIZE_OF_FORM
+    @order.remaining_amount_of_details.times  { @order.order_details.build }
     @items = Item.order(:id)
   end
 
@@ -34,10 +31,5 @@ class OrdersController < ApplicationController
 
   def need_signed_in
     redirect_to new_session_path and return unless signed_in?
-  end
-
-  def guide_to_appropriate_form
-    appropriate_path = current_user.order ? edit_order_path : new_order_path
-    redirect_to appropriate_path and return if request.path_info != appropriate_path
   end
 end

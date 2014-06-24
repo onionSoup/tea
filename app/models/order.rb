@@ -48,4 +48,12 @@ class Order < ActiveRecord::Base
   def create_another_order
     user.create_order
   end
+
+  public
+
+  def remaining_amount_of_details
+    max_size_of_details = 25
+    raise "order_detail.size must be between 0..#{max_size_of_details}" unless order_details.size.between? 0, max_size_of_details
+    return max_size_of_details - order_details.size
+  end
 end
