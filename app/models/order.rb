@@ -42,7 +42,8 @@ class Order < ActiveRecord::Base
   def check_uniqueness_of_item_id_within_same_order
     item_order_ids = order_details.map {|detail| [detail.item_id, self.id] }.sort
     duplication_counter = item_order_ids.size - item_order_ids.uniq.size
-    errors.add(:base, :order_details_must_have_unique_item_within_same_order) if duplication_counter.nonzero?
+    #errors.add(:base, :order_details_must_have_unique_item_within_same_order) if duplication_counter.nonzero?
+    errors.add(:base, '同じ商品を複数回選択しています。') if duplication_counter.nonzero?
   end
 
   def create_another_order

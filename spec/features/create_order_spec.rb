@@ -21,6 +21,15 @@ feature '注文作成', :js do
     expect(page).to have_content '注文を確定する'
   end
 
+  scenario '同じ商品を複数回選択すると、注文されず同じ画面に' do
+    choose_item_quantity_at_nth_selector 'アイスミント', 2, 0
+    choose_item_quantity_at_nth_selector 'アイスミント', 1, 1
+    click_button '注文を確定する'
+
+    expect(page).to have_content '注文を確定する'
+  end
+
+
   scenario '品名と量を選ぶと、合計金額が見れる' do
     choose_item_quantity_at_nth_selector 'アイスミント', 2, 0
     choose_item_quantity_at_nth_selector '紅茶', 8, 1

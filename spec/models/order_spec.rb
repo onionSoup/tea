@@ -22,7 +22,7 @@ describe Order do
         ]
       )
       expect(order).to be_invalid
-      expect(order.errors.messages[:base].join).to match /order_details_must_have_unique_item_within_same_order/
+      expect(order.errors.messages[:base].join).to match /同じ商品を複数回選択しています。/
     end
 
     it 'is valid with two orders of same item' do

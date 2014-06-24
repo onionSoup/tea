@@ -9,9 +9,10 @@ class OrdersController < ApplicationController
   def update
     @order = current_user.order
     @order.update_attributes(params_without_blank_details)
-    if params_without_blank_details[:order_details_attributes].any?
+    if params_without_blank_details[:order_details_attributes].any? && @order.valid?
       render :create
     else
+      flash[:error] = @order.errors[:base].join
       redirect_to edit_order_path
     end
   end

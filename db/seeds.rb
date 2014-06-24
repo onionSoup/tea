@@ -50,10 +50,10 @@ end
 #order_details
 #first_user
 alice = User.find_by_name('Alice')
-4.times{|i| alice.order.order_details.build(item_id: i, quantity: i+1) }
+4.times do |i| alice.order.order_details.build(item_id: i, quantity: i+1) end
 alice.save
 
 #second_user
 bob = User.find_by_name('Bob')
-4.times{|i| bob.order.order_details.build(item_id: i, quantity: i+1) }
+4.times do |i| bob.order.order_details.build(item_id: i, quantity: i+1) end
 bob.save
