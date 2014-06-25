@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
   end
 
   def update
-    binding.pry
     @order = current_user.order
 
     #update_attributesに渡す。
@@ -18,15 +17,14 @@ class OrdersController < ApplicationController
     attr_for_update_order[:order_details_attributes] = details_with_item_and_quantity
 
     @order.update_attributes(attr_for_update_order)
-    binding.pry
 
     #details_with_item_and_quantity.any?のほうがやっていることはわかりやすいかもしれないが、再度関数を呼ぶのは良くないため呼ばない。
     if attr_for_update_order[:order_details_attributes].any? && @order.valid?
-      render :create
+      flash[:success] = '新しくお茶を追加しました。'
     else
       flash[:error] = @order.errors[:base].join
-      redirect_to edit_order_path
     end
+    redirect_to edit_order_path
   end
 
   private

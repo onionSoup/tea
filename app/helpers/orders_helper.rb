@@ -6,7 +6,7 @@ module OrdersHelper
   end
 
   def quantity_options
-    (1..19).map {|i| ["#{i}個", i] }.unshift(['', ''])
+    (1..OrderDetail::MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL).map {|i| ["#{i}個", i] }.unshift(['', ''])
   end
 
   def create_or_edit_order_path_of(user)

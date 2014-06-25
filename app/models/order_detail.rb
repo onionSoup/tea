@@ -12,6 +12,8 @@
 #
 
 class OrderDetail < ActiveRecord::Base
+  MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL = 20
+
   belongs_to :order
   belongs_to :item
 

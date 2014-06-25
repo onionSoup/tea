@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  #resources :items
-
   resource :order, only: [:edit, :update]
+
+  resources :order_details, only: :destroy
 
   resources :users, only: [:new, :create, :show]
 
