@@ -26,8 +26,6 @@ feature '既存の注文を修正する'do
     #Bobは注文できる。ハーブティーを２個注文できるのを確認
     visit '/order/edit'
     expect(page).not_to have_content '注文の修正はできません。'
-                                         #item,      quantity, at_selector_number_form_top
-    #choose_item_quantity_at_nth_selector 'herb_tea', 2,        0
     choose_item_and_quantity 'herb_tea', 2
     click_button '注文する'
     click_link '管理者用'
@@ -56,8 +54,6 @@ feature '既存の注文を修正する'do
     expect(page).not_to have_content '注文の修正はできません。'
 
     #注文情報削除後は、注文できることを確認する。
-                                         #item,      quantity, at_selector_number_form_topp
-    #choose_item_quantity_at_nth_selector 'herb_tea', 2,        0
     choose_item_and_quantity 'herb_tea', 2
     click_button '注文する'
     expect(page).to have_content 'herb_tea'

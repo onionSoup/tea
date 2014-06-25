@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
 
   def edit
     @order = current_user.order
-    #@order.remaining_amount_of_details.times { @order.order_details.build }
     @items = Item.order(:id)
   end
 

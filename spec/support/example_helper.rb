@@ -28,8 +28,8 @@ module ExampleHelper
   #引数itemには、Item#name、itemオブジェクト、空白の文字列''のいずれかを渡せる。
   #引数quantityには、1..MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAILまでの数字、または空白の文字列''を渡せる。
   def choose_item_and_quantity(item,quantity)
-    choose_item(item)
-    choose_quantity(quantity)
+    choose_item item
+    choose_quantity quantity
   end
 
   #引数のお茶の名前が、明細票に表示されているならtrue、表示されてないならfalseを返す。
@@ -51,7 +51,7 @@ module ExampleHelper
     begin
       item_obj= obj_or_name.instance_of?(Item) ? obj_or_name : Item.find_by_name!(obj_or_name)
     rescue
-      #上で例外が発生するなら終了させたい。これを書かないと、どこかでキャッチすると読み手が思うかもしれないので一応書く。
+      #上で例外が発生するなら終了させたい。これを書かないと、どこかでキャッチすると読み手が思うかもしれないので一応書いてみる。
       abort "choose_item_and_quantityの第１引数は商品名か、Itemオブジェクトか、空白文字列''である必要があります。"
     end
   end
@@ -59,7 +59,7 @@ module ExampleHelper
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。
   #引数itemには、Item#name、itemオブジェクト、空白の文字列''のいずれかを渡せる。
   def choose_item(item)
-    blank_item = item if item == '' #万一 itemに[] が渡された時とかにempty?だと困る。
+    blank_item = item if item == '' #万一 itemに[]などが渡された時 == ''じゃなくてempty?だと困る。
     select blank_item , from: '品名：' and return if blank_item
 
     item_obj = find_item_object_from(item)
