@@ -1,39 +1,46 @@
 <h2><%= h2_title_of_edit_order %></h2>
-<div class="order_new_content">
-  <div id="order_new_select">
-    <h2>ほしいお茶と数を選択してください</h2>
-    <%= form_for(@order) do |f|%>
-      <div id="order_flex_box">
-        <div class="tea_select">
-          <%= f.hidden_field :user_id, {:value => @current_user.id} %>
-          <%= f.fields_for :order_details do |order_details_form| %>
-            <div class="order_details_form">
-              <%= order_details_form.label :item_id, '品名：' %>
-              <%= order_details_form.select(
-                :item_id ,
-                item_options ,
-                {} ,
-                class: 'name_price_options'
-              ) %>
-              <%= order_details_form.label :quantity, '数量：' %>
-              <%= order_details_form.select(
-                :quantity ,
-                quantity_options ,
-                {} ,
-                class: 'quantity_options'
-              ) %>
-            </div>
-          <% end %>
-        </div>
-        <div id="order_confirm">
-          <p id="order_create_price_sum">合計: 0円</p>
-          <%= f.button :注文を確定する %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<div id="edit_order_content">
+  <h3 id='add_order_in_edit_order'>注文の追加</h3>
+  <p>注文したい商品と個数を選んで、「注文する」ボタンを押してください</p>
+  <%=  form_tag order_path, method: :put do  %>
+    <%= label_tag 'item_id', '品名：' %>
+    <%= select_tag(
+      'order[order_details_attributes][0][item_id]',
+       options_for_select(item_options)
+    ) %>
+    <%= label_tag 'item_id', '数量：' %>
+    <%= select_tag(
+      'order[order_details_attributes][0][quantity]',
+      options_for_select(quantity_options)
+    ) %>
+    <%= button_tag :注文する %>
+  <% end %>
+
+  <h3 id='ordered_index_in_edit_order'><%= current_user.name %>さんの注文一覧</h3>
+  <% if @order.order_details.any? %>
+  <p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
+  <p>注文をキャンセルしたいお茶がある場合、「削除する」リンクを押してください。</p>
+    <table id="edit_order_table">
+      <tr>
+        <th class="name">品名</th>
+        <th class="quantity">数量</th>
+        <th class="price">単価</th>
+        <th class="sum">小計</th>
+        <th></th>
+      </tr>
+      <% @order.order_details.each do |detail| %>
+          <tr>
+            <td class="name"><%= detail.item.name %></td>
+            <td class="quantity"><%= detail.quantity %>個</td>
+            <td class="price"><%= detail.then_price %>円</td>
+            <td class="sum"><%= detail.quantity * detail.then_price %>円</td>
+            <td><%= link_to '削除する','#'%></td>
+          </tr>
+        <% end %>
+    </table>
+  <% else %>
+    <p><%= current_user.name %>さんは、まだお茶を注文していません。注文すると、ここにお茶が表示されます。</p>
+  <% end %>
 </div>
-<div class="footer">
-  <p>詳しい商品情報は<a href="https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/">ネスレ通販のサイト</a>を参照してください。
-  </p>
-</div>
+
+
