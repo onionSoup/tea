@@ -21,7 +21,7 @@ feature '既存の注文を修正する'do
     expect(exist_tea_in_table? 'red_tea').to be true
 
     #メッセージも出る
-    expect(page).to have_content '新しくお茶を追加しました。'
+    expect(page).to have_content 'red_teaを追加しました。'
   end
 
   #TODO: 追加済みのお茶は、選択肢を出さなくしたほうが良い
@@ -35,9 +35,24 @@ feature '既存の注文を修正する'do
     expect(page).to have_content 'その商品は既に注文しています。'
   end
 
-  scenario '明細の横の「削除する」リンクを押すと、表から明細が削除される' do
+  scenario '明細の横の「削除する」リンクを押すと、表から明細が削除されて、通知がある' do
     click_link '削除する'
 
     expect(exist_tea_in_table? 'herb_tea').to be false
+    expect(page).to have_content 'herb_teaの注文を削除しました。'
+  end
+
+  scenario '品名と量を選ぶと、合計金額が見れる' do
+    red_tea = create(:item, name: 'red_tea', price: 100)
+    green_tea = create(:item, name: 'green_tea', price: 500)
+    create_user_and_login_as 'Bob'
+
+    choose_item_and_quantity 'red_tea', 3
+    click_button '注文する'
+
+    choose_item_and_quantity 'green_tea', 1
+    click_button '注文する'
+
+    expect(page).to have_content '800円'
   end
 end

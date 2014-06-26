@@ -48,12 +48,7 @@ module ExampleHelper
 
   #引数はItemのインスタンスか、商品名。両方の場合でitemを返す。
   def find_item_object_from(obj_or_name)
-    begin
-      item_obj= obj_or_name.instance_of?(Item) ? obj_or_name : Item.find_by_name!(obj_or_name)
-    rescue
-      #上で例外が発生するなら終了させたい。これを書かないと、どこかでキャッチすると読み手が思うかもしれないので一応書いてみる。
-      abort "choose_item_and_quantityの第１引数は商品名か、Itemオブジェクトか、空白文字列''である必要があります。"
-    end
+    item_obj= obj_or_name.instance_of?(Item) ? obj_or_name : Item.find_by_name!(obj_or_name)
   end
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。

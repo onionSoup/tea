@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
   before_action :reject_edit_when_ordered, only: [:edit]
 
   def edit
-    @order = current_user.order
+    #@order = current_user.order
+    @order = User.includes(order: {order_details: :item}).find(current_user).order
     @items = Item.order(:id)
   end
 
@@ -19,9 +20,13 @@ class OrdersController < ApplicationController
 
     #details_with_item_and_quantity.any?のほうがやっていることはわかりやすいかもしれないが、再度関数を呼ぶのは良くないため呼ばない。
     if attr_for_update_order[:order_details_attributes].any? && @order.valid?
-      flash[:success] = '新しくお茶を追加しました。'
+      added_item =  Item.find( attr_for_update_order[:order_details_attributes]['0']['item_id'])
+      flash[:success] = "#{added_item.name}を追加しました。"
     else
-      flash[:error] = @order.errors[:base].join
+      invalid_error_message = @order.errors[:base].join
+      #details_with_item_and_quantityが[]の時（商品名と数量の両方を指定していない時）でも、@orderはvalidである。
+      #しかし商品名と数量の両方がなければorder_detailを作れないので、ユーザーに'商品名と数量を両方指定して注文してください'と教える。
+      flash[:error] = invalid_error_message.empty? ? '商品名と数量を両方指定して注文してください' : invalid_error_message
     end
     redirect_to edit_order_path
   end

@@ -138,6 +138,7 @@ table#edit_order_table {
 }
 
 table#edit_order_table th{
+  font-weight: bold;
   background: #E3EAF6;
   padding: 0 2em 0 2em;
 }
@@ -159,4 +160,20 @@ h3#add_order_in_edit_order ,h3#ordered_index_in_edit_order{
   margin: 3em 0 2em;
   border-bottom: solid thin #c8c8c8;
   width: 20em;
+}
+
+div#edit_order_table_and_p_wraper {
+  position: relative;
+  display: inline-block;
+}
+
+div#edit_order_table_and_p_wraper p {
+  position: absolute;
+  right: 0;
+  margin-top: 2em;
+  border-bottom: solid thin #c8c8c8;
+}
+
+div#edit_order_table_and_p_wraper span#edit_order_sum_yen {
+  margin-left: 1.5em;
 }
