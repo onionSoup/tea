@@ -1,4 +1,6 @@
 class RegisteredsController < ApplicationController
+  before_action :prihibit_browser_form_caching_page, only: [:show]
+
   def show
     @registereds = Order.registered.select_name_and_price_and_sum_of_quantity
 

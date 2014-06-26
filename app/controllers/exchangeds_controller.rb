@@ -1,4 +1,6 @@
 class ExchangedsController < ApplicationController
+  before_action :prihibit_browser_form_caching_page, only: [:show]
+
   def show
     @users = User.includes(order: {order_details: :item}).where(orders: {state: Order.states['exchanged']})
   end

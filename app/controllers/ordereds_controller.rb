@@ -1,4 +1,6 @@
 class OrderedsController < ApplicationController
+  before_action :prihibit_browser_form_caching_page, only: [:show]
+
   def show
     @ordereds = Order.ordered.select_name_and_price_and_sum_of_quantity
 
@@ -9,7 +11,7 @@ class OrderedsController < ApplicationController
 
   def arrive
     updated = Order.ordered.update_all(state: Order.states['arrived']).nonzero?
-    
+
     if updated
       redirect_to arrived_path, flash: {success: 'ネスレからお茶が届いたことを登録しました。'}
     else
