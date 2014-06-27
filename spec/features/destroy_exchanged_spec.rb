@@ -1,6 +1,6 @@
 feature '引換済み商品' do
   scenario '引換後の商品（破棄していない）があるなら、商品名とユーザー名が表示されている' do
-    create_order 'exchanged'
+    create_alice_and_default_order 'exchanged'
     visit '/orders/exchanged'
 
     expect(page).to have_content 'アイスミント'
@@ -16,7 +16,7 @@ feature '引換済み商品' do
   end
 
   scenario '注文をチェックして登録ボタンを押す場合、ボタンを押す前にあった注文情報が消える' do
-    create_order 'exchanged'
+    create_alice_and_default_order 'exchanged'
     visit '/orders/exchanged'
 
     expect(page).to have_content 'アイスミント'

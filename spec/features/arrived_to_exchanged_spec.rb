@@ -1,6 +1,6 @@
 feature '引換用ページ' do
   background do
-    create_order 'arrived'
+    create_alice_and_default_order 'arrived'
     visit '/orders/arrived'
   end
 
@@ -18,7 +18,7 @@ feature '引換用ページ' do
 
   scenario '注文をチェックして登録ボタンを押す場合、引換済みページに移動して成功メッセージがでる' do
     #これが良くない。しかし、後々１ユーザー１オーダーにした際には、userのラベルからcheckboxを特定できるようになる。
-    check 'checkbox_no_0'
+    check "#{idsafe_encode64 'Alice'}"
     click_button '引換の完了をシステムに登録'
 
     expect(page.current_path).to eq '/orders/exchanged'

@@ -1,9 +1,9 @@
-feature '既存の注文を修正する'do
+feature 'ネスレ公式に発注した後の注文修正'do
   background do
     alice = create(:user, name: 'Alice')
     item = create(:item, name: 'herb_tea')
     alice.order.order_details << OrderDetail.new(item: item, quantity: 1)
-    login_as('Alice')
+    login_as 'Alice'
   end
 
   scenario 'ネスレ入力用シートでボタンを押した後、注文の修正はできない' do
@@ -14,7 +14,7 @@ feature '既存の注文を修正する'do
     expect(page).to have_content '注文の修正はできません。'
   end
 
-   scenario '注文が空の時、ネスレ入力用シートでボタンを押した後でも、注文作成、修正ができる。' do
+   scenario 'Aliceの注文をネスレに発注した後でも、Alice以外の人の注文修正はできる。' do
     #Bobでログインし直す
     click_link 'ログアウト'
     create_user_and_login_as 'Bob'
@@ -42,10 +42,11 @@ feature '既存の注文を修正する'do
 
   scenario '注文情報を削除した後、再度注文を作れる。' do
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。DRYにしたいが名前が思いつかない。
+    user = User.first
     click_link '管理者用'
     click_button '注文の完了をシステムに登録'
     click_button 'お茶の受領をシステムに登録'
-    check 'checkbox_no_0'
+    check "#{idsafe_encode64 user.name}"
     click_button '引換の完了をシステムに登録'
     click_button 'このページの引換情報を削除'
 

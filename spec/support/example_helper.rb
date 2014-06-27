@@ -1,22 +1,27 @@
 module ExampleHelper
-  def create_order(state)
-    user = create(:user, name: 'Alice')
+  def create_alice_and_default_order(state)
+    alice = create(:user, name: 'Alice')
     ice_mint = create(:item, name: 'アイスミント', price: 756)
     red_tea = create(:item, name: '紅茶', price: 756)
-    create(:order,
-      user_id: user.id,
+    alice.order.update_attributes(
       state:   Order.states[state],
       order_details: [
         build(:order_detail, item_id: ice_mint.id, quantity: 1),
-        build(:order_detail, item_id: red_tea.id, quantity: 9)
-      ]
-    )
+        build(:order_detail, item_id: red_tea.id, quantity: 9)])
+  end
+
+  #商品を指定した個数注文している、ユーザーを新たに作成して返す。
+  def create_a_purchaser(user_name = 'Alice', ordered_item_name = 'herb_tea', ordered_item_quantity = 1)
+    created_user = create(:user, name: user_name)
+    created_user.order.order_details << OrderDetail.new(item: ordered_item_name, quantity: ordered_item_quantity)
+    created_user
   end
 
   def create_user_and_login_as(name)
     create :user, name: name
     login_as name
   end
+
 
   def login_as(name)
     visit '/sessions/new'

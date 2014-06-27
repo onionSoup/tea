@@ -1,8 +1,8 @@
 feature '既存の注文を修正する'do
   background do
-    alice = create(:user, name: 'Alice')
     herb_tea = create(:item, name: 'herb_tea')
-    alice.order.order_details << OrderDetail.new(item: herb_tea, quantity: 1)
+                      #user_name, item_user_ordered, quantity
+    create_a_purchaser('Alice'  , herb_tea         , 1)
     login_as 'Alice'
   end
 

@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
   before_action :reject_edit_when_ordered, only: [:edit]
 
   def edit
-    #@order = current_user.order
     @order = User.includes(order: {order_details: :item}).find(current_user).order
     @items = Item.order(:id)
   end
