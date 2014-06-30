@@ -2,14 +2,18 @@ feature 'ネスレ発送待ち商品ページ' do
   context '注文があるとき' do
     before do
       alice = create(:user, name: 'Alice')
+
       herb_tea = create(:item, name: 'herb_tea', price: 100)
       red_tea = create(:item, name: 'red_tea', price: 100)
 
       alice.order.update_attributes(
         state: 'ordered',
         order_details: [
-          OrderDetail.new(item: herb_tea, quantity: 1),
-          OrderDetail.new(item: red_tea, quantity: 9)])
+          build(:order_detail, item: herb_tea, quantity: 1),
+          build(:order_detail, item: red_tea,  quantity: 9)
+        ]
+      )
+
       login_as 'Alice'
     end
 

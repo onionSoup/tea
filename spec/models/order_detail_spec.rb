@@ -4,6 +4,7 @@ describe OrderDetail do
       item = create(:item, price: 100)
       create :order_detail, item_id: item.id, quantity: 1
       create :order_detail, item_id: item.id, quantity: 2
+
       expect(OrderDetail.price_sum).to eq 300
     end
   end
@@ -11,7 +12,8 @@ describe OrderDetail do
   context 'when create a new order_detail' do
     it 'copies item.price to self.then_price' do
       item = create(:item, price: 100)
-      detail_having_copy = create(:order_detail, item_id: item.id, quantity: 1)
+      detail_having_copy = create(:order_detail, item: item)
+
       expect(detail_having_copy.then_price).to eq 100
     end
   end

@@ -1,16 +1,21 @@
 feature 'ネスレ公式に発注した後の注文修正'do
+  fixtures :items
+  let('herb_tea'){ Item.find_by_name 'herb_tea' }
+
   background do
     alice = create(:user, name: 'Alice')
-    item = create(:item, name: 'herb_tea')
-    alice.order.order_details << OrderDetail.new(item: item, quantity: 1)
+    alice.order.order_details << build(:order_detail, item: herb_tea)
+
     login_as 'Alice'
   end
 
   scenario 'ネスレ入力用シートでボタンを押した後、注文の修正はできない' do
     visit '/orders/registered'
+
     click_button '注文の完了をシステムに登録'
 
     visit '/order/edit'
+
     expect(page).to have_content '注文の修正はできません。'
   end
 
@@ -25,7 +30,9 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
     #Bobは注文できる。ハーブティーを２個注文できるのを確認
     visit '/order/edit'
+
     expect(page).not_to have_content '注文の修正はできません。'
+
     choose_item_and_quantity 'herb_tea', 2
     click_button '注文する'
     click_link '管理者用'
@@ -36,19 +43,16 @@ feature 'ネスレ公式に発注した後の注文修正'do
     click_link 'ログアウト'
     login_as 'Alice'
     visit '/order/edit'
+
     expect(page).to have_content '注文の修正はできません。'
   end
 
 
   scenario '注文情報を削除した後、再度注文を作れる。' do
-    #管理者用ページで注文の状態を更新していき、注文情報を削除する。DRYにしたいが名前が思いつかない。
-    user = User.first
-    click_link '管理者用'
-    click_button '注文の完了をシステムに登録'
-    click_button 'お茶の受領をシステムに登録'
-    check "user_#{user.id}"
-    click_button '引換の完了をシステムに登録'
-    click_button 'このページの引換情報を削除'
+    alice = User.find_by_name('Alice')
+
+    #管理者用ページで注文の状態を更新していき、注文情報を削除する。
+    form_visiting_registered_to_delete_exchanged_of(alice)
 
     #注文情報削除後は、注文画面にいけることを確認する
     click_link '注文画面'

@@ -1,15 +1,21 @@
 feature '引換用ページ' do
-  background do
-      alice = create(:user, name: 'Alice')
-      herb_tea = create(:item, name: 'herb_tea', price: 100)
-      red_tea = create(:item, name: 'red_tea', price: 100)
+  fixtures :items
 
-      alice.order.update_attributes(
-        state: 'arrived',
-        order_details: [
-          OrderDetail.new(item: herb_tea, quantity: 1),
-          OrderDetail.new(item: red_tea, quantity: 9)])
-      login_as alice.name
+  let(:herb_tea){ Item.find_by_name 'herb_tea' }
+  let(:red_tea){ Item.find_by_name 'red_tea' }
+
+  background do
+    alice = create(:user, name: 'Alice')
+
+    alice.order.update_attributes(
+      state: 'arrived',
+      order_details: [
+        build(:order_detail, item: herb_tea),
+        build(:order_detail, item: red_tea)
+      ]
+    )
+
+    login_as 'Alice'
 
     visit '/orders/arrived'
   end
@@ -26,9 +32,11 @@ feature '引換用ページ' do
     expect(page.current_path).to eq '/orders/arrived'
   end
 
-  scenario '注文をチェックして登録ボタンを押す場合、引換済みページに移動して成功メッセージがでる' do
+  scenario '注文のチェックを入れて登録ボタンを押す場合、引換済みページに移動して成功メッセージがでる' do
     alice = User.find_by_name('Alice')
+
     check "user_#{alice.id}"
+
     click_button '引換の完了をシステムに登録'
 
     expect(page.current_path).to eq '/orders/exchanged'
@@ -36,4 +44,3 @@ feature '引換用ページ' do
     expect(page).to have_content 'Alice'
   end
 end
-

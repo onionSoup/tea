@@ -2,13 +2,18 @@ feature '既存の注文を修正する'do
   background do
     alice = create(:user, name: 'Alice')
 
+    #priceをexpectationで使うので,fixturesは使わない。
     herb_tea = create(:item, name: 'herb_tea', price: 100)
     red_tea = create(:item, name: 'red_tea', price: 100)
 
-    alice.order.order_details << OrderDetail.new(item: herb_tea, quantity: 1)
-    alice.order.order_details << OrderDetail.new(item: red_tea, quantity: 9)
+    alice.order.update_attributes(
+      order_details: [
+        build(:order_detail, item: herb_tea),
+        build(:order_detail, item: red_tea)
+      ]
+    )
 
-    login_as alice.name
+    login_as 'Alice'
   end
 
   scenario '既存の注文明細がある場合、注文ページにいくと明細が表示されている' do
@@ -16,10 +21,11 @@ feature '既存の注文を修正する'do
   end
 
   scenario '商品と個数を選んで「注文する」を押すと、表に明細が追加されて、メッセージも出る' do
-    #green_teaを選んで明細票に出す。
+    #green_teaを選んで明細票に出す前処理。
     create(:item, name: 'green_tea', price: 100)
     click_link '注文画面'
 
+    #商品と個数を選んで注文する。
     choose_item_and_quantity 'green_tea', 1
     click_button '注文する'
 
@@ -32,6 +38,7 @@ feature '既存の注文を修正する'do
     expect(exist_tea_in_table? 'herb_tea').to be true
 
     choose_item_and_quantity 'herb_tea', 1
+
     click_button '注文する'
 
     expect(page).to have_content 'その商品は既に注文しています。'

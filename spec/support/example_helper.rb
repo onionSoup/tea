@@ -1,22 +1,4 @@
 module ExampleHelper
-  def create_alice_and_default_order(state)
-    alice = create(:user, name: 'Alice')
-    ice_mint = create(:item, name: 'アイスミント', price: 756)
-    red_tea = create(:item, name: '紅茶', price: 756)
-    alice.order.update_attributes(
-      state:   Order.states[state],
-      order_details: [
-        build(:order_detail, item_id: ice_mint.id, quantity: 1),
-        build(:order_detail, item_id: red_tea.id, quantity: 9)])
-  end
-
-  #商品を指定した個数注文している、ユーザーを新たに作成して返す。
-  def create_a_purchaser(user_name = 'Alice', ordered_item_name = 'herb_tea', ordered_item_quantity = 1)
-    created_user = create(:user, name: user_name)
-    created_user.order.order_details << OrderDetail.new(item: ordered_item_name, quantity: ordered_item_quantity)
-    created_user
-  end
-
   def create_user_and_login_as(name)
     create :user, name: name
     login_as name
@@ -37,9 +19,6 @@ module ExampleHelper
   end
 
   #引数のお茶の名前が、明細票に表示されているならtrue、表示されてないならfalseを返す。
-  #have_contentだと、「明細票に表示されてないがselect boxにはある」という場合でもtrueを返してしまうため、
-  #このメソッドが必要になる。
-  #と思ったけど、withinとかを上手に使えばこんなのはいらなかったかも
   def exist_tea_in_table?(tea_name)
     exception = nil
     begin
@@ -68,11 +47,30 @@ module ExampleHelper
     select item_with_price, from: '品名：'
   end
 
+  #orders/edit.html.erbのセレクタボックスで個数を選ぶメソッド。
+  #引数quantityには、OrderDetail#quantity、空白の文字列''のいずれかを渡せる。
   def choose_quantity(quantity)
     blank_quantity = quantity if quantity == ''
     select blank_quantity , from: '数量：' and return if blank_quantity
 
     quantity_with_unit = "#{quantity}個"
     select quantity_with_unit, from: '数量：'
+  end
+
+  #引数userのorderが、state= registeredの時。管理者用ページの一連のボタンを踏んで
+  #stateを更新し、最後には削除ボタンを押す。
+  def form_visiting_registered_to_delete_exchanged_of(user)
+    raise 'user must have order whose state is regisetered' unless user.order.state == 'registered'
+
+    click_link '管理者用'
+
+    click_button '注文の完了をシステムに登録'
+
+    click_button 'お茶の受領をシステムに登録'
+
+    check "user_#{user.id}"
+    click_button '引換の完了をシステムに登録'
+
+    click_button 'このページの引換情報を削除'
   end
 end
