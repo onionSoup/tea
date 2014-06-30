@@ -6,8 +6,10 @@ feature '商品の管理' do
   end
 
   scenario '編集リンクを押せば、既存の商品の名前と価格の変更ができる' do
-    #linkはidかtextで探す。textはどれも同じなので、idで探すしかない。
-    click_link 'edit_0th_item'
+    tea_id = Item.find_by_name('玄米茶').id
+    within ".change_item_#{tea_id}" do
+      click_link '編集'
+    end
 
     fill_in 'Name', with: '爽健美茶'
     fill_in 'Price', with: '125'

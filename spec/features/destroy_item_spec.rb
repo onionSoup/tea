@@ -1,7 +1,4 @@
 feature '商品の削除' do
-
-  fixtures :items
-
   def create_item_and_order_of(tea_name)
     item = create(:item, name: tea_name)
     create :order, order_details: [build(:order_detail, item_id: item.id)]
@@ -9,10 +6,13 @@ feature '商品の削除' do
 
   scenario '削除リンクを押せば、既存の商品を削除できる' do
     item = create(:item, name: 'herb_tea', price: 756)
-
     visit '/admin/items'
+
     expect(page).to have_content 'herb_tea'
-    click_link "destroy_#{idsafe_encode64 item.name}"
+
+    within ".change_item_#{item.id}" do
+      click_link '削除'
+    end
 
     expect(page).not_to have_content 'herb_tea'
   end
@@ -20,7 +20,11 @@ feature '商品の削除' do
   scenario '商品Aを含む注文情報がある場合、商品Aは削除できない' do
     order = create_item_and_order_of('herb_tea')
     visit '/admin/items'
-    click_link "destroy_#{idsafe_encode64 order.order_details.first.item.name}"
+
+    item = Item.find_by_name('herb_tea')
+    within ".change_item_#{item.id}" do
+      click_link '削除'
+    end
 
     expect(page).to have_content 'この商品を使った注文情報があるので、削除できません。'
     expect(page).to have_content 'herb_tea'
@@ -36,14 +40,16 @@ feature '商品の削除' do
     click_link '管理者用'
     click_button '注文の完了をシステムに登録'
     click_button 'お茶の受領をシステムに登録'
-    check "#{idsafe_encode64 alice.name}"
+    check "user_#{alice.id}"
     click_button '引換の完了をシステムに登録'
 
     click_button 'このページの引換情報を削除'
 
     #商品管理ページで、herb_teaを削除する。
     click_link '商品の管理'
-    click_link "destroy_#{idsafe_encode64 item.name}"
+    within ".change_item_#{item.id}" do
+      click_link '削除'
+    end
 
     expect(page).not_to have_content 'herb_tea'
   end

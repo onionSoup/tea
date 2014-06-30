@@ -46,7 +46,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
     click_link '管理者用'
     click_button '注文の完了をシステムに登録'
     click_button 'お茶の受領をシステムに登録'
-    check "#{idsafe_encode64 user.name}"
+    check "user_#{user.id}"
     click_button '引換の完了をシステムに登録'
     click_button 'このページの引換情報を削除'
 

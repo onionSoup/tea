@@ -22,7 +22,6 @@ module ExampleHelper
     login_as name
   end
 
-
   def login_as(name)
     visit '/sessions/new'
     fill_in 'ユーザー名', :with => name
@@ -40,6 +39,7 @@ module ExampleHelper
   #引数のお茶の名前が、明細票に表示されているならtrue、表示されてないならfalseを返す。
   #have_contentだと、「明細票に表示されてないがselect boxにはある」という場合でもtrueを返してしまうため、
   #このメソッドが必要になる。
+  #と思ったけど、withinとかを上手に使えばこんなのはいらなかったかも
   def exist_tea_in_table?(tea_name)
     exception = nil
     begin

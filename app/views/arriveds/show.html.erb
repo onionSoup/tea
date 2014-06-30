@@ -18,8 +18,8 @@
               </tr>
               <% @users.each_with_index do |user, index| %>
                 <tr>
-                  <td><%= check_box_tag 'order_ids[]', user.order.id, false , id: "#{idsafe_encode64 user.name}" %></td>
-                  <td><%= label_tag "#{idsafe_encode64 user.name}", user.name %></td>
+                  <td><%= check_box_tag 'order_ids[]', user.order.id, false , id: "user_#{user.id}" %></td>
+                  <td><%= label_tag "user_#{user.id}", user.name %></td>
                   <td><%= user.order.order_details.price_sum  %></td>
                   <td>
                     <% user.order.order_details.each do |detail| %>

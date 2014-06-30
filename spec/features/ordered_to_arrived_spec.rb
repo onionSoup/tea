@@ -10,7 +10,7 @@ feature 'ネスレ発送待ち商品ページ' do
         order_details: [
           OrderDetail.new(item: herb_tea, quantity: 1),
           OrderDetail.new(item: red_tea, quantity: 9)])
-      login_as alice.name
+      login_as 'Alice'
     end
 
     scenario 'ネスレの発送を待っているお茶があるなら、商品名と注文合計金額が表示されている' do

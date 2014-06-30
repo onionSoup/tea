@@ -13,10 +13,13 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include ExampleHelper
-  config.include ApplicationHelper
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.use_transactional_fixtures = false
+
+  config.before :suite do
+    DatabaseRewinder.clean_all
+  end
 
   config.before do
     DatabaseRewinder.strategy = :truncation
