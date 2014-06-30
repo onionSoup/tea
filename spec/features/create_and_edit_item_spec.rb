@@ -14,22 +14,22 @@ feature '商品の管理' do
       click_link '編集'
     end
 
-    fill_in 'Name', with: 'red_tea'
-    fill_in 'Price', with: '125'
+    fill_in '商品名', with: 'red_tea'
+    fill_in '価格', with: '125'
 
-    click_button 'Update Item'
+    click_button '保存する'
 
     expect(page).to have_content 'red_tea'
     expect(page).to have_content '125'
   end
 
   scenario '新商品登録リンクを押せば、NameとPriceを入力して商品を作れる' do
-    click_link '新しい商品を登録する'
+    click_link '新商品登録ページ'
 
-    fill_in 'Name', with: 'red_tea'
-    fill_in 'Price', with: '1255'
+    fill_in '商品名', with: 'red_tea'
+    fill_in '価格', with: '1255'
 
-    click_button 'Create Item'
+    click_button '保存する'
 
     expect(page).to have_content 'red_tea'
     expect(page).to have_content '1255'

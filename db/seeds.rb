@@ -7,10 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 #users
-if(!User.first && !User.second)
-  User.create(name: 'Alice')
-  User.create(name: 'Bob')
-end
+User.create(name: 'Alice')
+ User.create(name: 'Bob')
 
 #items
 items =
@@ -41,10 +39,9 @@ items =
   ['ブルーベリー マフィン', 756],
   ['レッドロマンス', 756]
 ]
-if(!Item.first)
-  items.each { |item|
-    Item.create(name: item[0], price: item[1])
-  }
+
+items.each do |item|
+  Item.create(name: item[0], price: item[1])
 end
 
 #order_details

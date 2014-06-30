@@ -1,3 +1,9 @@
-%h1= @item.name
+%div{id: "admin_flex_box"}
 
-= render 'form'
+  = render 'layouts/admin_side_nav'
+
+  %div{id: "nestle_input_sheet"}
+
+    %h2{id: "update_one_item_title"}= "#{@item.name} の編集"
+
+    = render 'form'

@@ -1,13 +1,18 @@
-<p id="users_new_invalid_alert"><%= @invalid_error_message %></p>
-<h2 id="users_new_title">新規ユーザー登録</h2>
-<div id="users_new_main_content">
-  <p id="users_new_prompt_name">このサイトで使用する、ユーザー名を入力してください。</p>
-  <%= form_for @user do |f| %>
-    <%= f.label :name, 'ユーザー名' %>
-    <%= f.text_field :name %>
-    <%= f.submit '登録する' %>
-  <% end %>
-  <p id="sessions_prompt_register">
-  登録済みユーザーの場合、<%= link_to 'ログイン', new_session_path %>をしてください。
-  </p>
+<%= render 'invalid_user' %>
+<div class="general_user_flex">
+  <%= render 'layouts/general_user_side_nav' %>
+  <div>
+    <h2 id="users_new_title">新規ユーザー登録</h2>
+    <div id="users_new_main_content">
+      <p id="users_new_prompt_name">このサイトで使用する、ユーザー名を入力してください。</p>
+      <%= form_for @user do |f| %>
+        <%= f.label :name, 'ユーザー名' %>
+        <%= f.text_field :name %>
+        <%= f.submit '登録する' %>
+      <% end %>
+      <p id="sessions_prompt_register">
+      登録済みユーザーの場合、<%= link_to 'ログイン', new_session_path %>をしてください。
+      </p>
+    </div>
+  </div>
 </div>

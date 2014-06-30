@@ -13,7 +13,7 @@ module OrdersHelper
     user.order ? edit_order_path : new_order_path
   end
 
-  def h2_title_of_edit_order
+  def title_of_edit_order
     valid_details = current_user.order.order_details.reject{|detail| detail.invalid?}
     valid_details.any? ? '既存注文の修正' : '新規注文の作成'
   end

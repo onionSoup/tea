@@ -23,4 +23,12 @@ module SessionsHelper
     self.current_user = nil
     cookies.delete :remember_token
   end
+
+  def logout_or_login
+    if signed_in?
+      return link_to 'ログアウトする', '/signout', method: 'delete'
+    else
+      return link_to 'ログインする', new_session_path
+    end
+  end
 end
