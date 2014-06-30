@@ -132,6 +132,10 @@ div#edit_order_content {
   margin: 3em 0 0 0;
 }
 
+div#edit_order_content > p, div#edit_order_content > form {
+  margin-left: 2em;
+}
+
 table#edit_order_table {
   border: thin solid #dcdcdc;
   margin-top: 3em;
