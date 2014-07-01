@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
     if user
       #ログインさせる
       sign_in user
-      flash[:success] = 'ログインしました。'
-      redirect_to edit_order_path
+      redirect_to edit_order_path, flash: {success: 'ログインしました。'}
     else
       flash.now[:error] = 'そのユーザは存在しません。新規ユーザー登録してください'
       render 'new'
@@ -18,7 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     sign_out
-    flash[:success] = 'ログアウトしました。'
-    redirect_to root_url
+    redirect_to root_url, flash: {success: 'ログアウトしました。'}
   end
 end

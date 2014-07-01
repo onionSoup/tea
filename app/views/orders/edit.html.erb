@@ -18,7 +18,7 @@
         <%= button_tag :注文する %>
       <% end %>
 
-      <h3 id='ordered_index_in_edit_order'><%= current_user.name %>さんの注文一覧</h3>
+      <h3 id="ordered_index_in_edit_order"><%= current_user.name %>さんの注文一覧</h3>
       <% if @order.order_details.none? %>
           <p><%= current_user.name %>さんは、まだお茶を注文していません。注文すると、ここにお茶が表示されます。</p>
       <% else %>

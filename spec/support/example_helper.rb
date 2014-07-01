@@ -6,7 +6,7 @@ module ExampleHelper
 
   def login_as(name)
     visit '/sessions/new'
-    fill_in 'ユーザー名', :with => name
+    fill_in 'ユーザー名', with: name
     click_button 'ログイン'
   end
 
@@ -57,8 +57,7 @@ module ExampleHelper
     select quantity_with_unit, from: '数量：'
   end
 
-  #引数userのorderが、state= registeredの時。管理者用ページの一連のボタンを踏んで
-  #stateを更新し、最後には削除ボタンを押す。
+  #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し、最後には削除ボタンを押す。
   def form_visiting_registered_to_delete_exchanged_of(user)
     raise 'user must have order whose state is regisetered' unless user.order.state == 'registered'
 

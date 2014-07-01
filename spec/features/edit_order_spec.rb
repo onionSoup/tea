@@ -22,7 +22,7 @@ feature '既存の注文を修正する'do
 
   scenario '商品と個数を選んで「注文する」を押すと、表に明細が追加されて、メッセージも出る' do
     #green_teaを選んで明細票に出す前処理。
-    create(:item, name: 'green_tea', price: 100)
+    create :item, name: 'green_tea', price: 100
     click_link '注文画面'
 
     #商品と個数を選んで注文する。

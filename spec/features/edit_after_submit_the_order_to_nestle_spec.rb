@@ -52,7 +52,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
     alice = User.find_by_name('Alice')
 
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
-    form_visiting_registered_to_delete_exchanged_of(alice)
+    form_visiting_registered_to_delete_exchanged_of alice
 
     #注文情報削除後は、注文画面にいけることを確認する
     click_link '注文画面'

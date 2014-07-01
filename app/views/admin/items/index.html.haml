@@ -1,5 +1,4 @@
 %div{id: "admin_flex_box"}
-
   = render 'layouts/admin_side_nav'
 
   %div{id: "item_index_content"}
@@ -25,7 +24,7 @@
             %th
             %th
 
-          - @items.each_with_index do |item, i|
+          - @items.each do |item|
             %tr{class: "change_item_#{item.id}"}
               %td= item.name
               %td= item.price

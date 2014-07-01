@@ -30,7 +30,7 @@ RSpec.configure do |config|
     DatabaseRewinder.clean
   end
 
-  config.include(Capybara::Webkit::RspecMatchers, :type => :feature)
+  config.include(Capybara::Webkit::RspecMatchers, type: :feature)
 
   config.infer_spec_type_from_file_location!
 end

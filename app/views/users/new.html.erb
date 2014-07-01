@@ -1,4 +1,6 @@
-<%= render 'invalid_user' %>
+<% if @invalid_error_message %>
+  <p id="users_new_invalid_alert"><%= @invalid_error_message %></p>
+<% end %>
 <div class="general_user_flex">
   <%= render 'layouts/general_user_side_nav' %>
   <div>

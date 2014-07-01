@@ -1,16 +1,11 @@
 module OrdersHelper
   def item_options
-    #説明のため変数を用意してみたが、不要かも
     options_of_existing_item = Item.all.map {|item| ["#{item.name}(#{item.price}円)", item.id] }
     options_with_blank = options_of_existing_item.unshift(['', ''])
   end
 
   def quantity_options
     (1..OrderDetail::MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL).map {|i| ["#{i}個", i] }.unshift(['', ''])
-  end
-
-  def create_or_edit_order_path_of(user)
-    user.order ? edit_order_path : new_order_path
   end
 
   def title_of_edit_order
