@@ -10,9 +10,6 @@ module ExampleHelper
     click_button 'ログイン'
   end
 
-  #orders/edit.html.erbのセレクタボックスで、引数で指定した通り、商品とその個数を選ぶ。
-  #引数itemには、Item#name、itemオブジェクト、空白の文字列''のいずれかを渡せる。
-  #引数quantityには、1..MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAILまでの数字、または空白の文字列''を渡せる。
   def choose_item_and_quantity(item,quantity)
     choose_item item
     choose_quantity quantity
@@ -30,9 +27,8 @@ module ExampleHelper
 
   private
 
-  #引数はItemのインスタンスか、商品名。両方の場合でitemを返す。
   def find_item_object_from(obj_or_name)
-    item_obj= obj_or_name.instance_of?(Item) ? obj_or_name : Item.find_by_name!(obj_or_name)
+    item_obj = obj_or_name.instance_of?(Item) ? obj_or_name : Item.find_by_name!(obj_or_name)
   end
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。

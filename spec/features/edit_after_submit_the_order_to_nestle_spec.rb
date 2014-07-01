@@ -20,15 +20,14 @@ feature 'ネスレ公式に発注した後の注文修正'do
   end
 
    scenario 'Aliceの注文をネスレに発注した後でも、Alice以外の人の注文修正はできる。' do
-    #Bobでログインし直す
     click_link 'ログアウト'
     create_user_and_login_as 'Bob'
 
-    #ネスレ入力用シートでボタンを押す。Aliceの注文はネスレ公式に発注したことになる。
+    #Aliceの注文をネスレ公式に発注したことを、このアプリteaに登録する。
     visit '/orders/registered'
     click_button '注文の完了をシステムに登録'
 
-    #Bobは注文できる。ハーブティーを２個注文できるのを確認
+    #Bobは注文できる。
     visit '/order/edit'
 
     expect(page).not_to have_content '注文の修正はできません。'

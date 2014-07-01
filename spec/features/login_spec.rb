@@ -1,4 +1,3 @@
-#これとは別に、ExampleHelper.create_user_and_login_as()を用意。
 feature 'ログインする' do
   background do
     visit '/sessions/new'

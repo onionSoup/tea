@@ -9,7 +9,7 @@ class RegisteredsController < ApplicationController
 
   def order
     updated = Order.registered
-                   .where(id: OrderDetail.select('order_id'))#.reject {|one_order| one_order.order_details.empty? }がarray返すので書いたが自信がない。
+                   .where(id: OrderDetail.select('order_id'))
                    .update_all(state: Order.states['ordered'])
                    .nonzero?
     if updated

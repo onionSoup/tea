@@ -2,7 +2,6 @@ feature '既存の注文を修正する'do
   background do
     alice = create(:user, name: 'Alice')
 
-    #priceをexpectationで使うので,fixturesは使わない。
     herb_tea = create(:item, name: 'herb_tea', price: 100)
     red_tea = create(:item, name: 'red_tea', price: 100)
 
@@ -25,7 +24,6 @@ feature '既存の注文を修正する'do
     create :item, name: 'green_tea', price: 100
     click_link '注文画面'
 
-    #商品と個数を選んで注文する。
     choose_item_and_quantity 'green_tea', 1
     click_button '注文する'
 

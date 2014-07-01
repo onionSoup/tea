@@ -4,9 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(name: params[:sessions][:name])
-    #パスワードが必要になったらここに書く。
+    #社内用なので、パスワードの認証はしない。
     if user
-      #ログインさせる
       sign_in user
       redirect_to edit_order_path, flash: {success: 'ログインしました。'}
     else

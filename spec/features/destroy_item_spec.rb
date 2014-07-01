@@ -39,7 +39,6 @@ feature '商品の削除' do
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     form_visiting_registered_to_delete_exchanged_of alice
 
-    #商品管理ページで、herb_teaを削除する。
     click_link '商品の管理'
     within ".change_item_#{herb_tea.id}" do
       click_link '削除'

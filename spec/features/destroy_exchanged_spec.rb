@@ -45,4 +45,3 @@ feature '引換済み商品' do
     expect(page.current_path).to eq '/orders/exchanged'
   end
 end
-
