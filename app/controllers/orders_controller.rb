@@ -21,8 +21,6 @@ class OrdersController < ApplicationController
       flash[:success] = "#{added_item.name}を追加しました。"
     else
       invalid_error_message = @order.errors[:base].join
-      #details_with_item_and_quantityが[]の時でも、@orderはvalidである。
-      #しかし商品名と数量の両方がなければorder_detailを作れないので、flashで入力を促す。
       flash[:error] = invalid_error_message.empty? ? '商品名と数量を両方指定して注文してください' : invalid_error_message
     end
     redirect_to edit_order_path
