@@ -9,30 +9,26 @@
           <table id="admin_order_table" class="exchange_table">
             <tr><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
             <% @users.each do |user| %>
-              <% orders =  user.orders %>
-              <% unless orders.empty? %>
-                <tr>
-                  <td><%= user.name %></td>
-                  <td><%= orders.price_sum %></td>
-                  <td>
-                    <% orders.each do |order| %>
-                      <%  order.order_details.each do |detail| %>
-                      <div id="inner_table">
-                        <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
-                        <div><%= "#{detail.quantity}個" %></div>
-                      </div>
-                      <% end %>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            <% end %>
+              <% order = user.order %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= order.order_details.price_sum %></td>
+                <td>
+                  <% order.order_details.each do |detail| %>
+                  <div id="inner_table">
+                    <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
+                    <div><%= "#{detail.quantity}個" %></div>
+                  </div>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
           </table>
         </div>
       </div>
       <p>引換情報を削除するには以下のボタンを押してください。<br />
       削除した引換情報は元に戻せないことにご注意ください。</p>
-      <%= form_for :order, url: exchanged_path, method: "delete" do |f| %>
+      <%= form_for :order, url: exchanged_path, method: :delete do |f| %>
         <%=  f.submit 'このページの引換情報を削除', data: {confirm: '本当に削除してもよろしいですか？'} %>
       <% end %>
     </div>

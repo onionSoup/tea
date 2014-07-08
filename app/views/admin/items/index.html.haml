@@ -1,17 +1,32 @@
-%h1 商品の管理
+#admin_flex_box
+  = render 'layouts/admin_side_nav'
 
-%p= link_to '新しい商品を登録する', new_admin_item_path
+  #item_index_content
+    #item_index_create_item
+      %h2 新商品の作成
+      %p
+        = link_to '新商品登録ページ', new_admin_item_path
+        をご覧ください。
 
-%table
-  %tr
-    %th 商品名
-    %th 価格
-    %th
-    %th
+    #item_index_update_item
+      %h2 商品の編集、削除
 
-  - @items.each_with_index do |item, i|
-    %tr
-      %td= item.name
-      %td= item.price
-      %th= link_to '編集', edit_admin_item_path(item), id: "edit_#{i}th_item"
-      %th= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_#{i}th_item"
+      %div
+        %p
+          「編集」を押すと商品名と価格を変更できます。
+          %br
+          「削除」で商品の削除ができます。
+
+        %table#item_index_table
+          %tr
+            %th 商品名
+            %th 価格
+            %th
+            %th
+
+          - @items.each do |item|
+            %tr{class: "change_item_#{item.id}"}
+              %td= item.name
+              %td= item.price
+              %th= link_to '編集', edit_admin_item_path(item)
+              %th= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}

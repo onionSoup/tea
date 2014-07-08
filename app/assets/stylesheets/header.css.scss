@@ -1,14 +1,26 @@
 header div#for_header_menu_position {
-  background: linear-gradient(#dcdcdc,whitesmoke);
+  background: linear-gradient(#f9f9f9, #f3f3f3);
   position: relative;
-  height: 5em;
+  height: 3em;
+  border-bottom: #e5e5e5 solid thin;
 }
 
 header h1#title {
   display: inline;
+  font-size: 100%;
 }
 
-header div#flex{
+header a {
+  text-decoration: none;
+  color: #007ab7;
+}
+
+header a:hover {
+  text-decoration: underline;
+  color: #edad0b;
+}
+
+header div#flex {
   width: 60%;
   display: inline-flex;
   justify-content: flex-end;
@@ -19,20 +31,19 @@ header div#flex{
   bottom: 0;
 }
 
-header div#flex > p{
+header div#flex > p {
   padding-right: 3%;
   padding-left: 3%;
+  margin: 0;
+}
+
+header div#flex > p:not(:last-child) {
   border-right: solid thin #c8c8c8;
 }
 
-header nav#bread {
-  background: white;
-}
-
-
 header p#flash_error_p, header p#invalid_error_p {
-  background-color: #EEADB5;
-  color: #C1091F;
+  background-color: #eeadb5;
+  color: #c1091f;
   width: 40%;
   text-align: center;
 }

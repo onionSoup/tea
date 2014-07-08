@@ -21,11 +21,16 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
+  config.before do
+    DatabaseRewinder.strategy = :truncation
+    DatabaseRewinder.start
+  end
+
   config.after :each do
     DatabaseRewinder.clean
   end
 
-  config.include(Capybara::Webkit::RspecMatchers, :type => :feature)
+  config.include(Capybara::Webkit::RspecMatchers, type: :feature)
 
   config.infer_spec_type_from_file_location!
 end

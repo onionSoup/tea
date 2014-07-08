@@ -4,22 +4,18 @@
 
 //users#new.html.erb
 h2#users_new_title {
-  font-size: 1.9em;
-  margin-top: 1em;
-  margin-left: 1em;
-  width: 40%;
+  font-size: 1.17em;
   border-bottom: solid thin #c8c8c8;
+  margin-top: 3em;
 }
 
 div#users_new_main_content {
-  margin-top: 3em;
-  margin-left: 5em;
+  margin: 3em 0 0 3em;
 }
 
 p#users_new_invalid_alert {
-  background-color: #EEADB5;
-  color: #C1091F;
+  background-color: #eeadb5;
+  color: #c1091f;
   width: 40%;
   text-align: center;
 }
-

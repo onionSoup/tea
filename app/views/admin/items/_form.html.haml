@@ -3,10 +3,11 @@
     %li= message
 
 = form_for [:admin, @item] do |f|
-  = f.label :name
+  = f.label :name, '商品名'
   = f.text_field :name
 
-  = f.label :price
+  = f.label :price, '価格'
   = f.number_field :price
 
-  = f.submit
+  = f.submit '保存する'
+

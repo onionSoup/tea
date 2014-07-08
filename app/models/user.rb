@@ -10,8 +10,9 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :orders, dependent: :destroy
+  has_one :order, dependent: :destroy
   before_create :create_remember_token
+  after_create :create_order
   #後でi18nを使う必要がある。
   validates :name,  presence: {message: '名前を入力してください。'}, uniqueness: {message: 'その名前は既に使われています。別の名前を入力してください'}
 
@@ -24,7 +25,8 @@ class User < ActiveRecord::Base
   end
 
   private
-    def create_remember_token
-      self.remember_token = User.encrypt(User.new_remember_token)
-    end
+
+  def create_remember_token
+    self.remember_token = User.encrypt(User.new_remember_token)
+  end
 end

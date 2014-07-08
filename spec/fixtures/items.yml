@@ -1,0 +1,11 @@
+herb_tea:
+  name : 'herb_tea'
+  price: 100
+
+red_tea:
+  name : 'red_tea'
+  price: 100
+
+ice_mint:
+  name : 'アイスミント'
+  price: 100

@@ -7,10 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 #users
-if(!User.first && !User.second)
-  User.create(name: 'user1')
-  User.create(name: 'user2')
-end
+User.create(name: 'Alice')
+User.create(name: 'Bob')
 
 #items
 items =
@@ -41,27 +39,18 @@ items =
   ['ブルーベリー マフィン', 756],
   ['レッドロマンス', 756]
 ]
-if(!Item.first)
-  items.each { |item|
-    Item.create(name: item[0], price: item[1])
-  }
+
+items.each do |item|
+  Item.create(name: item[0], price: item[1])
 end
 
 #order_details
-  #first_user
-user = User.first
-order = user.orders.build(state: 0)
-order.order_details.build(item_id: 1, quantity: 2, then_price: 756)
-order.order_details.build(item_id: 2, quantity: 3, then_price: 756)
-order.order_details.build(item_id: 3, quantity: 4, then_price: 756)
-order.order_details.build(item_id: 4, quantity: 5, then_price: 756)
-order.save
+#first_user
+alice = User.find_by_name('Alice')
+4.times do |i| alice.order.order_details.build(item_id: i, quantity: i+1) end
+alice.save
 
-  #second_user
-user = User.second
-order = user.orders.build(state: 0)
-order.order_details.build(item_id: 1, quantity: 2, then_price: 756)
-order.order_details.build(item_id: 2, quantity: 3, then_price: 756)
-order.order_details.build(item_id: 3, quantity: 4, then_price: 756)
-order.order_details.build(item_id: 4, quantity: 5, then_price: 756)
-order.save
+#second_user
+bob = User.find_by_name('Bob')
+4.times do |i| bob.order.order_details.build(item_id: i, quantity: i+1) end
+bob.save
