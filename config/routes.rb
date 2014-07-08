@@ -1,28 +1,28 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  resource :order, only: [:edit, :update]
+  resource :order, only: %i(edit update)
 
-  resources :order_details, only: :destroy
+  resources :order_details, only: %i(destroy)
 
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: %i(new create)
 
-  resources :sessions, only: [:new, :create]
+  resources :sessions, only: %i(new create)
 
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/signout', to: 'sessions#destroy', via: 'delete'
 
-  resources :orders do
+  resources :orders, only: %i() do
     collection do
-      resource :registered, only: :show do
+      resource :registered, only: %i(show) do
         post :order
       end
-      resource :ordered, only: :show do
+      resource :ordered, only: %i(show) do
         post :arrive
       end
-      resource :arrived, only: :show do
+      resource :arrived, only: %i(show) do
         post :exchange
       end
-      resource :exchanged, only: [:show, :destroy]
+      resource :exchanged, only: %i(show destroy)
     end
   end
 

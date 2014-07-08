@@ -1,14 +1,14 @@
-%div{id: "admin_flex_box"}
+#admin_flex_box
   = render 'layouts/admin_side_nav'
 
-  %div{id: "item_index_content"}
-    %div{id: "item_index_create_item"}
+  #item_index_content
+    #item_index_create_item
       %h2 新商品の作成
       %p
         = link_to '新商品登録ページ', new_admin_item_path
         をご覧ください。
 
-    %div{id: "item_index_update_item"}
+    #item_index_update_item
       %h2 商品の編集、削除
 
       %div
@@ -17,7 +17,7 @@
           %br
           「削除」で商品の削除ができます。
 
-        %table{id: "item_index_table"}
+        %table#item_index_table
           %tr
             %th 商品名
             %th 価格

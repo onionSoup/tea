@@ -1,6 +1,6 @@
 class ArrivedsController < ApplicationController
   def show
-    users_allow_empty_detail = User.includes(order: {order_details: :item}).where(orders: { state: Order.states['arrived'] })
+    users_allow_empty_detail = User.includes(order: {order_details: :item}).where(orders: {state: Order.states['arrived']})
     @users = users_allow_empty_detail.reject {|user| user.order.order_details.empty? }
   end
 

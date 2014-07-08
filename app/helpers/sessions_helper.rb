@@ -26,7 +26,7 @@ module SessionsHelper
 
   def logout_or_login
     if signed_in?
-      return link_to 'ログアウトする', '/signout', method: :delete
+      return link_to 'ログアウトする', signout_path, method: :delete
     else
       return link_to 'ログインする', new_session_path
     end

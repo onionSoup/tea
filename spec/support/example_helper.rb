@@ -17,40 +17,34 @@ module ExampleHelper
 
   #引数のお茶の名前が、明細票に表示されているならtrue、表示されてないならfalseを返す。
   def exist_tea_in_table?(tea_name)
-    exception = nil
-    begin
-      found_tea_names = page.all(:css, 'td.name').map {|elm| elm.text }
-    rescue => exception
-    end
-    !exception && found_tea_names.include?(tea_name)
+    tea_names = page.all(:css, 'td.name').map(&:text)
+    tea_names.include?(tea_name)
+  rescue Capybara::ElementNotFound
+    false
   end
 
   private
 
-  def find_item_object_from(obj_or_name)
-    item_obj = obj_or_name.instance_of?(Item) ? obj_or_name : Item.find_by_name!(obj_or_name)
-  end
-
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。
   #引数itemには、Item#name、itemオブジェクト、空白の文字列''のいずれかを渡せる。
   def choose_item(item)
-    blank_item = item if item == '' #万一 itemに[]などが渡された時 == ''じゃなくてempty?だと困る。
-    select blank_item , from: '品名：' and return if blank_item
-
-    item_obj = find_item_object_from(item)
-    item_with_price = "#{item_obj.name}(#{item_obj.price}円)"
-
-    select item_with_price, from: '品名：'
+    if item == ''
+      select '', from: '品名：'
+    else
+      item_name = item.instance_of?(Item) ? item.name : item
+      select item_name, from: '品名：'
+    end
   end
 
   #orders/edit.html.erbのセレクタボックスで個数を選ぶメソッド。
   #引数quantityには、OrderDetail#quantity、空白の文字列''のいずれかを渡せる。
   def choose_quantity(quantity)
-    blank_quantity = quantity if quantity == ''
-    select blank_quantity , from: '数量：' and return if blank_quantity
-
-    quantity_with_unit = "#{quantity}個"
-    select quantity_with_unit, from: '数量：'
+    if quantity == ''
+      select '', from: '数量：'
+    else
+      quantity_with_unit = "#{quantity}個"
+      select quantity_with_unit, from: '数量：'
+    end
   end
 
   #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し、最後には削除ボタンを押す。

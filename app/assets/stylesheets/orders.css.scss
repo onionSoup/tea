@@ -32,7 +32,7 @@ div#order_confirm {
   border: none;
   border-radius: 8px;
   padding: 1.2em 1em 1.2em;
-  background-color: #E3EAF6;
+  background-color: #e3eaf6;
 }
 
 div#order_confirm button {
@@ -44,7 +44,7 @@ div#order_confirm p span#sum {
   vertical-align: bottom;
 }
 
-div#order_confirm p  {
+div#order_confirm p {
   border-bottom: thin solid gray;
 }
 
@@ -53,11 +53,11 @@ div p span#name_and_price {
 }
 
 div.tea_select {
-  margin: 0 0 1em ;
+  margin: 0 0 1em;
 }
 
 div.order_details_form:nth-child(even) {
-  background: #E3EAF6
+  background: #e3eaf6;
 }
 
 div.order_details_form {
@@ -95,7 +95,7 @@ table#order_create_table {
 }
 
 table#order_create_table tr:first-child th {
-  background: #E3EAF6;
+  background: #e3eaf6;
   padding: 0 2em 0 2em;
 }
 
@@ -143,7 +143,7 @@ table#edit_order_table {
 
 table#edit_order_table th {
   font-weight: bold;
-  background: #E3EAF6;
+  background: #e3eaf6;
   padding: 0 2em 0 2em;
 }
 

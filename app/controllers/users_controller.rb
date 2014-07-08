@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      redirect_to edit_order_path, flash: {success: 'ユーザー登録しました。' }
+      redirect_to edit_order_path, flash: {success: 'ユーザー登録しました。'}
     else
       @invalid_error_message =  @user.errors.messages[:name].join
       render 'new'

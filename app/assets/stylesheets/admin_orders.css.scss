@@ -11,11 +11,11 @@ div#admin_show_time_limit_display div {
 }
 
 div#admin_show_time_limit_display a {
-  color: #007AB7;
+  color: #007ab7;
 }
 
 div#admin_show_time_limit_display a:hover {
-  color:#EDAD0B;
+  color: #edad08;
 }
 
 div#nestle_input_sheet {
@@ -34,7 +34,7 @@ div#nestle_input_sheet_flex_box {
 }
 
 table#admin_order_table tr:first-child {
-  background: #E3EAF6;
+  background: #e3eaf6;
 }
 
 table#admin_order_table tr:nth-child(2n+3) {
@@ -42,7 +42,7 @@ table#admin_order_table tr:nth-child(2n+3) {
 }
 
 table#admin_order_table tr:first-child th {
-  padding-top:0.6em;
+  padding-top: 0.6em;
   text-align: center;
 }
 
@@ -51,11 +51,11 @@ table#admin_order_table {
 }
 
 table.exchange_table td:nth-child(n+2) {
-  border-left: dotted thin #dcdcdc
+  border-left: dotted thin #dcdcdc;
 }
 
 table#admin_order_table td.name {
-  padding:  0.4em 4em 0 2em;
+  padding: 0.4em 4em 0 2em;
 }
 
 table#admin_order_table td.price {
@@ -83,5 +83,3 @@ p#payment {
   padding: 1em;
   height: 2em;
 }
-
-

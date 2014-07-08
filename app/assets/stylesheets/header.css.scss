@@ -1,5 +1,5 @@
 header div#for_header_menu_position {
-  background: linear-gradient(#f9f9f9,#f3f3f3);
+  background: linear-gradient(#f9f9f9, #f3f3f3);
   position: relative;
   height: 3em;
   border-bottom: #e5e5e5 solid thin;
@@ -12,12 +12,12 @@ header h1#title {
 
 header a {
   text-decoration: none;
-  color: #007AB7;
+  color: #007ab7;
 }
 
 header a:hover {
   text-decoration: underline;
-  color:#EDAD0B;
+  color: #edad0b;
 }
 
 header div#flex {
@@ -42,8 +42,8 @@ header div#flex > p:not(:last-child) {
 }
 
 header p#flash_error_p, header p#invalid_error_p {
-  background-color: #EEADB5;
-  color: #C1091F;
+  background-color: #eeadb5;
+  color: #c1091f;
   width: 40%;
   text-align: center;
 }

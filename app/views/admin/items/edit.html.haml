@@ -1,6 +1,6 @@
-%div{id: "admin_flex_box"}
+#admin_flex_box
   = render 'layouts/admin_side_nav'
 
-  %div{id: "edit_item_content_box"}
-    %h2{id: "update_one_item_title"}= "#{@item.name} の編集"
+  #edit_item_content_box
+    %h2#update_one_item_title= "#{@item.name} の編集"
     = render 'form'
