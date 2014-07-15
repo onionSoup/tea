@@ -26,10 +26,10 @@ module OrdersHelper
     end
   end
 
-  def expalin_state(state)
+  def explain_state(state)
     case state
     when 'ordered'
-      return 'ネスレからの発送待ちです。<br>お茶が届けば、引換ができます。<br>なお、既に管理者がネスレに発注したため、注文の修正はできません。'
+      return '注文は発注されました。ネスレからの発送を待っています。<br>お茶が届けば、引換ができます。<br>なお、既に管理者がネスレに発注したため、注文の修正はできません。'
     when 'arrived'
       return 'お茶が支社に届いています。<br>管理者に代金を渡して引換をしてください。'
     when 'exchanged'
