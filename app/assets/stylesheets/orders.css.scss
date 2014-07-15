@@ -129,7 +129,7 @@ p#order_create_date_para {
 
 //order#edit
 div#edit_order_content {
-  margin: 3em 0 0 0;
+  margin-top: 3.2em;
 }
 
 div#edit_order_content > p, div#edit_order_content > form {
@@ -192,3 +192,19 @@ div#edit_order_table_and_p_wraper p {
 div#edit_order_table_and_p_wraper span#edit_order_sum_yen {
   margin-left: 1.5em;
 }
+
+//show
+h3#expalin_state_in_show_order {
+  margin: 0 0 2em;
+  border-bottom: solid thin #c8c8c8;
+  width: 20em;
+}
+
+div#show_order_content {
+  margin-top: 3.2em;
+  p {
+    margin-left: 2em;
+    line-height: 2.2em;
+  }
+}
+

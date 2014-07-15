@@ -16,6 +16,14 @@ class User < ActiveRecord::Base
   #後でi18nを使う必要がある。
   validates :name,  presence: {message: '名前を入力してください。'}, uniqueness: {message: 'その名前は既に使われています。別の名前を入力してください'}
 
+  scope :order_in_state_of, -> (states){
+    where(orders: {state: Order.states["#{states}"]})
+  }
+
+  scope :has_at_least_one_detail, -> {
+    where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
+  }
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end

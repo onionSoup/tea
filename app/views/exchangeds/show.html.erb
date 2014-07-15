@@ -15,7 +15,7 @@
                 <td><%= order.order_details.price_sum %></td>
                 <td>
                   <% order.order_details.each do |detail| %>
-                  <div id="inner_table">
+                  <div class="inner_table">
                     <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
                     <div><%= "#{detail.quantity}個" %></div>
                   </div>

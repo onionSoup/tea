@@ -2,6 +2,10 @@ class OrdersController < ApplicationController
   before_action :need_signed_in
   before_action :reject_edit_when_ordered, only: [:edit]
 
+  def show
+    @order = User.includes(order: {order_details: :item}).find(current_user).order
+  end
+
   def edit
     @order = User.includes(order: {order_details: :item}).find(current_user).order
     @items = Item.order(:id)

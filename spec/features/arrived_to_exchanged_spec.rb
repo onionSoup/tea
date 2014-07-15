@@ -1,8 +1,8 @@
 feature '引換用ページ' do
   fixtures :items
 
-  let(:herb_tea){ Item.find_by_name 'herb_tea' }
-  let(:red_tea){ Item.find_by_name 'red_tea' }
+  let(:herb_tea) { Item.find_by_name 'herb_tea' }
+  let(:red_tea) { Item.find_by_name 'red_tea' }
 
   background do
     alice = create(:user, name: 'Alice')

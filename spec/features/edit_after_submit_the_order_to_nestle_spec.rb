@@ -14,7 +14,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
     click_button '注文の完了をシステムに登録'
 
-    visit '/order/edit'
+    click_link '注文履歴'
 
     expect(page).to have_content '注文の修正はできません。'
   end
@@ -36,12 +36,12 @@ feature 'ネスレ公式に発注した後の注文修正'do
     click_button '注文する'
     click_link '管理者用'
 
-    expect(page).to have_content 'herb_tea'
+    expect(exist_tea_in_table? 'herb_tea').to be true
 
     #Aliceの注文は発注されたので修正できない
     click_link 'ログアウト'
     login_as 'Alice'
-    visit '/order/edit'
+    click_link '注文履歴'
 
     expect(page).to have_content '注文の修正はできません。'
   end
@@ -60,6 +60,6 @@ feature 'ネスレ公式に発注した後の注文修正'do
     #注文情報削除後は、注文できることを確認する。
     choose_item_and_quantity 'herb_tea', 2
     click_button '注文する'
-    expect(page).to have_content 'herb_tea'
+    expect(exist_tea_in_table? 'herb_tea').to be true
   end
 end

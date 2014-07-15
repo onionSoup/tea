@@ -11,9 +11,10 @@
            options_for_select(item_options)
         ) %>
         <%= label_tag 'order[order_details_attributes][0][quantity]', '数量：' %>
-        <%= select_tag(
+        <%= number_field_tag(
           'order[order_details_attributes][0][quantity]',
-          options_for_select(quantity_options)
+          nil,
+          in: 1..20
         ) %>
         <%= button_tag :注文する %>
       <% end %>

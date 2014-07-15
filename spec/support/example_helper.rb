@@ -39,12 +39,7 @@ module ExampleHelper
   #orders/edit.html.erbのセレクタボックスで個数を選ぶメソッド。
   #引数quantityには、OrderDetail#quantity、空白の文字列''のいずれかを渡せる。
   def choose_quantity(quantity)
-    if quantity == ''
-      select '', from: '数量：'
-    else
-      quantity_with_unit = "#{quantity}個"
-      select quantity_with_unit, from: '数量：'
-    end
+    fill_in "数量", with: "#{quantity}" unless quantity == ''
   end
 
   #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し、最後には削除ボタンを押す。

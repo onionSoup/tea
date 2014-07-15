@@ -1,6 +1,6 @@
 describe Order do
   fixtures :items
-  let(:herb_tea){ Item.find_by_name 'herb_tea' }
+  let(:herb_tea) { Item.find_by_name 'herb_tea' }
 
   it 'is valid with user and order_details' do
     order = build(:order, :buyer) {|order|

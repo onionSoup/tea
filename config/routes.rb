@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  resource :order, only: %i(edit update)
+  resource :order, only: %i(edit update show)
 
   resources :order_details, only: %i(destroy)
 
