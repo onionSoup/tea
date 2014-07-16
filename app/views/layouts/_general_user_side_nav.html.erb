@@ -4,7 +4,7 @@
     <li><%= logout_or_login %></li>
     <li><%= link_to '新規ユーザー登録', new_user_path %></li>
     <% if signed_in? %>
-      <li><%= link_to '注文作成・変更', edit_order_path %></li>
+      <li><%= link_to_edit_or_show '注文作成・変更', '履歴・発送状態' %></li>
       <li><%= link_to '管理者用ページ', registered_path %></li>
     <% end %>
   </ul>

@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
       invalid_error_message = @order.errors[:base].join
       flash[:error] = invalid_error_message.empty? ? '商品名と数量を両方指定して注文してください' : invalid_error_message
     end
+
     redirect_to edit_order_path
   end
 

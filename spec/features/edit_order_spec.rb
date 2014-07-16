@@ -15,7 +15,7 @@ feature '既存の注文を修正する'do
     login_as 'Alice'
   end
 
-  scenario '既存の注文明細がある場合、注文ページにいくと明細と合計金額が見れる' do
+  scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(exist_tea_in_table? 'herb_tea').to be true
     expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円'
   end

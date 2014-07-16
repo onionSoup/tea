@@ -39,12 +39,12 @@ module OrdersHelper
     end
   end
 
-  def link_to_edit_or_show
+  def link_to_edit_or_show(edit_link_text, show_link_text)
     if current_user.order.state == 'registered'
-      #return content_tag :a, {href: edit_order_path} {'注文画面'}を避けるため、式だけどdo~end
-      return content_tag :a, href: edit_order_path do '注文画面' end
+      return content_tag :a, href: edit_order_path do "#{edit_link_text}" end
     else
-      return content_tag :a, href: order_path do '注文履歴' end
+      return content_tag :a, href: order_path do "#{show_link_text}" end
     end
   end
 end
+
