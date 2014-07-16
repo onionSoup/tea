@@ -58,3 +58,4 @@ module ExampleHelper
     click_button 'このページの引換情報を削除'
   end
 end
+#codeclimate test
