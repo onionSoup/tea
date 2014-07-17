@@ -22,7 +22,7 @@ module OrdersHelper
     when 'exchanged'
       return '引換済み'
     else
-      raise 'passing undefined state of orders to translate_state'
+      raise "passing undefined state of orders to #{__method__}"
     end
   end
 
@@ -35,7 +35,7 @@ module OrdersHelper
     when 'exchanged'
       return '引換済みです。<br>新たに注文したい場合、管理者に引換済み情報の削除を依頼してください。'
     else
-      raise 'passing undefined state of orders to state_of_jp'
+      raise "passing undefined state of orders to #{__method__}"
     end
   end
 

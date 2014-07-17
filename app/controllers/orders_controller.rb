@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :need_signed_in
-  before_action :reject_edit_when_ordered, only: [:edit]
+  before_action :reject_edit_since_ordered, only: [:edit]
   before_action :reject_show_until_ordered, only: [:show]
 
   def show
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
     redirect_to new_session_path unless signed_in?
   end
 
-  def reject_edit_when_ordered
+  def reject_edit_since_ordered
     unless current_user.order.state == 'registered'
       redirect_to order_path, flash: {error: '既に管理者がネスレに発注したため、注文の修正はできません。'}
     end
