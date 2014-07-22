@@ -19,7 +19,7 @@ feature '商品の削除' do
 
     visit '/admin/items'
 
-    item = Item.find_by_name('herb_tea')
+    item = Item.find_by_name!('herb_tea')
 
     within ".change_item_#{item.id}" do
       click_link '削除'

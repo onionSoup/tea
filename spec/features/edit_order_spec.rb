@@ -16,7 +16,7 @@ feature '既存の注文を修正する'do
   end
 
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
-    expect(exist_tea_in_table? 'herb_tea').to be true
+    expect(page).to exist_in_table 'herb_tea'
     expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円'
   end
 
@@ -30,7 +30,7 @@ feature '既存の注文を修正する'do
       choose_item_and_quantity 'green_tea', 1
       click_button '注文する'
 
-      expect(exist_tea_in_table? 'green_tea').to be true
+      expect(page).to exist_in_table 'green_tea'
       expect(page).to have_content 'green_teaを追加しました。'
     end
 
@@ -38,7 +38,7 @@ feature '既存の注文を修正する'do
       choose_item_and_quantity 'green_tea', ''
       click_button '注文する'
 
-      expect(exist_tea_in_table? 'green_tea').to be false
+      expect(page).not_to exist_in_table 'green_tea'
       expect(page).to have_content '商品名と数量を両方指定して注文してください'
     end
 
@@ -46,14 +46,14 @@ feature '既存の注文を修正する'do
       choose_item_and_quantity '', 1
       click_button '注文する'
 
-      expect(exist_tea_in_table? 'green_tea').to be false
+      expect(page).not_to exist_in_table 'green_tea'
       expect(page).to have_content '商品名と数量を両方指定して注文してください'
     end
   end
 
   #TODO: 追加済みのお茶は、選択肢を出さなくしたほうが良い
   scenario '明細表にあるお茶をさらに追加しようとすると、エラーになる' do
-    expect(exist_tea_in_table? 'herb_tea').to be true
+    expect(page).to exist_in_table 'herb_tea'
 
     choose_item_and_quantity 'herb_tea', 1
 
@@ -66,7 +66,7 @@ feature '既存の注文を修正する'do
     herb_tea_id = OrderDetail.find_by_item_id(Item.find_by_name('herb_tea')).id
     find("#destroy_detail#{herb_tea_id}").click
 
-    expect(exist_tea_in_table? 'herb_tea').to be false
+    expect(page).not_to exist_in_table 'herb_tea'
     expect(page).to have_content 'herb_teaの注文を削除しました。'
   end
 

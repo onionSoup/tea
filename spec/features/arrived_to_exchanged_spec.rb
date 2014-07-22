@@ -1,8 +1,7 @@
 feature '引換用ページ' do
   fixtures :items
 
-  let(:herb_tea) { Item.find_by_name 'herb_tea' }
-  let(:red_tea) { Item.find_by_name 'red_tea' }
+  let(:alice) { User.find_by_name! 'Alice' }
 
   background do
     alice = create(:user, name: 'Alice')
@@ -10,8 +9,8 @@ feature '引換用ページ' do
     alice.order.update_attributes(
       state: 'arrived',
       order_details: [
-        build(:order_detail, item: herb_tea),
-        build(:order_detail, item: red_tea)
+        build(:order_detail, item: items(:herb_tea)),
+        build(:order_detail, item: items(:red_tea))
       ]
     )
 
@@ -33,8 +32,6 @@ feature '引換用ページ' do
   end
 
   scenario '注文のチェックを入れて登録ボタンを押す場合、引換済みページに移動して成功メッセージがでる' do
-    alice = User.find_by_name('Alice')
-
     check "user_#{alice.id}"
 
     click_button '引換の完了をシステムに登録'

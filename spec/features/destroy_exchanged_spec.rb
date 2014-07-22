@@ -1,7 +1,5 @@
 feature '引換済み商品' do
   fixtures :items
-  let(:herb_tea) { Item.find_by_name 'herb_tea' }
-  let(:red_tea) { Item.find_by_name 'red_tea' }
 
   context '引換後で、破棄していないお茶があるとき' do
     before do
@@ -9,8 +7,8 @@ feature '引換済み商品' do
       alice.order.update_attributes(
         state: 'exchanged',
         order_details: [
-          build(:order_detail, item: herb_tea, quantity: 1),
-          build(:order_detail, item: red_tea, quantity: 9)
+          build(:order_detail, item: items(:herb_tea), quantity: 1),
+          build(:order_detail, item: items(:red_tea) , quantity: 9)
         ]
       )
 

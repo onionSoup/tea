@@ -8,7 +8,7 @@ feature '商品の管理' do
   end
 
   scenario '編集リンクを押せば、既存の商品の名前と価格の変更ができる' do
-    tea_id = Item.find_by_name('herb_tea').id
+    tea_id = Item.find_by_name!('herb_tea').id
 
     within ".change_item_#{tea_id}" do
       click_link '編集'

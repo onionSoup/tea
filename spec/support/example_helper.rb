@@ -15,14 +15,6 @@ module ExampleHelper
     choose_quantity quantity
   end
 
-  #引数のお茶の名前が、明細票に表示されているならtrue、表示されてないならfalseを返す。
-  def exist_tea_in_table?(tea_name)
-    tea_names = page.all(:css, 'td.name').map(&:text)
-    tea_names.include?(tea_name)
-  rescue Capybara::ElementNotFound
-    false
-  end
-
   private
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。
