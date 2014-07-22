@@ -24,9 +24,9 @@ class SessionsController < ApplicationController
 
   def url_for_edit_or_show
     if current_user.order.state == 'registered'
-      return edit_order_path
+      edit_order_path
     else
-      return order_path
+      order_path
     end
   end
 end
