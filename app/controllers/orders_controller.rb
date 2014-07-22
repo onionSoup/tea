@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
 
     @order.update_attributes(attr_for_update_order)
 
-    if attr_for_update_order[:order_details_attributes].any? && @order.valid?
+    if attr_for_update_order[:order_details_attributes].present? && @order.valid?
       added_item = Item.find(attr_for_update_order[:order_details_attributes]['0']['item_id'])
       flash[:success] = "#{added_item.name}を追加しました。"
     else

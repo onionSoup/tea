@@ -7,7 +7,7 @@ feature '注文履歴ページ' do
     login_as 'Alice'
   end
 
-  let(:alice) { User.find_by(name: 'Alice') }
+  let(:alice) { User.find_by!(name: 'Alice') }
 
   context 'ネスレ公式にまだ発注してない時' do
     scenario '管理者用ページに来ても、ヘッダーリンクから注文履歴ページにいけない' do

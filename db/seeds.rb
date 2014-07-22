@@ -6,11 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-#users
-User.create(name: 'Alice')
-User.create(name: 'Bob')
-
-#items
 items =
 [
   ['ジャスミン フラワー', 756],
@@ -37,20 +32,28 @@ items =
   ['ルイボス ブルボンバニラ', 756],
   ['レッド フルーツ ディライト', 756],
   ['ブルーベリー マフィン', 756],
-  ['レッドロマンス', 756]
+  ['レッドロマンス', 756],
+  ['ダージリンファーストフラッシュ', 1296],
+  ['オーグリーン', 864]
 ]
 
 items.each do |item|
   Item.create(name: item[0], price: item[1])
 end
 
-#order_details
-#first_user
-alice = User.find_by_name('Alice')
-4.times do |i| alice.order.order_details.create(item_id: i+1, quantity: i+1) end
-alice.save
+def make_details
+  (0..3).map{|i| OrderDetail.new(item_id: i+1, quantity: i+1) }
+end
 
-#second_user
-bob = User.find_by_name('Bob')
-4.times do |i| bob.order.order_details.create(item_id: i+1, quantity: i+1) end
-bob.save
+def make_users
+  user_names = %w(Alice Bob)
+  user_names.each do |user_name|
+    #本来はuser createとorder detail createを１つのトランザクションにまとめたい。
+    #しかしUserのafter_create order_createがあるので、今回は別トランザクションに分ける。
+    #条件付きコールバックにするのも手だが、seedでしか使わない条件だから却下。
+    user = User.create(name: user_name)
+    user.order.update_attributes(order_details: make_details)
+  end
+end
+
+make_users
