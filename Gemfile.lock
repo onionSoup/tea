@@ -194,7 +194,7 @@ DEPENDENCIES
   database_rewinder
   factory_girl_rails
   haml-rails
-  jbuilder (~> 2.0)
+  jbuilder (>= 2.0)
   jquery-rails
   launchy
   pg
