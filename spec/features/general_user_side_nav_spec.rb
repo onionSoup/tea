@@ -50,8 +50,11 @@ feature '一般ユーザーがサイドバーで移動する' do
     end
 
     context '注文がネスレ公式に発注された後' do
-      scenario '注文履歴画面に行くと、注文作成・変更へのリンクがない' do
+      background do
         User.find_by(name: 'Alice').order.update_attributes state: 'ordered'
+      end
+
+      scenario '注文履歴画面に行くと、注文作成・変更へのリンクがない' do
         click_link '管理者用'
         click_link '注文履歴'
 

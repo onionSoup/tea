@@ -15,6 +15,10 @@ feature '既存の注文を修正する'do
     login_as 'Alice'
   end
 
+  let(:herb_tea) { Item.find_by!(name: 'herb_tea') }
+  let(:alice) { User.find_by!(name: 'Alice') }
+  let(:herb_tea_detail_of_alice) { OrderDetail.find_by_item_id!(Item.find_by_name! 'herb_tea') } #FIXME
+
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(page).to exist_in_table 'herb_tea'
     expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円'
@@ -63,22 +67,25 @@ feature '既存の注文を修正する'do
   end
 
   scenario '明細の横の「削除する」リンクを押すと、表から明細が削除されて、通知がある' do
-    herb_tea_id = OrderDetail.find_by_item_id(Item.find_by_name('herb_tea')).id
-    find("#destroy_detail#{herb_tea_id}").click
+    find("#destroy_detail#{herb_tea_detail_of_alice.id}").click
 
     expect(page).not_to exist_in_table 'herb_tea'
     expect(page).to have_content 'herb_teaの注文を削除しました。'
   end
 
-  scenario '注文を追加した場合も、注文済み商品の合計金額が見れる' do
-    create_user_and_login_as 'Bob'
+  context 'Bobとしてログインした場合' do
+    before  do
+      create_user_and_login_as 'Bob'
+    end
 
-    choose_item_and_quantity 'red_tea', 3
-    click_button '注文する'
+    scenario 'Bobが注文を追加した場合も、注文済み商品の合計金額が見れる' do
+      choose_item_and_quantity 'red_tea', 3
+      click_button '注文する'
 
-    choose_item_and_quantity 'herb_tea', 1
-    click_button '注文する'
+      choose_item_and_quantity 'herb_tea', 1
+      click_button '注文する'
 
-    expect(page.find(:css, '#edit_order_sum_yen').text).to eq '400円'
+      expect(page.find(:css, '#edit_order_sum_yen').text).to eq '400円'
+    end
   end
 end

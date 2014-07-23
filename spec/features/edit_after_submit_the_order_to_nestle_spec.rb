@@ -8,6 +8,8 @@ feature 'ネスレ公式に発注した後の注文修正'do
     login_as 'Alice'
   end
 
+  let(:alice) { User.find_by!(name: 'Alice') }
+
   scenario 'ネスレ入力用シートでボタンを押した後、注文の修正はできない' do
     visit '/orders/registered'
 
@@ -50,8 +52,6 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
 
   scenario '注文情報を削除した後、再度注文を作れる。' do
-    alice = User.find_by_name('Alice')
-
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     form_visiting_registered_to_delete_exchanged_of alice
 
