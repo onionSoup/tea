@@ -1,17 +1,13 @@
 feature '商品の削除' do
-  let(:herb_tea) { create(:item, name: 'herb_tea', price: 756) }
+  fixtures :items
 
   context '既存の商品がある場合' do
-    background do
-      herb_tea
-    end
-
     scenario '削除リンクを押せば、既存の商品を削除できる' do
       visit '/admin/items'
 
       expect(page).to have_content 'herb_tea'
 
-      within ".change_item_#{herb_tea.id}" do
+      within ".change_item_#{items(:herb_tea).id}" do
         click_link '削除'
       end
 
@@ -20,19 +16,18 @@ feature '商品の削除' do
   end
 
   context 'herb_teaを注文しているAliceがログインしている時'do
+    let!(:alice) { create(:user, name: 'Alice') }
+
     background do
-      alice = create(:user, name: 'Alice')
-      alice.order.order_details << build(:order_detail, item: herb_tea)
+      alice.order.order_details << build(:order_detail, item: items(:herb_tea))
 
       login_as 'Alice'
     end
 
-    let(:alice) { User.find_by!(name: 'Alice') }
-
     scenario 'herb_teaを含む注文情報がある場合、herb_teaは削除できない' do
       visit '/admin/items'
 
-      within ".change_item_#{herb_tea.id}" do
+      within ".change_item_#{items(:herb_tea).id}" do
         click_link '削除'
       end
 
@@ -46,7 +41,7 @@ feature '商品の削除' do
 
       click_link '商品の管理'
 
-      within ".change_item_#{herb_tea.id}" do
+      within ".change_item_#{items(:herb_tea).id}" do
         click_link '削除'
       end
 

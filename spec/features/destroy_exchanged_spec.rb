@@ -1,9 +1,10 @@
 feature '引換済み商品' do
   fixtures :items
 
+  let!(:alice) { create(:user, name: 'Alice') }
+
   context '引換後で、破棄していないお茶があるとき' do
     before do
-      alice = create(:user, name: 'Alice')
       alice.order.update_attributes(
         state: 'exchanged',
         order_details: [

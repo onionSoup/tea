@@ -18,7 +18,7 @@ feature 'ネスレ入力用シート' do
 
     scenario 'ネスレ入力用シートに来た時、注文があるなら、商品名と注文合計金額が表示されている' do
       expect(page).to have_content 'herb_tea'
-      expect(page).to have_content '1000円'
+      expect(page).to have_content '1000円' #これのためfixtureを使わない
     end
 
     scenario '注文完了登録ボタンを押すと、ネスレ発送待ちページに移動して成功メッセージがでる' do

@@ -21,7 +21,7 @@ feature 'ネスレ発送待ち商品ページ' do
       visit '/orders/ordered'
 
       expect(page).to have_content 'herb_tea'
-      expect(page).to have_content '1000円'
+      expect(page).to have_content '1000円' #これのためfixturesを使わない
     end
 
     scenario '注文があるとき、ボタンを押すとネスレ発送待ちページに移動して成功メッセージがでる' do

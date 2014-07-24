@@ -1,9 +1,10 @@
 feature '既存の注文を修正する'do
-  background do
-    alice = create(:user, name: 'Alice')
+  let!(:alice) { create(:user, name: 'Alice') }
+  let!(:herb_tea) { create(:item, name: 'herb_tea', price: 100) }
+  let(:herb_tea_detail_of_alice) { OrderDetail.find_by_item_id!(Item.find_by_name! 'herb_tea') } #FIXME
 
-    herb_tea = create(:item, name: 'herb_tea', price: 100)
-    red_tea = create(:item, name: 'red_tea', price: 100)
+  background do
+    red_tea = create(:item, name: 'red_tea', price: 100) #対称性に欠くけどletを増やしたくないので
 
     alice.order.update_attributes(
       order_details: [
@@ -15,13 +16,9 @@ feature '既存の注文を修正する'do
     login_as 'Alice'
   end
 
-  let(:herb_tea) { Item.find_by!(name: 'herb_tea') }
-  let(:alice) { User.find_by!(name: 'Alice') }
-  let(:herb_tea_detail_of_alice) { OrderDetail.find_by_item_id!(Item.find_by_name! 'herb_tea') } #FIXME
-
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(page).to exist_in_table 'herb_tea'
-    expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円'
+    expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円' #これのためfixturesを使わない
   end
 
   context 'さらに別のお茶を注文する場合' do

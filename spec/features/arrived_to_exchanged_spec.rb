@@ -1,11 +1,9 @@
 feature '引換用ページ' do
   fixtures :items
 
-  let(:alice) { User.find_by_name! 'Alice' }
+  let!(:alice) { create(:user, name: 'Alice') }
 
   background do
-    alice = create(:user, name: 'Alice')
-
     alice.order.update_attributes(
       state: 'arrived',
       order_details: [
