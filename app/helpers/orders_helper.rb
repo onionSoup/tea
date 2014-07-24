@@ -41,7 +41,7 @@ module OrdersHelper
 
   def link_to_edit_or_show(edit_link_text, show_link_text)
     if current_user.order.state == 'registered'
-      content_tag :a, href: edit_order_path do "#{edit_link_text}" end
+      content_tag :a, href: order_details_path do "#{edit_link_text}" end
     else
       content_tag :a, href: order_path do "#{show_link_text}" end
     end

@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
 
   def url_for_edit_or_show
     if current_user.order.state == 'registered'
-      edit_order_path
+      order_details_path
     else
       order_path
     end

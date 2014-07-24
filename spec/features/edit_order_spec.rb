@@ -27,28 +27,28 @@ feature '既存の注文を修正する'do
       click_link '注文画面'
     end
 
-    scenario '商品と個数を選んで「注文する」を押すと、表に明細が追加されて、メッセージも出る' do
+    scenario '商品と個数を選んで「追加する」を押すと、表に明細が追加されて、メッセージも出る' do
       choose_item_and_quantity 'green_tea', 1
-      click_button '注文する'
+      click_button '追加する'
 
       expect(page).to exist_in_table 'green_tea'
       expect(page).to have_content 'green_teaを追加しました。'
     end
 
-    scenario '品名だけを選んだ場合、注文はできない' do
+    scenario '品名だけを選んだ場合、追加はできない' do
       choose_item_and_quantity 'green_tea', ''
-      click_button '注文する'
+      click_button '追加する'
 
       expect(page).not_to exist_in_table 'green_tea'
-      expect(page).to have_content '商品名と数量を両方指定して注文してください'
+      expect(page).to have_content 'お茶の数量を選択してください。'
     end
 
-    scenario '数量だけを選んだ場合、注文はできない' do
+    scenario '数量だけを選んだ場合、追加はできない' do
       choose_item_and_quantity '', 1
-      click_button '注文する'
+      click_button '追加する'
 
       expect(page).not_to exist_in_table 'green_tea'
-      expect(page).to have_content '商品名と数量を両方指定して注文してください'
+      expect(page).to have_content 'お茶の名前を選択してください。'
     end
   end
 
@@ -58,9 +58,9 @@ feature '既存の注文を修正する'do
 
     choose_item_and_quantity 'herb_tea', 1
 
-    click_button '注文する'
+    click_button '追加する'
 
-    expect(page).to have_content 'その商品は既に注文しています。'
+    expect(page).to have_content 'そのお茶は既に追加しています。'
   end
 
   scenario '明細の横の「削除する」リンクを押すと、表から明細が削除されて、通知がある' do
@@ -77,10 +77,10 @@ feature '既存の注文を修正する'do
 
     scenario 'Bobが注文を追加した場合も、注文済み商品の合計金額が見れる' do
       choose_item_and_quantity 'red_tea', 3
-      click_button '注文する'
+      click_button '追加する'
 
       choose_item_and_quantity 'herb_tea', 1
-      click_button '注文する'
+      click_button '追加する'
 
       expect(page.find(:css, '#edit_order_sum_yen').text).to eq '400円'
     end

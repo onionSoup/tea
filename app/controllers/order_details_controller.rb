@@ -22,7 +22,7 @@ class OrderDetailsController < ApplicationController
     @detail = OrderDetail.find(params[:id])
     OrderDetail.destroy @detail
 
-    redirect_to edit_order_path, flash: {success: "#{@detail.item.name}の注文を削除しました。"}
+    redirect_to order_details_path, flash: {success: "#{@detail.item.name}の注文を削除しました。"}
   end
 
   private

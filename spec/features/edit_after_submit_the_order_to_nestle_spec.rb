@@ -54,7 +54,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
     #注文情報削除後は、注文できることを確認する。
     choose_item_and_quantity 'herb_tea', 2
-    click_button '注文する'
+    click_button '追加する'
 
     expect(page).to exist_in_table 'herb_tea'
   end
