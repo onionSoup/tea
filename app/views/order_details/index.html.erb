@@ -1,4 +1,3 @@
-<%# TODO スタイルの崩れを直す %>
 <div class="general_user_flex">
   <%= render 'layouts/general_user_side_nav' %>
   <div>
@@ -33,8 +32,10 @@
         </div>
       <% end %>
 
-      <h3 id='add_order_in_edit_order'><%= title_of_edit_order %></h3>
-      <p>追加したい商品と個数を選んで、「追加する」ボタンを押してください</p>
+<%#        <h3 id='add_order_in_edit_order'><%= title_of_edit_order %><%# </h3>  %>
+      <%= content_tag :p,
+                      '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
+                      id: id_of_p_to_add_details %>
       <%= form_tag order_details_path, method: :post do %>
         <%= label_tag 'order_detail[item_id]', '品名：' %>
         <%= select_tag(

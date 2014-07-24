@@ -4,18 +4,14 @@ class OrderDetailsController < ApplicationController
     @items = Item.order(:id)
   end
 
-  def new
-    @order = User.includes(order: {order_details: :item}).find(current_user).order
-    @items = Item.order(:id)
-  end
-
   def create
-    order = current_user.order
-    @order_detail = order.order_details.build(order_detail_params)
+    @order = current_user.order
+    @order_detail = @order.order_details.build(order_detail_params)
 
     if @order_detail.save
       flash[:success] = "#{@order_detail.item.name}を追加しました。"
     else
+      #error message
     end
     redirect_to new_order_detail_path
 =begin
