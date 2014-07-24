@@ -1,13 +1,7 @@
 feature '注文履歴ページ' do
   fixtures :items
 
-  let!(:alice) { create(:user, name: 'Alice') }
-
-  background do
-    alice.order.order_details << build(:order_detail, item: items(:herb_tea))
-
-    login_as 'Alice'
-  end
+  include_context 'herb_teaを注文しているAliceとしてログイン'
 
   context 'ネスレ公式にまだ発注してない時' do
     scenario '管理者用ページに来ても、ヘッダーリンクから注文履歴ページにいけない' do

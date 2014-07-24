@@ -1,13 +1,7 @@
 feature 'ネスレ公式に発注した後の注文修正'do
   fixtures :items
 
-  let!(:alice) { create(:user, name: 'Alice') }
-
-  background do
-    alice.order.order_details << build(:order_detail, item: items(:herb_tea))
-
-    login_as 'Alice'
-  end
+  include_context 'herb_teaを注文しているAliceとしてログイン'
 
   scenario 'ネスレ入力用シートでボタンを押した後、注文の修正はできない' do
     visit '/orders/registered'

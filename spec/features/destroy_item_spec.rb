@@ -16,13 +16,8 @@ feature '商品の削除' do
   end
 
   context 'herb_teaを注文しているAliceがログインしている時'do
-    let!(:alice) { create(:user, name: 'Alice') }
 
-    background do
-      alice.order.order_details << build(:order_detail, item: items(:herb_tea))
-
-      login_as 'Alice'
-    end
+    include_context 'herb_teaを注文しているAliceとしてログイン'
 
     scenario 'herb_teaを含む注文情報がある場合、herb_teaは削除できない' do
       visit '/admin/items'
