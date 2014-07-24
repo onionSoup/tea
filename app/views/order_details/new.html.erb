@@ -1,0 +1,53 @@
+<div class="general_user_flex">
+  <%= render 'layouts/general_user_side_nav' %>
+  <div>
+    <div id="edit_order_content">
+      <h3 id='add_order_in_edit_order'><%= title_of_edit_order %></h3>
+      <p>追加したい商品と個数を選んで、「追加する」ボタンを押してください</p>
+      <%= form_tag order_details_path, method: :post do %>
+        <%= label_tag 'order_detail[item_id]', '品名：' %>
+        <%= select_tag(
+          'order_detail[item_id]',
+           options_for_select(item_options)
+        ) %>
+        <%= label_tag 'order_detail[quantity]', '数量：' %>
+        <%= number_field_tag(
+          'order_detail[quantity]',
+          nil,
+          in: 1..20
+        ) %>
+        <%= button_tag :追加する %>
+      <% end %>
+
+      <h3 id="ordered_index_in_edit_order"><%= current_user.name %>さんが今回注文するもの</h3>
+      <% if @order.order_details.none? %>
+        <p><%= current_user.name %>さんは、まだお茶を追加していません。追加すると、ここにお茶が表示されます。</p>
+      <% else %>
+        <p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
+        <p>キャンセルしたいお茶がある場合、「削除する」リンクを押してください。</p>
+        <div id='edit_order_table_and_p_wraper'>
+          <table id="edit_order_table">
+            <tr>
+              <th class="name">品名</th>
+              <th class="quantity">数量</th>
+              <th class="price">単価</th>
+              <th class="sum">小計</th>
+              <th></th>
+            </tr>
+            <% @order.order_details.each do |detail| %>
+              <%= tag :tr, class: "detail#{detail.id}" %>
+                <td class="name"><%= detail.item.name %></td>
+                <td class="quantity"><%= detail.quantity %>個</td>
+                <td class="price"><%= detail.item.price %>円</td>
+                <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
+                <td class="destroy"><%= link_to '削除',order_detail_path(detail), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_detail#{detail.id}" %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+          <p><span id='edit_order_sum_jp'>合計</span><span id='edit_order_sum_yen'><%= @order.order_details.price_sum %>円</span></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

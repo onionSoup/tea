@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resource :order, only: %i(edit update show)
 
-  resources :order_details, only: %i(destroy)
+  resources :order_details, only: %i(index new create destroy)
 
   resources :users, only: %i(new create)
 
