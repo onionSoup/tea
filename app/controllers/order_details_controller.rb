@@ -11,28 +11,11 @@ class OrderDetailsController < ApplicationController
     if @order_detail.save
       flash[:success] = "#{@order_detail.item.name}を追加しました。"
     else
-      #error message
-    end
-    redirect_to new_order_detail_path
-=begin
-    attr_for_update_order = {}
-    attr_for_update_order[:user_id] = current_user.id
-    attr_for_update_order[:order_details_attributes] = details_with_item_and_quantity
-
-    @order.update_attributes(attr_for_update_order)
-
-    if attr_for_update_order[:order_details_attributes].present? && @order.valid?
-      added_item = Item.find(attr_for_update_order[:order_details_attributes]['0']['item_id'])
-      flash[:success] = "#{added_item.name}を追加しました。"
-    else
-      invalid_error_message = @order.errors[:base].join
-      flash[:error] = invalid_error_message.empty? ? '商品名と数量を両方指定して注文してください' : invalid_error_message
+      message = @order_detail.errors.messages[:item_id] || @order_detail.errors.messages[:quantity]
+      flash[:error] = message.join
     end
 
-    redirect_to new_order_detail_path
-=end
-
-
+    redirect_to order_details_path
   end
 
   def destroy
@@ -46,9 +29,5 @@ class OrderDetailsController < ApplicationController
 
   def order_detail_params
     params.require(:order_detail).permit(:item_id, :quantity)
-  end
-
-  def details_with_item_and_quantity
-    order_params[:order_details_attributes].select {|k, v| v[:item_id].present? && v[:quantity].present? }
   end
 end
