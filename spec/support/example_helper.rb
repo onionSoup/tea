@@ -15,14 +15,6 @@ module ExampleHelper
     choose_quantity quantity
   end
 
-  #引数のお茶の名前が、明細票に表示されているならtrue、表示されてないならfalseを返す。
-  def exist_tea_in_table?(tea_name)
-    tea_names = page.all(:css, 'td.name').map(&:text)
-    tea_names.include?(tea_name)
-  rescue Capybara::ElementNotFound
-    false
-  end
-
   private
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。
@@ -39,12 +31,7 @@ module ExampleHelper
   #orders/edit.html.erbのセレクタボックスで個数を選ぶメソッド。
   #引数quantityには、OrderDetail#quantity、空白の文字列''のいずれかを渡せる。
   def choose_quantity(quantity)
-    if quantity == ''
-      select '', from: '数量：'
-    else
-      quantity_with_unit = "#{quantity}個"
-      select quantity_with_unit, from: '数量：'
-    end
+    fill_in "数量", with: "#{quantity}" unless quantity == ''
   end
 
   #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し、最後には削除ボタンを押す。

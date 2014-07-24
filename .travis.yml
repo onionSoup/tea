@@ -1,0 +1,11 @@
+language: ruby
+rvm: 2.1.2
+bundler_args: --without production
+before_script: bundle exec rake db:create
+
+notifications:
+  webhooks:
+    - https://idobata.io/hook/travis_ci/cb225d63-a2e4-41e9-9ffd-76db53f0cc9e
+
+addons:
+  postgresql: "9.3"

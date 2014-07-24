@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  resource :order, only: %i(edit update)
+  resource :order, only: %i(edit update show)
 
-  resources :order_details, only: %i(destroy)
+  resources :order_details, only: %i(index new create destroy)
 
   resources :users, only: %i(new create)
 
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :items, only: %i(index new create edit update destroy)
+    resources :users, only: %i(index edit update destroy)
   end
 
 
