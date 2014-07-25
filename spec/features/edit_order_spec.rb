@@ -16,6 +16,14 @@ feature '既存の注文を修正する'do
     login_as 'Alice'
   end
 
+  scenario 'ログインしていない場合、注文画面にいけずログイン画面になる' do
+    click_link 'ログアウト'
+
+    visit '/order' #URL直打ちやブックマークのアクセスを想定
+
+    expect(page.current_path).to eq '/sessions/new'
+  end
+
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(page).to exist_in_table 'herb_tea'
     expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円' #これのためfixturesを使わない

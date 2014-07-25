@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   before_action :reject_edit_since_ordered, only: [:edit]
   before_action :reject_show_until_ordered, only: [:show]
 
+  include Signin
+
   def show
     @order = User.includes(order: {order_details: :item}).find(current_user).order
   end
@@ -42,10 +44,6 @@ class OrdersController < ApplicationController
     order_params[:order_details_attributes].select {|k, v| v[:item_id].present? && v[:quantity].present? }
   end
 
-  def need_signed_in
-    redirect_to new_session_path unless signed_in?
-  end
-
   def reject_edit_since_ordered
     unless current_user.order.state == 'registered'
       redirect_to order_path, flash: {error: '既に管理者がネスレに発注したため、注文の修正はできません。'}
@@ -53,7 +51,7 @@ class OrdersController < ApplicationController
   end
 
   def reject_show_until_ordered
-    #showでできることはeditですべてできるので、エラーメッセージを出さない。
-    redirect_to edit_order_path if current_user.order.state == 'registered'
+    #orders#showでできることはorder_details#indexですべてできるので、エラーメッセージを出さない。
+    redirect_to order_details_path if current_user.order.state == 'registered'
   end
 end

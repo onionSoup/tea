@@ -1,4 +1,8 @@
 class OrderDetailsController < ApplicationController
+  include Signin
+  before_action :need_signed_in
+  before_action :reject_index_since_ordered, only: [:index]
+
   def index
     @order = User.includes(order: {order_details: :item}).find(current_user).order
     @items = Item.order(:id)
@@ -29,5 +33,11 @@ class OrderDetailsController < ApplicationController
 
   def order_detail_params
     params.require(:order_detail).permit(:item_id, :quantity)
+  end
+
+  def reject_index_since_ordered
+    unless current_user.order.state == 'registered'
+      redirect_to order_path, flash: {error: '既に管理者がネスレに発注したため、注文の修正はできません。'}
+    end
   end
 end

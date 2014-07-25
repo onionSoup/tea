@@ -14,7 +14,7 @@ feature '注文履歴ページ' do
     scenario 'URL直打ちやブクマからアクセスしても、注文履歴にいけず注文画面にリダイレクト' do
       visit order_path
 
-      expect(page.current_path).to eq '/order/edit'
+      expect(page.current_path).to eq '/order_details'
     end
   end
 
