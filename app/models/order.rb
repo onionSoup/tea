@@ -17,11 +17,6 @@ class Order < ActiveRecord::Base
 
   after_destroy :create_another_order
 
-  accepts_nested_attributes_for :order_details, allow_destroy: true, reject_if: proc {|attributes| attributes['quantity'].to_i.zero? }
-
-  validate do
-    check_uniqueness_of_item_id_within_same_order
-  end
   validates :user_id, presence: true
 
   scope :select_name_and_price_and_sum_of_quantity, -> {
@@ -37,13 +32,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  #validates :item_id, uniqueness: {scope: :order}をvalidates_associated :order_details から呼ぶことで近いことはできる。しかしorder.id == nilの時validになる。そのため以下を用意。
-  def check_uniqueness_of_item_id_within_same_order
-    item_order_ids = order_details.map {|detail| [detail.item_id, self.id] }.sort
-    duplication_counter = item_order_ids.size - item_order_ids.uniq.size
-    errors.add :base, 'その商品は既に注文しています。' if duplication_counter.nonzero?
-  end
 
   def create_another_order
     user.create_order
