@@ -7,10 +7,10 @@
       <%= translate_state(@order.state) %>
       </h3>
       <p><%= raw explain_state(@order.state) %></p>
-      <h3 id="ordered_index_in_edit_order"><%= current_user.name %>さんの注文履歴</h3>
+      <h3 id="ordered_index_in_order_details_index"><%= current_user.name %>さんの注文履歴</h3>
       <p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
-      <div id='edit_order_table_and_p_wraper'>
-        <table id="edit_order_table">
+      <div id='order_details_index_table_and_p_wraper'>
+        <table id="order_details_index_table">
           <tr>
             <th class="name">品名</th>
             <th class="quantity">数量</th>
@@ -26,7 +26,7 @@
             </tr>
           <% end %>
         </table>
-        <p><span id='edit_order_sum_jp'>合計</span><span id='edit_order_sum_yen'><%= @order.order_details.price_sum %>円</span></p>
+        <p><span id='order_details_index_sum_jp'>合計</span><span id='order_details_index_sum_yen'><%= @order.order_details.price_sum %>円</span></p>
       </div>
     </div>
   </div>

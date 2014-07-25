@@ -26,7 +26,7 @@ feature '既存の注文を修正する'do
 
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(page).to exist_in_table 'herb_tea'
-    expect(page.find(:css, '#edit_order_sum_yen').text).to eq '200円' #これのためfixturesを使わない
+    expect(page.find(:css, '#order_details_index_sum_yen').text).to eq '200円' #これのためfixturesを使わない
   end
 
   context 'さらに別のお茶を注文する場合' do
@@ -90,7 +90,7 @@ feature '既存の注文を修正する'do
       choose_item_and_quantity 'herb_tea', 1
       click_button '追加する'
 
-      expect(page.find(:css, '#edit_order_sum_yen').text).to eq '400円'
+      expect(page.find(:css, '#order_details_index_sum_yen').text).to eq '400円'
     end
   end
 end
