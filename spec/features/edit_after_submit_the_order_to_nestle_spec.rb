@@ -24,12 +24,10 @@ feature 'ネスレ公式に発注した後の注文修正'do
       click_button '注文の完了をシステムに登録'
 
       #Bobは注文できる。
-      visit '/order/edit'
-
-      expect(page).not_to have_content '注文の修正はできません。'
+      click_link '注文画面'
 
       choose_item_and_quantity 'herb_tea', 2
-      click_button '注文する'
+      click_button '追加する'
       click_link '管理者用'
 
       expect(page).to exist_in_table 'herb_tea'
