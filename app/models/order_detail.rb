@@ -19,9 +19,12 @@ class OrderDetail < ActiveRecord::Base
 
   before_create :copy_then_price
 
-  validates :item_id, presence: true, uniqueness: {scope: :order}
-  validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-
+  validates :item_id,
+            presence: {message: 'お茶の名前を選択してください。' },
+            uniqueness: {scope: :order, message: 'そのお茶は既に追加しています。'}
+  validates :quantity,
+            numericality: {only_integer: true, greater_than_or_equal_to: 0,
+                           message: 'お茶の数量を選択してください。'}
   def copy_then_price
     self.then_price = item.price
   end

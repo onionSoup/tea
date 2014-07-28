@@ -1,0 +1,79 @@
+//order_details#index
+p#p_to_add_subsequent_details {
+  margin-top: 7em;
+}
+
+p#p_to_add_first_detail {
+  margin-top: 4em;
+}
+
+div#order_details_index_content {
+  margin-top: 3.2em;
+}
+
+div#order_details_index_content > p, div#order_details_index_content > form {
+  margin-left: 2em;
+}
+
+table#order_details_index_table {
+  border: thin solid #dcdcdc;
+  margin: 3em 0 0 2em;
+  td.quantity, td.price, td.sum {
+    text-align: right;
+  }
+  td.destroy {
+    text-align: center;
+  }
+}
+
+table#order_details_index_table th {
+  font-weight: bold;
+  background: #e3eaf6;
+  padding: 0 2em 0 2em;
+}
+
+table#order_details_index_table td {
+  padding: 0.6em;
+}
+
+table#order_details_index_table tr:nth-child(2n+1) {
+  background: #f5f5f5;
+}
+
+div#order_details_index_content button {
+  font-size: 1.05em;
+  margin-left: 2em;
+}
+
+h3#general_user_title {
+  font-size: medium;
+  margin-top: 2em;
+}
+
+h3#add_order_in_order_details_index {
+  margin: 0 0 2em;
+  border-bottom: solid thin #c8c8c8;
+  width: 20em;
+}
+
+h3#ordered_index_in_order_details_index {
+  margin: 3em 0 2em;
+  border-bottom: solid thin #c8c8c8;
+  width: 20em;
+}
+
+div#order_details_index_table_and_p_wraper {
+  position: relative;
+  display: inline-block;
+}
+
+div#order_details_index_table_and_p_wraper p {
+  position: absolute;
+  right: 0;
+  margin-top: 2em;
+  border-bottom: solid thin #c8c8c8;
+}
+
+div#order_details_index_table_and_p_wraper span#order_details_index_sum_yen {
+  margin-left: 1.5em;
+}

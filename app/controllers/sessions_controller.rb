@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     #社内用なので、パスワードの認証はしない。
     if user
       sign_in user
-      redirect_to url_for_edit_or_show, flash: {success: 'ログインしました。'}
+      redirect_to url_for_index_or_show, flash: {success: 'ログインしました。'}
     else
       flash.now[:error] = 'そのユーザは存在しません。新規ユーザー登録してください'
       render 'new'
@@ -22,9 +22,9 @@ class SessionsController < ApplicationController
 
   private
 
-  def url_for_edit_or_show
+  def url_for_index_or_show
     if current_user.order.state == 'registered'
-      edit_order_path
+      order_details_path
     else
       order_path
     end

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  resource :order, only: %i(edit update show)
+  resource :order, only: %i(show)
 
-  resources :order_details, only: %i(index new create destroy)
+  resources :order_details, only: %i(index create destroy)
 
   resources :users, only: %i(new create)
 

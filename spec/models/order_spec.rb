@@ -16,25 +16,29 @@ describe Order do
     expect(order).to be_valid
   end
 
+  #自作validationではなく、組み込みのvalidationを使えるようになった
+  #そのためこれは不要かもしれない
   context 'when there is same item' do
     it 'is invalid with order_details of same item' do
-      order = build(:order,
-        order_details: [
-          build(:order_detail, item: herb_tea),
-          build(:order_detail, item: herb_tea)
-        ]
-      )
-
-      expect(order).to be_invalid
-      expect(order.errors.messages[:base].join).to match /その商品は既に注文しています/
+      alice = create(:user, name: 'Alice')
+      begin
+        alice.order.update_attributes(
+          order_details: [
+            build(:order_detail, item: herb_tea),
+            build(:order_detail, item: herb_tea)
+          ]
+        )
+      rescue ActiveRecord::RecordNotSaved
+        expect(alice.order.order_details).to be_empty
+      end
     end
 
     it 'is valid with two orders of same item' do
       alice = create(:user, name: 'Alice')
       bob = create(:user, name: 'Bob')
 
-      alice.order = build(:order, order_details: [build(:order_detail, item: herb_tea)])
-      bob.order = build(:order, order_details: [build(:order_detail, item: herb_tea)])
+      alice.order.update_attributes(order_details: [build(:order_detail, item: herb_tea)])
+      bob.order.update_attributes(order_details: [build(:order_detail, item: herb_tea)])
 
       expect(alice.order).to be_valid
       expect(bob.order).to be_valid
@@ -48,9 +52,8 @@ describe Order do
 
       Order.find(alice.order).destroy
 
-      order_of_alice = User.find(alice).order
-
-      expect(order_of_alice.order_details).to eq([])
+      #alice.order.order_detailsだとまだ残っているので。
+      expect(User.find(alice).order.order_details).to be_empty
     end
   end
 end
