@@ -8,11 +8,6 @@ module OrdersHelper
     (1..OrderDetail::MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL).map {|i| ["#{i}個", i] }.unshift(['', ''])
   end
 
-  def title_of_edit_order
-    valid_details = current_user.order.order_details.reject {|detail| detail.invalid? }
-    valid_details.any? ? '既存注文の修正' : '新規注文の作成'
-  end
-
   #translate_stateとexpalin_stater両方でcase使っていたら、code climateさんに怒られたので。
   #と思ったら、caseを追い出してもまだ駄目とのこと。
   def state_to_message(arg)
@@ -54,10 +49,10 @@ module OrdersHelper
       }
     )
   end
-
-  def link_to_edit_or_show(edit_link_text, show_link_text)
+  #link_to_details_index_or_order_showだと長い。
+  def link_to_index_or_show(index_link_text, show_link_text)
     if current_user.order.state == 'registered'
-      content_tag :a, href: order_details_path do "#{edit_link_text}" end
+      content_tag :a, href: order_details_path do "#{index_link_text}" end
     else
       content_tag :a, href: order_path do "#{show_link_text}" end
     end
