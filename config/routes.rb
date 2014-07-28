@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :items, only: %i(index new create edit update destroy)
     resources :users, only: %i(index edit update destroy)
-    resources :order_details, only: %i(create destroy)
+    resources :order_details, only: %i(index create destroy)
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
