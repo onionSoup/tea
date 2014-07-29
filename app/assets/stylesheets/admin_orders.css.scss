@@ -1,21 +1,10 @@
+//all admin orders table
 div#admin_flex_box {
   display: flex;
 }
 
 div#admin_flex_box h3 {
   border-bottom: solid thin #dcdcdc;
-}
-
-div#admin_show_time_limit_display div {
-  margin-left: 4em;
-}
-
-div#admin_show_time_limit_display a {
-  color: #007ab7;
-}
-
-div#admin_show_time_limit_display a:hover {
-  color: #edad08;
 }
 
 div#nestle_input_sheet {
@@ -50,10 +39,6 @@ table#admin_order_table {
   border: thin solid #dcdcdc;
 }
 
-table.exchange_table td:nth-child(n+2) {
-  border-left: dotted thin #dcdcdc;
-}
-
 table#admin_order_table td.name {
   padding: 0.4em 0.6em 0;
 }
@@ -72,14 +57,31 @@ table#admin_order_table div.inner_table {
   justify-content: space-between;
 }
 
-table.exchange_table div.inner_table:nth-child(even) {
-  background: #f3f3f3;
-}
-
 p#payment {
   border: thin solid #dcdcdc;
   border-radius: 8px;
   margin-left: 3em;
   padding: 1em;
   height: 2em;
+}
+
+table.users_table_in_admin_orders_pages td:nth-child(n+2) {
+  border-left: dotted thin #dcdcdc;
+}
+
+table.users_table_in_admin_orders_pages div.inner_table:nth-child(even) {
+  background: #f3f3f3;
+}
+
+#h3_on_users_table_in_admin_orders_pages{
+  padding-top: 2em;
+}
+
+//exchange
+table.exchange_table td:nth-child(n+2) {
+  border-left: dotted thin #dcdcdc;
+}
+
+table.exchange_table div.inner_table:nth-child(even) {
+  background: #f3f3f3;
 }
