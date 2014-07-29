@@ -1,5 +1,5 @@
 <div id="admin_flex_box">
-  <%= render 'layouts/admin_side_nav' %>
+  <%= render 'application/admin_side_nav' %>
   <div>
     <div id="nestle_input_sheet">
       <h3>ネスレ発送待ち商品ページ</h3>
@@ -18,30 +18,9 @@
         <%=  f.submit 'お茶の受領をシステムに登録' %>
       <% end %>
     </div>
-    <h3 id="h3_on_users_table_in_admin_orders_pages">注文したユーザーの詳細</h3>
-    <div id="nestle_input_sheet_flex_box">
-      <table id="admin_order_table" class="users_table_in_admin_orders_pages">
-        <tr>
-          <th>お名前</th>
-          <th>合計支払い金額</th>
-          <th>商品内訳</th>
-        </tr>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= label_tag "user_#{user.id}", user.name %></td>
-            <td><%= user.order.order_details.price_sum  %></td>
-            <td>
-              <% user.order.order_details.each do |detail| %>
-                <div class="inner_table">
-                  <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
-                  <div><%= "#{detail.quantity}個" %></div>
-                </div>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+    <h3 id="h3_on_users_table_in_admin_orders_pages">ユーザごとの詳細</h3>
+    <p>注文した商品が発送待ち状態であるユーザーは以下のとおりです。</p>
+    <%= render 'application/users_table.html' %>
   </div>
 </div>
 

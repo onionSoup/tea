@@ -1,30 +1,11 @@
 <div id="admin_flex_box">
-  <%= render 'layouts/admin_side_nav' %>
+  <%= render 'application/admin_side_nav' %>
   <div>
     <div id="nestle_input_sheet">
       <h3>引換情報</h3>
       <div>
         <p>以下のお茶は、引換が終了しています。</p>
-        <div id="nestle_input_sheet_flex_box">
-          <table id="admin_order_table" class="exchange_table">
-            <tr><th>お名前</th><th>合計支払い金額</th><th>商品内訳</th></tr>
-            <% @users.each do |user| %>
-              <% order = user.order %>
-              <tr>
-                <td><%= user.name %></td>
-                <td><%= order.order_details.price_sum %></td>
-                <td>
-                  <% order.order_details.each do |detail| %>
-                  <div class="inner_table">
-                    <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
-                    <div><%= "#{detail.quantity}個" %></div>
-                  </div>
-                  <% end %>
-                </td>
-              </tr>
-          <% end %>
-          </table>
-        </div>
+        <%= render 'application/users_table.html' %>
       </div>
       <p>引換情報を削除するには以下のボタンを押してください。<br />
       削除した引換情報は元に戻せないことにご注意ください。</p>

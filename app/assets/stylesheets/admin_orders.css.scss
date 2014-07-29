@@ -77,11 +77,11 @@ table.users_table_in_admin_orders_pages div.inner_table:nth-child(even) {
   padding-top: 2em;
 }
 
-//exchange
-table.exchange_table td:nth-child(n+2) {
+//arrived
+table.arrived_table td:nth-child(n+2) {
   border-left: dotted thin #dcdcdc;
 }
 
-table.exchange_table div.inner_table:nth-child(even) {
+table.arrived_table div.inner_table:nth-child(even) {
   background: #f3f3f3;
 }

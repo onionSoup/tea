@@ -1,5 +1,5 @@
 <div id="admin_flex_box">
-  <%= render 'layouts/admin_side_nav' %>
+  <%= render 'application/admin_side_nav' %>
   <div>
     <div id="nestle_input_sheet">
       <h3>引換情報</h3>
@@ -9,7 +9,7 @@
         <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
         <%= form_tag exchange_arrived_path, method: :post do %>
           <div id="nestle_input_sheet_flex_box">
-            <table id="admin_order_table" class="exchange_table">
+            <table id="admin_order_table" class="arrived_table">
               <tr>
                 <th>引換完了チェック</th>
                 <th>お名前</th>
