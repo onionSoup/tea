@@ -1,58 +1,34 @@
-//all admin orders table
-div#admin_flex_box {
-  display: flex;
-}
-
-div#admin_flex_box h3 {
-  border-bottom: solid thin #dcdcdc;
-}
-
-div#nestle_input_sheet {
-  padding-top: 3em;
-}
-
-div#nestle_input_sheet p {
-  margin-left: 2em;
-}
-
-div#nestle_input_sheet_flex_box {
-  display: flex;
-  align-items: flex-start;
-  margin-top: 2em;
-  margin-left: 2em;
-}
-
-table#admin_order_table tr:first-child {
+table.admin_order_table tr:first-child {
   background: #e3eaf6;
 }
 
-table#admin_order_table tr:nth-child(2n+3) {
+table.admin_order_table tr:nth-child(2n+3) {
   background: #f9f9f9;
 }
 
-table#admin_order_table tr:first-child th {
+table.admin_order_table tr:first-child th {
   padding-top: 0.6em;
   text-align: center;
 }
 
-table#admin_order_table {
+table.admin_order_table {
   border: thin solid #dcdcdc;
 }
 
-table#admin_order_table td.name {
+table.admin_order_table td.name {
   padding: 0.4em 0.6em 0;
 }
 
-table#admin_order_table td.price {
+table.admin_order_table td.price {
   padding: 0 0 0 3em;
   text-align: right;
 }
 
-table#admin_order_table td.sum {
+table.admin_order_table td.sum {
   text-align: right;
 }
 
-table#admin_order_table div.inner_table {
+table.admin_order_table div.inner_table {
   display: flex;
   justify-content: space-between;
 }
@@ -73,6 +49,12 @@ table.users_table_in_admin_orders_pages div.inner_table:nth-child(even) {
   background: #f3f3f3;
 }
 
+table.users_table_in_admin_orders_pages tr:nth-child(odd) div.inner_table:nth-child(even) {
+  background: #ececec;
+}
+
+
+
 #h3_on_users_table_in_admin_orders_pages{
   padding-top: 2em;
 }
@@ -84,4 +66,8 @@ table.arrived_table td:nth-child(n+2) {
 
 table.arrived_table div.inner_table:nth-child(even) {
   background: #f3f3f3;
+}
+
+table.arrived_table tr:nth-child(odd) div.inner_table:nth-child(even) {
+  background: #ececec;
 }

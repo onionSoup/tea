@@ -1,15 +1,15 @@
 <div id="admin_flex_box">
   <%= render 'application/admin_side_nav' %>
   <div>
-    <div id="nestle_input_sheet">
+    <div id="admin_first_content">
       <h3>引換情報</h3>
-      <div>
+      <div class="admin_under_h3_content">
         <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
-        <p>引換を完了した方は、引換完了チェックを入れてください。</p>
+        <p>引換を完了した方の欄に、引換完了チェックを入れてください。</p>
         <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
         <%= form_tag exchange_arrived_path, method: :post do %>
-          <div id="nestle_input_sheet_flex_box">
-            <table id="admin_order_table" class="arrived_table">
+          <div id="admin_flex_wrapping_table">
+            <table class="admin_order_table arrived_table">
               <tr>
                 <th>引換完了チェック</th>
                 <th>お名前</th>
@@ -33,7 +33,7 @@
               <% end %>
             </table>
           </div>
-          <p>引換が終わったら以下のボタンを押してください。
+          <p id="p_for_arrive_to_exchange_button">引換が終わったら以下のボタンを押してください。
           引換が終了したことを、システムに登録します。</p>
           <%=  submit_tag '引換の完了をシステムに登録' %>
         <% end %>

@@ -1,12 +1,12 @@
 <div id="admin_flex_box">
   <%= render 'application/admin_side_nav' %>
   <div>
-    <div id="nestle_input_sheet">
+    <div id="admin_first_content">
       <h3>ネスレ入力用シート</h3>
-      <div>
+      <div class="admin_under_h3_content">
         <p>以下のお茶注文情報を見ながら<%= link_to 'ネスレ通販サイト', 'https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/' %>で注文してください。</p>
-        <div id="nestle_input_sheet_flex_box">
-          <table id="admin_order_table">
+        <div id="admin_flex_wrapping_table">
+          <table class="admin_order_table">
             <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
             <% @registereds.each do  |registered| %>
               <tr><td class="name"><%= registered.name %></td><td class="price"><%= registered.then_price %></td><td class="sum"><%= registered.quantity %></td></tr>
@@ -14,7 +14,7 @@
           </table>
           <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
         </div>
-        <p>ネスレ公式での注文が終わったら以下のボタンを押してください。<br />
+        <p id="p_for_register_to_order_button">ネスレ公式での注文が終わったら以下のボタンを押してください。<br />
         注文が終わったことをシステムに登録します。</p>
         <p>ボタンを押すと、引換終了後に注文情報を削除するまで、利用者が注文を修正できなくなります。ご注意ください。</p>
         <%= form_for :order, url: order_registered_path, method: :post do |f| %>
@@ -23,7 +23,9 @@
       </div>
     </div>
     <h3 id="h3_on_users_table_in_admin_orders_pages">ユーザーごとの詳細</h3>
-    <p>ネスレ入力用シートにある商品の、ユーザーごとの内訳は以下のとおりです。</p>
-    <%= render 'application/users_table.html' %>
+    <div class="admin_under_h3_content">
+      <p>ネスレ入力用シートにある商品の、ユーザーごとの内訳は以下のとおりです。</p>
+      <%= render 'application/users_table.html' %>
+    <div>
   </div>
 </div>
