@@ -1,0 +1,28 @@
+//AdminUsers#index
+h2.admin_user_title_in_index {
+  font-size: 1.15em;
+  border-bottom: thin solid #dcdcdc;
+  margin-bottom: 2em;
+}
+
+h2#admin_user_edit_title_in_index {
+  margin-top: 3em;
+}
+
+div.admin_user_content_in_index {
+  margin-left: 2em;
+}
+
+table#users_table_in_admin_users_index {
+  margin-top: 2em;
+  border: thin solid #dcdcdc;
+  td, th {
+    padding: 0.6em;
+  }
+  tr:first-child {
+    background: #e3eaf6;
+  }
+  tr:nth-child(2n+3) {
+    background: #f5f5f5;
+  }
+}

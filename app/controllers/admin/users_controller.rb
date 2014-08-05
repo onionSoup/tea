@@ -1,7 +1,9 @@
 class Admin::UsersController < ApplicationController
+  def new
+  end
+
   def index
-    #今回はuserの数が小さいのでOK、だと思う
-    @users = User.includes(order: {order_details: :item})
+    @users = User.includes(:order)
   end
 
   def edit
@@ -11,5 +13,14 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:id])
+
+    if @user.order_details.any?
+      flash[:error] = 'この商品を使った注文情報があるので、削除できません。'
+    else
+      User.destroy @item
+    end
+
+    redirect_to :admin_items
   end
 end

@@ -2,11 +2,32 @@
   <%= render 'application/admin_side_nav' %>
   <div>
     <div id="admin_first_content">
-      <h3>ユーザー一覧</h3>
-      <div>
-        <%= render 'application/users_table.html' %>
+      <h2 class="admin_user_title_in_index">新しいユーザーの登録</h2>
+      <div class="admin_user_content_in_index">
+        <p><%= link_to '新ユーザー登録ページ', new_admin_user_path %>で可能です。</p>
+      </div>
+    </div>
+    <div>
+      <h2 class="admin_user_title_in_index" id="admin_user_edit_title_in_index">ユーザーの編集、削除</h2>
+      <div class="admin_user_content_in_index">
+        <p>「編集」で名前の変更や、そのユーザーの注文の変更ができます。
+        「削除」でユーザーの削除ができます。</p>
+        <table id="users_table_in_admin_users_index">
+          <tr>
+            <th>ユーザー名</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= link_to '編集', edit_admin_user_path(user) %></td>
+              <td><%= link_to '削除', admin_user_path(user), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}%>
+              </td>
+            </tr>
+          <% end %>
+        </table>
       </div>
     </div>
   </div>
 </div>
-

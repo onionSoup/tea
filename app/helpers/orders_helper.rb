@@ -12,6 +12,8 @@ module OrdersHelper
   #と思ったら、caseを追い出してもまだ駄目とのこと。
   def state_to_message(arg)
     case arg[:state]
+    when 'registered'
+      arg[:message][:registered]
     when 'ordered'
       arg[:message][:ordered]
     when 'arrived'
@@ -27,7 +29,8 @@ module OrdersHelper
     state_to_message(
       {state: state,
        message:
-        {ordered: '未発送',
+        {registered: '未発注',
+         ordered: '未発送',
          arrived: '引換可能',
          exchanged: '引換済み'
         },
@@ -40,7 +43,7 @@ module OrdersHelper
   def explain_state(state)
     state_to_message(
       {state: state,
-       message:
+       message: #registeredは、orders/showでは使わないので不要。
         {ordered: '注文は発注されました。ネスレからの発送を待っています。<br>お茶が届けば、引換ができます。<br>なお、既に管理者がネスレに発注したため、注文の修正はできません。' ,
          arrived: 'お茶が支社に届いています。<br>管理者に代金を渡して引換をしてください。',
          exchanged: '引換済みです。<br>新たに注文したい場合、管理者に引換済み情報の削除を依頼してください。'
