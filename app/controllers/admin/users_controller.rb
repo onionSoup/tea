@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:order)
+    @users = User.order(:id)
   end
 
   def edit

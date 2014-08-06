@@ -10,10 +10,14 @@ ja:
       models:
         user:
           blank: '%{attribute}が入力されていません。'
-          taken: 'その名前は既に使われています。別の名前を入力してください'
+          taken: 'その%{attribute}は既に使われています。別の%{attribute}を入力してください'
+          invalid: '無効な%{attribute}です。'
         item:
           blank: '%{attribute}が入力されていません。'
           not_a_number: '%{attribute}は数字を入力してください。'
+          attributes:
+            name:
+              taken: '同じ名前の商品が既にあります。'
         order_detail:
           attributes:
             item_id:
@@ -23,5 +27,3 @@ ja:
               not_a_number: 'お茶の数量を選択してください。'
               blank:  'お茶の数量を選択してください。'
               greater_than_or_equal_to: '%{count}以上の数量を指定してください。'
-
-

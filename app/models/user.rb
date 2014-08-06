@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
   after_create :create_order
 
-  validates :name,  presence: true, uniqueness: true
+  validates :name,  presence: true, uniqueness: true, format: {with: /\A(\S)+\z/, allow_blank: true}
 
   scope :order_in_state_of, -> (states){
     where(orders: {state: Order.states["#{states}"]})
