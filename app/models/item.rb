@@ -13,6 +13,6 @@
 class Item < ActiveRecord::Base
   has_many :order_details
 
-  validates :name,  presence: true, uniqueness: true
+  validates :name,  presence: true, uniqueness: {message: '同じ名前の商品が既にあります。'}
   validates :price, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 end

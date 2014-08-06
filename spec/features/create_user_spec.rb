@@ -16,6 +16,6 @@ feature 'ユーザー登録' do
 
     click_button '登録する'
 
-    expect(page).to have_content '名前を入力してください。'
+    expect(page).to have_content '名前が入力されていません。'
   end
 end

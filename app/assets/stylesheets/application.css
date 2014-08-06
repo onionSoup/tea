@@ -30,3 +30,16 @@ body {
   -webkit-box-align: center;
   -moz-box-align: center;
 }
+
+ul#error_message_ul {
+  margin: 1em 0 0;
+  padding: 0;
+}
+
+li.error_message_li {
+  background-color: #eeadb5;
+  color: #c1091f;
+  width: 40%;
+  text-align: center;
+  list-style: none;
+}

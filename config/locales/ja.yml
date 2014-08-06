@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザ'
+      item: '商品'
+    attributes:
+      user:
+        name: '名前'
+      item:
+        name: '商品名'
+        price: '価格'
+    errors:
+      models:
+        user:
+          blank: '%{attribute}が入力されていません。'
+        item:
+          blank: '%{attribute}が入力されていません。'
+          not_a_number: '%{attribute}は数字を入力してください。'
