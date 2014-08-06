@@ -14,9 +14,8 @@ class User < ActiveRecord::Base
 
   before_create :create_remember_token
   after_create :create_order
-  #後でi18nを使う必要がある。
 
-  validates :name,  presence: {message: '名前を入力してください。'}, uniqueness: {message: 'その名前は既に使われています。別の名前を入力してください'}
+  validates :name,  presence: true, uniqueness: true
 
   scope :order_in_state_of, -> (states){
     where(orders: {state: Order.states["#{states}"]})

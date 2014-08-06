@@ -1,8 +1,5 @@
 ja:
   activerecord:
-    models:
-      user: 'ユーザ'
-      item: '商品'
     attributes:
       user:
         name: '名前'
@@ -13,6 +10,18 @@ ja:
       models:
         user:
           blank: '%{attribute}が入力されていません。'
+          taken: 'その名前は既に使われています。別の名前を入力してください'
         item:
           blank: '%{attribute}が入力されていません。'
           not_a_number: '%{attribute}は数字を入力してください。'
+        order_detail:
+          attributes:
+            item_id:
+              blank: 'お茶の名前を選択してください。'
+              taken: 'そのお茶は既に追加しています。'
+            quantity:
+              not_a_number: 'お茶の数量を選択してください。'
+              blank:  'お茶の数量を選択してください。'
+              greater_than_or_equal_to: '%{count}以上の数量を指定してください。'
+
+

@@ -1,6 +1,6 @@
 module ApplicationHelper
   def render_form_errors(object)
-    return unless object.errors.any?
+    return if object.nil? || object.errors.empty?
     render inline: <<-'EOM', type: :erb, locals: {object: object}
   <ul id= "error_message_ul">
     <% object.errors.values.flatten.each do |msg| %>
