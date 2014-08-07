@@ -15,8 +15,9 @@ feature 'ユーザー管理用ページ' do
     end
 
     scenario '有効な名前を入力して、ユーザー登録ができる' do
-      pending "reason"
       fill_in 'ユーザー名', with: 'Charlie'
+      click_button '登録する'
+
       expect(page).to have_content 'Charlieを登録しました。'
     end
 

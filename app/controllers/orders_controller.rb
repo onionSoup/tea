@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
+  include Signin
   before_action :need_signed_in
   before_action :reject_show_until_ordered, only: [:show]
-
-  include Signin
 
   def show
     @order = User.includes(order: {order_details: :item}).find(current_user).order

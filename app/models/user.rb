@@ -10,9 +10,16 @@
 #
 
 class User < ActiveRecord::Base
-  has_one :order, dependent: :destroy
+  has_one :order, dependent: :delete
 
   before_create :create_remember_token
+
+  #userをdestroyするときは一緒にuser.orderとuser.order.order_detailsを消したい
+  #しかしorderのコールバックafter_destroy :create_another_orderを呼びたくない。
+  #そのため User has_one :order, dependent: :delete を使っている。
+  #この場合 Order has_many :order_details, dependent: :destroy で書いたdestoryが呼べない。
+  #そのため、Userに self.order.order_details.delete_all を書いている。
+  before_destroy 'self.order.order_details.delete_all'
   after_create :create_order
 
   validates :name,  presence: true, uniqueness: true, format: {with: /\A(\S)+\z/, allow_blank: true}
