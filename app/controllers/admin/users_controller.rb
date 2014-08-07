@@ -1,7 +1,8 @@
 class Admin::UsersController < ApplicationController
   include Signin
   before_action :need_signed_in
-  before_action :reject_destroy_when_signined, only: [:destroy]
+  before_action :reject_destroy_self, only: [:destroy]
+  before_action :reject_destroy_when_nonblank_detail, only: [:destroy]
 
   def new
     @user = User.new
@@ -11,7 +12,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
     @user.save!
 
-    redirect_to :admin_users, flash: {success: "#{@user.name}を登録しました。"}
+    redirect_to :admin_users, flash: {success: "#{@user.name}さんを登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
     render :new
   end
@@ -27,15 +28,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    user =User.find(params[:id])
+    User.destroy user
 
-    if @user.order_details.any?
-      flash[:error] = 'この商品を使った注文情報があるので、削除できません。'
-    else
-      User.destroy @user #if @user == current_user
-    end
-
-    redirect_to :admin_items
+    redirect_to :admin_users, flash: {error: "#{user.name}さんを削除しました。"}
   end
 
   private
@@ -44,9 +40,17 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(:name)
   end
 
-  def reject_destroy_when_signined
+  def reject_destroy_self
     user = User.find(params[:id])
     return unless user == current_user
+
     redirect_to admin_users_path, flash: {error: "#{user.name}さん自身を削除することはできません。"}
+  end
+
+  def reject_destroy_when_nonblank_detail
+    user = User.find(params[:id])
+    return if user.order.order_details.empty?
+
+    redirect_to admin_users_path, flash: {error: "#{user.name}さんはお茶を注文しているので、削除できません。"}
   end
 end

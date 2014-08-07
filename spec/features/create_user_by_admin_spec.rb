@@ -1,4 +1,4 @@
-feature 'ユーザー管理用ページ' do
+feature '新ユーザーを管理者画面から登録' do
   let!(:alice) { create(:user, name: 'Alice') }
 
   background do
@@ -6,11 +6,12 @@ feature 'ユーザー管理用ページ' do
 
     click_link '管理者用ページ'
     click_link 'ユーザーの管理'
-  end
+   end
 
   context '新ユーザー登録ページにいったとき' do
     background do
       create(:user, name: 'Bob')
+
       click_link '新ユーザー登録ページ'
     end
 
@@ -18,7 +19,7 @@ feature 'ユーザー管理用ページ' do
       fill_in 'ユーザー名', with: 'Charlie'
       click_button '登録する'
 
-      expect(page).to have_content 'Charlieを登録しました。'
+      expect(page).to have_content 'Charlieさんを登録しました。'
     end
 
     scenario '無効な名前を入力した時、ユーザー登録ができない' do
