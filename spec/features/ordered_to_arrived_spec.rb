@@ -1,5 +1,5 @@
 feature 'ネスレ発送待ち商品ページ' do
-  context '注文があるとき' do
+  context 'ネスレの発送を待っているお茶があるとき' do
     before do
       alice = create(:user, name: 'Alice')
 
@@ -16,15 +16,24 @@ feature 'ネスレ発送待ち商品ページ' do
 
       login_as 'Alice'
     end
-
-    scenario 'ネスレの発送を待っているお茶があるなら、商品名と注文合計金額が表示されている' do
+    scenario 'ページにアクセスすると商品名と注文合計金額が表示されている' do
       visit '/orders/ordered'
 
       expect(page).to have_content 'herb_tea'
       expect(page).to have_content '1000円' #これのためfixturesを使わない
     end
 
-    scenario '注文があるとき、ボタンを押すとネスレ発送待ちページに移動して成功メッセージがでる' do
+    scenario 'ページにアクセスすると、ユーザーごとの詳細が見れる' do
+      visit '/orders/ordered'
+      table_of_order_by_user = page.find('.admin_order_table.users_table_in_admin_orders_pages')
+
+      expect(table_of_order_by_user).to have_content 'Alice'
+      expect(table_of_order_by_user).to have_content 'herb_tea'
+      expect(table_of_order_by_user).to have_content '1000'
+    end
+
+
+    scenario 'ボタンを押すとネスレ発送待ちページに移動して成功メッセージがでる' do
       visit '/orders/ordered'
       click_button 'お茶の受領をシステムに登録'
 
@@ -34,7 +43,7 @@ feature 'ネスレ発送待ち商品ページ' do
     end
   end
 
-  scenario '何も注文されていないとき、ボタンを押しても移動しない' do
+  scenario 'ネスレの発送を待っているお茶がないとき、ボタンを押しても移動しない' do
     visit '/orders/ordered'
     click_button 'お茶の受領をシステムに登録'
 
