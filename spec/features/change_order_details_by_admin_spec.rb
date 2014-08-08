@@ -7,7 +7,7 @@ feature '管理者ページからユーザーの注文を変更する' do
     alice.order.update_attributes(
       order_details: [build(:order_detail, item: items(:herb_tea))]
     )
-    
+
     login_as 'Alice'
 
     visit 'admin/users'
@@ -24,7 +24,7 @@ feature '管理者ページからユーザーの注文を変更する' do
       click_link '注文変更ページ'
 
       detail_id = alice.order.order_details.select {|detail| detail.item.name == "herb_tea"}.first.id
-      
+
       within ".detail#{detail_id}" do
         click_link '削除'
       end

@@ -17,12 +17,10 @@ feature 'ユーザーを管理者画面から消去する' do
     visit '/admin/users'
   end
 
-  scenario 'ログイン中の自分自身を削除するリンクを押した時、自分自身は削除できない' do
-    within ".user#{alice.id}" do
-      click_link '削除'
-    end
+  scenario 'ページにアクセスした時、ログイン中の自分自身を削除するリンクはない' do
+    tr_about_alice = find(".user#{alice.id}")
 
-    expect(page).to have_content 'Aliceさん自身を削除することはできません。'
+    expect(tr_about_alice).not_to have_link '削除'
   end
 
   scenario 'お茶を追加しているユーザーは削除するリンクを押しても、削除できない' do

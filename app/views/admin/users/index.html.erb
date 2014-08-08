@@ -10,8 +10,8 @@
     <div>
       <h2 class="admin_user_title_in_index" id="admin_user_edit_title_in_index">ユーザーの編集、削除</h2>
       <div class="admin_user_content_in_index">
-        <p>「編集」で名前の変更や、そのユーザーの注文の変更ができます。
-        「削除」でユーザーの削除ができます。</p>
+        <p>「編集」で名前の変更ができます。発注前に限り注文の変更もできます。<br>
+        「削除」でご自身以外のユーザーの削除ができます。（お茶を注文してない場合に限ります。）</p>
         <table id="users_table_in_admin_users_index">
           <tr>
             <th>ユーザー名</th>
@@ -22,7 +22,9 @@
             <tr class="user<%= user.id %>">
               <td><%= user.name %></td>
               <td><%= link_to '編集', edit_admin_user_path(user) %></td>
-              <td><%= link_to '削除', admin_user_path(user), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'} %></td>
+              <% unless user ==  current_user %>
+                <td><%= link_to '削除', admin_user_path(user), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'} %></td>
+              <% end %>
             </tr>
           <% end %>
         </table>
