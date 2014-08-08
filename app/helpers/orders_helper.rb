@@ -39,6 +39,20 @@ module OrdersHelper
     )
   end
 
+  def translate_state_long(state)
+    state_to_message(
+      {state: state,
+       message:
+        {registered: 'ネスレに発注する前（未発注）',
+         ordered: 'ネスレからの発送待ち（未発送）',
+         arrived: '支社にお茶が到着済み（引換可能）',
+         exchanged: 'お茶とお金を交換完了（引換済み）'
+        },
+        error: "passing undefined state of orders to #{__method__}"
+      }
+  )
+  end
+
   #ハッシュの書き方がhttps://github.com/esminc/sp/wiki/RubyCodingConventionに反してるかも。でも長いので改行いれる。
   def explain_state(state)
     state_to_message(

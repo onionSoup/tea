@@ -1,1 +1,21 @@
-hi i am user edit
+<div id="admin_flex_box">
+  <%= render 'application/admin_side_nav' %>
+  <div>
+    <%= form_for [:admin, @user] do |user| %>
+      <div id="admin_first_content">
+        <h2 class="sub_title_in_admin_user_edit"><%= @user.name %>さんのユーザー名変更</h2>
+        <div class="contents_box_in_admin_user_edit">
+          <%= user.label :name, 'ユーザー名' %>
+          <%= user.text_field :name %>
+          <%= user.submit '変更する' %>
+        </div>
+      </div>
+    <% end %>
+    <div id="box_of_edit_order_in_admin">
+      <h2 class="sub_title_in_admin_user_edit"><%= @user.name %>さんの注文変更（上級ユーザー向け）</h2>
+      <div class="contents_box_in_admin_user_edit">
+        <p><%= link_to '注文修正ページ', admin_user_order_details_path(@user) %>で可能です。</p>
+      </div>
+    </div>
+  </div>
+</div>

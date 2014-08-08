@@ -8,7 +8,7 @@
         <p><%= current_user.name %>さんは、まだお茶を追加していません。追加すると、ここにお茶が表示されます。</p>
       <% else %>
         <p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
-        <p>キャンセルしたいお茶がある場合、「削除する」リンクを押してください。</p>
+        <p>キャンセルしたいお茶がある場合、「削除」リンクを押してください。</p>
         <div id='order_details_index_table_and_p_wraper'>
           <table id="order_details_index_table">
             <tr>
@@ -36,7 +36,7 @@
       <%= content_tag(
         :p,
         '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
-        id: id_of_p_to_add_details
+        id: id_of_p_to_add_details(@order)
       ) %>
       <%= form_tag order_details_path, method: :post do %>
         <%= label_tag 'order_detail[item_id]', '品名：' %>

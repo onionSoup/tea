@@ -9,4 +9,8 @@ module ApplicationHelper
   </ul>
     EOM
   end
+
+  def path_to_admin_user_detail(user_id, detail_id)
+    "/admin/users/#{user_id}/order_details/#{detail_id}:id"
+  end
 end

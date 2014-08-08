@@ -22,9 +22,16 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to admin_users_path, flash: {success: "#名前を#{user.name}さんに変更しました。"}
+    else
+      redirect_to edit_admin_user_path(@user), flash: {error: @user.errors.messages.values.flatten.first}
+    end
   end
 
   def destroy

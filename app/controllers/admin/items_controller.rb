@@ -11,7 +11,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.save!
 
-    redirect_to :admin_items, flass: {success: "#{@item.name}を追加登録しました。"}
+    redirect_to :admin_items, flash: {success: "#{@item.name}を追加登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
     render :new
   end
