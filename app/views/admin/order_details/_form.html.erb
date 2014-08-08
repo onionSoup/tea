@@ -14,7 +14,7 @@
           <th></th>
         </tr>
         <% @user.order.order_details.each do |detail| %>
-          <%= tag :tr, class: "detail#{detail.id}" %>
+          <tr class=<%= "detail#{detail.id}" %>>
             <td class="name"><%= detail.item.name %></td>
             <td class="quantity"><%= detail.quantity %>個</td>
             <td class="price"><%= detail.item.price %>円</td>
