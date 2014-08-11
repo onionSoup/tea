@@ -5,15 +5,10 @@
       <h3>ネスレ発送待ち商品ページ</h3>
       <div class="admin_under_h3_content">
         <p>以下の商品をネスレに注文しました。発送を待っています。</p>
-        <div id="admin_flex_wrapping_table">
-          <table class="admin_order_table">
-            <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-            <% @ordereds.each do  |ordered| %>
-              <tr><td class="name"><%= ordered.name %></td><td class="price"><%= ordered.then_price %></td><td class="sum"><%= ordered.quantity %></td></tr>
-            <% end %>
-          </table>
-          <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
-        </div>
+        <%= render(
+          partial: 'application/admin_orders_table',
+          locals: {paticular_state_orders_grouped_by_item: @ordereds}
+        ) %>
         <p id="p_for_order_to_arrive_button">ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
         お茶が到着したことをシステムに登録します。</p>
         <%= form_for :order, url: arrive_ordered_path, method: :post do |f| %>
