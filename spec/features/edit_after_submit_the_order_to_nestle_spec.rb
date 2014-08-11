@@ -3,7 +3,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
   include_context 'herb_teaを注文しているAliceとしてログイン'
 
-  scenario 'ネスレ入力用シートでボタンを押した後、注文の修正はできない' do
+  scenario 'ネスレ入力用ページでボタンを押した後、注文の修正はできない' do
     visit '/orders/registered'
 
     click_button '注文の完了をシステムに登録'

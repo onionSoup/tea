@@ -2,8 +2,8 @@
   <%= render 'application/admin_side_nav' %>
   <div>
     <div id="admin_first_content">
-      <h3>ネスレ発送待ち商品ページ</h3>
-      <div class="admin_under_h3_content">
+      <h2 class="main_content_caption">ネスレ発送待ち商品ページ</h2>
+      <div class="admin_content_under_caption">
         <p>以下の商品をネスレに注文しました。発送を待っています。</p>
         <%= render(
           partial: 'application/admin_orders_table',
@@ -16,8 +16,8 @@
         <% end %>
       </div>
     </div>
-    <h3 id="h3_on_users_table_in_admin_orders_pages">ユーザごとの詳細</h3>
-    <div class="admin_under_h3_content">
+    <h2 id="caption_on_users_table_in_admin" class="main_content_caption">ユーザごとの詳細</h2>
+    <div class="admin_content_under_caption">
       <p>注文した商品が発送待ち状態であるユーザーは以下のとおりです。</p>
       <%= render 'application/users_table.html' %>
     </div>

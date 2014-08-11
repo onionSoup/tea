@@ -3,9 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 //show
-h3#explain_state_in_show_order {
+#explain_state_in_show_order {
   margin: 0 0 2em;
-  border-bottom: solid thin #c8c8c8;
   width: 20em;
 }
 
@@ -17,3 +16,7 @@ div#show_order_content {
   }
 }
 
+#history_subtitle_in_orders_show {
+  margin-bottom: 2em;
+  width: 20em;
+}

@@ -43,3 +43,8 @@ li.error_message_li {
   text-align: center;
   list-style: none;
 }
+
+.main_content_caption {
+  border-bottom: solid thin #dcdcdc;
+  font-size: 1.17em;
+}

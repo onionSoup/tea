@@ -7,13 +7,17 @@ div#admin_flex_box h3 {
   border-bottom: solid thin #dcdcdc;
 }
 
+div#admin_flex_box h2 {
+  border-bottom: solid thin #dcdcdc;
+}
+
 div#admin_flex_wrapping_table {
   display: flex;
   align-items: flex-start;
   margin-top: 2em;
 }
 
-div.admin_under_h3_content {
+div.admin_content_under_caption {
   margin-left: 2em;
 }
 

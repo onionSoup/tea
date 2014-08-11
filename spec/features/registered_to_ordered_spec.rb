@@ -1,4 +1,4 @@
-feature 'ネスレ入力用シート' do
+feature 'ネスレ入力用ページ' do
   context '注文があるとき' do
     before do
       alice = create(:user, name: 'Alice')
