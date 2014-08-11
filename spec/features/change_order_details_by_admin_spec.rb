@@ -13,7 +13,7 @@ feature '管理者ページからユーザーの注文を変更する' do
     visit 'admin/users'
   end
 
-  context '編集ページに来た時' do
+  context 'ネスレに発注する前に、編集ページに来た時' do
     background do
       within ".user#{alice.id}" do
         click_link '編集'
@@ -40,18 +40,28 @@ feature '管理者ページからユーザーの注文を変更する' do
 
       expect(page).to exist_in_table "#{items(:ice_mint).name}"
     end
+  end
 
-    context 'ネスレに発注した後の時' do
-      background do
-        alice.order.update_attributes! state: 'ordered'
-        click_link '注文変更ページ'
-      end
 
-      scenario '注文の変更はできない' do
-        expect(page).to have_content '変更できません。'
-        expect(page).not_to have_link '削除'
-        expect(page).not_to have_button '追加する'
+  context 'ネスレに発注した後で、編集ページに来た時' do
+    background do
+      alice.order.update_attributes! state: 'ordered'
+
+      within ".user#{alice.id}" do
+        click_link '編集'
       end
+    end
+
+    scenario '注文変更ページへのリンクがない' do
+      expect(page).not_to have_link '注文変更ページ'
+    end
+
+    scenario 'URL直打ち、ブックマークからも、注文の変更はできない' do
+      visit "/admin/users/#{alice.id}/order_details"
+
+      expect(page).to have_content '既にネスレに発注しているため、変更できません。'
+      expect(page).not_to have_link '削除'
+      expect(page).not_to have_button '追加する'
     end
   end
 end

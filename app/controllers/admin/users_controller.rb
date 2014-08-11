@@ -3,13 +3,14 @@ class Admin::UsersController < ApplicationController
   before_action :need_signed_in
   before_action :reject_destroy_self, only: [:destroy]
   before_action :reject_destroy_when_nonblank_detail, only: [:destroy]
+  before_action :reject_update_giving_self_name, only: [:update]
 
   def new
     @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new user_params
     @user.save!
 
     redirect_to :admin_users, flash: {success: "#{@user.name}さんを登録しました。"}
@@ -28,7 +29,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find params[:id]
     if @user.update(user_params)
-      redirect_to admin_users_path, flash: {success: "#名前を#{user.name}さんに変更しました。"}
+      redirect_to admin_users_path, flash: {success: "名前を#{@user.name}さんに変更しました。"}
     else
       redirect_to edit_admin_user_path(@user), flash: {error: @user.errors.messages.values.flatten.first}
     end
@@ -59,5 +60,12 @@ class Admin::UsersController < ApplicationController
     return if user.order.order_details.empty?
 
     redirect_to admin_users_path, flash: {error: "#{user.name}さんはお茶を注文しているので、削除できません。"}
+  end
+
+  def reject_update_giving_self_name
+    user = User.find(params[:id])
+    if user_params[:name] == user.name
+      redirect_to edit_admin_user_path(user), flash: {error: '変更前と同じ名前です。'}
+    end
   end
 end
