@@ -19,7 +19,7 @@
               <th></th>
             </tr>
             <% @order.order_details.each do |detail| %>
-              <%= tag :tr, class: "detail#{detail.id}" %>
+              <tr class=<%= "detail#{detail.id}"%>>
                 <td class="name"><%= detail.item.name %></td>
                 <td class="quantity"><%= detail.quantity %>個</td>
                 <td class="price"><%= detail.item.price %>円</td>
@@ -32,26 +32,12 @@
           <p><span id='order_details_index_sum_jp'>合計</span><span id='order_details_index_sum_yen'><%= @order.order_details.price_sum %>円</span></p>
         </div>
       <% end %>
-
       <%= content_tag(
         :p,
         '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
         id: id_of_p_to_add_details(@order)
       ) %>
-      <%= form_tag order_details_path, method: :post do %>
-        <%= label_tag 'order_detail[item_id]', '品名：' %>
-        <%= select_tag(
-          'order_detail[item_id]',
-           options_for_select(item_options)
-        ) %>
-        <%= label_tag 'order_detail[quantity]', '数量：' %>
-        <%= number_field_tag(
-          'order_detail[quantity]',
-          nil,
-          in: 1..20
-        ) %>
-        <%= button_tag :追加する %>
-      <% end %>
+      <%= render partial: 'application/add_details_form', locals: {url: order_details_path} %>
     </div>
   </div>
 </div>

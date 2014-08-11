@@ -1,0 +1,14 @@
+<%= form_tag url, method: :post do %>
+  <%= label_tag 'order_detail[item_id]', '品名：' %>
+  <%= select_tag(
+    'order_detail[item_id]',
+     options_for_select(item_options)
+  ) %>
+  <%= label_tag 'order_detail[quantity]', '数量：' %>
+  <%= number_field_tag(
+    'order_detail[quantity]',
+    nil,
+    in: 1..20
+  ) %>
+  <%= button_tag :追加する %>
+<% end %>
