@@ -1,16 +1,16 @@
 feature 'ユーザーを管理者画面から消去する' do
   fixtures :items
 
-  let!(:alice) { create(:user, name: 'Alice') }
-  let!(:bob) { create(:user, name: 'Bob') }
+  let!(:alice)   { create(:user, name: 'Alice') }
+  let!(:bob)     { create(:user, name: 'Bob') }
   let!(:charlie) { create(:user, name: 'Charlie') }
 
   background do
-      bob.order.update_attributes(
-        order_details: [
-          build(:order_detail, item: items(:herb_tea), quantity: 1)
-        ]
-      )
+    bob.order.update_attributes(
+      order_details: [
+        build(:order_detail, item: items(:herb_tea), quantity: 1)
+      ]
+    )
 
     login_as 'Alice'
 

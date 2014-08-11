@@ -25,18 +25,21 @@ feature '新ユーザーを管理者画面から登録' do
     scenario '既存の名前を入力した時、ユーザー登録ができない' do
       fill_in 'ユーザー名', with: 'Alice'
       click_button '登録する'
+
       expect(page).to have_content 'その名前は既に使われています。'
     end
 
     scenario '既存の名前を入力した時、ログインユーザー以外の名前でも、登録できない' do
       fill_in 'ユーザー名', with: 'Bob'
       click_button '登録する'
+
       expect(page).to have_content 'その名前は既に使われています。'
     end
 
     scenario '無効な名前を入力した時、ユーザー登録ができない' do
       fill_in 'ユーザー名', with: ''
       click_button '登録する'
+
       expect(page).to have_content '名前が入力されていません。'
     end
   end

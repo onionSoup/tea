@@ -1,6 +1,6 @@
 describe User do
   fixtures :items
-  let(:alice) { create(:user, name: 'Alice') }
+  let!(:alice) { create(:user, name: 'Alice') }
 
   it 'before_create callbackによりremember_tokenが設定される' do
     expect(alice.remember_token).to be_a_kind_of String

@@ -12,7 +12,7 @@
           ネスレ発注後の注文を変更したい場合は、製作者にお問い合わせください。</p>
         <% end %>
       </div>
-      <%= render 'form' if @is_registered %>
+      <%= render partial: 'form', locals: {user: @user} if @is_registered %>
     </div>
   </div>
 </div>

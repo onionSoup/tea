@@ -23,7 +23,7 @@ feature '管理者ページからユーザーの注文を変更する' do
     scenario '削除リンクを押すと、商品を削除できる' do
       click_link '注文変更ページ'
 
-      detail_id = alice.order.order_details.select {|detail| detail.item.name == "herb_tea"}.first.id
+      detail_id = alice.order.order_details.select {|detail| detail.item.name == "herb_tea" }.first.id
 
       within ".detail#{detail_id}" do
         click_link '削除'

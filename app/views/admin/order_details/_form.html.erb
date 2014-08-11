@@ -1,8 +1,8 @@
 <div id="order_details_index_content">
-  <% if @user.order.order_details.none? %>
-    <p><%= @user.name %>さんは、まだお茶を追加していません。追加すると、ここにお茶が表示されます。</p>
+  <% if user.order.order_details.none? %>
+    <p><%= user.name %>さんは、まだお茶を追加していません。追加すると、ここにお茶が表示されます。</p>
   <% else %>
-    <p><%= @user.name %>さんは、以下のお茶を注文しています。</p>
+    <p><%= user.name %>さんは、以下のお茶を注文しています。</p>
     <p>キャンセルしたいお茶がある場合、「削除」リンクを押してください。</p>
     <div id='order_details_index_table_and_p_wraper'>
       <table id="order_details_index_table">
@@ -13,24 +13,24 @@
           <th class="sum">小計</th>
           <th></th>
         </tr>
-        <% @user.order.order_details.each do |detail| %>
+        <% user.order.order_details.each do |detail| %>
           <tr class=<%= "detail#{detail.id}" %>>
             <td class="name"><%= detail.item.name %></td>
             <td class="quantity"><%= detail.quantity %>個</td>
             <td class="price"><%= detail.item.price %>円</td>
             <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
-            <td class="destroy"><%= link_to '削除', path_to_admin_user_detail(@user.id, detail.id), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_detail#{detail.id}" %>
+            <td class="destroy"><%= link_to '削除', path_to_admin_user_detail(user.id, detail.id), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_detail#{detail.id}" %>
             </td>
           </tr>
         <% end %>
       </table>
-      <p><span id='order_details_index_sum_jp'>合計</span><span id='order_details_index_sum_yen'><%= @user.order.order_details.price_sum %>円</span></p>
+      <p><span id='order_details_index_sum_jp'>合計</span><span id='order_details_index_sum_yen'><%= user.order.order_details.price_sum %>円</span></p>
     </div>
   <% end %>
   <%= content_tag(
     :p,
     '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
-    id: id_of_p_to_add_details(@user.order)
+    id: id_of_p_to_add_details(user.order)
   ) %>
   <%= render partial: 'application/add_details_form', locals: {url: admin_user_order_details_path} %>
 </div>
