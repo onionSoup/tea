@@ -3,7 +3,7 @@
   <%= render 'application/admin_side_nav' %>
   <div>
     <div id="admin_first_content">
-      <h2 class="admin_user_title_in_new">ユーザーの登録</h2>
+      <h2 class="admin_user_title_in_new main_content_caption">ユーザーの登録</h2>
       <%= form_for [:admin, @user] do |f| %>
         <%= f.label :name, 'ユーザー名' %>
         <%= f.text_field :name %>

@@ -1,7 +1,5 @@
 //AdminUsers#index
 h2.admin_user_sub_title_in_index {
-  font-size: 1.15em;
-  border-bottom: thin solid #dcdcdc;
   margin-bottom: 2em;
 }
 
@@ -28,8 +26,6 @@ table#users_table_in_admin_users_index {
 }
 //AdminUsers#new
 h2.admin_user_title_in_new {
-  font-size: 1.15em;
-  border-bottom: thin solid #dcdcdc;
   margin-bottom: 2em;
 }
 
@@ -43,7 +39,8 @@ div#box_of_edit_order_in_admin {
 }
 
 h2.sub_title_in_admin_user_edit {
-  font-size: 1.15em;
-  border-bottom: thin solid #dcdcdc;
+  margin-bottom: 2em;
+}
+h2.sub_title_in_admin_user_index {
   margin-bottom: 2em;
 }

@@ -2,10 +2,6 @@ div.general_user_flex {
   display: flex;
 }
 
-div.general_user_flex h3 {
-  border-bottom: solid thin #dcdcdc;
-}
-
 nav#general_user_side_nav {
   display: block;
   border: thin solid #dcdcdc;
@@ -15,9 +11,10 @@ nav#general_user_side_nav {
   margin-top: 2em;
 }
 
-nav#general_user_side_nav h3 {
-  padding-left: 0.1em;
+nav#general_user_side_nav h2 {
   color: #edad0b;
+  font-size: 1.17em;
+  text-align: center;
 }
 
 nav#general_user_side_nav ul {

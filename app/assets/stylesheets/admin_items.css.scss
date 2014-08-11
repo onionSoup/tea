@@ -1,17 +1,11 @@
-div#item_index_create_item h2 {
-  font-size: 1.15em;
-  border-bottom: solid thin #dcdcdc;
-}
-
+//index
 div#item_index_create_item p {
   margin-top: 2em;
   margin-left: 3em;
 }
 
 div#item_index_update_item h2 {
-  font-size: 1.15em;
   margin-top: 2em;
-  border-bottom: solid thin #dcdcdc;
 }
 
 div#item_index_update_item p, div#item_index_update_item table {
@@ -61,13 +55,9 @@ table#item_index_table td, table#item_index_table th {
 }
 
 h2#update_one_item_title {
-  font-size: 1.15em;
-  border-bottom: thin solid #dcdcdc;
   margin-bottom: 2em;
 }
 
-h2#update_one_item_title, h2#create_new_item {
-  font-size: 1.15em;
-  border-bottom: thin solid #dcdcdc;
+h2#create_new_item {
   margin-bottom: 2em;
 }
