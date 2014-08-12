@@ -1,4 +1,4 @@
-<%= render_form_errors @order_detail %>
+<%= render partial: 'application/form_errors', locals: {object: @order} if @order %>
 <div class="general_user_flex">
   <%= render 'application/general_user_side_nav' %>
   <div>

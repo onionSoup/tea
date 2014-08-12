@@ -1,4 +1,4 @@
-<%= render_form_errors @user %>
+<%= render partial: 'application/form_errors', locals: {object: @user} if @user %>
 <div id="admin_flex_box">
   <%= render 'application/admin_side_nav' %>
   <div>
