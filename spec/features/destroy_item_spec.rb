@@ -7,7 +7,7 @@ feature '商品の削除' do
 
       expect(page).to have_content 'herb_tea'
 
-      within ".change_item_#{items(:herb_tea).id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
         click_link '削除'
       end
 
@@ -22,7 +22,7 @@ feature '商品の削除' do
     scenario 'herb_teaを含む注文情報がある場合、herb_teaは削除できない' do
       visit '/admin/items'
 
-      within ".change_item_#{items(:herb_tea).id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
         click_link '削除'
       end
 
@@ -36,7 +36,7 @@ feature '商品の削除' do
 
       click_link '商品の管理'
 
-      within ".change_item_#{items(:herb_tea).id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
         click_link '削除'
       end
 

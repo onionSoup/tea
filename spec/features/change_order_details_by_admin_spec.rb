@@ -15,7 +15,7 @@ feature '管理者ページからユーザーの注文を変更する' do
 
   context 'ネスレに発注する前に、編集ページに来た時' do
     background do
-      within ".user#{alice.id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(alice)}" do
         click_link '編集'
       end
     end
@@ -23,9 +23,9 @@ feature '管理者ページからユーザーの注文を変更する' do
     scenario '削除リンクを押すと、商品を削除できる' do
       click_link '注文変更ページ'
 
-      detail_id = alice.order.order_details.select {|detail| detail.item.name == "herb_tea" }.first.id
+      detail = alice.order.order_details.where(item_id: items(:herb_tea)).take
 
-      within ".detail#{detail_id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(detail)}" do
         click_link '削除'
       end
 
@@ -42,12 +42,11 @@ feature '管理者ページからユーザーの注文を変更する' do
     end
   end
 
-
   context 'ネスレに発注した後で、編集ページに来た時' do
     background do
       alice.order.update_attributes! state: 'ordered'
 
-      within ".user#{alice.id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(alice)}" do
         click_link '編集'
       end
     end

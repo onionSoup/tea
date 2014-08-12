@@ -14,12 +14,12 @@
           <th></th>
         </tr>
         <% user.order.order_details.each do |detail| %>
-          <tr class=<%= "detail#{detail.id}" %>>
+          <tr class=<%= dom_id(detail) %>>
             <td class="name"><%= detail.item.name %></td>
             <td class="quantity"><%= detail.quantity %>個</td>
             <td class="price"><%= detail.item.price %>円</td>
             <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
-            <td class="destroy"><%= link_to '削除', path_to_admin_user_detail(user.id, detail.id), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}, id: "destroy_detail#{detail.id}" %>
+            <td class="destroy"><%= link_to '削除', path_to_admin_user_detail(user.id, detail.id), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'} %>
             </td>
           </tr>
         <% end %>

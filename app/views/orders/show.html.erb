@@ -18,7 +18,7 @@
             <th class="sum">小計</th>
           </tr>
           <% @order.order_details.each do |detail| %>
-            <tr class=<%= "detail#{detail.id}" %>>
+            <tr class=<%= dom_id(detail) %>>
               <td class="name"><%= detail.item.name %></td>
               <td class="quantity"><%= detail.quantity %>個</td>
               <td class="price"><%= detail.item.price %>円</td>

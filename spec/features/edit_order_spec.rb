@@ -72,7 +72,11 @@ feature '既存の注文を修正する'do
   end
 
   scenario '明細の横の「削除する」リンクを押すと、表から明細が削除されて、通知がある' do
-    find("#destroy_detail#{herb_tea_detail_of_alice.id}").click
+    target_tr_class = ".#{ActionView::RecordIdentifier.dom_id(herb_tea_detail_of_alice)}"
+
+    within target_tr_class do
+      click_link '削除'
+    end
 
     expect(page).not_to exist_in_table 'herb_tea'
     expect(page).to have_content 'herb_teaの注文を削除しました。'

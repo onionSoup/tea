@@ -11,7 +11,7 @@ feature 'ユーザー名を管理者画面から変更' do
 
   context '編集ページにいったとき' do
     background do
-      within ".user#{alice.id}" do
+      within ".#{ActionView::RecordIdentifier.dom_id(alice)}" do
         click_link '編集'
       end
     end

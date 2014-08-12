@@ -44,7 +44,7 @@ module ExampleHelper
 
     click_button 'お茶の受領をシステムに登録'
 
-    check "user_#{user.id}"
+    check ActionView::RecordIdentifier.dom_id user
     click_button '引換の完了をシステムに登録'
 
     click_button 'このページの引換情報を削除'

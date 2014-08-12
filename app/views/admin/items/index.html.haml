@@ -25,7 +25,7 @@
             %th
 
           - @items.each do |item|
-            %tr{class: "change_item_#{item.id}"}
+            %tr{class: dom_id(item, :change)}
               %td= item.name
               %td= item.price
               %td= link_to '編集', edit_admin_item_path(item)
