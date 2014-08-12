@@ -10,11 +10,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.save!
-
+    @user = User.create!(user_params)
     redirect_to :admin_users, flash: {success: "#{@user.name}さんを登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
+    @user = e.record
     render :new
   end
 
@@ -31,7 +30,8 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to admin_users_path, flash: {success: "名前を#{@user.name}さんに変更しました。"}
     else
-      redirect_to edit_admin_user_path(@user), flash: {error: @user.errors.messages.values.flatten.first}
+      flash[:error] = @user.errors.messages.values.flatten.first
+      render :edit
     end
   end
 
