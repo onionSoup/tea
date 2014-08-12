@@ -2,7 +2,6 @@ class Admin::OrderDetailsController < ApplicationController
   def index
     @user = User.includes(order: {order_details: :item}).find(params[:user_id])
     @items = Item.order(:id)
-    @is_registered = @user.order.state == 'registered'
   end
 
   def create

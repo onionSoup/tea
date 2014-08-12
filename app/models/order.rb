@@ -25,6 +25,10 @@ class Order < ActiveRecord::Base
 
   enum state: [:registered, :ordered, :arrived, :exchanged]
 
+  def registered?
+    state == 'registered'
+  end
+
   class << self
     def price_sum
       all.inject(0) {|acc, order| acc + order.order_details.price_sum }

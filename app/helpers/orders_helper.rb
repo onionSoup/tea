@@ -27,28 +27,32 @@ module OrdersHelper
 
   def translate_state(state)
     state_to_message(
-      {state: state,
-       message:
-        {registered: '未発注',
-         ordered: '未発送',
-         arrived: '引換可能',
-         exchanged: '引換済み'
+      {
+        state: state,
+        message:
+        {
+          registered: '未発注',
+          ordered: '未発送',
+          arrived: '引換可能',
+          exchanged: '引換済み'
         },
         error: "passing undefined state of orders to #{__method__}"
       }
     )
   end
 
-  #ハッシュの書き方がhttps://github.com/esminc/sp/wiki/RubyCodingConventionに反してるかも。でも長いので改行いれる。
   def explain_state(state)
     state_to_message(
-      {state: state,
-       message: #registeredは、orders/showでは使わないので不要。
-        {ordered: '注文は発注されました。ネスレからの発送を待っています。<br>お茶が届けば、引換ができます。<br>なお、既に管理者がネスレに発注したため、注文の修正はできません。' ,
-         arrived: 'お茶が支社に届いています。<br>管理者に代金を渡して引換をしてください。',
-         exchanged: '引換済みです。<br>新たに注文したい場合、管理者に引換済み情報の削除を依頼してください。'
+      {
+       state: state,
+       message:
+        {
+          #registered: これはorders/showでは使わないので不要。
+          ordered: '注文は発注されました。ネスレからの発送を待っています。<br>お茶が届けば、引換ができます。<br>なお、既に管理者がネスレに発注したため、注文の修正はできません。',
+          arrived: 'お茶が支社に届いています。<br>管理者に代金を渡して引換をしてください。',
+          exchanged: '引換済みです。<br>新たに注文したい場合、管理者に引換済み情報の削除を依頼してください。'
         },
-        error: "passing undefined state of orders to #{__method__}"
+      error: "passing undefined state of orders to #{__method__}"
       }
     )
   end
@@ -61,4 +65,3 @@ module OrdersHelper
     end
   end
 end
-
