@@ -8,11 +8,11 @@ class Admin::ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.save!
+    @item = Item.create!(item_params)
 
     redirect_to :admin_items, flash: {success: "#{@item.name}を追加登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
+    @item = e.record
     render :new
   end
 

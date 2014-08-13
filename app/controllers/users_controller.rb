@@ -8,14 +8,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      sign_in @user
-      redirect_to order_details_path, flash: {success: 'ユーザー登録しました。'}
-    else
-      @invalid_error_message =  @user.errors.messages[:name].join
-      render 'new'
-    end
+    @user = User.create!(user_params)
+    sign_in @user
+    redirect_to order_details_path, flash: {success: 'ユーザー登録しました。'}
+  rescue ActiveRecord::RecordInvalid => e
+    @user = e.record
+    @invalid_error_message =  @user.errors.messages[:name].join
+    render 'new'
   end
 
   private

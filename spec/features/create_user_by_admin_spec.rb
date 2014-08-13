@@ -10,7 +10,7 @@ feature '新ユーザーを管理者画面から登録' do
 
   context '新ユーザー登録ページにいったとき' do
     background do
-      create(:user, name: 'Bob')
+      create :user, name: 'Bob'
 
       click_link '新ユーザー登録ページ'
     end

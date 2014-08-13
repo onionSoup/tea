@@ -58,7 +58,7 @@ module OrdersHelper
   end
   #link_to_details_index_or_order_showだと長い。
   def link_to_index_or_show(index_link_text, show_link_text)
-    if current_user.order.state == 'registered'
+    if current_user.order.registered?
       content_tag :a, href: order_details_path do "#{index_link_text}" end
     else
       content_tag :a, href: order_path do "#{show_link_text}" end
