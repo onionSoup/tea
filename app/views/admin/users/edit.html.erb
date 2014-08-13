@@ -3,7 +3,9 @@
   <div>
     <%= form_for [:admin, @user] do |user| %>
       <div id="admin_first_content">
-        <h2 class="sub_title_in_admin_user_edit main_content_caption"><%= @user.name %>さんのユーザー名変更</h2>
+        <h2 class="sub_title_in_admin_user_edit main_content_caption">
+          <%= @user.name %>さんのユーザー名変更
+        </h2>
         <div class="contents_box_in_admin_user_edit">
           <%= user.label :name, 'ユーザー名' %>
           <%= user.text_field :name %>
@@ -12,11 +14,14 @@
       </div>
     <% end %>
     <div id="box_of_edit_order_in_admin">
-      <h2 class="sub_title_in_admin_user_edit main_content_caption"><%= @user.name %>さんの注文変更</h2>
+      <h2 class="sub_title_in_admin_user_edit main_content_caption">
+        <%= @user.name %>さんの注文変更
+      </h2>
       <div class="contents_box_in_admin_user_edit">
         <% if @user.order.registered? %>
           <p><%= link_to '注文変更ページ', admin_user_order_details_path(@user) %>で可能です。</p>
-          <p>ネスレの<%= shipping_cost_page_link('送料のページ') %>を見て、送料無料の条件に注意しながら注文の変更を行ってください。</p>
+          <p>ネスレの<%= shipping_cost_page_link('送料のページ') %>を見て、送料無料の条件に注意しながら注文の変更を行ってください。
+          </p>
         <% else %>
           <p><%= @user.name %>さんの注文は既にネスレに発注しているため、変更できません。</p>
         <% end %>

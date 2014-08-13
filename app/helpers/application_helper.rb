@@ -4,6 +4,9 @@ module ApplicationHelper
   end
 
   def shipping_cost_page_link(japanese_explain)
-    link_to japanese_explain, 'https://shop.nestle.jp/front/app/info/help/#guide_midashi04'
+    link_to(
+      japanese_explain,
+      'https://shop.nestle.jp/front/app/info/help/#guide_midashi04'
+    )
   end
 end

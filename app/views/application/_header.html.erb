@@ -13,7 +13,7 @@
         <p><%= link_to_index_or_show '注文画面', '注文履歴' %></p>
         <p id="admin_page"><%= link_to '管理者用', registered_path %></p>
       <% else  %>
-        <p id="mypage"><%= link_to 'ログイン', new_session_path %>すれば、お茶の注文ができます。</p>
+        <p><%= link_to 'ログイン', new_session_path %>すれば、お茶の注文ができます。</p>
       <% end %>
     </div>
   </div>

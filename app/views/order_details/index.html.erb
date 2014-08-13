@@ -2,7 +2,9 @@
   <%= render 'application/general_user_side_nav' %>
   <div>
     <div id="order_details_index_content">
-      <h2 id="ordered_index_in_order_details_index" class="main_content_caption"><%= current_user.name %>さんが今回注文するもの</h2>
+      <h2 id="ordered_index_in_order_details_index" class="main_content_caption">
+        <%= current_user.name %>さんが今回注文するもの
+      </h2>
       <% if @order.order_details.none? %>
         <p><%= current_user.name %>さんは、まだお茶を追加していません。追加すると、ここにお茶が表示されます。</p>
       <% else %>
@@ -23,19 +25,26 @@
                 <td class="quantity"><%= detail.quantity %>個</td>
                 <td class="price"><%= detail.item.price %>円</td>
                 <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
-                <td class="destroy"><%= link_to '削除', order_detail_path(detail), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'} %></td>
+                <td class="destroy"><%= link_to(
+                                          '削除',
+                                          order_detail_path(detail),
+                                          method: :delete,
+                                          data: {confirm: '本当に削除してもよろしいですか？'}
+                                        ) %></td>
               </tr>
             <% end %>
           </table>
-          <p><span id='order_details_index_sum_jp'>合計</span><span id='order_details_index_sum_yen'><%= @order.order_details.price_sum %>円</span></p>
+          <p>
+            <span id='order_details_index_sum_jp'>合計</span>
+            <span id='detail_sum_yen'><%= @order.order_details.price_sum %>円</span>
+          </p>
         </div>
       <% end %>
-      <%= content_tag(
-        :p,
-        '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
-        id: id_of_p_to_add_details(@order)
-      ) %>
-      <%= render partial: 'application/add_details_form', locals: {url: order_details_path} %>
+      <%= content_tag :p,
+                      '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
+                      id: id_of_p_to_add_details(@order) %>
+      <%= render partial: 'application/add_details_form',
+                 locals: {url: order_details_path} %>
     </div>
   </div>
 </div>

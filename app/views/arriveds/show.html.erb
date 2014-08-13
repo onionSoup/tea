@@ -18,7 +18,10 @@
               </tr>
               <% @users.each do |user| %>
                 <tr>
-                  <td><%= check_box_tag 'order_ids[]', user.order.id, false, id: dom_id(user) %></td>
+                  <td><%= check_box_tag 'order_ids[]',
+                                        user.order.id,
+                                        false,
+                                        id: dom_id(user) %></td>
                   <td><%= label_tag dom_id(user), user.name %></td>
                   <td><%= user.order.order_details.price_sum  %></td>
                   <td>

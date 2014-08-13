@@ -20,7 +20,11 @@ class Order < ActiveRecord::Base
   validates :user_id, presence: true
 
   scope :select_name_and_price_and_sum_of_quantity, -> {
-    joins(order_details: :item).group('items.id', 'order_details.then_price').select('items.name, order_details.then_price, SUM(quantity) AS quantity')
+    joins(order_details: :item).group('items.id', 'order_details.then_price')
+                               .select('items.name,
+                                        order_details.then_price,
+                                        SUM(quantity) AS quantity'
+                                )
   }
 
   enum state: [:registered, :ordered, :arrived, :exchanged]

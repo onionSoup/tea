@@ -2,14 +2,18 @@
   <%= render 'application/admin_side_nav' %>
   <div>
     <div id="box_of_edit_order_in_admin">
-      <h2 class="sub_title_in_admin_user_index main_content_caption"><%= @user.name %>さんの注文の変更</h2>
+      <h2 class="sub_title_in_admin_user_index main_content_caption">
+        <%= @user.name %>さんの注文の変更
+      </h2>
       <div class="contents_box_in_admin_user_edit">
         <% if @user.order.registered? %>
-          <p><%= @user.name %>さんの注文はネスレに発注されていないため、変更できます。<br>ただし、変更した場合、全注文の合計金額が送料無料金額を下回る可能性があります。</p>
+          <p><%= @user.name %>さんの注文はネスレに発注されていないため、変更できます。<p>
+          <p>ただし、変更した場合、全注文の合計金額が送料無料金額を下回る可能性があります。</p>
           <p>ネスレの<%= shipping_cost_page_link('送料のページ') %>を参照してから、変更を行ってください。</p>
         <% else %>
-          <p><%= @user.name %>さんの注文は既にネスレに発注しているため、変更できません。<br>変更した場合<%= @user.name %>さん分の代金を回収できなくなるためです。<br>
-          ネスレ発注後の注文を変更したい場合は、製作者にお問い合わせください。</p>
+          <p><%= @user.name %>さんの注文は既にネスレに発注しているため、変更できません。</p>
+          <p>変更した場合<%= @user.name %>さん分の代金を回収できなくなるためです。</p>
+          <p>ネスレ発注後の注文を変更したい場合は、製作者にお問い合わせください。</p>
         <% end %>
       </div>
       <%= render partial: 'form', locals: {user: @user} if @user.order.registered? %>

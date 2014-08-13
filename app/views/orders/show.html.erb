@@ -3,11 +3,13 @@
   <div>
     <div id="show_order_content">
       <h2 id="explain_state_in_show_order" class="main_content_caption">
-      注文の状況：
-      <%= translate_state(@order.state) %>
+        注文の状況：
+        <%= translate_state(@order.state) %>
       </h2>
       <p><%= raw explain_state(@order.state) %></p>
-      <h2 id="history_subtitle_in_orders_show" class="main_content_caption"><%= current_user.name %>さんの注文履歴</h2>
+      <h2 id="history_subtitle_in_orders_show" class="main_content_caption">
+        <%= current_user.name %>さんの注文履歴
+      </h2>
       <p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
       <div id='order_details_index_table_and_p_wraper'>
         <table id="order_details_index_table">
@@ -26,7 +28,10 @@
             </tr>
           <% end %>
         </table>
-        <p><span id='order_details_index_sum_jp'>合計</span><span id='order_details_index_sum_yen'><%= @order.order_details.price_sum %>円</span></p>
+        <p>
+          <span id='order_details_index_sum_jp'>合計</span>
+          <span id='detail_sum_yen'><%= @order.order_details.price_sum %>円</span>
+        </p>
       </div>
     </div>
   </div>

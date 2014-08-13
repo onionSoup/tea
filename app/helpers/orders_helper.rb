@@ -1,11 +1,14 @@
 module OrdersHelper
   def item_options
-    options_of_existing_item = Item.all.map {|item| ["#{item.name}(#{item.price}円)", item.id] }
+    options_of_existing_item = Item.all.map {|item|
+                                              ["#{item.name}(#{item.price}円)", item.id]
+                                            }
     options_with_blank = options_of_existing_item.unshift(['', ''])
   end
 
   def quantity_options
-    (1..OrderDetail::MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL).map {|i| ["#{i}個", i] }.unshift(['', ''])
+    (1..OrderDetail::MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL).map {|i| ["#{i}個", i] }
+                                                          .unshift(['', ''])
   end
 
   #translate_stateとexpalin_stater両方でcase使っていたら、code climateさんに怒られたので。
@@ -59,9 +62,9 @@ module OrdersHelper
   #link_to_details_index_or_order_showだと長い。
   def link_to_index_or_show(index_link_text, show_link_text)
     if current_user.order.registered?
-      content_tag :a, href: order_details_path do "#{index_link_text}" end
+      content_tag(:a, href: order_details_path) { "#{index_link_text}" }
     else
-      content_tag :a, href: order_path do "#{show_link_text}" end
+      content_tag(:a, href: order_path) { "#{show_link_text}" }
     end
   end
 end
