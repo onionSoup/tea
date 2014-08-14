@@ -3,13 +3,18 @@
     <div id="admin_first_content">
     <h2 class="main_content_caption">引換済み商品ページ</h2>
     <div class="admin_content_under_caption">
-      <p>以下のお茶は、引換が終了しています。</p>
-      <%= render 'application/users_table.html' %>
-      <p id="p_for_delete_button">引換情報を削除するには以下のボタンを押してください。<br />
-      削除した引換情報は元に戻せないことにご注意ください。</p>
-      <%= form_for :order, url: exchanged_path, method: :delete do |f| %>
-        <%= f.submit 'このページの引換情報を削除',
-                     data: {confirm: '本当に削除してもよろしいですか？'} %>
+      <% if @users.any? %>
+        <p>以下のお茶は、引換が終了しています。</p>
+        <%= render partial: 'application/users_table.html', locals: {users: @users} %>
+        <p id="p_for_delete_button">引換情報を削除するには以下のボタンを押してください。<br />
+        削除した引換情報は元に戻せないことにご注意ください。</p>
+        <%= form_for :order, url: exchanged_path, method: :delete do |f| %>
+          <%= f.submit 'このページの引換情報を削除',
+                       data: {confirm: '本当に削除してもよろしいですか？'} %>
+        <% end %>
+      <% else %>
+        <p>引換をしていません。</p>
+        <p>引換を行い、システムに引換を登録した場合、引換情報を書いた表が表示されます。</p>
       <% end %>
     </div>
   </div>

@@ -38,10 +38,9 @@ feature 'ネスレ入力用ページ' do
     end
   end
 
-  scenario '何も注文されていないとき、ボタンを押しても移動しない' do
+  scenario '何も注文されていないとき、ボタンがページに表示されない。' do
     visit '/orders/registered'
-    click_button '注文の完了をシステムに登録'
 
-    expect(page.current_path).to eq '/orders/registered'
+    expect(page).not_to  have_button '注文の完了をシステムに登録'
   end
 end

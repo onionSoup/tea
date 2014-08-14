@@ -4,42 +4,21 @@
     <div id="admin_first_content">
       <h2 class="main_content_caption">引換用ページ</h2>
       <div class="admin_content_under_caption">
-        <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
-        <p>引換を完了した方の欄に、引換完了チェックを入れてください。</p>
-        <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
-        <%= form_tag exchange_arrived_path, method: :post do %>
-          <div id="admin_flex_wrapping_table">
-            <table class="admin_order_table arrived_table">
-              <tr>
-                <th>引換完了チェック</th>
-                <th>お名前</th>
-                <th>合計支払い金額</th>
-                <th>商品内訳</th>
-              </tr>
-              <% @users.each do |user| %>
-                <tr>
-                  <td><%= check_box_tag 'order_ids[]',
-                                        user.order.id,
-                                        false,
-                                        id: dom_id(user) %></td>
-                  <td><%= label_tag dom_id(user), user.name %></td>
-                  <td><%= user.order.order_details.price_sum  %></td>
-                  <td>
-                    <% user.order.order_details.each do |detail| %>
-                      <div class="inner_table">
-                        <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
-                        <div><%= "#{detail.quantity}個" %></div>
-                      </div>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </table>
-          </div>
-          <p id="p_for_arrive_to_exchange_button">引換が終わったら以下のボタンを押してください。
-          引換が終了したことを、システムに登録します。</p>
-          <%= submit_tag '引換の完了をシステムに登録',
-                         data: {confirm: '引換の完了を登録してもよろしいですか？'} %>
+        <% if @users.any? %>
+          <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
+          <p>引換を完了した方の欄に、引換完了チェックを入れてください。</p>
+          <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
+          <%= form_tag exchange_arrived_path, method: :post do %>
+            <%= render 'arriveds_table' %>
+            <p id="p_for_arrive_to_exchange_button">引換が終わったら以下のボタンを押してください。
+            引換が終了したことを、システムに登録します。</p>
+            <%= submit_tag '引換の完了をシステムに登録',
+                           data: {confirm: '引換の完了を登録してもよろしいですか？'} %>
+          <% end %>
+        <% else %>
+          <p>お茶が届いていません。</p>
+          <p>お茶が届き、システムに受領を登録した場合、ユーザーごとの詳細を書いた表が表示されます。</p>
+          <p>この表を元に、お茶とお金の引換を行うことができます。</p>
         <% end %>
       </div>
     </div>

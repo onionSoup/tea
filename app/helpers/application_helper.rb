@@ -9,4 +9,10 @@ module ApplicationHelper
       'https://shop.nestle.jp/front/app/info/help/#guide_midashi04'
     )
   end
+  def nestle_shopping_site_link(text)
+    link_to(
+      text,
+      'https://shop.nestle.jp/front/app/cart/collect_cart/init/00000000/SpecialTCapsule/'
+    )
+  end
 end

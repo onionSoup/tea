@@ -1,4 +1,4 @@
-feature 'ネスレ発送待ち商品ページ' do
+feature '発送待ち商品の確認' do
   context 'ネスレの発送を待っているお茶があるとき' do
     before do
       alice = create(:user, name: 'Alice')
@@ -43,10 +43,9 @@ feature 'ネスレ発送待ち商品ページ' do
     end
   end
 
-  scenario 'ネスレの発送を待っているお茶がないとき、ボタンを押しても移動しない' do
+  scenario 'ネスレの発送を待っているお茶がないとき、ボタンが表示されない。' do
     visit '/orders/ordered'
-    click_button 'お茶の受領をシステムに登録'
 
-    expect(page.current_path).to eq '/orders/ordered'
+    expect(page).not_to have_button 'お茶の受領をシステムに登録'
   end
 end
