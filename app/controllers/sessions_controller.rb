@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    @user = User.new
   end
 
   def create
@@ -9,7 +10,7 @@ class SessionsController < ApplicationController
     redirect_to url_for_index_or_show, flash: {success: 'ログインしました。'}
   rescue ActiveRecord::RecordNotFound => e
     flash.now[:error] = 'そのユーザは存在しません。新規ユーザー登録してください'
-    render 'new'
+    render :new
   end
 
   def destroy

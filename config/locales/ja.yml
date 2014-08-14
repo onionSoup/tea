@@ -1,4 +1,7 @@
 ja:
+  errors:
+    format: '%{message}'
+
   activerecord:
     attributes:
       user:
@@ -10,7 +13,7 @@ ja:
       models:
         user:
           blank: '%{attribute}が入力されていません。'
-          taken: 'その%{attribute}は既に使われています。別の%{attribute}を入力してください'
+          taken: 'その%{attribute}は既に使われています。別の%{attribute}を入力してください。'
           invalid: '無効な%{attribute}です。'
         item:
           blank: '%{attribute}が入力されていません。'

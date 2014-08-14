@@ -12,14 +12,15 @@ class OrderDetailsController < ApplicationController
   def create
     @order = current_user.order
     @order_detail = @order.order_details.create!(order_detail_params)
+
     flash[:success] = "#{@order_detail.item.name}を追加しました。"
-  rescue ActiveRecord::RecordInvalid => e
-    @order_detail = e.record
-    message = @order_detail.errors.messages[:item_id] ||
-              @order_detail.errors.messages[:quantity]
-    flash[:error] = message.join
-  ensure
     redirect_to order_details_path
+  rescue ActiveRecord::RecordInvalid => e
+    #２回目の代入だが、N+1を避けるため。
+    @order = User.includes(order: {order_details: :item}).find(current_user).order
+    @order_detail = e.record
+
+    render :index
   end
 
   def destroy

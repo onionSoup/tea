@@ -1,6 +1,4 @@
-<% if @invalid_error_message %>
-  <p id="users_new_invalid_alert"><%= @invalid_error_message %></p>
-<% end %>
+<%= render partial: 'application/form_errors', locals: {object: @user} %>
 <div class="general_user_flex">
   <%= render 'application/general_user_side_nav' %>
   <div>

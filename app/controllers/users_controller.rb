@@ -13,8 +13,7 @@ class UsersController < ApplicationController
     redirect_to order_details_path, flash: {success: 'ユーザー登録しました。'}
   rescue ActiveRecord::RecordInvalid => e
     @user = e.record
-    @invalid_error_message =  @user.errors.messages[:name].join
-    render 'new'
+    render :new
   end
 
   private

@@ -1,10 +1,12 @@
+<%= render partial: 'application/form_errors', locals: {object: @user} %>
 <div id="admin_flex_box">
   <%= render 'application/admin_side_nav' %>
   <div>
     <%= form_for [:admin, @user] do |user| %>
       <div id="admin_first_content">
         <h2 class="sub_title_in_admin_user_edit main_content_caption">
-          <%= @user.name %>さんのユーザー名変更
+          <%# @userの更新失敗時に、失敗時の名前ではなくDBに入っている名前で出すための@name_of_user_in_db %>
+          <%= @name_of_user_in_db || @user.name %>さんのユーザー名変更
         </h2>
         <div class="contents_box_in_admin_user_edit">
           <%= user.label :name, 'ユーザー名' %>
@@ -15,7 +17,7 @@
     <% end %>
     <div id="box_of_edit_order_in_admin">
       <h2 class="sub_title_in_admin_user_edit main_content_caption">
-        <%= @user.name %>さんの注文変更
+        <%= @name_of_user_in_db || @user.name %>さんの注文変更
       </h2>
       <div class="contents_box_in_admin_user_edit">
         <% if @user.order.registered? %>
@@ -23,7 +25,7 @@
           <p>ネスレの<%= shipping_cost_page_link('送料のページ') %>を見て、送料無料の条件に注意しながら注文の変更を行ってください。
           </p>
         <% else %>
-          <p><%= @user.name %>さんの注文は既にネスレに発注しているため、変更できません。</p>
+          <p><%= @name_of_user_in_db || @user.name %>さんの注文は既にネスレに発注しているため、変更できません。</p>
         <% end %>
       </div>
     </div>

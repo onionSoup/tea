@@ -21,7 +21,8 @@ class Admin::OrderDetailsController < ApplicationController
 
     OrderDetail.destroy order_detail
 
-    redirect_to admin_user_order_details_path(order_detail.order.user), flash: {success: "#{order_detail.item.name}を削除しました。"}
+    redirect_to admin_user_order_details_path(order_detail.order.user),
+                flash: {success: "#{order_detail.item.name}を削除しました。"}
   end
 
   private
