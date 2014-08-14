@@ -8,8 +8,8 @@
       <p id="p_for_delete_button">引換情報を削除するには以下のボタンを押してください。<br />
       削除した引換情報は元に戻せないことにご注意ください。</p>
       <%= form_for :order, url: exchanged_path, method: :delete do |f| %>
-        <%=  f.submit 'このページの引換情報を削除',
-                      data: {confirm: '本当に削除してもよろしいですか？'} %>
+        <%= f.submit 'このページの引換情報を削除',
+                     data: {confirm: '本当に削除してもよろしいですか？'} %>
       <% end %>
     </div>
   </div>

@@ -38,7 +38,8 @@
           </div>
           <p id="p_for_arrive_to_exchange_button">引換が終わったら以下のボタンを押してください。
           引換が終了したことを、システムに登録します。</p>
-          <%=  submit_tag '引換の完了をシステムに登録' %>
+          <%= submit_tag '引換の完了をシステムに登録',
+                         data: {confirm: '引換の完了を登録してもよろしいですか？'} %>
         <% end %>
       </div>
     </div>

@@ -16,7 +16,7 @@ class OrderDetailsController < ApplicationController
     flash[:success] = "#{@order_detail.item.name}を追加しました。"
     redirect_to order_details_path
   rescue ActiveRecord::RecordInvalid => e
-    #２回目の代入だが、N+1を避けるため。
+    #@orderは２回目の代入だが、N+1を避けるため。
     @order = User.includes(order: {order_details: :item}).find(current_user).order
     @order_detail = e.record
 
