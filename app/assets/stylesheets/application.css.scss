@@ -48,3 +48,17 @@ li.error_message_li {
   border-bottom: solid thin #dcdcdc;
   font-size: 1.17em;
 }
+
+div#order_details_index_table_and_p_wraper {
+  position: relative;
+  display: inline-block;
+  p {
+    position: absolute;
+    right: 0;
+    margin-top: 2em;
+    border-bottom: solid thin #c8c8c8;
+  }
+  span#detail_sum_yen {
+    margin-left: 1.5em;
+  }
+}

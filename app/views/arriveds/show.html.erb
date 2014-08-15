@@ -4,7 +4,7 @@
     <div id="admin_first_content">
       <h2 class="main_content_caption">引換用ページ</h2>
       <div class="admin_content_under_caption">
-        <% if @users.any? %>
+        <% if @users.present? %>
           <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
           <p>引換を完了した方の欄に、引換完了チェックを入れてください。</p>
           <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>

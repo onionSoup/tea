@@ -3,7 +3,7 @@
   <%= render 'application/general_user_side_nav' %>
   <div>
     <div id="order_details_index_content">
-      <h2 id="ordered_index_in_order_details_index" class="main_content_caption">
+      <h2 id="sub_title_in_order_details_index" class="main_content_caption">
         <%= current_user.name %>さんが今回注文するもの
       </h2>
       <% if @order.order_details.none? %>

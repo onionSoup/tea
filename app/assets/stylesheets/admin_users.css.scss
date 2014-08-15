@@ -14,7 +14,8 @@ div.admin_user_content_in_index {
 table#users_table_in_admin_users_index {
   margin-top: 2em;
   border: thin solid #dcdcdc;
-  td, th {
+  td,
+  th {
     padding: 0.6em;
   }
   tr:first-child {
@@ -34,13 +35,10 @@ div.contents_box_in_admin_user_edit {
   margin-left: 2em;
 }
 
-div#box_of_edit_order_in_admin {
+div#change_order_box_in_admin_user_edit {
   margin-top: 4em;
 }
 
 h2.sub_title_in_admin_user_edit {
-  margin-bottom: 2em;
-}
-h2.sub_title_in_admin_user_index {
   margin-bottom: 2em;
 }

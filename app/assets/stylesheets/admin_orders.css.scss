@@ -1,36 +1,30 @@
-table.admin_order_table tr:first-child {
-  background: #e3eaf6;
-}
-
-table.admin_order_table tr:nth-child(2n+3) {
-  background: #f9f9f9;
-}
-
-table.admin_order_table tr:first-child th {
-  padding-top: 0.6em;
-  text-align: center;
-}
-
+//registereds#show,ordereds#show
 table.admin_order_table {
   border: thin solid #dcdcdc;
-}
-
-table.admin_order_table td.name {
-  padding: 0.4em 0.6em 0;
-}
-
-table.admin_order_table td.price {
-  padding: 0 0 0 3em;
-  text-align: right;
-}
-
-table.admin_order_table td.sum {
-  text-align: right;
-}
-
-table.admin_order_table div.inner_table {
-  display: flex;
-  justify-content: space-between;
+  td.name {
+    padding: 0.4em 0.6em 0;
+  }
+  td.price {
+    padding: 0 0 0 3em;
+    text-align: right;
+  }
+  td.sum {
+    text-align: right;
+  }
+  tr:first-child {
+    background: #e3eaf6;
+    th {
+      padding-top: 0.6em;
+      text-align: center;
+    }
+  }
+  tr:nth-child(2n+3) {
+    background: #f9f9f9;
+  }
+  div.inner_table {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 p#payment {
@@ -41,31 +35,36 @@ p#payment {
   height: 2em;
 }
 
-table.users_table_in_admin_orders_pages td:nth-child(n+2) {
-  border-left: dotted thin #dcdcdc;
-}
-
-table.users_table_in_admin_orders_pages div.inner_table:nth-child(even) {
-  background: #f3f3f3;
-}
-
-table.users_table_in_admin_orders_pages tr:nth-child(odd) div.inner_table:nth-child(even) {
-  background: #ececec;
+table.users_table_in_admin_orders_pages {
+  td:nth-child(n+2) {
+    border-left: dotted thin #dcdcdc;
+  }
+  div.inner_table:nth-child(even) {
+    background: #f3f3f3;
+  }
+  tr:nth-child(odd) {
+    div.inner_table:nth-child(even) {
+      background: #ececec;
+    }
+  }
 }
 
 #caption_on_users_table_in_admin {
   padding-top: 2em;
 }
 
-//arrived
-table.arrived_table td:nth-child(n+2) {
-  border-left: dotted thin #dcdcdc;
-}
-
-table.arrived_table div.inner_table:nth-child(even) {
-  background: #f3f3f3;
-}
-
-table.arrived_table tr:nth-child(odd) div.inner_table:nth-child(even) {
-  background: #ececec;
+//arrived 今はtable.users_table_in_admin_orders_pagesと同じスタイル
+//でも本質的には違うものなので別にしておいたほうが良い。
+table.arrived_table {
+  td:nth-child(n+2) {
+    border-left: dotted thin #dcdcdc;
+  }
+  div.inner_table:nth-child(even) {
+    background: #f3f3f3;
+  }
+  tr:nth-child(odd) {
+    div.inner_table:nth-child(even) {
+      background: #ececec;
+    }
+  }
 }

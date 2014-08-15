@@ -24,7 +24,7 @@
     </div>
     <h2 id="caption_on_users_table_in_admin" class="main_content_caption">ユーザーごとの詳細</h2>
     <div class="admin_content_under_caption">
-      <% if @users.any? %>
+      <% if @users.present? %>
         <p>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
         <%= render partial: 'application/users_table.html', locals: {users: @users} %>
       <% else %>

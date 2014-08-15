@@ -9,6 +9,7 @@ module ApplicationHelper
       'https://shop.nestle.jp/front/app/info/help/#guide_midashi04'
     )
   end
+
   def nestle_shopping_site_link(text)
     link_to(
       text,
