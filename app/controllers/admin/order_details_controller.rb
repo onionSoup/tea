@@ -8,12 +8,14 @@ class Admin::OrderDetailsController < ApplicationController
     user = User.find(params[:user_id])
     order_detail = user.order.order_details.create!(admin_order_detail_params)
     flash[:success] = "#{order_detail.item.name}を追加しました。"
-  rescue ActiveRecord::RecordInvalid => e
-    order_detail = e.record
-    message = order_detail.errors.messages[:item_id] || order_detail.errors.messages[:quantity]
-    flash[:error] = message.join
-  ensure
+
     redirect_to admin_user_order_details_path(user.id)
+  rescue ActiveRecord::RecordInvalid => e
+    @order_detail = e.record
+    @user = User.includes(order: {order_details: :item}).find(params[:user_id])
+    @items = Item.order(:id)
+
+    render :index
   end
 
   def destroy

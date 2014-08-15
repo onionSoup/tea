@@ -20,7 +20,7 @@ feature '管理者ページからユーザーの注文を変更する' do
       end
     end
 
-    scenario '削除リンクを押すと、商品を削除できる' do
+    scenario '削除リンクを押すと、明細を削除できる' do
       click_link '注文変更ページ'
 
       detail = alice.order.order_details.where(item_id: items(:herb_tea)).take
@@ -39,6 +39,16 @@ feature '管理者ページからユーザーの注文を変更する' do
       click_button '追加する'
 
       expect(page).to exist_in_table "#{items(:ice_mint).name}"
+    end
+
+    scenario '注文変更ページに飛んでお茶の名前や数量を不適切に指定した場合、エラーがでる。' do
+      click_link '注文変更ページ'
+
+      choose_item_and_quantity '', ''
+      click_button '追加する'
+
+      expect(page).to have_content 'お茶の名前を選択してください。'
+      expect(page).to have_content 'お茶の数量を選択してください。'
     end
   end
 
