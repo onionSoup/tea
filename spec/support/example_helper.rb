@@ -5,7 +5,7 @@ module ExampleHelper
   end
 
   def login_as(name)
-    visit '/sessions/new'
+    visit '/login'
     fill_in 'ユーザー名', with: name
     click_button 'ログイン'
   end

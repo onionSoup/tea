@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create!(user_params)
-    sign_in @user
+    log_in @user
     redirect_to order_details_path, flash: {success: 'ユーザー登録しました。'}
   rescue ActiveRecord::RecordInvalid => e
     @user = e.record

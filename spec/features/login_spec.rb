@@ -1,6 +1,6 @@
 feature 'ログインする' do
   background do
-    visit '/sessions/new'
+    visit '/login'
     create :user, name: 'Bob'
   end
 

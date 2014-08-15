@@ -1,6 +1,6 @@
 class OrderDetailsController < ApplicationController
-  include Signin
-  before_action :need_signed_in
+  include Login
+  before_action :need_logged_in
   before_action :reject_index_since_ordered, only: [:index]
 
   def index

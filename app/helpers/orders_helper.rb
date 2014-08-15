@@ -1,9 +1,7 @@
 module OrdersHelper
   def item_options
-    options_of_existing_item = Item.all.map {|item|
-                                              ["#{item.name}(#{item.price}円)", item.id]
-                                            }
-    options_with_blank = options_of_existing_item.unshift(['', ''])
+    options_of_items = Item.all.map {|item| ["#{item.name}(#{item.price}円)", item.id] }
+    options_with_blank = options_of_items.unshift(['', ''])
   end
 
   def quantity_options

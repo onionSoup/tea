@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
-  include Signin
-  before_action :need_signed_in
+  include Login
+  before_action :need_logged_in
   before_action :reject_destroy_self, only: [:destroy]
   before_action :reject_destroy_when_nonblank_detail, only: [:destroy]
   before_action :reject_update_giving_self_name, only: [:update]

@@ -21,7 +21,7 @@ feature '既存の注文を修正する'do
 
     visit '/order' #URL直打ちやブックマークのアクセスを想定
 
-    expect(page.current_path).to eq '/sessions/new'
+    expect(page.current_path).to eq '/login'
   end
 
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
