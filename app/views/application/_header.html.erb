@@ -10,6 +10,6 @@
       <% end %>
     </div>
   </div>
-  <%= render partial: 'flash', locals: {result: :success} if flash[:success] %>
-  <%= render partial: 'flash', locals: {result: :error}   if flash[:error]   %>
+  <%= render 'flash', {result: :success} if flash[:success] %>
+  <%= render 'flash', {result: :error}   if flash[:error]   %>
 </header>

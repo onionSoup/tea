@@ -4,9 +4,9 @@
     <div id="show_order_content">
       <h2 id="explain_state_in_show_order" class="main_content_caption">
         注文の状況：
-        <%= translate_state(@order.state) %>
+        <%= t(@order.state, scope: 'models.order.state') %>
       </h2>
-      <p><%= raw explain_state(@order.state) %></p>
+      <p><%= raw t(@order.state, scope: 'message.instruction.state') %>
       <h2 id="history_subtitle_in_orders_show" class="main_content_caption">
         <%= current_user.name %>さんの注文履歴
       </h2>

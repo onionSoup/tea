@@ -5,9 +5,9 @@
       <h2 class="main_content_caption">ネスレに発注する商品の一覧</h2>
       <div class="admin_content_under_caption">
         <% if @registereds.any? %>
-          <p>以下のお茶注文情報を見ながら<%= nestle_shopping_site_link('ネスレの通販サイト') %>で注文してください。</p>
-          <%= render partial: 'application/admin_orders_table',
-                     locals: {paticular_state_orders_grouped_by_item: @registereds} %>
+          <p>以下のお茶注文情報を見ながら<%= about_page_link %>で注文してください。</p>
+          <%= render 'application/admin_orders_table',
+                     {paticular_state_orders_grouped_by_item: @registereds} %>
           <p id="p_for_register_to_order_button">ネスレでの注文が終わったら以下のボタンを押してください。<br />
           注文が終わったことをシステムに登録します。</p>
           <p>ボタンを押すと、引換終了後に注文情報を削除するまで、利用者が注文を修正できなくなります。ご注意ください。</p>
@@ -17,7 +17,7 @@
           <% end %>
         <% else %>
           <p>ユーザーが商品を注文に追加すると、商品ごとの発注数量と金額の一覧表が見れるようになります。</p>
-          <p>その一覧表を元に<%= nestle_shopping_site_link('ネスレの通販サイト') %>で注文ができます。</p>
+          <p>その一覧表を元に<%= about_page_link %>で注文ができます。</p>
           <p>一覧表がある場合、ネスレに発注したことをこのシステムに登録することができます。</p>
         <% end %>
       </div>
@@ -26,7 +26,7 @@
     <div class="admin_content_under_caption">
       <% if @users.present? %>
         <p>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
-        <%= render partial: 'application/users_table.html', locals: {users: @users} %>
+        <%= render 'application/users_table.html', {users: @users} %>
       <% else %>
         <p>ユーザーが商品を注文に追加すると、ユーザーごとの詳細を見られるようになります。</p>
       <% end %>

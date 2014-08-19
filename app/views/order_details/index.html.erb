@@ -1,4 +1,4 @@
-<%= render partial: 'application/form_errors', locals: {object: @order_detail} if @order_detail %>
+<%= render 'application/form_errors', {object: @order_detail} if @order_detail %>
 <div class="general_user_flex">
   <%= render 'application/general_user_side_nav' %>
   <div>
@@ -44,8 +44,8 @@
       <%= content_tag :p,
                       '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
                       id: id_of_p_to_add_details(@order) %>
-      <%= render partial: 'application/add_details_form',
-                 locals: {url: order_details_path} %>
+      <%= render 'application/add_details_form',
+                 {url: order_details_path} %>
     </div>
   </div>
 </div>

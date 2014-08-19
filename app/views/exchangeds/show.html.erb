@@ -5,7 +5,7 @@
     <div class="admin_content_under_caption">
       <% if @users.present? %>
         <p>以下のお茶は、引換が終了しています。</p>
-        <%= render partial: 'application/users_table.html', locals: {users: @users} %>
+        <%= render 'application/users_table.html', {users: @users} %>
         <p id="p_for_delete_button">引換情報を削除するには以下のボタンを押してください。<br />
         削除した引換情報は元に戻せないことにご注意ください。</p>
         <%= form_for :order, url: exchanged_path, method: :delete do |f| %>

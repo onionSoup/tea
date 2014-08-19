@@ -31,9 +31,7 @@ class User < ActiveRecord::Base
   }
 
   scope :has_at_least_one_detail, -> {
-    where('EXISTS (SELECT 1
-                   FROM order_details
-                   WHERE order_details.order_id = orders.id)')
+    where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
   }
 
   def User.new_remember_token

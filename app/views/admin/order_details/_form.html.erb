@@ -21,7 +21,7 @@
             <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
             <td class="destroy"><%= link_to(
                                       '削除',
-                                      path_to_admin_user_detail(user.id, detail.id),
+                                      admin_user_order_detail_path(user.id,detail.id),
                                       method: :delete,
                                       data: {confirm: '本当に削除してもよろしいですか？'}
                                     ) %></td>
@@ -37,6 +37,6 @@
   <%= content_tag :p,
                   '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
                   id: id_of_p_to_add_details(user.order) %>
-  <%= render partial: 'application/add_details_form',
-             locals:  {url: admin_user_order_details_path} %>
+  <%= render 'application/add_details_form',
+             {url: admin_user_order_details_path} %>
 </div>

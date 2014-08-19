@@ -2,31 +2,46 @@ ja:
   errors:
     format: '%{message}'
 
+  message:
+    instruction:
+      state:
+        ordered:   注文は発注されました。ネスレからの発送を待っています。<br>お茶が届けば、引換ができます。<br>なお、既に管理者がネスレに発注したため、注文の修正はできません。
+        arrived:   お茶が支社に届いています。<br>管理者に代金を渡して引換をしてください。
+        exchanged: 引換済みです。<br>新たに注文したい場合、管理者に引換済み情報の削除を依頼してください。
+
+  models:
+    order:
+      state:
+        registered: 未発注
+        ordered:    未発送
+        arrived:    引換可能
+        exchanged:  引換済み
+
   activerecord:
     attributes:
       user:
-        name: '名前'
+        name:  名前
       item:
-        name: '商品名'
-        price: '価格'
+        name:  商品名
+        price: 価格
     errors:
       models:
         user:
-          blank: '%{attribute}が入力されていません。'
-          taken: 'その%{attribute}は既に使われています。別の%{attribute}を入力してください。'
+          blank:   '%{attribute}が入力されていません。'
+          taken:   'その%{attribute}は既に使われています。別の%{attribute}を入力してください。'
           invalid: '無効な%{attribute}です。'
         item:
-          blank: '%{attribute}が入力されていません。'
+          blank:        '%{attribute}が入力されていません。'
           not_a_number: '%{attribute}は数字を入力してください。'
           attributes:
             name:
-              taken: '同じ名前の商品が既にあります。'
+              taken: 同じ名前の商品が既にあります。
         order_detail:
           attributes:
             item_id:
-              blank: 'お茶の名前を選択してください。'
-              taken: 'そのお茶は既に追加しています。'
+              blank: お茶の名前を選択してください。
+              taken: そのお茶は既に追加しています。
             quantity:
-              not_a_number: 'お茶の数量を選択してください。'
-              blank:  'お茶の数量を選択してください。'
+              not_a_number: お茶の数量を選択してください。
+              blank:        お茶の数量を選択してください。
               greater_than_or_equal_to: '%{count}以上の数量を指定してください。'
