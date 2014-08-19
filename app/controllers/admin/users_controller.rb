@@ -11,9 +11,11 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.create!(user_params)
+
     redirect_to :admin_users, flash: {success: "#{@user.name}さんを登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
     @user = e.record
+
     render :new
   end
 

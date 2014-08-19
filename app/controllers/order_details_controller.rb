@@ -4,19 +4,17 @@ class OrderDetailsController < ApplicationController
   before_action :reject_index_since_ordered, only: [:index]
 
   def index
-    @order = User.includes(order: {order_details: :item}).find(current_user).order
+    @order = User.find(current_user).order
     @items = Item.order(:id)
   end
 
   def create
-    @order = current_user.order
+    @order        = current_user.order
     @order_detail = @order.order_details.create!(order_detail_params)
 
-    flash[:success] = "#{@order_detail.item.name}を追加しました。"
-    redirect_to order_details_path
+    redirect_to order_details_path,
+                flash: {success: "#{@order_detail.item.name}を追加しました。"}
   rescue ActiveRecord::RecordInvalid => e
-    #@orderは２回目の代入だが、N+1を避けるため。
-    @order = User.includes(order: {order_details: :item}).find(current_user).order
     @order_detail = e.record
 
     render :index
