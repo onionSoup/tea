@@ -5,8 +5,9 @@ module OrdersHelper
   end
 
   def quantity_options
-    (1..OrderDetail::MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL).map {|i| ["#{i}個", i] }
-                                                          .unshift(['', ''])
+    quantities = 1.. OrderDetail::MAX_QUANTITY_PER_ORDER
+
+    [['', ''], *quantities.map]
   end
 
   #link_to_details_index_or_order_showだと長い。
