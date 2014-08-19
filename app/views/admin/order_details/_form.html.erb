@@ -13,7 +13,7 @@
           <th class="sum">小計</th>
           <th></th>
         </tr>
-        <% user.order.order_details.each do |detail| %>
+        <% user.order.order_details.includes(:item).each do |detail| %>
           <tr class=<%= dom_id(detail) %>>
             <td class="name"><%= detail.item.name %></td>
             <td class="quantity"><%= detail.quantity %>個</td>

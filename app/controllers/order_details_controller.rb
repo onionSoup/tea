@@ -5,7 +5,6 @@ class OrderDetailsController < ApplicationController
 
   def index
     @order = User.includes(order: {order_details: :item}).find(current_user).order
-    @order_detials = OrderDetail.new
     @items = Item.order(:id)
   end
 
