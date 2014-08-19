@@ -15,8 +15,6 @@ class Order < ActiveRecord::Base
   has_many   :order_details, dependent: :destroy
   belongs_to :user
 
-  after_destroy :create_another_order
-
   validates :user_id, presence: true
 
   scope :select_name_and_price_and_sum_of_quantity, -> {
@@ -37,11 +35,5 @@ class Order < ActiveRecord::Base
     def price_sum
       all.inject(0) {|acc, order| acc + order.order_details.price_sum }
     end
-  end
-
-  private
-
-  def create_another_order
-    user.create_order
   end
 end

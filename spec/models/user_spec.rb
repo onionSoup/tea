@@ -25,12 +25,10 @@ describe User do
       expect([before_count, after_count]).to eq [[1,1,1], [0,0,0]]
     end
 
-    #order_spec.rbに書くと、aliceが消去された時なのかどうかわかりにくいのでここに書く
-    it 'alice.orderだけ消去すると、alice.order_detailsが消える。detailsが空のalice.orderが再度できる。' do
+    it 'alice.orderだけ消去すると、alice.order_detailsが消える。aliceのorderをコールバックでは作らない。' do
       Order.find(alice.order).destroy
 
-      #alice.order.order_detailsだとまだ残っているので。
-      expect(User.find(alice).order.order_details).to be_empty
+      expect(User.find(alice).order).to eq nil
     end
   end
 end
