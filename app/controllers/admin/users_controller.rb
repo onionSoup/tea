@@ -30,10 +30,12 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update! user_params
+
     redirect_to admin_users_path, flash: {success: "名前を#{@user.name}さんに変更しました。"}
   rescue ActiveRecord::RecordInvalid => e
-    @users = e.record
-    @name_of_user_in_db = User.find(params[:id]).name
+    @users           = e.record
+    @user_name_in_db = User.find(params[:id]).name
+
     render :edit
   end
 

@@ -19,7 +19,7 @@ class OrderDetail < ActiveRecord::Base
 
   before_create :copy_then_price
 
-  validates :item_id, presence: true, uniqueness: {scope: :order}
+  validates :item_id,  presence: true, uniqueness: {scope: :order}
   validates :quantity, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   def copy_then_price

@@ -12,7 +12,7 @@
 class Order < ActiveRecord::Base
   MAX_COUNT_OF_DETAILS = 25
 
-  has_many :order_details, dependent: :destroy
+  has_many   :order_details, dependent: :destroy
   belongs_to :user
 
   after_destroy :create_another_order
@@ -27,7 +27,7 @@ class Order < ActiveRecord::Base
                                 )
   }
 
-  enum state: [:registered, :ordered, :arrived, :exchanged]
+  enum state: %i(registered ordered arrived exchanged)
 
   def registered?
     state == 'registered'

@@ -14,7 +14,7 @@ module OrdersHelper
     if current_user.order.registered?
       content_tag(:a, href: order_details_path) { "#{index_link_text}" }
     else
-      content_tag(:a, href: order_path) { "#{show_link_text}" }
+      content_tag(:a, href: order_path)         { "#{show_link_text}" }
     end
   end
 end
