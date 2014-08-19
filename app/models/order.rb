@@ -17,14 +17,6 @@ class Order < ActiveRecord::Base
 
   validates :user_id, presence: true
 
-  scope :select_name_and_price_and_sum_of_quantity, -> {
-    joins(order_details: :item).group('items.id', 'order_details.then_price')
-                               .select('items.name,
-                                        order_details.then_price,
-                                        SUM(quantity) AS quantity'
-                                )
-  }
-
   enum state: %i(registered ordered arrived exchanged)
 
   def registered?
@@ -34,6 +26,12 @@ class Order < ActiveRecord::Base
   class << self
     def price_sum
       all.inject(0) {|acc, order| acc + order.order_details.price_sum }
+    end
+
+    def select_name_and_price_and_sum_of_quantity
+      joins(order_details: :item).
+        group('items.id', 'order_details.then_price').
+          select('items.name, order_details.then_price, SUM(quantity) AS quantity')
     end
   end
 end
