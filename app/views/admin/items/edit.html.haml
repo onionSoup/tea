@@ -1,6 +1,6 @@
 #admin_flex_box
-  = render 'layouts/admin_side_nav'
+  = render 'application/admin_side_nav'
 
   #edit_item_content_box
-    %h2#update_one_item_title= "#{@item.name} の編集"
+    %h2#update_one_item_title.main_content_caption= "#{@item.name} の編集"
     = render 'form'

@@ -44,16 +44,4 @@ describe Order do
       expect(bob.order).to be_valid
     end
   end
-
-  context 'when destroy' do
-    it 'should create new order after destroy order' do
-      alice = create(:user, name: 'Alice')
-      alice.order.order_details << build(:order_detail, item: herb_tea)
-
-      Order.find(alice.order).destroy
-
-      #alice.order.order_detailsだとまだ残っているので。
-      expect(User.find(alice).order.order_details).to be_empty
-    end
-  end
 end

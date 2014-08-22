@@ -12,19 +12,16 @@
 #
 
 class OrderDetail < ActiveRecord::Base
-  MAX_NUMBER_OF_QUANTITY_OF_ONE_DETAIL = 20
+  MAX_QUANTITY_PER_ORDER = 20
 
   belongs_to :order
   belongs_to :item
 
   before_create :copy_then_price
 
-  validates :item_id,
-            presence: {message: 'お茶の名前を選択してください。' },
-            uniqueness: {scope: :order, message: 'そのお茶は既に追加しています。'}
-  validates :quantity,
-            numericality: {only_integer: true, greater_than_or_equal_to: 0,
-                           message: 'お茶の数量を選択してください。'}
+  validates :item_id,  presence: true, uniqueness: {scope: :order}
+  validates :quantity, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+
   def copy_then_price
     self.then_price = item.price
   end

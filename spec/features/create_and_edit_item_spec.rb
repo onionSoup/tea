@@ -8,7 +8,7 @@ feature '商品の管理' do
   end
 
   scenario '編集リンクを押せば、既存の商品の名前と価格の変更ができる' do
-    within ".change_item_#{items(:herb_tea).id}" do
+    within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
       click_link '編集'
     end
 

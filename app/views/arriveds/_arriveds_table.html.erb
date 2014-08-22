@@ -1,0 +1,28 @@
+<div id="admin_flex_wrapping_table">
+  <table class="admin_order_table arrived_table">
+    <tr>
+      <th>引換完了チェック</th>
+      <th>お名前</th>
+      <th>合計支払い金額</th>
+      <th>商品内訳</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= check_box_tag 'order_ids[]',
+                              user.order.id,
+                              false,
+                              id: dom_id(user) %></td>
+        <td><%= label_tag dom_id(user), user.name %></td>
+        <td><%= user.order.order_details.price_sum  %></td>
+        <td>
+          <% user.order.order_details.each do |detail| %>
+            <div class="inner_table">
+              <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
+              <div><%= "#{detail.quantity}個" %></div>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

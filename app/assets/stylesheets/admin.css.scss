@@ -1,0 +1,35 @@
+//all admin pages
+div#admin_flex_box {
+  display: flex;
+}
+
+div#admin_flex_wrapping_table {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 2em;
+}
+
+div.admin_content_under_caption {
+  margin-left: 2em;
+}
+
+div#admin_first_content {
+  padding-top: 3.2em;
+}
+
+//以下４つはたまたま同じかもしれないのでとりあえずまとめない
+p#p_for_register_to_order_button {
+  padding-top: 1em;
+}
+
+p#p_for_order_to_arrive_button {
+  padding-top: 1em;
+}
+
+p#p_for_arrive_to_exchange_button {
+  padding-top: 1em;
+}
+
+p#p_for_delete_button {
+  padding-top: 1em;
+}

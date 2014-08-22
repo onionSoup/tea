@@ -5,7 +5,7 @@ module ExampleHelper
   end
 
   def login_as(name)
-    visit '/sessions/new'
+    visit '/login'
     fill_in 'ユーザー名', with: name
     click_button 'ログイン'
   end
@@ -36,7 +36,7 @@ module ExampleHelper
 
   #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し、最後には削除ボタンを押す。
   def form_visiting_registered_to_delete_exchanged_of(user)
-    raise 'user must have order whose state is regisetered' unless user.order.state == 'registered'
+    raise 'user must have order whose state is registered' unless user.order.registered?
 
     click_link '管理者用'
 
@@ -44,7 +44,7 @@ module ExampleHelper
 
     click_button 'お茶の受領をシステムに登録'
 
-    check "user_#{user.id}"
+    check ActionView::RecordIdentifier.dom_id user
     click_button '引換の完了をシステムに登録'
 
     click_button 'このページの引換情報を削除'

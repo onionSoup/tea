@@ -1,15 +1,15 @@
 #admin_flex_box
-  = render 'layouts/admin_side_nav'
+  = render 'application/admin_side_nav'
 
   #item_index_content
     #item_index_create_item
-      %h2 新商品の作成
+      %h2.main_content_caption 新商品の作成
       %p
         = link_to '新商品登録ページ', new_admin_item_path
         をご覧ください。
 
     #item_index_update_item
-      %h2 商品の編集、削除
+      %h2.main_content_caption 商品の編集、削除
 
       %div
         %p
@@ -25,8 +25,11 @@
             %th
 
           - @items.each do |item|
-            %tr{class: "change_item_#{item.id}"}
+            %tr{class: dom_id(item, :change)}
               %td= item.name
               %td= item.price
-              %th= link_to '編集', edit_admin_item_path(item)
-              %th= link_to '削除', admin_item_path(item), method: :delete, data: {confirm: '本当に削除してもよろしいですか？'}
+              %td= link_to '編集', edit_admin_item_path(item)
+              %td= link_to '削除',
+                            admin_item_path(item),
+                            method: :delete,
+                            data: {confirm: '本当に削除してもよろしいですか？'}

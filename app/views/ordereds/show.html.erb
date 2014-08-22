@@ -1,23 +1,37 @@
 <div id="admin_flex_box">
-  <%= render 'layouts/admin_side_nav' %>
+  <%= render 'application/admin_side_nav' %>
   <div>
-    <div id="nestle_input_sheet">
-      <h3>ネスレ発送待ち商品ページ</h3>
-      <div id="nestle_input_sheet_flex_box">
-        <table id="admin_order_table">
-          <tr><th>商品名</th><th>単価</th><th>合計数量</th></tr>
-          <% @ordereds.each do  |ordered| %>
-            <tr><td class="name"><%= ordered.name %></td><td class="price"><%= ordered.then_price %></td><td class="sum"><%= ordered.quantity %></td></tr>
+    <div id="admin_first_content">
+      <h2 class="main_content_caption">ネスレ発送待ち商品の一覧</h2>
+      <div class="admin_content_under_caption">
+        <% if @ordereds.any? %>
+          <p>以下の商品をネスレに注文しました。発送を待っています。</p>
+          <%= render(
+            'application/admin_orders_table',
+            {paticular_state_orders_grouped_by_item: @ordereds}
+          ) %>
+          <p id="p_for_order_to_arrive_button">ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
+          お茶が到着したことをシステムに登録します。</p>
+          <%= form_for :order, url: arrive_ordered_path, method: :post do |f| %>
+            <%= f.submit 'お茶の受領をシステムに登録',
+                         data: {confirm: 'お茶の受領を登録してもよろしいですか？'} %>
           <% end %>
-        </table>
-        <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
+        <% else %>
+          <p>ネスレに発注し、ネスレからの発送を待っている商品がある場合、ここに表示されます。</p>
+          <p>システムにお茶の受領を登録することもできるようになります。<p>
+        <% end %>
       </div>
-      <p>ネスレ公式からお茶が届いたら、以下のボタンを押してください。<br />
-      お茶が到着したことをシステムに登録します。</p>
-      <%= form_for :order, url: arrive_ordered_path, method: :post do |f| %>
-        <%=  f.submit 'お茶の受領をシステムに登録' %>
+    </div>
+    <h2 id="caption_on_users_table_in_admin" class="main_content_caption">ユーザごとの詳細</h2>
+    <div class="admin_content_under_caption">
+      <% if @users.present? %>
+        <p>注文した商品が発送待ち状態であるユーザーは以下のとおりです。</p>
+        <%= render 'application/users_table.html', {users: @users} %>
+      <% else %>
+        <p>注文が発送待ち状態のユーザーはいません。<p>
+        <p><%= link_to 'ネスレに発注したことをシステムに登録する', registered_path %>と、発注待ちになります。</p>
+        <p>注文が発送待ち状態のユーザーがいる場合、このページで一覧表を見ることができます。<p>
       <% end %>
     </div>
   </div>
 </div>
-

@@ -21,12 +21,12 @@ feature '既存の注文を修正する'do
 
     visit '/order' #URL直打ちやブックマークのアクセスを想定
 
-    expect(page.current_path).to eq '/sessions/new'
+    expect(page.current_path).to eq '/login'
   end
 
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(page).to exist_in_table 'herb_tea'
-    expect(page.find(:css, '#order_details_index_sum_yen').text).to eq '200円' #これのためfixturesを使わない
+    expect(page.find(:css, '#detail_sum_yen').text).to eq '200円' #これのためfixturesを使わない
   end
 
   context 'さらに別のお茶を注文する場合' do
@@ -72,7 +72,11 @@ feature '既存の注文を修正する'do
   end
 
   scenario '明細の横の「削除する」リンクを押すと、表から明細が削除されて、通知がある' do
-    find("#destroy_detail#{herb_tea_detail_of_alice.id}").click
+    target_tr_class = ".#{ActionView::RecordIdentifier.dom_id(herb_tea_detail_of_alice)}"
+
+    within target_tr_class do
+      click_link '削除'
+    end
 
     expect(page).not_to exist_in_table 'herb_tea'
     expect(page).to have_content 'herb_teaの注文を削除しました。'
@@ -90,7 +94,7 @@ feature '既存の注文を修正する'do
       choose_item_and_quantity 'herb_tea', 1
       click_button '追加する'
 
-      expect(page.find(:css, '#order_details_index_sum_yen').text).to eq '400円'
+      expect(page.find(:css, '#detail_sum_yen').text).to eq '400円'
     end
   end
 end

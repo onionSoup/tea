@@ -1,0 +1,23 @@
+<%= render 'application/form_errors', {object: @order_detail} if @order_detail %>
+<div id="admin_flex_box">
+  <%= render 'application/admin_side_nav' %>
+  <div>
+    <div id="change_order_box_in_admin_order_details_index">
+      <h2 class="sub_title_in_admin_order_details_index main_content_caption">
+        <%= @user.name %>さんの注文の変更
+      </h2>
+      <div class="contents_box_in_admin_order_details_index">
+        <% if @user.order.registered? %>
+          <p><%= @user.name %>さんの注文はネスレに発注されていないため、変更できます。<p>
+          <p>ただし、変更した場合、全注文の合計金額が送料無料金額を下回る可能性があります。</p>
+          <p>ネスレの<%= shipping_cost_page_link %>を参照してから、変更を行ってください。</p>
+        <% else %>
+          <p><%= @user.name %>さんの注文は既にネスレに発注しているため、変更できません。</p>
+          <p>変更した場合<%= @user.name %>さん分の代金を回収できなくなるためです。</p>
+          <p>ネスレ発注後の注文を変更したい場合は、製作者にお問い合わせください。</p>
+        <% end %>
+      </div>
+      <%= render 'form', {user: @user} if @user.order.registered? %>
+    </div>
+  </div>
+</div>

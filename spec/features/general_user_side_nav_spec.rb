@@ -10,7 +10,7 @@ feature '一般ユーザーがサイドバーで移動する' do
     end
 
     scenario 'ログインページに行くと、ログインとユーザー登録へのリンクがある。' do
-      visit new_session_path
+      visit login_path
 
       expect_only_links_of_login_and_new_user
 
@@ -24,7 +24,7 @@ feature '一般ユーザーがサイドバーで移動する' do
       expect_only_links_of_login_and_new_user
 
       click_link 'ログインする'
-      expect(page.current_path).to eq '/sessions/new'
+      expect(page.current_path).to eq '/login'
     end
   end
 

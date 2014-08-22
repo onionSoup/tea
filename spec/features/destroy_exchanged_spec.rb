@@ -37,10 +37,9 @@ feature '引換済み商品' do
     end
   end
 
-  scenario '何も商品がないとき、ボタンを押しても移動しない' do
+  scenario '何も商品がないとき、ボタンがページにない。' do
     visit '/orders/exchanged'
-    click_button 'このページの引換情報を削除'
 
-    expect(page.current_path).to eq '/orders/exchanged'
+    expect(page).not_to have_button 'このページの引換情報を削除'
   end
 end

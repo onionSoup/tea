@@ -1,0 +1,32 @@
+<%= render 'application/form_errors', {object: @user} %>
+<div id="admin_flex_box">
+  <%= render 'application/admin_side_nav' %>
+  <div>
+    <%= form_for [:admin, @user] do |user| %>
+      <div id="admin_first_content">
+        <h2 class="sub_title_in_admin_user_edit main_content_caption">
+          <!-- @userの更新失敗時に、失敗時の名前ではなくDBに入っている名前で出すための@user_name_in_db -->
+          <%= @user_name_in_db || @user.name %>さんのユーザー名変更
+        </h2>
+        <div class="contents_box_in_admin_user_edit">
+          <%= user.label :name, 'ユーザー名' %>
+          <%= user.text_field :name %>
+          <%= user.submit '変更する' %>
+        </div>
+      </div>
+    <% end %>
+    <div id="change_order_box_in_admin_user_edit">
+      <h2 class="sub_title_in_admin_user_edit main_content_caption">
+        <%= @user_name_in_db || @user.name %>さんの注文変更
+      </h2>
+      <div class="contents_box_in_admin_user_edit">
+        <% if @user.order.registered? %>
+          <p><%= link_to '注文変更ページ', admin_user_order_details_path(@user) %>で可能です。</p>
+          <p>ネスレの<%= shipping_cost_page_link %>を見て、送料無料の条件に注意しながら注文の変更を行ってください。</p>
+        <% else %>
+          <p><%= @user_name_in_db || @user.name %>さんの注文は既にネスレに発注しているため、変更できません。</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

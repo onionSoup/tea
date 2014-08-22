@@ -1,0 +1,15 @@
+<header>
+  <div id="for_header_menu_position">
+    <h1 id="title"><%= link_to 'お茶注文用サイト', root_path %></h1>
+    <div id="flex">
+      <p id="greeting">こんにちは<%= logged_in_user_name %>さん</p>
+      <% if logged_in?  %>
+        <%= render 'application/menu_when_logged_in' %>
+      <% else %>
+        <p><%= link_to 'ログイン', login_path %>すれば、お茶の注文ができます。</p>
+      <% end %>
+    </div>
+  </div>
+  <%= render 'flash', {result: :success} if flash[:success] %>
+  <%= render 'flash', {result: :error}   if flash[:error]   %>
+</header>

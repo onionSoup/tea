@@ -1,11 +1,6 @@
-// Place all the styles related to the Orders controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 //show
-h3#explain_state_in_show_order {
-  margin: 0 0 2em;
-  border-bottom: solid thin #c8c8c8;
+#explain_state_in_show_order {
+  margin: 0 0 1em;
   width: 20em;
 }
 
@@ -17,3 +12,7 @@ div#show_order_content {
   }
 }
 
+#history_subtitle_in_orders_show {
+  margin: 2em 0 1em;
+  width: 20em;
+}

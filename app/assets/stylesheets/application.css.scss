@@ -30,3 +30,35 @@ body {
   -webkit-box-align: center;
   -moz-box-align: center;
 }
+
+ul#error_message_ul {
+  margin: 1em 0 0;
+  padding: 0;
+}
+
+li.error_message_li {
+  background-color: #eeadb5;
+  color: #c1091f;
+  width: 40%;
+  text-align: center;
+  list-style: none;
+}
+
+.main_content_caption {
+  border-bottom: solid thin #dcdcdc;
+  font-size: 1.17em;
+}
+
+div#order_details_index_table_and_p_wraper {
+  position: relative;
+  display: inline-block;
+  p {
+    position: absolute;
+    right: 0;
+    margin-top: 2em;
+    border-bottom: solid thin #c8c8c8;
+  }
+  span#detail_sum_yen {
+    margin-left: 1.5em;
+  }
+}

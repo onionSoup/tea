@@ -1,4 +1,4 @@
-feature 'ネスレ入力用シート' do
+feature 'ネスレ入力用ページ' do
   context '注文があるとき' do
     before do
       alice = create(:user, name: 'Alice')
@@ -16,9 +16,17 @@ feature 'ネスレ入力用シート' do
       visit '/orders/registered'
     end
 
-    scenario 'ネスレ入力用シートに来た時、注文があるなら、商品名と注文合計金額が表示されている' do
+    scenario '商品名と注文合計金額が表示されている' do
       expect(page).to have_content 'herb_tea'
       expect(page).to have_content '1000円' #これのためfixtureを使わない
+    end
+
+    scenario 'ユーザーごとの詳細が見れる' do
+      table_of_order_by_user = page.find('.admin_order_table.users_table_in_admin_orders_pages')
+
+      expect(table_of_order_by_user).to have_content 'Alice'
+      expect(table_of_order_by_user).to have_content 'herb_tea'
+      expect(table_of_order_by_user).to have_content '1000'
     end
 
     scenario '注文完了登録ボタンを押すと、ネスレ発送待ちページに移動して成功メッセージがでる' do
@@ -30,10 +38,9 @@ feature 'ネスレ入力用シート' do
     end
   end
 
-  scenario '何も注文されていないとき、ボタンを押しても移動しない' do
+  scenario '何も注文されていないとき、ボタンがページに表示されない。' do
     visit '/orders/registered'
-    click_button '注文の完了をシステムに登録'
 
-    expect(page.current_path).to eq '/orders/registered'
+    expect(page).not_to  have_button '注文の完了をシステムに登録'
   end
 end

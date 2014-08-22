@@ -8,11 +8,11 @@ class Admin::ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
-    @item.save!
+    @item = Item.create!(item_params)
 
-    redirect_to :admin_items
+    redirect_to :admin_items, flash: {success: "#{@item.name}を追加登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
+    @item = e.record
     render :new
   end
 
@@ -31,13 +31,13 @@ class Admin::ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
-    
+
     if @item.order_details.any?
       flash[:error] = 'この商品を使った注文情報があるので、削除できません。'
     else
       Item.destroy @item
     end
-    
+
     redirect_to :admin_items
   end
 

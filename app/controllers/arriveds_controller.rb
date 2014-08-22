@@ -6,10 +6,11 @@ class ArrivedsController < ApplicationController
   end
 
   def exchange
-    exchanged_order_count = Order.where(id: params[:order_ids]).update_all(state: Order.states[:exchanged])
+    exchanged_order_count = Order.where(id: params[:order_ids])
+                                 .update_all(state: Order.states[:exchanged])
 
     if exchanged_order_count.zero?
-      redirect_to action: :show
+      redirect_to arrived_path,   flash: {error: 'チェックが入っていません。'}
     else
       redirect_to exchanged_path, flash: {success: '引換したことを登録しました。'}
     end
