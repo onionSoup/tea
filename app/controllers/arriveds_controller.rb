@@ -10,7 +10,7 @@ class ArrivedsController < ApplicationController
                                  .update_all(state: Order.states[:exchanged])
 
     if exchanged_order_count.zero?
-      redirect_to action: :show
+      redirect_to arrived_path,   flash: {error: 'チェックが入っていません。'}
     else
       redirect_to exchanged_path, flash: {success: '引換したことを登録しました。'}
     end

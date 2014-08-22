@@ -27,6 +27,7 @@ feature '引換用ページ' do
     click_button '引換の完了をシステムに登録'
 
     expect(page.current_path).to eq '/orders/arrived'
+    expect(page).to have_content 'チェックが入っていません。'
   end
 
   scenario '注文のチェックを入れて登録ボタンを押す場合、引換済みページに移動して成功メッセージがでる' do
