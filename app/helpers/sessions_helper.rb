@@ -11,7 +11,7 @@ module SessionsHelper
   end
 
   def current_user
-    remember_token = User.encrypt(cookies[:remember_token])
+    remember_token  = User.encrypt(cookies[:remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
   end
 
@@ -32,7 +32,7 @@ module SessionsHelper
     if logged_in?
       link_to 'ログアウトする', logout_path, method: :delete
     else
-      link_to 'ログインする', login_path
+      link_to 'ログインする',   login_path
     end
   end
 end
