@@ -1,13 +1,13 @@
 class ExchangedsController < ApplicationController
   def show
-    @users = User.includes(order: {order_details: :item})
-                 .where(orders: {state: Order.states['exchanged']})
+    @users = User.includes(order: {order_details: :item}).where(orders: {state: Order.states['exchanged']})
   end
 
   def destroy
     orders = Order.where(state: Order.states['exchanged'])
     users  = orders.map {|order| order.user }
 
+    #常に１Userは１Orderを持つ仕様。
     users.each do |user|
       Order.destroy user.order
       user.create_order

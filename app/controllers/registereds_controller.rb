@@ -12,14 +12,14 @@ class RegisteredsController < ApplicationController
   end
 
   def order
-    updated = Order.registered
-                   .where(id: OrderDetail.select('order_id'))
-                   .update_all(state: Order.states['ordered'])
-                   .nonzero?
-    if updated
-      redirect_to ordered_path, flash: {success: 'ネスレ公式へ注文したことを登録しました。'}
+    ordered_order_count = Order.registered
+                               .where(id: OrderDetail.select('order_id'))
+                               .update_all(state: Order.states['ordered'])
+
+    if ordered_order_count.zero?
+      #redirect_to registered_path
     else
-      redirect_to registered_path
+      redirect_to ordered_path, flash: {success: 'ネスレ公式へ注文したことを登録しました。'}
     end
   end
 end
