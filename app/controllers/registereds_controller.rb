@@ -12,14 +12,8 @@ class RegisteredsController < ApplicationController
   end
 
   def order
-    ordered_order_count = Order.registered
-                               .where(id: OrderDetail.select('order_id'))
-                               .update_all(state: Order.states['ordered'])
+    Order.registered.where(id: OrderDetail.select('order_id')).update_all(state: Order.states['ordered'])
 
-    if ordered_order_count.zero?
-      #redirect_to registered_path
-    else
-      redirect_to ordered_path, flash: {success: 'ネスレ公式へ注文したことを登録しました。'}
-    end
+    redirect_to ordered_path, flash: {success: 'ネスレ公式へ注文したことを登録しました。'}
   end
 end

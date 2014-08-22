@@ -12,12 +12,8 @@ class OrderedsController < ApplicationController
   end
 
   def arrive
-    arrived_order_count = Order.ordered.update_all(state: Order.states['arrived'])
-
-    if arrived_order_count.zero?
-      redirect_to ordered_path
-    else
-      redirect_to arrived_path, flash: {success: 'ネスレからお茶が届いたことを登録しました。'}
-    end
+    Order.ordered.update_all(state: Order.states['arrived'])
+  
+    redirect_to arrived_path, flash: {success: 'ネスレからお茶が届いたことを登録しました。'}
   end
 end
