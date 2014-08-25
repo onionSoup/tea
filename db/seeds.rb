@@ -43,7 +43,7 @@ def make_items!
   end
 end
 
-def make_details
+def make_details!
   (0..3).map{|i| Detail.new(item_id: i+1, quantity: i+1) }
 end
 
