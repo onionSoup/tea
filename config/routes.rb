@@ -12,15 +12,13 @@ Rails.application.routes.draw do
     resource  :orders do
       collection do
         resource :preparing, only: %i(show) do
-          post :perchase
+          post :place
         end
-        resource :perchased, only: %i(show) do
+        resource :place,     only: %i(show) do
           post :arrive
         end
-        resource :arrived,   only: %i(show) do
-          post :exchange
-        end
       end
+      resource :arrived,   only: %i(show)
     end
     resources :items
     resources :users do

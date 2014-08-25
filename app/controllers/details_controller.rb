@@ -1,4 +1,4 @@
-class OrderDetailsController < ApplicationController
+class DetailsController < ApplicationController
   include Login
   before_action :need_logged_in
   before_action :reject_index_since_ordered, only: [:index]

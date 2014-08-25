@@ -18,8 +18,6 @@ class Detail < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
 
-=begin
-
   before_create :copy_then_price
 
   validates :item_id,  presence: true, uniqueness: {scope: :order}
@@ -36,5 +34,4 @@ class Detail < ActiveRecord::Base
       }
     end
   end
-=end
 end

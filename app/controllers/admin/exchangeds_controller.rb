@@ -1,4 +1,4 @@
-class ExchangedsController < ApplicationController
+class Admin::ExchangedsController < ApplicationController
   def show
     @users = User.includes(order: {order_details: :item}).where(orders: {state: Order.states['exchanged']})
   end
