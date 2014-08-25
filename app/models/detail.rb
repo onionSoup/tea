@@ -11,11 +11,14 @@
 #  then_price :integer
 #
 
-class OrderDetail < ActiveRecord::Base
+class Detail < ActiveRecord::Base
   MAX_QUANTITY_PER_ORDER = 20
 
   belongs_to :order
+  belongs_to :user
   belongs_to :item
+
+=begin
 
   before_create :copy_then_price
 
@@ -33,4 +36,5 @@ class OrderDetail < ActiveRecord::Base
       }
     end
   end
+=end
 end

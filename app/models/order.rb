@@ -10,28 +10,25 @@
 #
 
 class Order < ActiveRecord::Base
-  MAX_COUNT_OF_DETAILS = 25
+  #MAX_COUNT_OF_DETAILS = 25
 
-  has_many   :order_details, dependent: :destroy
-  belongs_to :user
+  has_many :details, dependent: :destroy
 
-  validates :user_id, presence: true
+  enum state: %i(preparing perchased arrived)
 
-  enum state: %i(registered ordered arrived exchanged)
-
-  def registered?
-    state == 'registered'
-  end
+  #def registered?
+   #state == 'registered'
+  #end
 
   class << self
-    def price_sum
-      all.inject(0) {|acc, order| acc + order.order_details.price_sum }
-    end
+    #def price_sum
+      #all.inject(0) {|acc, order| acc + order.details.price_sum }
+    #end
 
-    def select_name_and_price_and_sum_of_quantity
-      joins(order_details: :item).
-        group('items.id', 'order_details.then_price').
-          select('items.name, order_details.then_price, SUM(quantity) AS quantity')
-    end
+    #def select_name_and_price_and_sum_of_quantity
+      #joins(order_details: :item).
+        #group('items.id', 'order_details.then_price').
+          #select('items.name, order_details.then_price, SUM(quantity) AS quantity')
+    #end
   end
 end

@@ -24,19 +24,22 @@ ActiveRecord::Schema.define(version: 20140609100919) do
     t.integer  "nestle_index_from_the_top"
   end
 
-  create_table "order_details", force: true do |t|
+  create_table "details", force: true do |t|
     t.integer  "order_id"
     t.integer  "item_id"
+    t.integer  "user_id"
     t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean "is_exchanged"
     t.integer  "then_price"
   end
 
   create_table "orders", force: true do |t|
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.integer  "state",      default: 0
   end
 
