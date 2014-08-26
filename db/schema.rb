@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20140609100919) do
   create_table "orders", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "start_time"
+    t.datetime "begin_time"
     t.datetime "end_time"
     t.integer  "state",      default: 0
   end

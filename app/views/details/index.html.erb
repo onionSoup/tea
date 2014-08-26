@@ -1,4 +1,4 @@
-<%= render 'application/form_errors', {object: @order_detail} if @order_detail %>
+<%= render 'application/form_errors', {object: @detail} if @detail %>
 <div class="general_user_flex">
   <%= render 'application/general_user_side_nav' %>
   <div>
@@ -6,7 +6,7 @@
       <h2 id="sub_title_in_order_details_index" class="main_content_caption">
         <%= current_user.name %>さんが今回注文するもの
       </h2>
-      <% if @order.order_details.none? %>
+      <% if @user.details.none? %>
         <p><%= current_user.name %>さんは、まだお茶を追加していません。追加すると、ここにお茶が表示されます。</p>
       <% else %>
         <p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
@@ -20,7 +20,7 @@
               <th class="sum">小計</th>
               <th></th>
             </tr>
-            <% @order.order_details.includes(:item).each do |detail| %>
+            <% @user.details.includes(:item).each do |detail| %>
               <tr class=<%= dom_id(detail) %>>
                 <td class="name"><%= detail.item.name %></td>
                 <td class="quantity"><%= detail.quantity %>個</td>
@@ -28,7 +28,7 @@
                 <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
                 <td class="destroy"><%= link_to(
                                           '削除',
-                                          order_detail_path(detail),
+                                          detail_path(detail),
                                           method: :delete,
                                           data: {confirm: '本当に削除してもよろしいですか？'}
                                         ) %></td>
@@ -37,15 +37,15 @@
           </table>
           <p>
             <span id='order_details_index_sum_jp'>合計</span>
-            <span id='detail_sum_yen'><%= @order.order_details.price_sum %>円</span>
+            <span id='detail_sum_yen'><%= @user.details.price_sum %>円</span>
           </p>
         </div>
       <% end %>
       <%= content_tag :p,
                       '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
-                      id: id_of_p_to_add_details(@order) %>
+                      id: id_of_p_to_add_details(@user) %>
       <%= render 'application/add_details_form',
-                 {url: order_details_path} %>
+                 {url: details_path} %>
     </div>
   </div>
 </div>

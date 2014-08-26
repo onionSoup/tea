@@ -12,10 +12,10 @@ module OrdersHelper
 
   #link_to_details_index_or_order_showだと長い。
   def link_to_index_or_show(index_link_text, show_link_text)
-    if current_user.order.registered?
-      content_tag(:a, href: order_details_path) { "#{index_link_text}" }
+    if Order.now_order.preparing?
+      content_tag(:a, href: details_path) { "#{index_link_text}" }
     else
-      content_tag(:a, href: order_path)         { "#{show_link_text}" }
+      content_tag(:a, href: user_path(current_user))         { "#{show_link_text}" }
     end
   end
 end

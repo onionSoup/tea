@@ -56,9 +56,15 @@ def make_users!
 end
 
 def make_order!
-  order = Order.create(start_time: Time.now, end_time: Time.now + 1.month)
+  last_order = Order.create(
+    begin_time: Time.zone.now.last_month.beginning_of_month,
+    end_time:   Time.zone.now.last_month.end_of_month)
+  now_order  = Order.create(
+    begin_time: Time.zone.now.beginning_of_month, 
+    end_time:   Time.zone.now.end_of_month)
+
   Detail.all.each do |detail|
-    detail.update_attributes!(order: order)
+    detail.update_attributes!(order: now_order)
   end
 end
 

@@ -1,16 +1,17 @@
 class DetailsController < ApplicationController
   include Login
   before_action :need_logged_in
-  before_action :reject_index_since_ordered, only: [:index]
+  #before_action :reject_index_since_ordered, only: [:index]
 
   def index
-    @order = User.find(current_user).order
+    #@order = User.find(current_user).order
+    @user = User.find(current_user)
     @items = Item.order(:id)
   end
 
   def create
     @order        = current_user.order
-    @order_detail = @order.order_details.create!(order_detail_params)
+    @detail = @order.order_details.create!(order_detail_params)
 
     redirect_to order_details_path, flash: {success: "#{@order_detail.item.name}を追加しました。"}
   rescue ActiveRecord::RecordInvalid => e
