@@ -1,4 +1,4 @@
-class Admin::OrderDetailsController < ApplicationController
+class Admin::DetailsController < ApplicationController
   def index
     @user  = User.find(params[:user_id])
     @items = Item.order(:id)

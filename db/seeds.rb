@@ -51,9 +51,17 @@ def make_users!
   user_names = %w(Alice Bob)
   user_names.each do |user_name|
     user = User.create!(name: user_name)
-    user.update_attributes!(details: make_details)
+    user.update_attributes!(details: make_details!)
+  end
+end
+
+def make_order!
+  order = Order.create(start_time: Time.now, end_time: Time.now + 1.month)
+  Detail.all.each do |detail|
+    detail.update_attributes!(order: order)
   end
 end
 
 make_items!
 make_users!
+make_order!
