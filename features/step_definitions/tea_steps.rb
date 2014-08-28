@@ -18,6 +18,15 @@ Given /^お茶"(.*?)"を数量"(.*?)"個注文している$/ do |item_name, quan
   click_button '追加する'
 end
 
+When /^ユーザー"(.*?)"がログアウトする$/ do |user_name|
+  if current_user == User.find_by(name: user_name)
+    click_button 'ログアウト'
+  else
+    raise "before logout, #{user_name} must be logged in"
+  end
+end
+
+
 When /^注文画面を表示する$/ do
   visit '/order_details'
 end
