@@ -10,7 +10,7 @@ development:
   <<: *default
   database: tea02_development
 
-test:
+test: &test
   <<: *default
   database: tea02_test
   port: 5432
@@ -20,3 +20,6 @@ production:
   database: tea02_production
 
 
+
+cucumber:
+  <<: *test

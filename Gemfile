@@ -23,6 +23,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'cucumber-rails', require: false
   gem 'cucumber'#, github: 'cucumber/cucumber', branch: 'v1.3.x-bugfix'
+  gem 'database_cleaner' #こっちしかcucumberは対応してないのかも
   gem 'database_rewinder'
   gem 'factory_girl_rails'
   gem 'launchy'
