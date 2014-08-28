@@ -20,7 +20,9 @@ end
 
 group :development, :test do
   gem 'capybara'
-  gem "capybara-webkit"
+  gem 'capybara-webkit'
+  gem 'cucumber-rails', require: false
+  gem 'cucumber', github: 'cucumber/cucumber', branch: 'v1.3.x-bugfix'
   gem 'database_rewinder'
   gem 'factory_girl_rails'
   gem 'launchy'
