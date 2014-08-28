@@ -43,20 +43,31 @@ def make_items!
   end
 end
 
-def make_details
-  (0..3).map{|i| OrderDetail.new(item_id: i+1, quantity: i+1) }
+def make_details!
+  (0..3).map{|i| Detail.new(item_id: i+1, quantity: i+1) }
 end
 
 def make_users!
   user_names = %w(Alice Bob)
   user_names.each do |user_name|
-    #本来はuser createとorder detail createを１つのトランザクションにまとめたい。
-    #しかしUserのafter_create order_createがあるので、今回は別トランザクションに分ける。
-    #条件付きコールバックにするのも手だが、seedでしか使わない条件だから却下。
     user = User.create!(name: user_name)
-    user.order.update_attributes!(order_details: make_details)
+    user.update_attributes!(details: make_details!)
+  end
+end
+
+def make_order!
+  last_order = Order.create(
+    begin_time: Time.zone.now.last_month.beginning_of_month,
+    end_time:   Time.zone.now.last_month.end_of_month)
+  now_order  = Order.create(
+    begin_time: Time.zone.now.beginning_of_month, 
+    end_time:   Time.zone.now.end_of_month)
+
+  Detail.all.each do |detail|
+    detail.update_attributes!(order: now_order)
   end
 end
 
 make_items!
 make_users!
+make_order!

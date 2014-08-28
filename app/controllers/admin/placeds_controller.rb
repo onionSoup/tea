@@ -1,4 +1,4 @@
-class OrderedsController < ApplicationController
+class Admin::PlacedsController < ApplicationController
   def show
     @ordereds  = Order.ordered.select_name_and_price_and_sum_of_quantity
 
@@ -13,7 +13,7 @@ class OrderedsController < ApplicationController
 
   def arrive
     Order.ordered.update_all(state: Order.states['arrived'])
-  
+
     redirect_to arrived_path, flash: {success: 'ネスレからお茶が届いたことを登録しました。'}
   end
 end

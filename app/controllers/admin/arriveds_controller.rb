@@ -1,4 +1,4 @@
-class ArrivedsController < ApplicationController
+class Admin::ArrivedsController < ApplicationController
   def show
     @users = User.includes(order: {order_details: :item})
                  .order_in_state_of('arrived')

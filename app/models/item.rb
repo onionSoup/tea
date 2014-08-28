@@ -11,7 +11,7 @@
 #
 
 class Item < ActiveRecord::Base
-  has_many  :order_details
+  has_many  :details
 
   validates :name,  presence:     true,
                     uniqueness:   true

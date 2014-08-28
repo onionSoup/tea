@@ -10,22 +10,21 @@
 #
 
 class User < ActiveRecord::Base
-  has_one :order, dependent: :destroy
+  has_many :details, dependent: :destroy
 
   before_create  :create_remember_token
-  after_create   :create_order
 
   validates :name, presence:   true,
                    uniqueness: true,
                    format:     {with: /\A(\S)+\z/, allow_blank: true}
 
-  scope :order_in_state_of, -> (states){
-    where(orders: {state: Order.states["#{states}"]})
-  }
+  #scope :order_in_state_of, -> (states){
+    #where(orders: {state: Order.states["#{states}"]})
+  #}
 
-  scope :has_at_least_one_detail, -> {
-    where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
-  }
+  #scope :has_at_least_one_detail, -> {
+    #where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
+  #}
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

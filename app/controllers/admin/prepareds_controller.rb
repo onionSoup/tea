@@ -1,4 +1,4 @@
-class RegisteredsController < ApplicationController
+class Admin::PreparedsController < ApplicationController
   def show
     @registereds = Order.registered.select_name_and_price_and_sum_of_quantity
 
