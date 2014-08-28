@@ -1,11 +1,24 @@
 require "#{File.expand_path(__dir__)}/../../spec/support/example_helper"
 include ExampleHelper
 
-Given /^ユーザ"(.*?)"がログインしている$/ do |user_name|
+Given /^ユーザー"(.*?)"がユーザー登録している$/ do |user_name|
+  create :user, name: user_name
+end
+
+Given /^ユーザー"(.*?)"がログインしている$/ do |user_name|
+  login_as user_name
+end
+
+Given /^ユーザー"(.*?)"が登録してログインしている$/ do |user_name|
   create_user_and_login_as user_name
 end
 
-When /^注文画面を表示する/ do
+Given /^お茶"(.*?)"を数量"(.*?)"個注文している$/ do |item_name, quantity|
+  choose_item_and_quantity(item_name, quantity)
+  click_button '追加する'
+end
+
+When /^注文画面を表示する$/ do
   visit '/order_details'
 end
 
@@ -21,6 +34,56 @@ When /^"(.*?)"ボタンを押す$/ do |button_text|
   click_button button_text
 end
 
-Then /^"(.*?)"と表示されていること$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+When /^品名"(.*?)"の削除リンクをクリックする$/ do |item_name|
+  row_index = OrderDetail.find_by(item: Item.find_by(name: item_name)).id
+
+  within('#order_details_index_table') do
+    within(".order_detail_#{row_index}") do
+      click_link '削除'
+    end
+  end
 end
+
+# FIXME
+#本当は「明細表のｘ行目のｙはｚであること」みたいにしたい。
+#でもそれだとorder_detailを消した時、n行目の行がid n であるという対応が崩れて間違いになる。
+Then /^"(.*?)"番目に作った明細は、明細表で"(.*?)"が"(.*?)"であること$/ do |id, col_name, expected|
+  within('#order_details_index_table') do
+    within(".order_detail_#{id}") do
+        td_text = find(to_class_name(col_name)).text
+        expect(td_text).to eq expected
+    end
+  end
+end
+
+Then /^明細表が以下になること$/ do |table|
+  table.hashes.each do |row|
+    id = OrderDetail.find_by(item:  Item.find_by(name: row['品名'])).id
+    row.keys.each do |key|
+      step %Q{"#{id}"番目に作った明細は、明細表で"#{key}"が"#{row[key]}"であること}
+    end
+  end
+end
+
+Then /^"(.*?)"と表示されていること$/ do |content|
+  expect(page).to have_content content
+end
+
+module StepDefinitionsUtil
+  #あとでi18nにのせる
+  def to_class_name(col_name)
+    case col_name
+    when '品名'
+      '.name'
+    when '数量'
+      '.quantity'
+    when '単価'
+      '.price'
+    when '小計'
+      '.sum'
+    when ''
+      '.destroy'
+    end
+  end
+end
+include StepDefinitionsUtil
