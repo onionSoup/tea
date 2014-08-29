@@ -92,8 +92,8 @@ end
 Then /^"(.*?)"番目に作った明細は、明細表で"(.*?)"が"(.*?)"であること$/ do |id, col_name, expected|
   within('#order_details_index_table') do
     within(".order_detail_#{id}") do
-        td_text = find(to_class_in_details_table(col_name)).text
-        expect(td_text).to eq expected
+      td_text = find(to_class_in_details_table(col_name)).text
+      expect(td_text).to eq expected
     end
   end
 end
@@ -110,11 +110,9 @@ end
 Then /商品ごとに集計した表が以下と等しいこと$/ do |table|
   table.hashes.each do |row|
     row.keys.each do |col_name|
-      within('.all_user_sum_table') do
-        within(".item_#{Item.find_by(name: row['商品名']).id}") do
-          td_text = find(to_class_in_aggregate_table(col_name)).text
-          expect(td_text).to eq row[col_name]
-        end
+      within(".item_#{Item.find_by(name: row['商品名']).id}") do
+        td_text = find(to_class_in_aggregate_table(col_name)).text
+        expect(td_text).to eq row[col_name]
       end
     end
   end
@@ -123,7 +121,7 @@ end
 Then /^"(.*?)"の商品内訳の表が以下になること$/ do |user_name, table|
   tr_class_of_user = ".user_#{User.find_by(name: user_name).id}"
   within(tr_class_of_user) do
-    all('.inner_table').zip(table.hashes.to_a).each do |detail, row|
+    all('.inner_table').zip(table.hashes).each do |detail, row|
       expect(detail.find('.name').text)    .to eq row['品名']
       expect(detail.find('.quantity').text).to eq row['数量']
     end
