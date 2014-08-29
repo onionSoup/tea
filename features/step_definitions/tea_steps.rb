@@ -95,7 +95,15 @@ Then /商品ごとに集計した表が以下と等しいこと$/ do |table|
   end
 end
 
-
+Then /^"(.*?)"の商品内訳の表が以下になること$/ do |user_name, table|
+  tr_class_of_user = ".user_#{User.find_by(name: user_name).id}"
+  within(tr_class_of_user) do
+    all('.inner_table').zip(table.hashes.to_a).each do |detail, row|
+      expect(detail.find('.name').text)    .to eq row['品名']
+      expect(detail.find('.quantity').text).to eq row['数量']
+    end
+  end
+end
 
 
 Then /^"(.*?)"と表示されていること$/ do |content|
