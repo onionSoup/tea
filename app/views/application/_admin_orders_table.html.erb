@@ -1,12 +1,12 @@
 <div id="admin_flex_wrapping_table">
-  <table class="admin_order_table">
+  <table class="admin_order_table all_user_sum_table">
     <tr>
       <th>商品名</th>
       <th>単価</th>
       <th>合計数量</th>
     </tr>
     <% paticular_state_orders_grouped_by_item.each do |record| %>
-      <tr>
+      <tr class=<%= "#{dom_id(Item.find_by(name: record.name))}" %>>
         <td class="name"><%= record.name %></td>
         <td class="price"><%= record.then_price %></td>
         <td class="sum"><%= record.quantity %></td>

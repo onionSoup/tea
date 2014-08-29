@@ -20,7 +20,10 @@ end
 
 group :development, :test do
   gem 'capybara'
-  gem "capybara-webkit"
+  gem 'capybara-webkit'
+  gem 'cucumber-rails', require: false
+  gem 'cucumber'
+  gem 'database_cleaner' #rewinderはcucumberに対応していないかも
   gem 'database_rewinder'
   gem 'factory_girl_rails'
   gem 'launchy'
