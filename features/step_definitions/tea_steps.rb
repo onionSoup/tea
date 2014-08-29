@@ -14,8 +14,7 @@ Given /^ユーザー"(.*?)"が登録してログインしている$/ do |user_na
 end
 
 Given /^"(.*?)"円のお茶"(.*?)"を"(.*?)"個注文している$/ do |price, item_name, quantity|
-  price_in_db = Item.find_by(name: item_name).price
-  raise "price of #{item_name} must be #{price_in_db}. not given price #{price}" unless  price_in_db == price.to_i
+  raise_error_if_wrong_price_passed(item_name, price)
 
   choose_item_and_quantity(item_name, quantity)
   click_button '追加する'
@@ -57,8 +56,7 @@ When /^"(.*?)"ボタンを押す$/ do |button_text|
 end
 
 When /^品名"(.*?)"の削除リンクをクリックする$/ do |item_name|
-  row_index = OrderDetail.find_by(item: Item.find_by(name: item_name)).id
-
+  row_index = detail_id_from_item_name!(item_name)
   within('#order_details_index_table') do
     within(".order_detail_#{row_index}") do
       click_link '削除'
@@ -94,7 +92,7 @@ end
 Then /^"(.*?)"番目に作った明細は、明細表で"(.*?)"が"(.*?)"であること$/ do |id, col_name, expected|
   within('#order_details_index_table') do
     within(".order_detail_#{id}") do
-        td_text = find(to_class_name(col_name)).text
+        td_text = find(to_class_in_details_table(col_name)).text
         expect(td_text).to eq expected
     end
   end
@@ -102,7 +100,7 @@ end
 
 Then /^明細表が以下になること$/ do |table|
   table.hashes.each do |row|
-    id = OrderDetail.find_by(item:  Item.find_by(name: row['品名'])).id
+    id = detail_id_from_item_name!(row['品名'])
     row.keys.each do |col_name|
       step %Q{"#{id}"番目に作った明細は、明細表で"#{col_name}"が"#{row[col_name]}"であること}
     end
@@ -114,7 +112,7 @@ Then /商品ごとに集計した表が以下と等しいこと$/ do |table|
     row.keys.each do |col_name|
       within('.all_user_sum_table') do
         within(".item_#{Item.find_by(name: row['商品名']).id}") do
-          td_text = find(to_class_name_admin_order_table(col_name)).text
+          td_text = find(to_class_in_aggregate_table(col_name)).text
           expect(td_text).to eq row[col_name]
         end
       end
@@ -155,8 +153,8 @@ Then /^引換済み商品ページに飛ぶこと$/ do
 end
 
 module StepDefinitionsUtil
-  #あとでi18nにのせる
-  def to_class_name(col_name)
+  #日→英だし、step以外では使わないのでI18でやらないことにする
+  def to_class_in_details_table(col_name)
     case col_name
     when '品名'
       '.name'
@@ -173,7 +171,7 @@ module StepDefinitionsUtil
     end
   end
 
-  def to_class_name_admin_order_table(col_name)
+  def to_class_in_aggregate_table(col_name)
     case col_name
     when '商品名'
       '.name'
@@ -193,6 +191,18 @@ module StepDefinitionsUtil
     end
   rescue
     raise 'ヘッダーから名前を取得できません。'
+  end
+
+  def detail_id_from_item_name!(item_name)
+    item = Item.find_by!(name: item_name)
+    OrderDetail.find_by!(item: item).id
+  end
+
+  def raise_error_if_wrong_price_passed(item_name, price)
+    price_in_db = Item.find_by(name: item_name).price
+    unless  price_in_db == price.to_i
+      raise "must pass price same as #{price_in_db}, which price_in_db"
+    end
   end
 end
 include StepDefinitionsUtil
