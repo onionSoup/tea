@@ -7,7 +7,7 @@
       <th>商品内訳</th>
     </tr>
     <% @users.each do |user| %>
-      <tr>
+      <tr class=<%= dom_id(user) %>>
         <td><%= check_box_tag 'order_ids[]',
                               user.order.id,
                               false,
@@ -17,8 +17,8 @@
         <td>
           <% user.order.order_details.each do |detail| %>
             <div class="inner_table">
-              <div><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
-              <div><%= "#{detail.quantity}個" %></div>
+              <div class="name"><%= "#{detail.item.name}(#{detail.then_price}円)" %></div>
+              <div class="quantity"><%= "#{detail.quantity}個" %></div>
             </div>
           <% end %>
         </td>

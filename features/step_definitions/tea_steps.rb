@@ -13,12 +13,22 @@ Given /^ユーザー"(.*?)"が登録してログインしている$/ do |user_na
   create_user_and_login_as user_name
 end
 
-Given /^"(.*?)"円のお茶"(.*?)"を数量"(.*?)"個注文している$/ do |price, item_name, quantity|
+Given /^"(.*?)"円のお茶"(.*?)"を"(.*?)"個注文している$/ do |price, item_name, quantity|
   price_in_db = Item.find_by(name: item_name).price
   raise "price of #{item_name} must be #{price_in_db}. not given price #{price}" unless  price_in_db == price.to_i
 
   choose_item_and_quantity(item_name, quantity)
   click_button '追加する'
+end
+
+Given /^ユーザー"(.*?)"が"(.*?)"円のお茶"(.*?)"を"(.*?)"個注文している$/ do |user_name, price, item_name, quantity|
+  step %Q{ユーザー"#{user_name}"がログインしている}
+  step %Q{"#{price}"円のお茶"#{item_name}"を"#{quantity}"個注文している}
+  step %Q{ユーザー"#{user_name}"がログアウトする}
+end
+
+Given /^引換用ページにいる$/ do
+  visit '/orders/arrived'
 end
 
 When /^ユーザー"(.*?)"がログアウトする$/ do |user_name|
@@ -29,7 +39,6 @@ When /^ユーザー"(.*?)"がログアウトする$/ do |user_name|
     raise "before logout, #{user_name} must be logged in"
   end
 end
-
 
 When /^注文画面を表示する$/ do
   visit '/order_details'
@@ -59,6 +68,24 @@ end
 
 When /^"(.*?)"のリンクをクリックする$/ do |link_text|
   click_link link_text
+end
+
+When /^"(.*?)"のボタンを押す$/ do |button_text|
+  click_button button_text
+end
+
+When /^注文をネスレに発注する$/ do
+  visit '/orders/registered'
+  click_button '注文の完了をシステムに登録'
+end
+
+When /^お茶が発送されたことを登録する$/ do
+  visit '/orders/ordered'
+  click_button 'お茶の受領をシステムに登録'
+end
+
+When /^"(.*?)"の引換完了チェックにチェックを入れる$/ do |user_name|
+  check "user_#{User.find_by(name: "Alice").id}"
 end
 
 # FIXME
@@ -105,9 +132,26 @@ Then /^"(.*?)"の商品内訳の表が以下になること$/ do |user_name, tab
   end
 end
 
+Then /^"(.*?)"の商品内訳は表にないこと$/ do |user_name|
+  tr_class_of_user = ".user_#{User.find_by(name: user_name).id}"
+
+  expect(page).not_to have_css(tr_class_of_user)
+end
 
 Then /^"(.*?)"と表示されていること$/ do |content|
   expect(page).to have_content content
+end
+
+Then /^ネスレ発送待ち商品の確認用のページに飛ぶこと$/ do
+  expect(page.current_path).to eq '/orders/ordered'
+end
+
+Then /^引換用ページに飛ぶこと$/ do
+  expect(page.current_path).to eq '/orders/arrived'
+end
+
+Then /^引換済み商品ページに飛ぶこと$/ do
+  expect(page.current_path)
 end
 
 module StepDefinitionsUtil
