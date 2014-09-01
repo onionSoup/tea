@@ -7,9 +7,23 @@ class Period < ActiveRecord::Base
       Order.all_empty?
     end
 
-    #読みやすくするためだけに用意したメソッド。不要かも。
+    #このクラスの外で、Period.take.destroyと書くとびっくりされそうなので用意。
+    #takeだけで読み手が文脈汲み取ってくれるなら不要。
     def singleton_instance
       take
+    end
+
+    def include_now?
+      present_time.between?(take.begin_time, take.end_time)
+    end
+
+    #これはこのモデルの外でもいいかも。
+    def present_time
+      Time.zone.now.in_time_zone('Tokyo')
+    end
+
+    def deadline
+      take.end_time
     end
   end
 

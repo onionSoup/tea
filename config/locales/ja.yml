@@ -1,4 +1,8 @@
 ja:
+  time:
+    formats:
+      default: "%Y年%-m月%-d日"
+
   errors:
     format: '%{message}'
 
