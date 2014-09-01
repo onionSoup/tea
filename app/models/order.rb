@@ -23,6 +23,11 @@ class Order < ActiveRecord::Base
     state == 'registered'
   end
 
+  def empty_order?
+    return false unless state == 'registered'
+    order_details.empty?
+  end
+
   class << self
     def price_sum
       all.inject(0) {|acc, order| acc + order.order_details.price_sum }
@@ -32,6 +37,10 @@ class Order < ActiveRecord::Base
       joins(order_details: :item).
         group('items.id', 'order_details.then_price').
           select('items.name, order_details.then_price, SUM(quantity) AS quantity')
+    end
+
+    def all_empty?
+      all.all? {|order| order.empty_order? }
     end
   end
 end

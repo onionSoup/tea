@@ -58,5 +58,13 @@ def make_users!
   end
 end
 
+def make_period!
+  Period.create!(
+    begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+    end_time:   Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day
+  )
+end
+
 make_items!
 make_users!
+make_period!

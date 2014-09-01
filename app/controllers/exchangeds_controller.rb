@@ -13,6 +13,8 @@ class ExchangedsController < ApplicationController
       user.create_order
     end
 
+    Period.singleton_instance.destroy if Period.can_destroy?
+    
     message = {success: '商品の削除が完了しました。'} if orders.present?
 
     redirect_to exchanged_path, flash: message
