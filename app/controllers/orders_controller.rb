@@ -9,6 +9,6 @@ class OrdersController < ApplicationController
 
   def reject_show_until_ordered
     #orders#showでできることはorder_details#indexですべてできるので、エラーメッセージを出さない。
-    redirect_to order_details_path if current_user.order.registered?
+    redirect_to order_details_path if conditions_to_get_index
   end
 end

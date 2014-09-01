@@ -1,7 +1,8 @@
 class Period < ActiveRecord::Base
   before_create  :must_be_singleton
+  #after_destroy  :create_another_period
 
-  enum state: %i(disabled enabled)
+  enum state: %i(disabled enabled undefined)
 
   class << self
     def can_destroy?
@@ -42,5 +43,13 @@ class Period < ActiveRecord::Base
   def must_be_singleton
     #inculude Singletonは副作用が大きいので、これで擬似的に実現
     raise 'Period must be a singleton' if self.class.count.nonzero?
+  end
+
+  def create_another_period
+    self.class.create!(
+      begin_time: Time.zone.yesterday.in_time_zone('Tokyo'),
+      end_time:   Time.zone.now.in_time_zone('Tokyo'),
+      state:     'undefined'
+    )
   end
 end

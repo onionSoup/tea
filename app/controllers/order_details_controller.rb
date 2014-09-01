@@ -1,7 +1,8 @@
 class OrderDetailsController < ApplicationController
   include Login
   before_action :need_logged_in
-  before_action :reject_index_since_ordered, only: [:index]
+  before_action :reject_index_since_ordered,  only: [:index]
+  before_action :reject_index_since_deadline, only: [:index]
 
   def index
     @order = User.find(current_user).order
@@ -35,6 +36,12 @@ class OrderDetailsController < ApplicationController
   def reject_index_since_ordered
     unless current_user.order.registered?
       redirect_to order_path, flash: {error: '既に管理者がネスレに発注したため、注文の修正はできません。'}
+    end
+  end
+
+  def reject_index_since_deadline
+    unless conditions_to_get_index
+      redirect_to order_path, flash: {error: '注文期限を過ぎているため、注文の修正はできません。'}
     end
   end
 end

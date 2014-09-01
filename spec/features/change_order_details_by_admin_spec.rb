@@ -1,6 +1,6 @@
 feature '管理者ページからユーザーの注文を変更する' do
   fixtures :items
-
+  
   let!(:alice) { create(:user, name: 'Alice') }
 
   background do

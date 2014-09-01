@@ -1,6 +1,6 @@
 feature 'ネスレ公式に発注した後の注文修正'do
   fixtures :items
-
+  
   include_context 'herb_teaを注文しているAliceとしてログイン'
 
   scenario 'ネスレ入力用ページでボタンを押した後、注文の修正はできない' do

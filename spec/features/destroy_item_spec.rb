@@ -1,6 +1,6 @@
 feature '商品の削除' do
   fixtures :items
-
+  
   context '既存の商品がある場合' do
     scenario '削除リンクを押せば、既存の商品を削除できる' do
       visit '/admin/items'

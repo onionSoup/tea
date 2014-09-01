@@ -1,6 +1,6 @@
 feature '引換済み商品' do
   fixtures :items
-
+  
   let!(:alice) { create(:user, name: 'Alice') }
 
   context '引換後で、破棄していないお茶があるとき' do

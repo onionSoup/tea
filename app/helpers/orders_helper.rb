@@ -15,10 +15,11 @@ module OrdersHelper
     index_link = content_tag(:a, href: order_details_path) { "#{index_link_text}" }
     show_link  = content_tag(:a, href: order_path)         { "#{show_link_text}" }
 
-    return show_link unless current_user.order.registered?
-    return show_link unless Period.enabled?
-    return show_link unless Period.include_now?
+    #return show_link unless current_user.order.registered?
+    #return show_link unless Period.enabled?
+    #return show_link unless Period.include_now?
 
-    index_link
+    #index_link
+    conditions_to_get_index ? index_link : show_link
   end
 end

@@ -10,7 +10,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
-RSpec.configure do |config|
+RSpec.configure do |config|  
   config.include FactoryGirl::Syntax::Methods
   config.include ExampleHelper
   config.include CapybaraActionsHelper
@@ -23,9 +23,14 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
+  begin_time = Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day
+  end_time   = Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day
+  
   config.before do
     DatabaseRewinder.strategy = :truncation
     DatabaseRewinder.start
+
+    Period.create!(begin_time: begin_time, end_time: end_time, state: 'enabled')
   end
 
   config.after :each do
