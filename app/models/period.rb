@@ -1,9 +1,11 @@
 class Period < ActiveRecord::Base
   before_create  :must_be_singleton
 
+  enum state: %i(disabled enabled)
+
   class << self
     def can_destroy?
-      return false unless singleton_instance
+      return false if take.disabled?
       Order.all_empty?
     end
 
@@ -24,6 +26,14 @@ class Period < ActiveRecord::Base
 
     def deadline
       take.end_time
+    end
+
+    def enabled?
+      take.state == 'enabled'
+    end
+
+    def disabled?
+      take.state == 'disabled'
     end
   end
 

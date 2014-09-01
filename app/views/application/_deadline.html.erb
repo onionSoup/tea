@@ -1,6 +1,7 @@
-<% if Period.singleton_instance %>
+<% if Period.enabled? %>
   <p>注文の変更は<%= l(Period.deadline)%>まで可能です。</p>
 <% else %>
-  <% raise 'in this view, Period must have instanciated' %>
+  <p>注文の変更期限が設定されていません。</p>
+  <%# raise 'in this view, Period must have be enabled' %>
 <% end %>
 
