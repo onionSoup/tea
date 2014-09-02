@@ -18,9 +18,12 @@
           'お茶を注文したいので、注文期間を設定してください。',
            rows: 5, cols: 40
         ) %>
-        <button class='my_clip_button' data-clipboard-target='fe_text' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button'>
-          <b>クリップボードにコピー</b>
-        </button>
+        <div id="copy_tooltip_wraper">
+          <button data-clipboard-target='fe_text' id='d_clip_button'>
+            copy
+          </button>
+          <div class="copy_tooltip">クリップボードにコピーできます。</div>
+        </div>
       </div>
     </div>
   </div>
