@@ -10,7 +10,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
     click_link '注文履歴'
 
-    expect(page).to have_content '注文の修正はできません。'
+    expect(page).to have_content '注文の作成・変更はできません。'
   end
 
   context 'Bobとしてログインし直す' do
@@ -37,7 +37,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
       login_as 'Alice'
       click_link '注文履歴'
 
-      expect(page).to have_content '注文の修正はできません。'
+      expect(page).to have_content '注文の作成・変更はできません。'
     end
   end
 
@@ -53,7 +53,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
     #注文情報削除後は、注文画面にいけることを確認する
     click_link '注文画面'
-    expect(page).not_to have_content '注文の修正はできません。'
+    expect(page).not_to have_content '注文の作成・変更はできません。'
 
     #注文情報削除後は、注文できることを確認する。
     choose_item_and_quantity 'herb_tea', 2

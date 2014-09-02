@@ -38,13 +38,13 @@ class OrderDetailsController < ApplicationController
 
   def reject_index_since_ordered
     unless current_user.order.registered?
-      redirect_to order_path, flash: {error: '既に管理者がネスレに発注したため、注文の修正はできません。'}
+      redirect_to order_path, flash: {error: '既に管理者がネスレに発注したため、注文の作成・変更はできません。'}
     end
   end
 
   def reject_index_since_deadline
     unless Period.include_now?
-      redirect_to order_path, flash: {error: '注文期限を過ぎているため、注文の修正はできません。'}
+      redirect_to order_path, flash: {error: '注文期限を過ぎているため、注文の作成・変更はできません。'}
     end
   end
 end

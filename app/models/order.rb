@@ -23,6 +23,10 @@ class Order < ActiveRecord::Base
     state == 'registered'
   end
 
+  def not_registered?
+    !registered?
+  end
+
   def empty_order?
     return false unless state == 'registered'
     order_details.empty?

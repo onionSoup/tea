@@ -10,14 +10,15 @@ module OrdersHelper
     [['', ''], *quantities.map]
   end
 
-  #論理的にはこの２つの他、もう１つの分岐があるswitchのほうが正しい。
-  #もう１つの分岐とはPeriod.disabledの時。PeriodNotice#showへのリンクを貼ることになる。
-  #しかし、「注文をしたかったら、管理者が注文期限を設定するよう依頼してください」をリンクテキストの短さで表現できない。
-  #そのため、一回このヘルパーが生成するリンクを踏ませる。そしてコントローラーでPeriodNotice#showに導く。
   def link_to_index_or_show(index_link_text, show_link_text)
-    index_link = content_tag(:a, href: order_details_path) { "#{index_link_text}" }
-    show_link  = content_tag(:a, href: order_path)         { "#{show_link_text}" }
+    index_link  = content_tag(:a, href: order_details_path) { "#{index_link_text}" }
+    show_link   = content_tag(:a, href: order_path)         { "#{show_link_text}" }
+    period_link = content_tag(:a, href: period_notice_path) { "#{index_link_text}" } #これはミスではない。リンクテキストは使いまわす。
 
-    conditions_to_get_details_index ? index_link : show_link
+    return period_link unless Period.enabled?
+    return show_link   unless Period.include_now?
+    return show_link   unless current_user.order.registered?
+
+    index_link
   end
 end
