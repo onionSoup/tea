@@ -49,4 +49,15 @@ module ExampleHelper
 
     click_button 'このページの引換情報を削除'
   end
+
+  #TODO 以下２つはUIからやれるようにする。
+  def make_deadline_from_now_to_next_week
+    Period.singleton_instance.update_attributes!(
+      begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+      end_time:   Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day
+    )
+  end
+  def make_period_enabled
+    Period.singleton_instance.update_attributes!(state: :enabled)
+  end
 end

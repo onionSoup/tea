@@ -40,7 +40,7 @@ class OrderDetailsController < ApplicationController
   end
 
   def reject_index_since_deadline
-    unless conditions_to_get_index
+    unless Period.include_now?
       redirect_to order_path, flash: {error: '注文期限を過ぎているため、注文の修正はできません。'}
     end
   end

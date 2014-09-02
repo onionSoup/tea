@@ -1,8 +1,8 @@
 class Period < ActiveRecord::Base
   before_create  :must_be_singleton
-  #after_destroy  :create_another_period
+  after_destroy  :create_another_period
 
-  enum state: %i(disabled enabled undefined)
+  enum state: %i(disabled enabled)
 
   class << self
     def can_destroy?
@@ -49,7 +49,7 @@ class Period < ActiveRecord::Base
     self.class.create!(
       begin_time: Time.zone.yesterday.in_time_zone('Tokyo'),
       end_time:   Time.zone.now.in_time_zone('Tokyo'),
-      state:     'undefined'
+      state:     'disabled'
     )
   end
 end
