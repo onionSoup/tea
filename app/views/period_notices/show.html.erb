@@ -1,0 +1,27 @@
+<div class="general_user_flex">
+  <%= render "application/general_user_side_nav" %>
+  <div>
+    <div id="show_period_notices_content">
+      <h2 id="sub_title_of_show_period_notice" class="main_content_caption">
+        注文できません
+      </h2>
+      <p>申し訳ありません。管理者が注文期限を設定していないため、注文できません。</br>
+      管理者に、注文期限の設定を依頼してください。</p>
+
+      <h2 id="title_for_request_to_set_period" class="main_content_caption">
+        注文期間の依頼
+      </h2>
+      <p>以下の文章をコピーしてidobataに貼り付けると、簡単に依頼ができます。
+      <div id="request_to_set_period">
+        <%= text_area_tag(
+          'fe_text',
+          'お茶を注文したいので、注文期間を設定してください。',
+           rows: 5, cols: 40
+        ) %>
+        <button class='my_clip_button' data-clipboard-target='fe_text' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button'>
+          <b>クリップボードにコピー</b>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

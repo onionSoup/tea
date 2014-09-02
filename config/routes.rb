@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root to: 'users#new'
 
   resource  :order,         only: %i(show)
+  resource  :period_notice, only: %i(show)
+
   resources :order_details, only: %i(index create destroy)
   resources :sessions,      only: %i(create)
   resources :users,         only: %i(new create)
