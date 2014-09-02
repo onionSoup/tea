@@ -10,11 +10,14 @@ module OrdersHelper
     [['', ''], *quantities.map]
   end
 
-  #link_to_details_index_or_order_showだと長い。
+  #論理的にはこの２つの他、もう１つの分岐があるswitchのほうが正しい。
+  #もう１つの分岐とはPeriod.disabledの時。PeriodNotice#showへのリンクを貼ることになる。
+  #しかし、「注文をしたかったら、管理者が注文期限を設定するよう依頼してください」をリンクテキストの短さで表現できない。
+  #そのため、一回このヘルパーが生成するリンクを踏ませる。そしてコントローラーでPeriodNotice#showに導く。
   def link_to_index_or_show(index_link_text, show_link_text)
     index_link = content_tag(:a, href: order_details_path) { "#{index_link_text}" }
     show_link  = content_tag(:a, href: order_path)         { "#{show_link_text}" }
 
-    conditions_to_get_index ? index_link : show_link
+    conditions_to_get_details_index ? index_link : show_link
   end
 end

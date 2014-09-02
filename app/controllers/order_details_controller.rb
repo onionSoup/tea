@@ -1,8 +1,11 @@
 class OrderDetailsController < ApplicationController
   include Login
+  include PeriodHelper
+
   before_action :need_logged_in
   before_action :reject_index_since_ordered,  only: [:index]
   before_action :reject_index_since_deadline, only: [:index]
+  before_action :period_must_be_enabled,      only: [:index]
 
   def index
     @order = User.find(current_user).order

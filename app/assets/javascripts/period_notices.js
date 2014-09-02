@@ -4,7 +4,8 @@ $(document).ready(function() {
   $("#d_clip_button").hover(
     function() {
       $(".copy_tooltip").css("display", "block")
-    } ,     function() {
+    } ,
+    function() {
       $(".copy_tooltip").css("display", "none")
     }
   )
