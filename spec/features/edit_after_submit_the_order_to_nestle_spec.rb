@@ -41,14 +41,12 @@ feature 'ネスレ公式に発注した後の注文修正'do
     end
   end
 
-
   scenario '注文情報を削除した後、注文期間を設定して、再度注文を作れる。' do
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     form_visiting_registered_to_delete_exchanged_of alice
 
     #注文期間を再度設定する。TODO UIからやれるようにする。
     make_deadline_from_now_to_next_week
-    make_period_enabled
     visit page.current_path
 
     #注文情報削除後は、注文画面にいけることを確認する

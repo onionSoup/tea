@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
   has_many   :order_details, dependent: :destroy
   belongs_to :user
 
+  validate  :only_registered_order_allows_empty_detail
   validates :user_id, presence: true
 
   enum state: %i(registered ordered arrived exchanged)
@@ -45,6 +46,15 @@ class Order < ActiveRecord::Base
 
     def all_empty?
       all.all? {|order| order.empty_order? }
+    end
+  end
+
+  private
+  def only_registered_order_allows_empty_detail
+    return true if registered?
+
+    if order_details.empty?
+      errors[:base] << 'must have details unless registered'
     end
   end
 end

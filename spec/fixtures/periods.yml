@@ -13,4 +13,3 @@
 form_today_to_next_week:
   begin_time: <%= Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day %>
   end_time:   <%= Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day %>
-  state:      <%=  Period.states["enabled"] %>

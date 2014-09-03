@@ -57,7 +57,4 @@ module ExampleHelper
       end_time:   Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day
     )
   end
-  def make_period_enabled
-    Period.singleton_instance.update_attributes!(state: :enabled)
-  end
 end

@@ -15,9 +15,9 @@ module OrdersHelper
     show_link   = content_tag(:a, href: order_path)         { "#{show_link_text}" }
     period_link = content_tag(:a, href: period_notice_path) { "#{index_link_text}" } #これはミスではない。リンクテキストは使いまわす。
 
-    return period_link unless Period.enabled?
-    return show_link   unless Period.include_now?
-    return show_link   unless current_user.order.registered?
+    return period_link if     Period.has_undefined_times?
+    return show_link   if     Period.out_of_date?
+    return show_link   unless current_user.order.registered? #show_linkなのはミスではない。
 
     index_link
   end

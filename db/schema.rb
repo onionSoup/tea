@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20140901013720) do
   create_table "periods", force: true do |t|
     t.datetime "begin_time"
     t.datetime "end_time"
-    t.integer  "state",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

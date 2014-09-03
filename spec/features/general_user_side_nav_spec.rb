@@ -1,4 +1,6 @@
 feature '一般ユーザーがサイドバーで移動する' do
+  fixtures :items
+
   context 'ログインしていない時' do
     def expect_only_links_of_login_and_new_user
       expect(page).to     have_link 'ログインする'
@@ -28,9 +30,15 @@ feature '一般ユーザーがサイドバーで移動する' do
     end
   end
 
-  context 'ログインしている時' do
+  context 'ログインして、お茶を追加している時' do
     background do
       create_user_and_login_as 'Alice'
+
+      User.find_by(name: 'Alice').order.update_attributes(
+        order_details: [
+          build(:order_detail, item: items(:herb_tea), quantity: 1),
+        ]
+      )
     end
 
     def expect_links_for_logged_in_user(expected_link, unexpected_link)

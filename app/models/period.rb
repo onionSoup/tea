@@ -12,14 +12,10 @@
 
 class Period < ActiveRecord::Base
   before_create  :must_be_singleton
-  after_save
   after_destroy  :create_another_period
-
-  enum state: %i(disabled enabled)
 
   class << self
     def can_destroy?
-      return false if take.disabled?
       Order.all_empty?
     end
 
@@ -30,27 +26,30 @@ class Period < ActiveRecord::Base
     end
 
     def include_now?
-      present_time.between?(take.begin_time, take.end_time)
+      return false if has_undefined_times?
+      Time.zone.now.in_time_zone('Tokyo').between?(take.begin_time, take.end_time)
     end
 
-    #これはこのモデルの外でもいいかも。
-    def present_time
-      Time.zone.now.in_time_zone('Tokyo')
+    def out_of_date?
+      return false if has_undefined_times?
+      !include_now?
     end
 
-    def deadline
-      take.end_time
+    def has_defined_times?
+      take.begin_time && take.end_time
     end
 
-    def enabled?
-      take.state == 'enabled'
+    def has_undefined_times?
+      !has_defined_times?
     end
-
-    def disabled?
-      take.state == 'disabled'
-    end
-
   end
+
+  #def can_have_nil_term_only_when_all_order_is_registered
+    #return true if Period.take.begin_time
+    #return true if Period.take.end
+
+    #Order.all.all? {|order| order.state.not_registered? }
+  #end
 
   private
 
@@ -63,15 +62,6 @@ class Period < ActiveRecord::Base
     self.class.create!(
       begin_time: Time.zone.yesterday.in_time_zone('Tokyo'),
       end_time:   Time.zone.now.in_time_zone('Tokyo'),
-      state:     'disabled'
     )
-  end
-
-  def set_time_nil_if_disabled_state
-    update_attributes!(begin_time: nil, end_time: nil) if state.disabled?
-  end
-
-  def set_state_disabled_if_nil_time
-    update_attributes!(state: Period.status['disabled']) unless begin_time && end_time
   end
 end
