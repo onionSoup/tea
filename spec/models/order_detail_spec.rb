@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: order_details
+#
+#  id         :integer          not null, primary key
+#  order_id   :integer
+#  item_id    :integer
+#  quantity   :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  then_price :integer
+#
+
 describe OrderDetail do
   #expectaitonにpriceがあり、assignもできないのでfixtures :itemsは使わない
   let!(:herb_tea) { create(:item, price: 100, name: "herb_tea") }

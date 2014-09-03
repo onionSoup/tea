@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  state      :integer          default(0)
+#
+
 describe Order do
   fixtures :items
   let(:herb_tea) { Item.find_by_name! 'herb_tea' }

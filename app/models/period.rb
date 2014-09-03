@@ -1,5 +1,18 @@
+# == Schema Information
+#
+# Table name: periods
+#
+#  id         :integer          not null, primary key
+#  begin_time :datetime
+#  end_time   :datetime
+#  state      :integer          default(0)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Period < ActiveRecord::Base
   before_create  :must_be_singleton
+  after_save
   after_destroy  :create_another_period
 
   enum state: %i(disabled enabled)
@@ -36,6 +49,7 @@ class Period < ActiveRecord::Base
     def disabled?
       take.state == 'disabled'
     end
+
   end
 
   private
@@ -51,5 +65,13 @@ class Period < ActiveRecord::Base
       end_time:   Time.zone.now.in_time_zone('Tokyo'),
       state:     'disabled'
     )
+  end
+
+  def set_time_nil_if_disabled_state
+    update_attributes!(begin_time: nil, end_time: nil) if state.disabled?
+  end
+
+  def set_state_disabled_if_nil_time
+    update_attributes!(state: Period.status['disabled']) unless begin_time && end_time
   end
 end

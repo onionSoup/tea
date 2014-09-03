@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: periods
+#
+#  id         :integer          not null, primary key
+#  begin_time :datetime
+#  end_time   :datetime
+#  state      :integer          default(0)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 form_today_to_next_week:
   begin_time: <%= Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day %>
   end_time:   <%= Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day %>
