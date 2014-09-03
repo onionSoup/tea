@@ -19,6 +19,7 @@ class OrderDetail < ActiveRecord::Base
 
   before_create :copy_then_price
 
+  validate  :period_must_have_defined_times
   validates :item_id,  presence: true, uniqueness: {scope: :order}
   validates :quantity, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
@@ -32,5 +33,10 @@ class OrderDetail < ActiveRecord::Base
         acc + detail.quantity * (detail.then_price || detail.item.price)
       }
     end
+  end
+
+  private
+  def period_must_have_defined_times
+    errors[:base] << 'details is invalid when undefined_times' if Period.has_undefined_times?
   end
 end

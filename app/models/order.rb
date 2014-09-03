@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
   has_many   :order_details, dependent: :destroy
   belongs_to :user
 
+  validate  :must_be_registered_when_period_has_undefined_times
   validate  :only_registered_order_allows_empty_detail
   validates :user_id, presence: true
 
@@ -56,5 +57,11 @@ class Order < ActiveRecord::Base
     if order_details.empty?
       errors[:base] << 'must have details unless registered'
     end
+  end
+
+  def must_be_registered_when_period_has_undefined_times
+    return if Period.has_defined_times?
+
+    errors[:base] << 'must have only registered unless registered' if not_registered?
   end
 end

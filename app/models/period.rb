@@ -5,14 +5,18 @@
 #  id         :integer          not null, primary key
 #  begin_time :datetime
 #  end_time   :datetime
-#  state      :integer          default(0)
 #  created_at :datetime
 #  updated_at :datetime
 #
 
 class Period < ActiveRecord::Base
-  before_create  :must_be_singleton
-  after_destroy  :create_another_period
+  before_create :must_be_singleton
+  after_destroy :create_another_period
+  after_save    :can_has_undefined_times_only_when_all_order_is_registered
+
+  validate :can_has_undefined_times_only_when_all_order_is_registered
+  validate :can_be_include_now_only_when_all_order_is_registered
+
 
   class << self
     def can_destroy?
@@ -44,12 +48,23 @@ class Period < ActiveRecord::Base
     end
   end
 
-  #def can_have_nil_term_only_when_all_order_is_registered
-    #return true if Period.take.begin_time
-    #return true if Period.take.end
+  def can_has_undefined_times_only_when_all_order_is_registered
+    return if begin_time.nil? || end_time.nil?
+    return if Order.all.empty?
 
-    #Order.all.all? {|order| order.state.not_registered? }
-  #end
+    if Order.all.any? {|order| order.not_registered? }
+      errors[:base] << 'must have defined_times when there are not_registered orders'
+    end
+  end
+
+  def can_be_include_now_only_when_all_order_is_registered
+    return unless record_include_now?
+    return if     Order.all.empty?
+
+    if Order.all.any? {|order| order.not_registered? }
+      errors[:base] << 'must have defined_times when there are not_registered orders'
+    end
+  end
 
   private
 
@@ -59,9 +74,11 @@ class Period < ActiveRecord::Base
   end
 
   def create_another_period
-    self.class.create!(
-      begin_time: Time.zone.yesterday.in_time_zone('Tokyo'),
-      end_time:   Time.zone.now.in_time_zone('Tokyo'),
-    )
+    self.class.create! begin_time: nil, end_time: nil
+  end
+
+  def record_include_now?
+    return false if begin_time.nil? || end_time.nil?
+    Time.zone.now.in_time_zone('Tokyo').between?(begin_time, end_time)
   end
 end
