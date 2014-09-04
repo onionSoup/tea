@@ -24,14 +24,12 @@ shared_examples '注文画面にのみ行けて、リンクは「注文画面」
   end
 end
 
-
 shared_examples '注文期限は切れていて、空注文を発注していない' do
   background do
     raise 'not_registered order must be .details.present' if Order.all.any?{|order| order.order_details.empty? && order.not_registered? }
     raise 'period must be out_of_date' unless Period.out_of_date?
   end
 end
-
 
 shared_examples '注文履歴画面にのみ行けて、リンクは「履歴」になっている' do
   scenario '注文画面に行こうとすると、注文履歴画面にリダイレクトされて通知がでる' do
