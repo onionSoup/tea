@@ -26,30 +26,9 @@ feature '「注文作成・変更」または「注文履歴」リンクから�
           background do
             raise unless Period.include_now?
           end
-          scenario '注文履歴画面に行こうとすると、注文画面にリダイレクト' do
-            visit '/order'
-            expect(page.current_path).to eq '/order_details'
-          end
-          scenario '期限未設定の通知画面に行こうとすると、注文画面にリダイレクト' do
-            visit '/period_notice'
-            expect(page.current_path).to eq '/order_details'
-          end
-          context '注文画面にいったとき' do
-            background do
-              visit '/order_details'
-            end
-            scenario 'リンクは「注文画面」と「注文作成・変更」になっている' do
-              expect(header).to have_link '注文画面'
-              expect(nav).to    have_link '注文作成・変更'
-            end
-            scenario '注文が追加できる' do
-              choose_item_and_quantity 'red_tea', 1
-              click_button '追加する'
-
-              expect(page).to have_content 'red_teaを追加しました。'
-            end
-          end
+          it_should_behave_like '注文画面にのみ行けて、リンクは「注文画面」になっている'
         end
+
         context '現在、注文期間中でないとき' do
           background do
             Timecop.freeze(Time.zone.now.days_since(8))
@@ -82,34 +61,13 @@ feature '「注文作成・変更」または「注文履歴」リンクから�
       end
 
       context 'お茶を追加していないとき' do
-        context '現在、注文期間であるとき' do #お茶を追加している時と同じ
+        context '現在、注文期間であるとき' do
           background do
             raise unless Period.include_now?
           end
-          scenario '注文履歴画面に行こうとすると、注文画面にリダイレクト' do
-            visit '/order'
-            expect(page.current_path).to eq '/order_details'
-          end
-          scenario '期限未設定の通知画面に行こうとすると、注文画面にリダイレクト' do
-            visit '/period_notice'
-            expect(page.current_path).to eq '/order_details'
-          end
-          context '注文画面にいったとき' do
-            background do
-              visit '/order_details'
-            end
-            scenario 'リンクは「注文画面」と「注文作成・変更」になっている' do
-              expect(header).to have_link '注文画面'
-              expect(nav).to    have_link '注文作成・変更'
-            end
-            scenario '注文が追加できる' do
-              choose_item_and_quantity 'red_tea', 1
-              click_button '追加する'
-
-              expect(page).to have_content 'red_teaを追加しました。'
-            end
-          end
+          it_should_behave_like '注文画面にのみ行けて、リンクは「注文画面」になっている'
         end
+
         context '現在、注文期間中でないとき' do
           include_context '注文期間がすぎるまで待つ'
           scenario '注文画面に行こうとすると、注文履歴画面にリダイレクトされて通知がでる' do
@@ -171,18 +129,21 @@ feature '「注文作成・変更」または「注文履歴」リンクから�
         background do
           alice.order.update_attributes!(state: Order.states['ordered'])
         end
+        it_should_behave_like '注文期限は切れていて、空注文を発注していない'
         it_should_behave_like '注文履歴画面にのみ行けて、リンクは「履歴」になっている'
       end
       context '注文が引換可能なとき' do
         background do
           alice.order.update_attributes!(state: Order.states['arrived'])
         end
+        it_should_behave_like '注文期限は切れていて、空注文を発注していない'
         it_should_behave_like '注文履歴画面にのみ行けて、リンクは「履歴」になっている'
       end
       context '注文が引換済みのとき' do
         background do
           alice.order.update_attributes!(state: Order.states['exchanged'])
         end
+        it_should_behave_like '注文期限は切れていて、空注文を発注していない'
         it_should_behave_like '注文履歴画面にのみ行けて、リンクは「履歴」になっている'
       end
     end
