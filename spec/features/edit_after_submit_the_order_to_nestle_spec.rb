@@ -2,6 +2,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
   fixtures :items
 
   include_context 'herb_teaを注文しているAliceとしてログイン'
+  include_context '注文期間がすぎるまで待つ'
 
   scenario 'ネスレ入力用ページでボタンを押した後、注文の修正はできない' do
     visit '/orders/registered'
@@ -18,19 +19,15 @@ feature 'ネスレ公式に発注した後の注文修正'do
       create_user_and_login_as 'Bob'
     end
 
-    scenario 'Aliceの注文をネスレに発注した後でも、Alice以外の人の注文修正はできる。' do
+    scenario '注文期間がすぎた後、Alice以外の人の注文修正もできない。' do
       #Aliceの注文をネスレ公式に発注したことを、このアプリteaに登録する。
       visit '/orders/registered'
       click_button '注文の完了をシステムに登録'
 
-      #Bobは注文できる。
+      #Bobも注文できない。注文期間がすぎたため。
       click_link '注文画面'
 
-      choose_item_and_quantity 'herb_tea', 2
-      click_button '追加する'
-      click_link '管理者用'
-
-      expect(page).to exist_in_table 'herb_tea'
+      expect(page).to have_content '注文期限を過ぎているため、注文の作成・変更はできません。'
 
       #Aliceの注文は発注されたので修正できない
       click_link 'ログアウト'
@@ -46,7 +43,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
     form_visiting_registered_to_delete_exchanged_of alice
 
     #注文期間を再度設定する。TODO UIからやれるようにする。
-    make_deadline_from_now_to_next_week
+    make_deadline_from_now_to_after_seven_days
     visit page.current_path
 
     #注文情報削除後は、注文画面にいけることを確認する

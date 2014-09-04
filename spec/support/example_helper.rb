@@ -15,6 +15,12 @@ module ExampleHelper
     choose_quantity quantity
   end
 
+  def wait_untill_period_become_out_of_date
+    Timecop.freeze(Time.zone.now.days_since(8))
+    raise 'after 8 days, Period must be out of date' unless Period.out_of_date?
+  end
+
+
   private
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。
@@ -51,10 +57,11 @@ module ExampleHelper
   end
 
   #TODO 以下２つはUIからやれるようにする。
-  def make_deadline_from_now_to_next_week
+  def make_deadline_from_now_to_after_seven_days
+    Timecop.return
     Period.singleton_instance.update_attributes!(
       begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
-      end_time:   Time.zone.now.in_time_zone('Tokyo').next_week.at_end_of_day
+      end_time:   Time.zone.now.in_time_zone('Tokyo').days_since(7).at_end_of_day
     )
   end
 end

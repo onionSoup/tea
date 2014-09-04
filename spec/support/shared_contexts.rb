@@ -7,3 +7,9 @@ shared_context 'herb_teaを注文しているAliceとしてログイン' do
     login_as 'Alice'
   end
 end
+
+shared_context '注文期間がすぎるまで待つ' do
+  background do
+    wait_untill_period_become_out_of_date
+  end
+end

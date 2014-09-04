@@ -32,6 +32,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-stack_explorer'
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'timecop'
 end
 
 group :production do

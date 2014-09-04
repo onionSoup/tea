@@ -37,6 +37,7 @@ class OrderDetail < ActiveRecord::Base
 
   private
   def period_must_have_defined_times
+    return unless Period.singleton_instance
     errors[:base] << 'details is invalid when undefined_times' if Period.has_undefined_times?
   end
 end

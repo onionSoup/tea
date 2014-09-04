@@ -30,8 +30,7 @@ class Period < ActiveRecord::Base
     end
 
     def include_now?
-      return false if has_undefined_times?
-      Time.zone.now.in_time_zone('Tokyo').between?(take.begin_time, take.end_time)
+      take.include_now?
     end
 
     def out_of_date?
@@ -40,16 +39,36 @@ class Period < ActiveRecord::Base
     end
 
     def has_defined_times?
-      take.begin_time && take.end_time
+      take.has_defined_times?
     end
 
     def has_undefined_times?
       !has_defined_times?
     end
+
+    def set_out_of_date_times
+      take.update_attributes!(
+        begin_time: Time.zone.now.years_ago(2000).in_time_zone('Tokyo'),
+        end_time:   Time.zone.now.years_ago(1000).in_time_zone('Tokyo')
+      )
+    end
+  end
+
+  def include_now?
+    return false if has_undefined_times?
+    Time.zone.now.in_time_zone('Tokyo').between?(begin_time, end_time)
+  end
+
+  def has_defined_times?
+    begin_time && end_time
+  end
+
+  def has_undefined_times?
+    !has_defined_times?
   end
 
   def can_has_undefined_times_only_when_all_order_is_registered
-    return if begin_time.nil? || end_time.nil?
+    return if has_undefined_times?
     return if Order.all.empty?
 
     if Order.all.any? {|order| order.not_registered? }
@@ -58,7 +77,7 @@ class Period < ActiveRecord::Base
   end
 
   def can_be_include_now_only_when_all_order_is_registered
-    return unless record_include_now?
+    return unless include_now?
     return if     Order.all.empty?
 
     if Order.all.any? {|order| order.not_registered? }
@@ -75,10 +94,5 @@ class Period < ActiveRecord::Base
 
   def create_another_period
     self.class.create! begin_time: nil, end_time: nil
-  end
-
-  def record_include_now?
-    return false if begin_time.nil? || end_time.nil?
-    Time.zone.now.in_time_zone('Tokyo').between?(begin_time, end_time)
   end
 end

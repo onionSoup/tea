@@ -60,6 +60,7 @@ class Order < ActiveRecord::Base
   end
 
   def must_be_registered_when_period_has_undefined_times
+    return unless Period.singleton_instance
     return if Period.has_defined_times?
 
     errors[:base] << 'must have only registered unless registered' if not_registered?

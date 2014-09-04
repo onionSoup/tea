@@ -61,6 +61,7 @@ feature '一般ユーザーがサイドバーで移動する' do
       background do
         User.find_by(name: 'Alice').order.update_attributes state: 'ordered'
       end
+      include_context '注文期間がすぎるまで待つ'
 
       scenario '注文履歴画面に行くと、注文作成・変更へのリンクがない' do
         click_link '管理者用'

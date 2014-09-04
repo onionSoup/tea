@@ -1,11 +1,11 @@
-feature '引換済み商品' do
+feature '引換済み商品の確認ページ' do
   fixtures :items
-  
+
   let!(:alice) { create(:user, name: 'Alice') }
 
   context '引換後で、破棄していないお茶があるとき' do
     before do
-      alice.order.update_attributes(
+      alice.order.update_attributes!(
         state: 'exchanged',
         order_details: [
           build(:order_detail, item: items(:herb_tea), quantity: 1),
