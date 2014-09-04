@@ -52,6 +52,13 @@ class Period < ActiveRecord::Base
         end_time:   Time.zone.now.years_ago(1000).in_time_zone('Tokyo')
       )
     end
+
+    def set_undefined_times
+      take.update_attributes!(
+        begin_time: nil,
+        end_time:   nil
+      )
+    end
   end
 
   def include_now?

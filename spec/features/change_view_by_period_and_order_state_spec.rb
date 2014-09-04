@@ -111,10 +111,7 @@ feature '「注文作成・変更」または「注文履歴」リンクから�
           end
         end
         context '現在、注文期間中でないとき' do
-          background do
-            Timecop.freeze(Time.zone.now.days_since(8))
-            raise unless Period.out_of_date?
-          end
+          include_context '注文期間がすぎるまで待つ'
           scenario '注文画面に行こうとすると、注文履歴画面にリダイレクトされて通知がでる' do
             visit '/order_details'
             expect(page.current_path).to eq '/order'
@@ -142,16 +139,52 @@ feature '「注文作成・変更」または「注文履歴」リンクから�
         end
 
         context '注文期間が設定されていないとき' do
+          background do
+            Period.set_undefined_times
+          end
+          scenario '注文画面に行こうとすると、期限未設定の通知画面にリダイレクト' do
+            visit '/order_details'
+            expect(page.current_path).to eq '/period_notice'
+          end
+          scenario '注文履歴画面に行こうとすると、期限未設定の通知画面にリダイレクト' do
+            visit '/order'
+            expect(page.current_path).to eq '/period_notice'
+          end
+          context '期限未設定の通知画面にいったとき' do
+            scenario 'リンクは「注文画面」と「注文の作成・変更」になっている' do
+              expect(header).to have_link '注文画面'
+              expect(nav).to    have_link '注文作成・変更'
+            end
+          end
         end
       end
     end
 
-    context '注文が発送済みのとき' do
-    end
+    context '注文が発注済みのとき' do
+      include_context '注文期間がすぎるまで待つ'
 
-    context '注文が引換可能なとき' do
-    end
-    context '注文が引換済みのとき' do
+      background do
+        alice.order.update_attributes!(order_details: [build(:order_detail, item: items(:herb_tea), quantity: 1)])
+      end
+
+      context '注文が発送前のとき' do
+        background do
+          alice.order.update_attributes!(state: Order.states['ordered'])
+        end
+        it_should_behave_like '注文履歴画面にのみ行けて、リンクは「履歴」になっている'
+      end
+      context '注文が引換可能なとき' do
+        background do
+          alice.order.update_attributes!(state: Order.states['arrived'])
+        end
+        it_should_behave_like '注文履歴画面にのみ行けて、リンクは「履歴」になっている'
+      end
+      context '注文が引換済みのとき' do
+        background do
+          alice.order.update_attributes!(state: Order.states['exchanged'])
+        end
+        it_should_behave_like '注文履歴画面にのみ行けて、リンクは「履歴」になっている'
+      end
     end
   end
 end
