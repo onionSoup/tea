@@ -86,6 +86,14 @@ When /^"(.*?)"の引換完了チェックにチェックを入れる$/ do |user_
   check "user_#{User.find_by(name: "Alice").id}"
 end
 
+When /^注文期限がきれるまで待つ$/ do
+  wait_untill_period_become_out_of_date
+end
+
+When /^ページをリロードする$/ do
+  visit page.current_path
+end
+
 # FIXME
 #本当は「明細表のｘ行目のｙはｚであること」みたいにしたい。
 #でもそれだとorder_detailを消した時、n行目の行がid n であるという対応が崩れて間違いになる。
