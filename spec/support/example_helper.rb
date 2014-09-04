@@ -20,7 +20,6 @@ module ExampleHelper
     raise 'after 8 days, Period must be out of date' unless Period.out_of_date?
   end
 
-
   private
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。

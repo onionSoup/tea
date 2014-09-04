@@ -7,7 +7,7 @@
         <% if @registereds.any? %>
           <%= render 'application/admin_orders_table',
                      {paticular_state_orders_grouped_by_item: @registereds} %>
-          <%= render 'enabled_button' %>
+          <%= render Period.include_now? ? 'disabled_button' : 'enabled_button' %>
         <% else %>
           <p>ユーザーが商品を注文に追加すると、商品ごとの発注数量と金額の一覧表が見れるようになります。</p>
           <p>その一覧表を元に<%= about_page_link %>で注文ができます。</p>

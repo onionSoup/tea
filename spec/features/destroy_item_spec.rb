@@ -1,6 +1,6 @@
 feature '商品の削除' do
   fixtures :items
-  
+
   context '既存の商品がある場合' do
     scenario '削除リンクを押せば、既存の商品を削除できる' do
       visit '/admin/items'
@@ -18,6 +18,7 @@ feature '商品の削除' do
   context 'herb_teaを注文しているAliceがログインしている時'do
 
     include_context 'herb_teaを注文しているAliceとしてログイン'
+    include_context '注文期間がすぎるまで待つ'
 
     scenario 'herb_teaを含む注文情報がある場合、herb_teaは削除できない' do
       visit '/admin/items'
