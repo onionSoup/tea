@@ -34,8 +34,7 @@ class Period < ActiveRecord::Base
     end
 
     def out_of_date?
-      return false if has_undefined_times?
-      !include_now?
+      take.out_of_date?
     end
 
     def has_defined_times?
@@ -76,6 +75,11 @@ class Period < ActiveRecord::Base
   def include_now?
     return false if has_undefined_times?
     Time.zone.now.in_time_zone('Tokyo').between?(begin_time, end_time)
+  end
+
+  def out_of_date?
+    return false if has_undefined_times?
+    !include_now?
   end
 
   def has_defined_times?
