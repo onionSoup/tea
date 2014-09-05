@@ -12,11 +12,11 @@
 class Period < ActiveRecord::Base
   before_create :must_be_singleton
   after_destroy :create_another_period
-  after_save    :can_has_undefined_times_only_when_all_order_is_registered
 
-  validate :can_has_undefined_times_only_when_all_order_is_registered
-  validate :can_be_include_now_only_when_all_order_is_registered
-
+  validate :begin_time_must_be_before_now
+  validate :can_has_undefined_times_only_when_all_order_are_registered
+  validate :can_has_undefined_times_only_when_all_order_have_not_detail
+  validate :can_be_include_now_only_when_all_order_are_registered
 
   class << self
     def can_destroy?
@@ -46,19 +46,31 @@ class Period < ActiveRecord::Base
       !has_defined_times?
     end
 
-    def set_out_of_date_times
+    def set_one_week_term_include_now!
+      take.set_one_week_term_include_now!
+    end
+
+
+    def set_out_of_date_times!
       take.update_attributes!(
         begin_time: Time.zone.now.years_ago(2000).in_time_zone('Tokyo'),
         end_time:   Time.zone.now.years_ago(1000).in_time_zone('Tokyo')
       )
     end
 
-    def set_undefined_times
+    def set_undefined_times!
       take.update_attributes!(
         begin_time: nil,
         end_time:   nil
       )
     end
+  end
+
+  def set_one_week_term_include_now!
+    update_attributes!(
+            begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+            end_time:   Time.zone.now.in_time_zone('Tokyo').days_since(7).at_end_of_day
+    )
   end
 
   def include_now?
@@ -74,21 +86,31 @@ class Period < ActiveRecord::Base
     !has_defined_times?
   end
 
-  def can_has_undefined_times_only_when_all_order_is_registered
-    return if has_undefined_times?
-    return if Order.all.empty?
+  def begin_time_must_be_before_now
+    !begin_time.try(:future?)
+  end
+
+  def can_has_undefined_times_only_when_all_order_are_registered
+    return if has_defined_times?
 
     if Order.all.any? {|order| order.not_registered? }
       errors[:base] << 'must have defined_times when there are not_registered orders'
     end
   end
 
-  def can_be_include_now_only_when_all_order_is_registered
+  def can_has_undefined_times_only_when_all_order_have_not_detail
+    return if has_defined_times?
+
+    if Order.all.any? {|order| order.order_details.present? }
+      errors[:base] << 'must have defined_times when there are not order_details'
+    end
+  end
+
+  def can_be_include_now_only_when_all_order_are_registered
     return unless include_now?
-    return if     Order.all.empty?
 
     if Order.all.any? {|order| order.not_registered? }
-      errors[:base] << 'must have defined_times when there are not_registered orders'
+      errors[:base] << 'must have out_of_date_times when there are not_registered orders'
     end
   end
 

@@ -55,3 +55,24 @@ shared_examples '注文履歴画面にのみ行けて、リンクは「履歴」
     end
   end
 end
+
+shared_examples '注文期限を未設定にはできない' do
+  it '' do
+    begin
+      Period.set_undefined_times!
+    rescue ActiveRecord::RecordInvalid => e
+      expect(e.record).to be_invalid
+    end
+  end
+end
+
+shared_examples '注文期限を現在を含む期間にはできない' do
+  it '' do
+    begin
+      Period.set_one_week_term_include_now!
+    rescue ActiveRecord::RecordInvalid => e
+      expect(e.record).to be_invalid
+    end
+  end
+end
+

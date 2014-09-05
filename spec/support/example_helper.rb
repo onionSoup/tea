@@ -58,9 +58,6 @@ module ExampleHelper
   #TODO 以下２つはUIからやれるようにする。
   def make_deadline_from_now_to_after_seven_days
     Timecop.return
-    Period.singleton_instance.update_attributes!(
-      begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
-      end_time:   Time.zone.now.in_time_zone('Tokyo').days_since(7).at_end_of_day
-    )
+    Period.set_one_week_term_include_now!
   end
 end

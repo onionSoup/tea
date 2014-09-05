@@ -98,7 +98,7 @@ feature '「注文作成・変更」または「注文履歴」リンクから�
 
         context '注文期間が設定されていないとき' do
           background do
-            Period.set_undefined_times
+            Period.set_undefined_times!
           end
           scenario '注文画面に行こうとすると、期限未設定の通知画面にリダイレクト' do
             visit '/order_details'

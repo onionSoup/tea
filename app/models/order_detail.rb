@@ -19,9 +19,11 @@ class OrderDetail < ActiveRecord::Base
 
   before_create :copy_then_price
 
+  validate  do Period.singleton_instance.try(:valid?) end
   validate  :period_must_have_defined_times
   validates :item_id,  presence: true, uniqueness: {scope: :order}
-  validates :quantity, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+  validates :quantity, numericality: {only_integer: true, greater_than_or_equal_to: 1}
+
 
   def copy_then_price
     self.then_price = item.price
@@ -36,6 +38,7 @@ class OrderDetail < ActiveRecord::Base
   end
 
   private
+
   def period_must_have_defined_times
     return unless Period.singleton_instance
     errors[:base] << 'details is invalid when undefined_times' if Period.has_undefined_times?

@@ -15,9 +15,12 @@ class Order < ActiveRecord::Base
   has_many   :order_details, dependent: :destroy
   belongs_to :user
 
+  validate  do Period.singleton_instance.try(:valid?) end
   validate  :must_be_registered_when_period_has_undefined_times
+  validate  :must_be_registered_when_period_has_times_include_now
   validate  :only_registered_order_allows_empty_detail
   validates :user_id, presence: true
+
 
   enum state: %i(registered ordered arrived exchanged)
 
@@ -63,6 +66,13 @@ class Order < ActiveRecord::Base
     return unless Period.singleton_instance
     return if Period.has_defined_times?
 
-    errors[:base] << 'must have only registered unless registered' if not_registered?
+    errors[:base] << 'must have only registered when undefined period' if not_registered?
+  end
+
+  def must_be_registered_when_period_has_times_include_now
+    return unless Period.singleton_instance
+    return unless Period.include_now?
+
+    errors[:base] << 'must have only registered when include_now period' if not_registered?
   end
 end

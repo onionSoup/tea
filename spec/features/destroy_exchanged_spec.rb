@@ -5,6 +5,8 @@ feature '引換済み商品の確認ページ' do
 
   context '引換後で、破棄していないお茶があるとき' do
     before do
+      wait_untill_period_become_out_of_date
+
       alice.order.update_attributes!(
         state: 'exchanged',
         order_details: [
