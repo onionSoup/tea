@@ -2,20 +2,19 @@
   <%= render 'application/admin_side_nav' %>
   <div>
     <div id="admin_first_content">
-      <h2 class="admin_user_sub_title_in_index main_content_caption">注文期限の確認</h2>
-      <div class="admin_user_content_in_index">
+      <h2 class="confirm_period_in_show main_content_caption">注文期限の確認</h2>
+      <div class="admin_periods_content">
         <%= render 'periods_states_confirm' %>
       </div>
-      <h2 class="admin_user_sub_title_in_index main_content_caption">注文期限の設定・変更</h2>
-      <div class="admin_user_content_in_index">
+      <h2 class="set_period_in_show main_content_caption">注文期限の設定・変更</h2>
+      <div class="admin_periods_content">
         <% if @period.out_of_date? %>
-          <p>期限切れのため、注文期間の設定・変更をすることはできません。</p>
-          <p>すべての商品の引換が終了した後で、注文期間の設定・変更をすることができるようになります。</p>
+          <%= render 'destroy_old_period_unless_order' %>
         <% else %>
           <p>注文期限を設定できます。</p>
           <p>期限は、今日より後である必要があります。</p>
           <%= form_tag(admin_period_path, method: :put) do %>
-          <p>注文期限:
+          <p id="period_states_form_p">注文期限:
             <%= select_date @end_time, {start_year: @end_time.year, end_year: @end_time.year.succ, prompt: :ture}%>
             <%= submit_tag '注文期限の設定' %>
           </p>
