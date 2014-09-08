@@ -6,16 +6,17 @@
       <div class="admin_periods_content">
         <%= render 'periods_states_confirm' %>
       </div>
-      <h2 class="set_period_in_show main_content_caption">注文期限の設定・変更</h2>
+      <h2 class="set_period_in_show main_content_caption">注文期限の設定</h2>
       <div class="admin_periods_content">
         <% if @period.out_of_date? %>
           <%= render 'destroy_old_period_unless_order' %>
         <% else %>
           <p>注文期限を設定できます。</p>
-          <p>期限は、今日より後である必要があります。</p>
+          <p>期限は、本日より後である必要があります。</p>
           <%= form_tag(admin_period_path, method: :put) do %>
+          <!-- start_yeatの欄に１年前があるのは、１年後の期限を誤操作で指定した時のやり直し用。-->
           <p id="period_states_form_p">注文期限:
-            <%= select_date @end_time, {start_year: @end_time.year, end_year: @end_time.year.succ, prompt: :ture}%>
+            <%= select_date @end_time, {start_year: (@end_time.year - 1), end_year: (@end_time.year + 1), prompt: :ture }%>
             <%= submit_tag '注文期限の設定' %>
           </p>
           <% end %>
