@@ -49,7 +49,7 @@ class Order < ActiveRecord::Base
     end
 
     def all_empty?
-      all.all? {|order| order.empty_order? }
+      self.includes(:order_details).all? {|order| order.empty_order? }
     end
   end
 
