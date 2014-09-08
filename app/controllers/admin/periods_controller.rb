@@ -15,15 +15,14 @@ class Admin::PeriodsController < ApplicationController
     rescue ArgumentError
       #２月３１日とか指定するとここに来る
     end
-    @period.update_attributes! end_time: date.in_time_zone('Tokyo')
-
+    @period.update_attributes! end_time: date.in_time_zone('UTC')
 
     redirect_to admin_period_path, flash: {success: "注文期限を#{l(@period.end_time.in_time_zone('Tokyo'))}に変更しました。"}
   rescue ActiveRecord::RecordInvalid => e
-    @period  = e.record
-    @period  = @period.singleton_instance
+    @end_time = @period.end_time ? @period.end_time.in_time_zone('Tokyo').to_date : Time.zone.now.in_time_zone('Tokyo').days_since(7)
 
-    render :edit
+
+    render :show
   end
 
   private

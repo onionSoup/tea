@@ -14,6 +14,7 @@ class Period < ActiveRecord::Base
   after_destroy :create_another_period
 
   validate :begin_time_must_be_before_now
+  validate :end_time_must_be_tomorrow_or_later
   validate :can_has_undefined_times_only_when_all_order_are_registered
   validate :can_has_undefined_times_only_when_all_order_have_not_detail
   validate :can_be_include_now_only_when_all_order_are_registered
@@ -92,6 +93,15 @@ class Period < ActiveRecord::Base
 
   def begin_time_must_be_before_now
     !begin_time.try(:future?)
+  end
+
+  def end_time_must_be_tomorrow_or_later
+    tomorrow_or_later = end_time.try {|end_time|
+      end_time >= Time.zone.now.in_time_zone('UTC').tomorrow.at_beginning_of_day
+    }
+    unless tomorrow_or_later
+      errors[:end_time] << 'end_time_must_be_tomorrow_or_later'
+    end
   end
 
   def can_has_undefined_times_only_when_all_order_are_registered
