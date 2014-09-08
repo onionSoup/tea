@@ -20,6 +20,15 @@ module ExampleHelper
     raise 'after 8 days, Period must be out of date' unless Period.out_of_date?
   end
 
+  #閏日がend_timeになると無効日を選択していることになるが、無視する。
+  def choose_date(days_since: 7,  year: nil, month: nil, day: nil)
+    updated_datetime = (Time.zone.now.in_time_zone('Tokyo') + days_since.days).at_end_of_day
+
+    select year  || updated_datetime.year,  :from => 'date_year'
+    select month || updated_datetime.month, :from => 'date_month'
+    select day   || updated_datetime.day,   :from => 'date_day'
+  end
+
   private
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。

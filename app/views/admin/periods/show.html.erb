@@ -6,7 +6,7 @@
       <div class="admin_periods_content">
         <%= render 'periods_states_confirm' %>
       </div>
-      <h2 class="set_period_in_show main_content_caption">注文期限の設定</h2>
+      <h2 class="set_period_in_show main_content_caption">注文期限の設定・削除</h2>
       <div class="admin_periods_content">
         <% if @period.out_of_date? %>
           <%= render 'destroy_old_period_unless_order' %>
@@ -14,12 +14,21 @@
           <p>注文期限を設定できます。</p>
           <p>期限は、本日より後である必要があります。</p>
           <%= form_tag(admin_period_path, method: :put) do %>
-          <!-- start_yeatの欄に１年前があるのは、１年後の期限を誤操作で指定した時のやり直し用。-->
-          <p id="period_states_form_p">注文期限:
-            <%= select_date @end_time, {start_year: (@end_time.year - 1), end_year: (@end_time.year + 1), prompt: :ture }%>
-            <%= submit_tag '注文期限の設定' %>
-          </p>
+            <!-- start_yeatの欄に１年前があるのは、１年後の期限を誤操作で指定した時のやり直し用。-->
+            <p id="period_states_form_p">注文期限:
+              <%= select_date @end_time, {start_year: (@end_time.year - 1), end_year: (@end_time.year + 1), prompt: :ture }%>
+              <%= submit_tag '注文期限の設定' %>
+            </p>
           <% end %>
+          <p id="disabled_destory_period_p">
+          <% if Period.include_now? %>
+            <p>注文期限の削除はできません。すべてのお茶を引換えて<%= link_to '引換情報の削除をする', exchanged_path %>場合<br>または期限内に誰も注文しなかった場合に、期限の削除ができます。</p>
+          <% elsif Period.has_undefined_times? %>
+            <p>期限を設定していないため、削除はできません。</p>
+          <% else %>
+            <% raise 'unexpected period status' %>
+          <% end %>
+          <p><%= button_to '注文期間を削除する', {action: 'destroy'}, {disabled: true,  method: :delete, data: :delete} %></p>
         <% end %>
       </div>
     </div>

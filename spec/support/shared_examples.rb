@@ -76,3 +76,33 @@ shared_examples '注文期限を現在を含む期間にはできない' do
   end
 end
 
+shared_examples '有効な日時を選択して注文期限を設定でき、無効な日時ではできない' do
+  it '明日以降の有効な日付を選択して注文期限を変更できる' do
+    choose_date(days_since: 1)
+    click_button '注文期限の設定'
+
+    flash = "注文期限を#{I18n.l(Period.singleton_instance.end_time.in_time_zone('Tokyo'))}に設定しました。"
+    expect(page).to have_content flash
+  end
+
+  it '過去の日付を選択すると注文期限を変更できない' do
+    choose_date(days_since: -1)
+    click_button '注文期限の設定'
+
+    expect(page).to have_content '注文期限が不正です。'
+  end
+
+  it '今日を選択すると、注文期限を変更できない' do
+    choose_date(days_since: 0)
+    click_button '注文期限の設定'
+
+    expect(page).to have_content '注文期限が不正です。'
+  end
+
+  it '存在しない日付を選択すると注文期限を変更できない' do
+    choose_date(year: Time.zone.now.year.succ, month: 2, day: 31)
+    click_button '注文期限の設定'
+
+    expect(page).to have_content '指定した日付は存在しません。'
+  end
+end

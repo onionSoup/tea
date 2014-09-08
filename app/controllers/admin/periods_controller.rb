@@ -12,7 +12,7 @@ class Admin::PeriodsController < ApplicationController
     @period = Period.singleton_instance
     begin
       begin_time = @period.begin_time || Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day
-      end_time   = Date.new(*(period_params.values.map{|str| str.to_i})).in_time_zone('UTC')
+      end_time   = Date.new(*(period_params.values.map{|str| str.to_i})).in_time_zone('Tokyo').at_end_of_day
     rescue ArgumentError
       #２月３１日とか指定するとここに来る {"year"=>"2015", "month"=>"", "day"=>"5"}も同様。
       #なぜか{"year"=>"", "month"=>"1", "day"=>"5"}はこないのでend_time_is_tomorrow_or_later？で捕まえる。
@@ -22,7 +22,7 @@ class Admin::PeriodsController < ApplicationController
     #tomorrow_or_laterはここ限定でvalidationにできない。そのためbegin rescueではなくif elseで書く。
     if Period.end_time_is_tomorrow_or_later?(end_time) && @period.update_attributes(begin_time: begin_time, end_time: end_time)
 
-      redirect_to admin_period_path, flash: {success: "注文期限を#{l(@period.end_time.in_time_zone('Tokyo'))}に変更しました。"}
+      redirect_to admin_period_path, flash: {success: "注文期限を#{l(@period.end_time.in_time_zone('Tokyo'))}に設定しました。"}
     else
      @end_time = @period.end_time ? @period.end_time.in_time_zone('Tokyo').to_date : Time.zone.now.in_time_zone('Tokyo').days_since(7)
 
