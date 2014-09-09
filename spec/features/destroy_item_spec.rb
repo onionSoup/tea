@@ -18,6 +18,7 @@ feature '商品の削除' do
   context 'herb_teaを注文しているAliceがログインしている時'do
 
     include_context 'herb_teaを注文しているAliceとしてログイン'
+    include_context '注文期間がすぎるまで待つ'
 
     scenario 'herb_teaを含む注文情報がある場合、herb_teaは削除できない' do
       visit '/admin/items'

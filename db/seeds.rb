@@ -58,5 +58,10 @@ def make_users!
   end
 end
 
+def make_period!
+  Period.new.set_one_week_term_include_now!
+end
+
 make_items!
 make_users!
+make_period!

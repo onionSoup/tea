@@ -1,6 +1,6 @@
 feature '商品の管理' do
   fixtures :items
-
+  
   background do
     visit '/orders/registered'
 

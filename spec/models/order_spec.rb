@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  state      :integer          default(0)
+#
+
 describe Order do
   fixtures :items
   let(:herb_tea) { Item.find_by_name! 'herb_tea' }
@@ -16,32 +27,32 @@ describe Order do
     expect(order).to be_valid
   end
 
-  #自作validationではなく、組み込みのvalidationを使えるようになった
-  #そのためこれは不要かもしれない
-  context 'when there is same item' do
-    it 'is invalid with order_details of same item' do
-      alice = create(:user, name: 'Alice')
-      begin
-        alice.order.update_attributes(
-          order_details: [
-            build(:order_detail, item: herb_tea),
-            build(:order_detail, item: herb_tea)
-          ]
-        )
-      rescue ActiveRecord::RecordNotSaved
-        expect(alice.order.order_details).to be_empty
+  it 'is invalid if not_registered when period is undefined or include_now' do
+    not_registered_states = %w(ordered arrived exchanged)
+    set_term_methods      = %w(set_undefined_times! set_one_week_term_include_now!)
+
+    not_registered_states.each do |state|
+      set_term_methods.each do |method|
+        begin
+          eval "Period.#{method}"
+          order = build(:order, :buyer, state: state)
+        rescue ActiveRecord::RecordInvalid => e
+          expect(e.record).to be_invalid
+        end
       end
     end
+  end
 
-    it 'is valid with two orders of same item' do
-      alice = create(:user, name: 'Alice')
-      bob = create(:user, name: 'Bob')
+  it 'is invalid when order is not_registered and details empty' do
+    not_registered_states = %w(ordered arrived exchanged)
 
-      alice.order.update_attributes(order_details: [build(:order_detail, item: herb_tea)])
-      bob.order.update_attributes(order_details: [build(:order_detail, item: herb_tea)])
-
-      expect(alice.order).to be_valid
-      expect(bob.order).to be_valid
+    not_registered_states.each do |state|
+      begin
+        order = build(:order, :buyer, state: state)
+        raise 'in this case details must be empty' if order.order_details.present?
+      rescue ActiveRecord::RecordInvalid => e
+        expect(e.record).to be_invalid
+      end
     end
   end
 end

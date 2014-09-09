@@ -1,0 +1,6 @@
+<% if Period.has_defined_times? %>
+  <p>注文の変更は<%= l(Period.singleton_instance.end_time)%>まで可能です。</p>
+<% else %>
+  <p>注文の変更期限が設定されていません。</p>
+<% end %>
+

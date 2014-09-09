@@ -10,6 +10,7 @@ gem 'pg'
 gem 'rails', '4.1.4'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
+gem 'zeroclipboard-rails'
 
 group :development do
   gem 'annotate'
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-stack_explorer'
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'timecop'
 end
 
 group :production do

@@ -5,16 +5,9 @@
       <h2 class="main_content_caption">ネスレに発注する商品の一覧</h2>
       <div class="admin_content_under_caption">
         <% if @registereds.any? %>
-          <p>以下のお茶注文情報を見ながら<%= about_page_link %>で注文してください。</p>
           <%= render 'application/admin_orders_table',
                      {paticular_state_orders_grouped_by_item: @registereds} %>
-          <p id="p_for_register_to_order_button">ネスレでの注文が終わったら以下のボタンを押してください。<br />
-          注文が終わったことをシステムに登録します。</p>
-          <p>ボタンを押すと、引換終了後に注文情報を削除するまで、利用者が注文を修正できなくなります。ご注意ください。</p>
-          <%= form_for :order, url: order_registered_path, method: :post do |f| %>
-            <%= f.submit '注文の完了をシステムに登録',
-                         data: {confirm: '注文の修正ができなくなります。本当に注文完了を登録してもよろしいですか？'} %>
-          <% end %>
+          <%= render Period.include_now? ? 'disabled_button' : 'enabled_button' %>
         <% else %>
           <p>ユーザーが商品を注文に追加すると、商品ごとの発注数量と金額の一覧表が見れるようになります。</p>
           <p>その一覧表を元に<%= about_page_link %>で注文ができます。</p>

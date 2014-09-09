@@ -15,12 +15,26 @@ class Order < ActiveRecord::Base
   has_many   :order_details, dependent: :destroy
   belongs_to :user
 
+  validate  do Period.singleton_instance.try(:valid?) end
+  validate  :must_be_registered_when_period_has_undefined_times
+  validate  :must_be_registered_when_period_has_times_include_now
+  validate  :only_registered_order_allows_empty_detail
   validates :user_id, presence: true
+
 
   enum state: %i(registered ordered arrived exchanged)
 
   def registered?
     state == 'registered'
+  end
+
+  def not_registered?
+    !registered?
+  end
+
+  def empty_order?
+    return false unless state == 'registered'
+    order_details.empty?
   end
 
   class << self
@@ -33,5 +47,32 @@ class Order < ActiveRecord::Base
         group('items.id', 'order_details.then_price').
           select('items.name, order_details.then_price, SUM(quantity) AS quantity')
     end
+
+    def all_empty?
+      self.includes(:order_details).all? {|order| order.empty_order? }
+    end
+  end
+
+  private
+  def only_registered_order_allows_empty_detail
+    return true if registered?
+
+    if order_details.empty?
+      errors[:base] << 'must have details unless registered'
+    end
+  end
+
+  def must_be_registered_when_period_has_undefined_times
+    return unless Period.singleton_instance
+    return if Period.has_defined_times?
+
+    errors[:base] << 'must have only registered when undefined period' if not_registered?
+  end
+
+  def must_be_registered_when_period_has_times_include_now
+    return unless Period.singleton_instance
+    return unless Period.include_now?
+
+    errors[:base] << 'must have only registered when include_now period' if not_registered?
   end
 end

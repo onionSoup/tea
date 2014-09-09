@@ -15,6 +15,20 @@ module ExampleHelper
     choose_quantity quantity
   end
 
+  def wait_untill_period_become_out_of_date
+    Timecop.freeze(Time.zone.now.days_since(8))
+    raise 'after 8 days, Period must be out of date' unless Period.out_of_date?
+  end
+
+  #閏日がend_timeになると無効日を選択していることになるが、無視する。
+  def choose_date(days_since: 7,  year: nil, month: nil, day: nil)
+    updated_datetime = (Time.zone.now.in_time_zone('Tokyo') + days_since.days).at_end_of_day
+
+    select year  || updated_datetime.year,  :from => 'date_year'
+    select month || updated_datetime.month, :from => 'date_month'
+    select day   || updated_datetime.day,   :from => 'date_day'
+  end
+
   private
 
   #orders/edit.html.erbのセレクタボックスで商品を選ぶメソッド。
@@ -48,5 +62,13 @@ module ExampleHelper
     click_button '引換の完了をシステムに登録'
 
     click_button 'このページの引換情報を削除'
+  end
+
+  def make_deadline_from_now_to_after_seven_days
+    Timecop.return
+    visit '/admin/period'
+
+    choose_date(days_since: 7)
+    click_button '注文期限の設定'
   end
 end

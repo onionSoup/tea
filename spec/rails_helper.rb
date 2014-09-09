@@ -23,13 +23,19 @@ RSpec.configure do |config|
     DatabaseRewinder.clean_all
   end
 
+  begin_time = Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day
+  end_time   = Time.zone.now.in_time_zone('Tokyo').days_since(7).at_end_of_day
+
   config.before do
     DatabaseRewinder.strategy = :truncation
     DatabaseRewinder.start
+
+    Period.create!(begin_time: begin_time, end_time: end_time)
   end
 
   config.after :each do
     DatabaseRewinder.clean
+    Timecop.return
   end
 
   config.include(Capybara::Webkit::RspecMatchers, type: :feature)

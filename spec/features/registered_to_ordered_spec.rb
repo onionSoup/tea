@@ -29,12 +29,28 @@ feature 'ネスレ入力用ページ' do
       expect(table_of_order_by_user).to have_content '1000'
     end
 
-    scenario '注文完了登録ボタンを押すと、ネスレ発送待ちページに移動して成功メッセージがでる' do
-      click_button '注文の完了をシステムに登録'
+    context '注文期間中のとき' do
+      background do
+        raise 'Period must include_now' unless Period.include_now?
+      end
+      scenario '注文完了登録ボタンが押せない' do
+        expect(page).to have_css '[type=submit][disabled=disabled]'
+      end
+    end
 
-      expect(page.current_path).to eq '/orders/ordered'
-      expect(page).to have_content 'ネスレ公式へ注文したことを登録しました。'
-      expect(page).to have_content 'herb_tea'
+    context '注文期間外のとき' do
+      include_context '注文期間がすぎるまで待つ'
+      background do
+        visit '/orders/registered'
+      end
+
+      scenario '注文完了登録ボタンを押すと、ネスレ発送待ちページに移動して成功メッセージがでる' do
+        click_button '注文の完了をシステムに登録'
+
+        expect(page.current_path).to eq '/orders/ordered'
+        expect(page).to have_content 'ネスレ公式へ注文したことを登録しました。'
+        expect(page).to have_content 'herb_tea'
+      end
     end
   end
 

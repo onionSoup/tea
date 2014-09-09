@@ -6,7 +6,9 @@ feature '発送待ち商品の確認' do
       herb_tea = create(:item, name: 'herb_tea', price: 100)
       red_tea = create(:item, name: 'red_tea', price: 100)
 
-      alice.order.update_attributes(
+      wait_untill_period_become_out_of_date
+
+      alice.order.update_attributes!(
         state: 'ordered',
         order_details: [
           build(:order_detail, item: herb_tea, quantity: 1),
@@ -16,6 +18,7 @@ feature '発送待ち商品の確認' do
 
       login_as 'Alice'
     end
+
     scenario 'ページにアクセスすると商品名と注文合計金額が表示されている' do
       visit '/orders/ordered'
 

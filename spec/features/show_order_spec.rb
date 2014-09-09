@@ -19,6 +19,8 @@ feature '注文履歴ページ' do
   end
 
   context 'ネスレ公式に発注済みの時' do
+    include_context '注文期間がすぎるまで待つ'
+
     context 'お茶が未だ届いていない時' do
       background do
         alice.order.update_attributes state: 'ordered'

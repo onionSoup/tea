@@ -4,6 +4,8 @@ feature '引換用ページ' do
   let!(:alice) { create(:user, name: 'Alice') }
 
   background do
+    wait_untill_period_become_out_of_date
+
     alice.order.update_attributes(
       state: 'arrived',
       order_details: [

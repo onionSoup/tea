@@ -4,6 +4,8 @@ feature '管理者ページからユーザーの注文を変更する' do
   let!(:alice) { create(:user, name: 'Alice') }
 
   background do
+    wait_untill_period_become_out_of_date
+
     alice.order.update_attributes!(
       order_details: [build(:order_detail, item: items(:herb_tea))]
     )
