@@ -42,7 +42,10 @@ feature 'ネスレ公式に発注した後の注文修正'do
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     form_visiting_registered_to_delete_exchanged_of alice
 
-    #注文期間を再度設定する。TODO UIからやれるようにする。
+    #明示的に注文期間を削除しない限り、期限切れの注文期間になっている。
+    expect(Period).to be_out_of_date
+
+    #注文期間を再度設定する。
     make_deadline_from_now_to_after_seven_days
     visit page.current_path
 

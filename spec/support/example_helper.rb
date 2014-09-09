@@ -64,9 +64,11 @@ module ExampleHelper
     click_button 'このページの引換情報を削除'
   end
 
-  #TODO 以下２つはUIからやれるようにする。
   def make_deadline_from_now_to_after_seven_days
     Timecop.return
-    Period.set_one_week_term_include_now!
+    visit '/admin/period'
+
+    choose_date(days_since: 7)
+    click_button '注文期限の設定'
   end
 end

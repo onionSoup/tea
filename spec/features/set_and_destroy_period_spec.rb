@@ -93,6 +93,7 @@ feature '注文期限を確認、指定、削除する' do
       end
     end
 
+    #誰も注文せずに、注文期間が終わった場合のこと。
     context 'お茶を注文しているユーザーがおらず、注文期間が現在を含まないとき' do
       background do
         Period.set_one_week_term_include_now!
