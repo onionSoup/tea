@@ -1,17 +1,24 @@
 class OrdersController < ApplicationController
   include Login
-  include PeriodHelper
-
   before_action :need_logged_in
-  before_action :period_must_have_defined_times,                   only: [:show]
-  before_action :reject_show_if_registered_AND_period_include_now, only: [:show]
 
   def show
     @order = User.includes(order: {order_details: :item}).find(current_user).order
+    @items = Item.order(:id)
   end
 
-  #orders#showでできることはorder_details#indexですべてできるので、エラーメッセージを出さない。
-  def reject_show_if_registered_AND_period_include_now
-    redirect_to order_details_path if current_user.order.registered? && Period.include_now?
+  def update
+    @order        = current_user.order
+    @order_detail = @order.order_details.create!(order_detail_params)
+
+    redirect_to order_path, flash: {success: "#{@order_detail.item.name}を追加しました。"}
+  rescue ActiveRecord::RecordInvalid => e
+    @order_detail = e.record
+
+    render :show
+  end
+
+  def order_detail_params
+    params.require(:order_detail).permit(:item_id, :quantity)
   end
 end

@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
-  resource  :mock, only: %i(show)
-  resource  :order,         only: %i(show)
-  resource  :period_notice, only: %i(show)
-
-  resources :order_details, only: %i(index create destroy)
+  resource  :order,         only: %i(show update)
+  resources :order_details, only: %i(destroy)
   resources :sessions,      only: %i(create)
   resources :users,         only: %i(new create)
 

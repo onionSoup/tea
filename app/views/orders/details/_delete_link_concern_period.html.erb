@@ -1,0 +1,11 @@
+<% if Period.include_now? %>
+  <td class="destroy">
+    <%= link_to(
+        '削除',
+        order_detail_path(detail),
+        method: :delete,
+        data: {confirm: '本当に削除してもよろしいですか？'}) %>
+  </td>
+<% else %>
+  <td class="destroy disabled_delete_link">削除</td>
+<% end %>
