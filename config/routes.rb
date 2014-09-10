@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
+  resource  :mock, only: %i(show)
   resource  :order,         only: %i(show)
   resource  :period_notice, only: %i(show)
 

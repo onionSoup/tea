@@ -1,0 +1,5 @@
+<%= content_tag :p,
+                '追加したい商品と個数を選んで、「追加する」ボタンを押してください',
+                id: id_of_p_to_add_details(current_user.order) %>
+<%= render 'application/add_details_form',
+           {url: mock_path} %>

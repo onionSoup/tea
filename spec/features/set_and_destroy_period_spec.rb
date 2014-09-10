@@ -13,7 +13,7 @@ feature '注文期限を確認、指定、削除する' do
         visit page.current_path
       end
       scenario '今いつまで注文できるかわかる' do
-        str =  "現在の注文期間は#{I18n.l Period.singleton_instance.end_time}までです。"
+        str =  "注文期間は#{I18n.l Period.singleton_instance.end_time}までです。"
         expect(page).to have_content str #strの位置には式展開文字列を直接かけない。
       end
     end

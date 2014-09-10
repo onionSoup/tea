@@ -37,6 +37,26 @@ class Order < ActiveRecord::Base
     order_details.empty?
   end
 
+  def translate_state_concerning_detail
+    if registered?
+      translate_registered_state
+    else
+      translate_non_registered_state
+    end
+  end
+
+  def translate_registered_state
+    if order_details.present?
+      {short: '注文済み', long: 'お茶を注文しています。まだ管理者がネスレで購入していません。'}
+    else
+      {short: '注文なし', long: 'お茶を注文していません。'}
+    end
+  end
+
+  def translate_non_registered_state
+    {short: "#{I18n.t(state, scope: 'models.order.state')}", long: "#{I18n.t(state, scope: 'message.order_state')}"}
+  end
+
   class << self
     def price_sum
       all.inject(0) {|acc, order| acc + order.order_details.price_sum }

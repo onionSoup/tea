@@ -24,7 +24,7 @@ class Admin::PeriodsController < ApplicationController
 
       redirect_to admin_period_path, flash: {success: "注文期限を#{l(@period.end_time.in_time_zone('Tokyo'))}に設定しました。"}
     else
-     @end_time = @period.end_time ? @period.end_time.in_time_zone('Tokyo').to_date : Time.zone.now.in_time_zone('Tokyo').days_since(7)
+      @end_time = @period.end_time ? @period.end_time.in_time_zone('Tokyo').to_date : Time.zone.now.in_time_zone('Tokyo').days_since(7)
 
       redirect_to admin_period_path, flash: {error: '注文期限が不正です。'}
     end

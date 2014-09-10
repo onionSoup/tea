@@ -52,8 +52,8 @@ class Period < ActiveRecord::Base
 
     def set_out_of_date_times!
       take.update_attributes!(
-        begin_time: Time.zone.now.years_ago(2000).in_time_zone('Tokyo'),
-        end_time:   Time.zone.now.years_ago(1000).in_time_zone('Tokyo')
+        begin_time: Time.zone.now.years_ago(30).in_time_zone('Tokyo'),
+        end_time:   Time.zone.now.years_ago(20).in_time_zone('Tokyo')
       )
     end
 
@@ -68,6 +68,12 @@ class Period < ActiveRecord::Base
     #UIから、現在を含む注文期間を生成するときだけ、このメソッドの縛りをかける。
     def end_time_is_tomorrow_or_later?(end_time)
       end_time > Time.zone.now.in_time_zone('UTC').tomorrow.at_beginning_of_day
+    end
+
+    def state
+      return :include_now         if include_now?
+      return :out_of_date         if out_of_date?
+      return :has_undefined_times if has_undefined_times?
     end
   end
 

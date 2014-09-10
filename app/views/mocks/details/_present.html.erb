@@ -1,0 +1,27 @@
+<h2 class="main_content_caption order_show_cap"><%= current_user.name %>さんの明細一覧</h2>
+<p><%= current_user.name %>さんは、以下のお茶を注文しています。<br>
+<%= render 'mocks/details/delete_explain' %>
+<div id='order_details_index_table_and_p_wraper'>
+  <table id="order_details_index_table">
+    <tr>
+      <th class="name">品名</th>
+      <th class="quantity">数量</th>
+      <th class="price">単価</th>
+      <th class="sum">小計</th>
+      <th></th>
+    </tr>
+    <% @order.order_details.each do |detail| %>
+      <tr class=<%= dom_id(detail) %>>
+        <td class="name"><%= detail.item.name %></td>
+        <td class="quantity"><%= detail.quantity %>個</td>
+        <td class="price"><%= detail.item.price %>円</td>
+        <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
+        <%= render 'mocks/details/delete_link_concern_period', detail: detail %>
+      </tr>
+    <% end %>
+  </table>
+  <p>
+    <span id='order_details_index_sum_jp'>合計</span>
+    <span id='detail_sum_yen'><%= @order.order_details.price_sum %>円</span>
+  </p>
+</div>
