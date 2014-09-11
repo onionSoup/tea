@@ -1,5 +1,5 @@
 <% target = user_cart_position(order) %>
-<% explains =  %w(期間設定 注文可能 発注待ち  発送待ち 引換可能 引換済み) %>
+<% explains = order.cart_position_names %>
 <% if target.kind_of?(Integer) %>
   <%= render 'bar_enable_first', target: target, explains: explains %>
 <% else %>

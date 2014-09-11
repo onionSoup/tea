@@ -10,6 +10,8 @@
 #
 
 class Order < ActiveRecord::Base
+  include Status
+
   MAX_COUNT_OF_DETAILS = 25
 
   has_many   :order_details, dependent: :destroy
@@ -51,26 +53,6 @@ class Order < ActiveRecord::Base
 
   def non_empty_order?
     !empty_order?
-  end
-
-  def translate_state_concerning_detail
-    if registered?
-      translate_registered_state
-    else
-      translate_non_registered_state
-    end
-  end
-
-  def translate_registered_state
-    if order_details.present?
-      {short: '注文済み', long: 'お茶を注文しています。まだ管理者がネスレで購入していません。'}
-    else
-      {short: '注文なし', long: 'お茶を注文していません。'}
-    end
-  end
-
-  def translate_non_registered_state
-    {short: "#{I18n.t(state, scope: 'models.order.state')}", long: "#{I18n.t(state, scope: 'message.order_state')}"}
   end
 
   class << self
