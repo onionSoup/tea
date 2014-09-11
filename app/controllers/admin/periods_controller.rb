@@ -31,8 +31,13 @@ class Admin::PeriodsController < ApplicationController
   end
 
   def destroy
+    User.all.each do |user|
+      Order.destroy user.order
+      user.create_order
+    end
+
     @period = Period.singleton_instance.destroy!
-    redirect_to admin_period_path, flash: {success: '注文期間を削除しました。'}
+    redirect_to admin_period_path, flash: {success: '注文期間と注文情報を削除しました。'}
   end
 
   private

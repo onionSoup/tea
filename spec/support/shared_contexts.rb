@@ -18,3 +18,13 @@ shared_context 'Aliceが登録してherb_teaを注文している' do
     alice.order.update_attributes! order_details: [build(:order_detail, item: items(:herb_tea))]
   end
 end
+
+#TODO 後で変数使えないか調べる
+shared_context 'Bobが登録してherb_teaを注文している' do
+  let!(:bob) { create(:user, name: 'Bob') }
+
+  background do
+    bob.order.update_attributes! order_details: [build(:order_detail, item: items(:herb_tea))]
+  end
+end
+

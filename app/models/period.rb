@@ -20,7 +20,10 @@ class Period < ActiveRecord::Base
 
   class << self
     def can_destroy?
-      Order.all_empty?
+      return false if Order.ordered.present?
+      return false if Order.arrived.present?
+      return false if Order.registered.any? {|registered| registered.non_empty_order? }
+      true
     end
 
     #このクラスの外で、Period.take.destroyと書くとびっくりされそうなので用意。

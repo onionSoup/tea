@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       resource :arrived,    only: %i(show) do
         post :exchange
       end
-      resource :exchanged,  only: %i(show destroy)
+      resource :exchanged,  only: %i(show)
     end
   end
 

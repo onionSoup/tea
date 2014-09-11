@@ -44,18 +44,21 @@ feature 'ネスレ公式に発注した後の注文修正'do
   end
 
   scenario '注文情報を削除した後、注文期間を設定して、再度注文を作れる。' do
-    #管理者用ページで注文の状態を更新していき、注文情報を削除する。
-    form_visiting_registered_to_delete_exchanged_of alice
+    #管理者用ページで注文の状態を更新していき、注文を引換までする。
+    form_visiting_registered_to_exchanged_of alice
 
-    #TODO この挙動は、のちのち直すかも
     #明示的に注文期間を削除しない限り、期限切れの注文期間になっている。
     expect(Period).to be_out_of_date
 
-    #注文期間を再度設定する。
+    #注文期間を削除する。同時に引換済みだった注文情報は削除され空の注文になる。
+    click_link '注文期間の設定'
+    click_button '注文期間を削除する'
+    expect(alice.reload.order).to be_empty_order
+    expect(alice.reload.order).to be_registered
+
+    #注文期間を再設定する
     make_deadline_from_now_to_after_seven_days
     visit page.current_path
-
-    #注文情報削除後は、注文画面にいけることを確認する
     click_link 'ユーザー用'
 
     #注文情報削除後は、注文できることを確認する。

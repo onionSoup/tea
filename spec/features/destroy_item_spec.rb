@@ -32,8 +32,12 @@ feature '商品の削除' do
     end
 
     scenario 'herb_teaを含む注文情報を削除すれば、herb_teaを削除できる。' do
-      #管理者用ページで注文の状態を更新していき、注文情報を削除する。
-      form_visiting_registered_to_delete_exchanged_of alice
+      #管理者用ページで注文の状態を更新していき、引換までする。
+      form_visiting_registered_to_exchanged_of alice
+
+      #注文期間を再設定することで、注文情報も一緒に削除される。
+      visit '/admin/period'
+      click_button '注文期間を削除する'
 
       click_link '商品の管理'
 
