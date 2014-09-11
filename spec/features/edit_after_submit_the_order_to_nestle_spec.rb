@@ -9,9 +9,11 @@ feature 'ネスレ公式に発注した後の注文修正'do
 
     click_button '注文の完了をシステムに登録'
 
-    click_link '注文履歴'
+    click_link 'ユーザー用'
 
-    expect(page).to have_content '注文の作成・変更はできません。'
+    within 'form' do
+      expect(page).to have_css '[type=submit][disabled=disabled]'
+    end
   end
 
   context 'Bobとしてログインし直す' do
@@ -25,16 +27,19 @@ feature 'ネスレ公式に発注した後の注文修正'do
       click_button '注文の完了をシステムに登録'
 
       #Bobも注文できない。注文期間がすぎたため。
-      click_link '注文画面'
+      click_link 'ユーザー用'
 
-      expect(page).to have_content '注文期限を過ぎているため、注文の作成・変更はできません。'
+      within 'form' do
+        expect(page).to have_css '[type=submit][disabled=disabled]'
+      end
 
       #Aliceの注文は発注されたので修正できない
       click_link 'ログアウト'
       login_as 'Alice'
-      click_link '注文履歴'
 
-      expect(page).to have_content '注文の作成・変更はできません。'
+      within 'form' do
+        expect(page).to have_css '[type=submit][disabled=disabled]'
+      end
     end
   end
 
@@ -42,6 +47,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
     #管理者用ページで注文の状態を更新していき、注文情報を削除する。
     form_visiting_registered_to_delete_exchanged_of alice
 
+    #TODO この挙動は、のちのち直すかも
     #明示的に注文期間を削除しない限り、期限切れの注文期間になっている。
     expect(Period).to be_out_of_date
 
@@ -50,8 +56,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
     visit page.current_path
 
     #注文情報削除後は、注文画面にいけることを確認する
-    click_link '注文画面'
-    expect(page).not_to have_content '注文の作成・変更はできません。'
+    click_link 'ユーザー用'
 
     #注文情報削除後は、注文できることを確認する。
     choose_item_and_quantity 'herb_tea', 2

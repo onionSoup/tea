@@ -30,9 +30,9 @@ module SessionsHelper
 
   def logout_or_login
     if logged_in?
-      link_to 'ログアウトする', logout_path, method: :delete
+      link_to 'ログアウト', logout_path, method: :delete
     else
-      link_to 'ログインする',   login_path
+      link_to 'ログイン',   login_path
     end
   end
 end

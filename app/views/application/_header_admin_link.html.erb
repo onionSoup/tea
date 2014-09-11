@@ -1,0 +1,7 @@
+<!-- TODO もっと適切な場所に置く -->
+<% non_admin_paths = [order_path, new_user_path, login_path] %>
+<% if non_admin_paths.include? request.path_info %>
+  <p><%= link_to '管理者用', registered_path %></p>
+<% else %>
+  <p><%= link_to 'ユーザー用', order_path %></p>
+<% end %>
