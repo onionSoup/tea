@@ -32,9 +32,25 @@ class Order < ActiveRecord::Base
     !registered?
   end
 
+  def ordered?
+    state == 'ordered'
+  end
+
+  def arrived?
+    state == 'arrived'
+  end
+
+  def exchanged?
+    state == 'exchanged'
+  end
+
   def empty_order?
-    return false unless state == 'registered'
+    #return false unless state == 'registered'
     order_details.empty?
+  end
+
+  def non_empty_order?
+    !empty_order?
   end
 
   def translate_state_concerning_detail

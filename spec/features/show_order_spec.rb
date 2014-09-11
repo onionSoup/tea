@@ -11,11 +11,11 @@ feature '注文履歴ページ' do
       expect(page).not_to have_link '注文履歴'
     end
 
-    scenario 'URL直打ちやブクマからアクセスしても、注文履歴にいけず注文画面にリダイレクト' do
-      visit order_path
+    #scenario 'URL直打ちやブクマからアクセスしても、注文履歴にいけず注文画面にリダイレクト' do
+      #visit order_path
 
-      expect(page.current_path).to eq '/order_details'
-    end
+      #expect(page.current_path).to eq '/order_details'
+    #end
   end
 
   context 'ネスレ公式に発注済みの時' do
@@ -26,13 +26,11 @@ feature '注文履歴ページ' do
         alice.order.update_attributes state: 'ordered'
       end
 
-      scenario '注文履歴ページに行くと、お茶が未発送であるとわかる。' do
-        visit registered_path
-
-        click_link '注文履歴'
-
-        expect(page).to have_content '未発送'
-      end
+      #scenario '注文履歴ページに行くと、お茶が未発送であるとわかる。' do
+        #visit registered_path
+        #click_link '注文履歴'
+        #expect(page).to have_content '未発送'
+      #end
     end
 
     context 'お茶が支社に届いている時' do
