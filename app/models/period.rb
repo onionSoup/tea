@@ -10,6 +10,7 @@
 #
 
 class Period < ActiveRecord::Base
+  include PseudoSingleton
   before_create :must_be_singleton
   after_destroy :create_another_period
 
@@ -134,11 +135,6 @@ class Period < ActiveRecord::Base
   end
 
   private
-
-  def must_be_singleton
-    #inculude Singletonは副作用が大きいので、これで擬似的に実現
-    raise 'Period must be a singleton' if self.class.count.nonzero?
-  end
 
   def create_another_period
     self.class.create! begin_time: nil, end_time: nil

@@ -61,6 +61,9 @@ ja:
       item:
         name:  商品名
         price: 価格
+      postage:
+        cost: 送料
+        border: 無料条件
     errors:
       models:
         user:
@@ -82,3 +85,7 @@ ja:
               not_a_number: お茶の数量を選択してください。
               blank:        お茶の数量を選択してください。
               greater_than_or_equal_to: '%{count}以上の数量を指定してください。'
+        postage:
+          blank: '%{attribute}が入力されていません。'
+          not_a_number: '%{attribute}は数字を入力してください。'
+
