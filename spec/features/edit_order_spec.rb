@@ -32,7 +32,7 @@ feature '既存の注文を修正する'do
   context 'さらに別のお茶を注文する場合' do
     background do
       create :item, name: 'green_tea', price: 100
-      click_link '注文画面'
+      visit page.current_path
     end
 
     scenario '商品と個数を選んで「追加する」を押すと、表に明細が追加されて、メッセージも出る' do

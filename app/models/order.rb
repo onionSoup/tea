@@ -47,8 +47,8 @@ class Order < ActiveRecord::Base
   end
 
   def empty_order?
-    #return false unless state == 'registered'
-    order_details.empty?
+    #order_details.empty? をN+1対策しつつ書くのでこうなる。
+    self.class.includes(:order_details).find(self).order_details.empty?
   end
 
   def non_empty_order?

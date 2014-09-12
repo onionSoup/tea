@@ -4,7 +4,7 @@
   <div>
     <div id="show_order_content">
       <!-- 注文の状況 TODO amazonみたいに、数直線上でステートを確認できるようにすると良い。 -->
-      <h2 class="main_content_caption order_show_cap">注文の状況: <%= user_position_explain(@order)[:title] %></h2>
+      <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_explain(@order)[:title] %></h2>
       <p><%= raw user_position_explain(@order)[:paragraph] %></p>
 
       <%= render 'order_state_bar' , order: @order %>

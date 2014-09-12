@@ -28,3 +28,27 @@ shared_context 'Bobが登録してherb_teaを注文している' do
   end
 end
 
+
+shared_context 'ネスレ入力用ページに行って、注文を発注する' do
+  background do
+    visit '/orders/registered'
+    click_button '注文の完了をシステムに登録'
+  end
+end
+
+shared_context '発送待ち商品確認ページに行って、お茶を受領する' do
+  background do
+    visit '/orders/ordered'
+    click_button 'お茶の受領をシステムに登録'
+  end
+end
+
+shared_context '引換用ページに行って、userの注文を引換する' do |user_name: 'user_name'|
+  background do
+    visit '/orders/arrived'
+    user = User.find_by!(name: user_name)
+
+    check "user_#{user.id}"
+    click_button '引換の完了をシステムに登録'
+  end
+end
