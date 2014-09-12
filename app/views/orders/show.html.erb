@@ -1,12 +1,44 @@
+<%= render 'application/form_errors', {object: @order_detail} if @order_detail %>
 <div class="general_user_flex">
   <%= render "application/general_user_side_nav" %>
   <div>
     <div id="show_order_content">
-      <% if  current_user.order.order_details.present? %>
-        <%= render "nonblank_order" %>
-     <% else %>
-       <%= render "blank_order" %>
-     <% end %>
+      <!-- 注文の状況 TODO amazonみたいに、数直線上でステートを確認できるようにすると良い。 -->
+      <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_explain(@order)[:title] %></h2>
+      <p><%= raw user_position_explain(@order)[:paragraph] %></p>
+
+      <%= render 'order_state_bar' , order: @order %>
+
+      <!-- 注文期限の確認 -->
+      <% case Period.state %>
+      <% when :include_now %>
+        <%= render 'orders/periods/include_now_notice' %>
+      <% when :out_of_date %>
+        <%= render 'orders/periods/out_of_date_notice' %>
+      <% when :has_undefined_times %>
+        <%= render 'orders/periods/undefined_notice' %>
+      <% else %>
+        <% raise 'invlaid period' %>
+      <% end %>
+
+      <!-- 明細一覧の確認 -->
+      <% if  @order.order_details.present? %>
+        <%= render "orders/details/present" %>
+      <% else %>
+        <%= render "orders/details/empty" %>
+      <% end %>
+
+      <!-- 明細の追加フォーム -->
+      <% case Period.state %>
+      <% when :include_now %>
+        <%= render 'orders/forms/form' %>
+      <% when :out_of_date %>
+        <%= render 'orders/forms/disabled_form_by_old' %>
+      <% when :has_undefined_times %>
+        <%= render 'orders/forms/disabled_form_by_undefined' %>
+      <% else %>
+        <% raise 'invlaid period' %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -48,8 +48,8 @@ module ExampleHelper
     fill_in "数量", with: "#{quantity}" unless quantity == ''
   end
 
-  #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し、最後には削除ボタンを押す。
-  def form_visiting_registered_to_delete_exchanged_of(user)
+  #引数userのorderが、state == registeredの時。管理者用ページの一連のボタンを踏んでstateを更新し引換まで行う。
+  def form_visiting_registered_to_exchanged_of(user)
     raise 'user must have order whose state is registered' unless user.order.registered?
 
     click_link '管理者用'
@@ -60,8 +60,6 @@ module ExampleHelper
 
     check ActionView::RecordIdentifier.dom_id user
     click_button '引換の完了をシステムに登録'
-
-    click_button 'このページの引換情報を削除'
   end
 
   def make_deadline_from_now_to_after_seven_days

@@ -1,11 +1,13 @@
+<!--今はいらない。でも、無いとデザイン的に浮くし、大改造が必要。しかも将来的にはいろいろ置くはず。-->
 <nav id="general_user_side_nav">
   <h2>トピック</h2>
   <ul>
-    <li><%= logout_or_login %></li>
-    <li><%= link_to '新規ユーザー登録', new_user_path %></li>
     <% if logged_in? %>
-      <li><%= link_to_index_or_show '注文作成・変更', '履歴・発送状態' %></li>
-      <li><%= link_to '管理者用ページ', registered_path %></li>
+      <li><%= link_to '注文画面', order_path %></li>
+      <li><%= link_to 'ユーザー情報編集', '#' %></li>
+    <% else %>
+      <li><%= link_to '新規ユーザー登録', new_user_path %></li>
+      <li><%= link_to 'ログイン',        login_path %></li>
     <% end %>
   </ul>
 </nav>

@@ -1,0 +1,8 @@
+<!-- TODO プレーンテキストをブラウザにお任せしてだしてるのを直して、ちゃんとｐに入れる-->
+<% if Period.include_now? %>
+  注文期間中のため、「削除」リンクをクリックして明細を削除できます。
+<% elsif Period.out_of_date? %>
+  注文期間が終了したため明細の削除はできません。
+<% else %>
+  <% raise 'period must be defined times' %>
+<% end %>

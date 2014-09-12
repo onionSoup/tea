@@ -5,7 +5,7 @@ feature 'ユーザー名を管理者画面から変更' do
   background do
     login_as 'Alice'
 
-    click_link '管理者用ページ'
+    click_link '管理者用'
     click_link 'ユーザーの管理'
    end
 

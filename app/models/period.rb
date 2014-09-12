@@ -20,7 +20,10 @@ class Period < ActiveRecord::Base
 
   class << self
     def can_destroy?
-      Order.all_empty?
+      return false if Order.ordered.present?
+      return false if Order.arrived.present?
+      return false if Order.registered.any? {|registered| registered.non_empty_order? }
+      true
     end
 
     #このクラスの外で、Period.take.destroyと書くとびっくりされそうなので用意。
@@ -52,8 +55,8 @@ class Period < ActiveRecord::Base
 
     def set_out_of_date_times!
       take.update_attributes!(
-        begin_time: Time.zone.now.years_ago(2000).in_time_zone('Tokyo'),
-        end_time:   Time.zone.now.years_ago(1000).in_time_zone('Tokyo')
+        begin_time: Time.zone.now.years_ago(30).in_time_zone('Tokyo'),
+        end_time:   Time.zone.now.years_ago(20).in_time_zone('Tokyo')
       )
     end
 
@@ -69,12 +72,18 @@ class Period < ActiveRecord::Base
     def end_time_is_tomorrow_or_later?(end_time)
       end_time > Time.zone.now.in_time_zone('UTC').tomorrow.at_beginning_of_day
     end
+
+    def state
+      return :include_now         if include_now?
+      return :out_of_date         if out_of_date?
+      return :has_undefined_times if has_undefined_times?
+    end
   end
 
   def set_one_week_term_include_now!
     update_attributes!(
-            begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
-            end_time:   Time.zone.now.in_time_zone('Tokyo').days_since(7).at_end_of_day
+      begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+      end_time:   Time.zone.now.in_time_zone('Tokyo').days_since(7).at_end_of_day
     )
   end
 

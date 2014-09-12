@@ -1,12 +1,6 @@
-<h2 id="explain_state_in_show_order" class="main_content_caption">
-  注文の状況：
-  <%= t(@order.state, scope: 'models.order.state') %>
-</h2>
-<p><%= raw t(@order.state, scope: 'message.instruction.state') %>
-<h2 id="history_subtitle_in_orders_show" class="main_content_caption">
-  <%= current_user.name %>さんの注文履歴
-</h2>
-<p><%= current_user.name %>さんは、以下のお茶を注文しています。</p>
+<h2 class="main_content_caption order_show_cap"><%= current_user.name %>さんの明細一覧</h2>
+<p><%= current_user.name %>さんは、以下のお茶を注文しています。<br>
+<%= render 'orders/details/delete_explain' %></p>
 <div id='order_details_index_table_and_p_wraper'>
   <table id="order_details_index_table">
     <tr>
@@ -14,6 +8,7 @@
       <th class="quantity">数量</th>
       <th class="price">単価</th>
       <th class="sum">小計</th>
+      <th></th>
     </tr>
     <% @order.order_details.each do |detail| %>
       <tr class=<%= dom_id(detail) %>>
@@ -21,6 +16,7 @@
         <td class="quantity"><%= detail.quantity %>個</td>
         <td class="price"><%= detail.item.price %>円</td>
         <td class="sum"><%= detail.quantity * detail.item.price %>円</td>
+        <%= render 'orders/details/delete_link_concern_period', detail: detail %>
       </tr>
     <% end %>
   </table>
@@ -29,4 +25,3 @@
     <span id='detail_sum_yen'><%= @order.order_details.price_sum %>円</span>
   </p>
 </div>
-

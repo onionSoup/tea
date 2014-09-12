@@ -13,7 +13,7 @@ feature '注文期限を確認、指定、削除する' do
         visit page.current_path
       end
       scenario '今いつまで注文できるかわかる' do
-        str =  "現在の注文期間は#{I18n.l Period.singleton_instance.end_time}までです。"
+        str =  "注文期間は#{I18n.l Period.singleton_instance.end_time}までです。"
         expect(page).to have_content str #strの位置には式展開文字列を直接かけない。
       end
     end
@@ -75,21 +75,49 @@ feature '注文期限を確認、指定、削除する' do
       end
     end
 
-    context 'お茶を注文しているユーザーがいて、注文期間が現在を含まないとき' do
+    context 'お茶を注文しているがまだ引換していないAliceがいて、注文期間が現在を含まないとき' do
       background do
         Period.set_one_week_term_include_now!
       end
 
       include_context 'Aliceが登録してherb_teaを注文している'
+      include_context 'Bobが登録してherb_teaを注文している'
       include_context '注文期間がすぎるまで待つ'
 
       background do
+        bob.order.update_attributes!(state: Order.states['exchanged'])
         raise 'period must be out_of_date' unless Period.out_of_date?
         visit page.current_path
       end
 
       scenario 'ボタンが押せず、削除はできない' do
         expect(page).to have_css '[type=submit][disabled=disabled][data=delete]'
+      end
+    end
+
+    context 'お茶を注文したすべてのユーザーが引換をしていてるとき' do
+      background do
+        Period.set_one_week_term_include_now!
+      end
+
+      include_context 'Aliceが登録してherb_teaを注文している'
+      include_context 'Bobが登録してherb_teaを注文している'
+      include_context '注文期間がすぎるまで待つ'
+
+      background do
+        [alice, bob].each do |user|
+          user.order.update_attributes!(state: Order.states['exchanged'])
+        end
+        raise 'period must be out_of_date' unless Period.out_of_date?
+        visit page.current_path
+      end
+
+      scenario 'ボタンが押して、注文期間を削除できる' do
+        expect(page).not_to have_css '[type=submit][disabled=disabled][data=delete]'
+
+        click_button '注文期間を削除'
+
+        expect(page).to have_content '注文期限が設定されていません'
       end
     end
 

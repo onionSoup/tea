@@ -6,11 +6,11 @@
       <% if @users.present? %>
         <p>以下のお茶は、引換が終了しています。</p>
         <%= render 'application/users_table.html', {users: @users} %>
-        <p id="p_for_delete_button">引換情報を削除するには以下のボタンを押してください。<br />
-        削除した引換情報は元に戻せないことにご注意ください。</p>
-        <%= form_for :order, url: exchanged_path, method: :delete do |f| %>
-          <%= f.submit 'このページの引換情報を削除',
-                       data: {confirm: '本当に削除してもよろしいですか？'} %>
+        <% if Period.can_destroy? %>
+          <p>すべてのユーザーとの引換が終了したため<%=link_to '注文期間の再設定', admin_period_path %>ができます。</br>
+          注文期間を再設定するとこのページの注文情報は空になります。</p>
+        <% else %>
+          <p>すべてのユーザーの引換が終了すれば<%=link_to '注文期間の再設定', admin_period_path %>ができます。</p>
         <% end %>
       <% else %>
         <p>引換をしていません。</p>

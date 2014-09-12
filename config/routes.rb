@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  root to: 'users#new'
+  root to: 'orders#show'
 
-  resource  :order,         only: %i(show)
-  resource  :period_notice, only: %i(show)
-
-  resources :order_details, only: %i(index create destroy)
+  resource  :order,         only: %i(show update)
+  resources :order_details, only: %i(destroy)
   resources :sessions,      only: %i(create)
   resources :users,         only: %i(new create)
 
@@ -22,7 +20,7 @@ Rails.application.routes.draw do
       resource :arrived,    only: %i(show) do
         post :exchange
       end
-      resource :exchanged,  only: %i(show destroy)
+      resource :exchanged,  only: %i(show)
     end
   end
 

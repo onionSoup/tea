@@ -10,6 +10,8 @@
 #
 
 class Order < ActiveRecord::Base
+  include Status
+
   MAX_COUNT_OF_DETAILS = 25
 
   has_many   :order_details, dependent: :destroy
@@ -32,9 +34,25 @@ class Order < ActiveRecord::Base
     !registered?
   end
 
+  def ordered?
+    state == 'ordered'
+  end
+
+  def arrived?
+    state == 'arrived'
+  end
+
+  def exchanged?
+    state == 'exchanged'
+  end
+
   def empty_order?
-    return false unless state == 'registered'
-    order_details.empty?
+    #order_details.empty? をN+1対策しつつ書くのでこうなる。
+    self.class.includes(:order_details).find(self).order_details.empty?
+  end
+
+  def non_empty_order?
+    !empty_order?
   end
 
   class << self

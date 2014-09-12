@@ -4,7 +4,8 @@
     <div id="flex">
       <p id="greeting">こんにちは<%= logged_in_user_name %>さん</p>
       <% if logged_in?  %>
-        <%= render 'application/menu_when_logged_in' %>
+        <p><%= link_to 'ログアウト', logout_path, method: :delete %></p>
+        <%= render 'header_admin_link' %>
       <% else %>
         <p><%= link_to 'ログイン', login_path %>すれば、お茶の注文ができます。</p>
       <% end %>

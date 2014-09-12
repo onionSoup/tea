@@ -10,9 +10,22 @@ div#show_order_content {
     margin-left: 2em;
     line-height: 2.2em;
   }
+  form {
+    margin-left: 2em;
+  }
 }
 
 #history_subtitle_in_orders_show {
   margin: 2em 0 1em;
   width: 20em;
+}
+
+.order_show_cap {
+  margin: 3em 0 2em;
+}
+
+.disabled_delete_link {
+  color: gray;
+  text-decoration: underline;
+  text-align: center;
 }
