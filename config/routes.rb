@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'users#new'
+  root to: 'orders#show'
 
   resource  :order,         only: %i(show update)
   resources :order_details, only: %i(destroy)
