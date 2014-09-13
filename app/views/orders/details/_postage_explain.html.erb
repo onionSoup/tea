@@ -1,0 +1,25 @@
+<div id="for_specify_dom">
+  <div id='accordion_postage_label'>
+    送料の詳細
+    <%= icon('chevron-down') %>
+  </div>
+  <div id='accordion_postage_content'>
+    <p>ネスレは合計<%= Postage.postage_border %>円以上の場合は送料無料にしています。<br>
+    <%= Postage.postage_border %>円に満たない場合は、<%= Postage.postage_cost %>円の送料が発生します。</p>
+
+    <% unless Period.has_undefined_times? %>
+      <p>現在、お茶を注文しているユーザーたちの合計金額は<%= Order.price_sum %>円です。</p>
+      <% if Postage.free? %>
+        <% if Period.include_now? %>
+          <p>現在は送料無料です。<br>しかし他のユーザーが注文を取り消した場合、送料が発生するようになる可能性があります。</p>
+        <% end %>
+      <% else %>
+        <p>お茶を注文している人が<%= Order.count_of_non_empty_order %>人います。<br>
+        ネスレが設定する送料は<%= Postage.postage_cost %>円なので現在の１人あたりの送料は<%= Postage.cost_per_person %>円になります。<br>
+        <% if Period.include_now? %>
+          他のユーザーが注文を変更した場合、送料が変動する可能性があります。</p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

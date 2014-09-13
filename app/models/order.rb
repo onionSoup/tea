@@ -69,6 +69,10 @@ class Order < ActiveRecord::Base
     def all_empty?
       self.includes(:order_details).all? {|order| order.empty_order? }
     end
+
+    def count_of_non_empty_order
+      Order.all.count {|order| order.non_empty_order? }
+    end
   end
 
   private
