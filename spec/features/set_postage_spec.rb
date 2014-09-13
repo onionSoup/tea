@@ -1,5 +1,6 @@
 feature '送料・無料条件ページ' do
-  fixtures :postages
+  #fixtures :postages
+  #本当はrails_helperで作るよりfixturesをすべてのspecに書いたほうが行儀がいいのかもしれないが..
 
   background do
     create_user_and_login_as 'Alice'
