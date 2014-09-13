@@ -1,4 +1,13 @@
-#postgae_main_content {
-  #cost, #border{
-  }
+#postage_link_dialog {
+  color: #007ab7;
+  text-decoration: none;
+}
+
+#postage_link_dialog:hover {
+  color: #edad0b;
+  text-decoration: underline;
+}
+
+h3.dialog_subtitle {
+  font-size: 1.17em;
 }

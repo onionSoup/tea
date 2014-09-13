@@ -71,7 +71,8 @@ class Order < ActiveRecord::Base
     end
 
     def count_of_non_empty_order
-      Order.all.count {|order| order.non_empty_order? }
+      #to_aを入れないとSELECT COUNT(*) FROM "orders" になる。
+      Order.all.to_a.count {|order| order.non_empty_order? }
     end
   end
 

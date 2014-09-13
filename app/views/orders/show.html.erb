@@ -3,10 +3,8 @@
   <%= render "application/general_user_side_nav" %>
   <div>
     <div id="show_order_content">
-      <!-- 注文の状況 TODO amazonみたいに、数直線上でステートを確認できるようにすると良い。 -->
       <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_explain(@order)[:title] %></h2>
       <p><%= raw user_position_explain(@order)[:paragraph] %></p>
-
       <%= render 'order_state_bar' , order: @order %>
 
       <!-- 注文期限の確認 -->
@@ -28,11 +26,6 @@
         <%= render "orders/details/empty" %>
       <% end %>
 
-      <h2 class="main_content_caption order_show_cap">送料の詳細</h2>
-      <p>送料の詳細は以下をクリックしてください。</p>
-      <%= render 'orders/details/postage_explain' %>
-
-
       <!-- 明細の追加フォーム -->
       <% case Period.state %>
       <% when :include_now %>
@@ -44,6 +37,7 @@
       <% else %>
         <% raise 'invlaid period' %>
       <% end %>
+      <p>送料は<%= Postage.cost_per_person_concern_free %>円です。<%= render 'postage_dialog' %></p>
     </div>
   </div>
 </div>
