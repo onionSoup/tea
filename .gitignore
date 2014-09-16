@@ -28,3 +28,6 @@
 *.sw[po]
 tags
 .ruby-version
+
+/repos/*
+!/repos/.gitkeep
