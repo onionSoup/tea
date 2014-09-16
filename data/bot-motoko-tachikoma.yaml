@@ -1,7 +1,7 @@
 url:
   'https://github.com/sanemat/bot-motoko-tachikoma.git'
 frequency:
-  "every 1.day, :at => '2:10 pm'"
+  "every 1.day, :at => '2:12 pm'"
 type:
   'fork'
 language:

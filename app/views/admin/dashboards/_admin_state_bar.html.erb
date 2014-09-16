@@ -1,0 +1,7 @@
+<% target   = admin_cart_position %>
+<% explains = Order.admin_cart_position_names %>
+<% if target.kind_of?(Integer) %>
+  <%= render 'bar_enable_first', target: target, explains: explains %>
+<% else %>
+  <%= render 'bar_enable_second', target: target, explains: explains %>
+<% end %>

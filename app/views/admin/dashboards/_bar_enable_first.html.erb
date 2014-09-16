@@ -1,19 +1,19 @@
-<div id='status_bar'>
+<div id='status_bar' class='admin_version'>
   <div class='for_minus_letter_space'>
     <% explains.each_with_index do |explain, i| %>
-       <% case i <=> target %>
-       <% when -1 %>
-         <div class='small_box' id='before_target'>
-           <div class='circle'></div>
-           <div class='state'><%= explain %></div>
-           <div class='cart'><%= icon('shopping-cart') %></div>
-         </div>
+      <% case i <=> target %>
+      <% when -1 %>
+        <div class='small_box' id='before_target'>
+          <div class='circle'></div>
+          <div class='state'><%= explain %></div>
+          <div class='cart'><%= icon('shopping-cart') %></div>
+        </div>
       <% when 0 %>
-         <div class='small_box' id='cart_target'>
-           <div class='circle'></div>
-           <div class='state'><%= explain %></div>
-           <div class='cart'><%= icon('shopping-cart') %></div>
-         </div>
+        <div class='small_box' id='cart_target'>
+          <div class='circle'></div>
+          <div class='state'><%= explain %></div>
+          <div class='cart'><%= icon('shopping-cart') %></div>
+        </div>
       <% when 1 %>
         <div class='small_box'>
           <div class='circle'></div>

@@ -1,4 +1,4 @@
-#user_status_bar {
+#status_bar {
   margin-left: 2em;
 }
 
@@ -26,6 +26,7 @@ letter-spacing: -0.35em;
     width: 8px;
   }
   .state {
+    width: 4em;
     font-size: 0.9em;
     text-align: center;
     position: absolute;
