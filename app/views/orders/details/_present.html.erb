@@ -22,6 +22,7 @@
   </table>
   <p>
     <span id='order_details_index_sum_jp'>合計</span>
-    <span id='detail_sum_yen'><%= @order.order_details.price_sum %>円</span>
+    <span id='detail_sum_yen'><%= @order.order_details.price_sum + Postage.cost_per_person_concern_free %>円</span>
+    <span id='postage'>(送料<%= Postage.cost_per_person_concern_free %>円込)</span>
   </p>
 </div>

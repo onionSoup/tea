@@ -1,0 +1,25 @@
+<%= render 'application/form_errors', {object: @postage } if @postage %>
+<div id="admin_flex_box">
+  <%= render 'application/admin_side_nav' %>
+  <div>
+    <div id="admin_first_content">
+      <h2 class="main_content_caption">送料・無料条件の確認</h2>
+      <div class='main_content' id='postgae_main_content'>
+        <p>送料は<span id='cost'><%= @cost %></span>円が登録されています。</p>
+        <p>ユーザーたちの注文が合計<span id='border'><%= @border %></span>円以上になる場合、送料が無料になります。</p>
+        <p>上記の数字は、手動で登録したものです。ネスレが異なる送料・条件を設定している可能性があります。<br>
+        発注前には<%= shipping_cost_page_link(link_text: 'ネスレのサイト') %>を参照し、最新の送料情報を確認してください。</p>
+      </div>
+      <h2 class="set_period_in_show main_content_caption">送料・無料条件の変更</h2>
+      <div class="main_content">
+        <%= form_for [:admin, @postage] do |f| %>
+            <%= f.label :cost, '送料:' %>
+            <%= f.number_field :cost, min: 0 %>
+            <%= f.label :border, '無料条件:' %>
+            <%= f.number_field :border,  min: 0 %>
+          <%= f.submit '保存する' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

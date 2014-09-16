@@ -115,7 +115,7 @@ shared_examples '注文の追加が可能と見出しからわかり、ボタン
   end
 end
 
-shared_examples '注文の追加が不可と見出しからわかり、ボタンを押して追加できない' do |tea_name: :red_tea|
+shared_examples '注文の追加が不可と見出しからわかり、ボタンを押して追加できない' do
   it '' do
     within '#add_tea_title' do
       expect(page).to have_content '不可'
@@ -125,3 +125,29 @@ shared_examples '注文の追加が不可と見出しからわかり、ボタン
     end
   end
 end
+
+
+shared_examples '注文合計金額がsum円である' do |sum: nil|
+  it '' do
+    within '#orders_price_sum' do
+      expect(page).to have_content "#{sum}円"
+    end
+  end
+end
+
+shared_examples '注文している人はcount人である' do |count: nil|
+  it '' do
+    within '#order_headcount' do
+      expect(page).to have_content "#{count}人"
+    end
+  end
+end
+
+shared_examples '１人あたりの送料はprice円' do |price: nil|
+  it '' do
+    within '#current_postage_dialog' do
+      expect(page).to have_content "#{price}円"
+    end
+  end
+end
+

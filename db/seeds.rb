@@ -62,6 +62,11 @@ def make_period!
   Period.new.set_one_week_term_include_now!
 end
 
+def make_postage!
+  Postage.create!(border: 4000, cost: 450)
+end
+
 make_items!
 make_users!
 make_period!
+make_postage!

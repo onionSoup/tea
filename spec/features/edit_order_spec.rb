@@ -26,7 +26,12 @@ feature '既存の注文を修正する'do
 
   scenario '既存の注文明細がある場合、注文画面にいくと明細と合計金額が見れる' do
     expect(page).to exist_in_table 'herb_tea'
-    expect(page.find(:css, '#detail_sum_yen').text).to eq '200円' #これのためfixturesを使わない
+    #expect(page.find(:css, '#detail_sum_yen').text).to eq '200円'
+
+    #TODO ユーザー目線でできるように考える。
+    postage = page.find('#postage').text.match(/\d+/).to_s.to_i
+    sum     = page.find(:css, '#detail_sum_yen').text.match(/\d+/).to_s.to_i
+    expect(sum - postage).to eq 200
   end
 
   context 'さらに別のお茶を注文する場合' do
@@ -87,6 +92,8 @@ feature '既存の注文を修正する'do
       create_user_and_login_as 'Bob'
     end
 
+    #TODO これは仕様が変わって見れなくなった。送料込の金額と送料しか見れない。
+    #TODO ユーザー目線では400は直接は見えない。しかしこれをテストしたい。（送料は面倒なので）
     scenario 'Bobが注文を追加した場合も、注文済み商品の合計金額が見れる' do
       choose_item_and_quantity 'red_tea', 3
       click_button '追加する'
@@ -94,7 +101,9 @@ feature '既存の注文を修正する'do
       choose_item_and_quantity 'herb_tea', 1
       click_button '追加する'
 
-      expect(page.find(:css, '#detail_sum_yen').text).to eq '400円'
+      postage = page.find('#postage').text.match(/\d+/).to_s.to_i
+      sum     = page.find(:css, '#detail_sum_yen').text.match(/\d+/).to_s.to_i
+      expect(sum - postage).to eq 400
     end
   end
 end
