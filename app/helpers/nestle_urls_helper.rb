@@ -8,8 +8,8 @@ module NestleUrlsHelper
     link_to(link_text, URLS[:cost_page])
   end
 
-  def about_page_link
-    link_to('ネスレの通販ページ', URLS[:about_page])
+  def about_page_link(link_text: 'ネスレの通販ページ')
+    link_to(link_text, URLS[:about_page])
   end
 
 end

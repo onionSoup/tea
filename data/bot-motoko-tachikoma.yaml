@@ -1,7 +1,7 @@
 url:
   'https://github.com/onionSoup/tea.git'
 frequency:
-  "every 1.day, :at => '16:58 pm'"
+  "every 1.day, :at => '4:00 am'"
 type:
   'fork'
 language:
