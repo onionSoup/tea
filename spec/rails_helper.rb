@@ -31,7 +31,7 @@ RSpec.configure do |config|
     DatabaseRewinder.start
 
     Period.create!(begin_time: begin_time, end_time: end_time)
-    Postage.create!(cost: 450, border: 4000)
+    Postage.create!(cost: 450, border: 4000) if Postage.count == 0
   end
 
   config.after :each do

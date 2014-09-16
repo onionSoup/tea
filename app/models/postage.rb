@@ -42,7 +42,7 @@ class Postage < ActiveRecord::Base
     end
 
     def free?
-      Order.price_sum > take.border
+      Order.price_sum >= take.border
     end
   end
 end
