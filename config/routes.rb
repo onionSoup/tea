@@ -25,8 +25,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resource  :postage, only: %i(show update)
-    resource  :period,  only: %i(show edit update destroy)
+    resource  :dashboard, only: %i(show)
+    resource  :postage,   only: %i(show update)
+    resource  :period,    only: %i(show edit update destroy)
     resources :items
     resources :users do
       resources :order_details, only: %i(index create destroy)

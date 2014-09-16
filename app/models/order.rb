@@ -11,6 +11,7 @@
 
 class Order < ActiveRecord::Base
   include Status
+  extend  AdminStatus
 
   MAX_COUNT_OF_DETAILS = 25
 
