@@ -2,7 +2,7 @@
   <%= render 'application/admin_side_nav' %>
   <div>
     <div id="admin_first_content">
-      <h2 class="main_content_caption">注文の状況: <%= admin_position_explain[:title] %></h2>
+      <h2 class="main_content_caption" id="order_state_bar_title">注文の状況: <%= admin_position_explain[:title] %></h2>
       <div class="main_content">
       <p><%= raw admin_position_explain[:paragraph] %></p>
       <%= render 'admin_state_bar' %>

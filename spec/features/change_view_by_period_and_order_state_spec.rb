@@ -2,10 +2,6 @@
 feature '注文画面ページ' do
   feature '注文状態と注文期間によって、表示を適切に変える' do
     fixtures :items
-
-    let(:header) {page.find('header')}
-    let(:nav)    {page.find('nav')}
-
     let!(:alice) { create(:user, name: 'Alice') }
 
     before do
