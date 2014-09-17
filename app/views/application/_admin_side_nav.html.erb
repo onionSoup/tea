@@ -1,14 +1,46 @@
 <nav id="admin_side_nav">
   <h2>管理者用トピック</h2>
-  <ul>
-    <li><%= link_to 'ダッシュボード',     admin_dashboard_path %></li>
-    <li><%= link_to 'ネスレ入力用ページ', registered_path %></li>
-    <li><%= link_to '発送待ち商品の確認', ordered_path %></li>
-    <li><%= link_to '引換用ページ',      arrived_path %></li>
-    <li><%= link_to '引換済み商品の確認', exchanged_path %></li>
-    <li><%= link_to '商品の管理',        admin_items_path %></li>
-    <li><%= link_to 'ユーザーの管理',    admin_users_path %></li>
-    <li><%= link_to '注文期間の設定',    admin_period_path %></li>
-    <li><%= link_to '送料の設定',        admin_postage_path %></li>
+  <ul id="menu">
+    <li class="include_ul">ダッシュボート
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to 'ダッシュボード',     admin_dashboard_path %></li>
+     </ul>
+   </li>
+    <li class="include_ul">注文の管理
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to 'ネスレ入力用ページ', registered_path %></li>
+        <li><%= link_to '発送待ち商品の確認', ordered_path %></li>
+        <li><%= link_to '引換用ページ',      arrived_path %></li>
+        <li><%= link_to '引換済み商品の確認', exchanged_path %></li>
+      </ul>
+    </li>
+    <li class="include_ul">商品の管理
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to '商品の管理',        admin_items_path %></li>
+        <li><%= link_to '商品の作成',         new_admin_item_path %></li>
+      </ul>
+    </li>
+    <li class="include_ul">ユーザーの管理
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to 'ユーザーの管理',    admin_users_path %></li>
+        <li><%= link_to 'ユーザーの作成',    new_admin_user_path %></li>
+      </ul>
+    </li>
+    <li class="include_ul">注文期間の管理
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to '注文期間の設定',    admin_period_path %></li>
+      </ul>
+    </li>
+    <li class="include_ul">送料の管理
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to '送料の設定',        admin_postage_path %></li>
+      </ul>
+    </li>
   </ul>
 </nav>
