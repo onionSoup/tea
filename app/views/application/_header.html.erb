@@ -5,7 +5,7 @@
       <p id="greeting">こんにちは<%= logged_in_user_name %>さん</p>
       <% if logged_in?  %>
         <p><%= link_to 'ログアウト', logout_path, method: :delete %></p>
-        <%= render 'header_admin_link' %>
+        <%= render 'admin_or_user_link' %>
       <% else %>
         <p><%= link_to 'ログイン', login_path %>すれば、お茶の注文ができます。</p>
       <% end %>
