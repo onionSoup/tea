@@ -6,4 +6,9 @@ module AdminItemsHelper
       '本当に削除してもよろしいですか？'
     end
   end
+
+  def item_order_options(items)
+    options_of_items   = items.map.with_index {|item, i| ["#{item.name}の前", i]}
+    options_with_blank = options_of_items.push(['一番最後', items.length])
+  end
 end

@@ -1,6 +1,6 @@
 class RegisteredsController < ApplicationController
   def show
-    @registereds = Order.registered.select_name_and_price_and_sum_of_quantity
+    @registereds = Order.registered.select_name_and_price_and_sum_of_quantity.order('nestle_index_from_the_top')
 
     @users = User.includes(order: {order_details: :item})
                  .order_in_state_of('registered')

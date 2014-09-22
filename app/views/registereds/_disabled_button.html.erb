@@ -1,4 +1,4 @@
-<p id="p_for_register_to_order_button">お茶注文情報は以上のとおりです。<br>注文期間が終了する<%= l(Period.singleton_instance.end_time) %>以降に<%= about_page_link %>で注文してください。</p>
+<p id="p_for_register_to_order_button">お茶注文情報は以上のとおりです。<br>注文期間が終了する<%= l(Period.singleton_instance.end_time + 1.days) %>以降に<%= about_page_link %>で注文してください。</p>
 <p>注文期間の終了後にボタンを押せます。<br>ボタンを押すことで注文が終わったことをシステムに登録できます。</p>
 <%= form_for :order, url: order_registered_path, method: :post do |f| %>
   <%= f.submit '注文の完了をシステムに登録',
