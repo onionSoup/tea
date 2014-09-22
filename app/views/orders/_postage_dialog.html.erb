@@ -7,7 +7,9 @@
   <h3 class='dialog_subtitle'>送料の計算方法</h3>
   <p>ネスレの請求送料 ÷ 注文ユーザー数<br>です。</p>
   <h3 class='dialog_subtitle' id='current_postage_dialog'>現在の送料: <%= Postage.cost_per_person_concern_free %>円</h3>
-  <% unless Period.has_undefined_times? %>
+  <% if Period.has_undefined_times? %>
+    <p>なお、注文期間未設定のため、送料は考慮する必要がありません。</p>
+  <% else %>
     <% if Postage.free? %>
       送料は0円です。<br>注文しているユーザーが<span id='order_headcount'><%= Order.count_of_non_empty_order %>人</span>いて、注文合計金額が<span id='orders_price_sum'><%= Order.price_sum %>円</span>のためです。</p>
     <% else %>

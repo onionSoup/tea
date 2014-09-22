@@ -1,7 +1,7 @@
 url:
-  'https://github.com/sanemat/bot-motoko-tachikoma.git'
+  'https://github.com/onionSoup/tea.git'
 frequency:
-  "every 1.day, :at => '2:12 pm'"
+  "every 1.day, :at => '4:00 am'"
 type:
   'fork'
 language:

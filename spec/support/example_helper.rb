@@ -54,6 +54,10 @@ module ExampleHelper
 
     click_link '管理者用'
 
+    within '#admin_side_nav' do
+      click_link 'ネスレ入力用ページ'
+    end
+
     click_button '注文の完了をシステムに登録'
 
     click_button 'お茶の受領をシステムに登録'
