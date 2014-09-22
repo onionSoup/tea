@@ -45,4 +45,53 @@ describe Period do
       end
     end
   end
+
+  describe '.end_time_is_tomorrow_or_later?' do
+    subject { Period.end_time_is_tomorrow_or_later?(Period.take.end_time) }
+
+    context 'end_timeがJSTで昨日の終わりの時' do
+      before do
+        Period.singleton_instance.update_attributes!(
+          begin_time: Time.zone.now.days_ago(2).in_time_zone('Tokyo').at_beginning_of_day,
+          end_time:   Time.zone.now.days_ago(1).in_time_zone('Tokyo').at_end_of_day
+          )
+      end
+      it do
+        should be false
+      end
+    end
+    context 'end_timeがJSTで今日の終わりの時' do
+      before do
+        Period.singleton_instance.update_attributes!(
+          begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+          end_time:   Time.zone.now.in_time_zone('Tokyo').at_end_of_day
+          )
+      end
+      it do
+        should be false
+      end
+    end
+    context 'end_timeがJSTで明日の終わりの時' do
+      before do
+        Period.singleton_instance.update_attributes!(
+          begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+          end_time:   Time.zone.now.tomorrow.in_time_zone('Tokyo').at_end_of_day
+          )
+      end
+      it do
+        should be true
+      end
+    end
+    context 'end_timeがJSTで明後日の終わりの時' do
+      before do
+        Period.singleton_instance.update_attributes!(
+          begin_time: Time.zone.now.in_time_zone('Tokyo').at_beginning_of_day,
+          end_time:   Time.zone.now.days_since(2).in_time_zone('Tokyo').at_end_of_day
+          )
+      end
+      it do
+        should be true
+      end
+    end
+  end
 end
