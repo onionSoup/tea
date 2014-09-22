@@ -2,8 +2,10 @@
 <span>（ダイアログが開きます）</span>
 <div id="dialog" title="詳細">
   <div id="period_dialog">
+    <h3>注文とは</h3>
+    <p>管理者にネスレから購入してほしいお茶を、ユーザーとして選択・選択の解除をすることです。<br>
     <h3>注文期間とは</h3>
-    <p>管理者がネスレから購入する予定のお茶をユーザーが自由に選択・削除できる期間のことです。<br>
+    <p>「注文」ができる期間のことです。<br>
     注文期間の開始日は、注文期限を設定した日が自動的に設定されます。</p>
     <h3>注文期限とは</h3>
     <p>注文期間の終了日のことです。</p>
@@ -12,7 +14,7 @@
     <p><%=link_to '注文', order_path %><br>
     <h4>#管理者として</h4>
     <ul>
-      <li><%=link_to '注文期間の変更', admin_period_path %></li>
+      <li><%=link_to '注文期限の変更', admin_period_path %></li>
       <li><%=link_to '注文期間の終了', admin_period_path %>（やり直し不可）</li>
       <li><%=link_to 'ユーザーの注文変更', admin_users_path %></li>
       <li><%=link_to '商品の変更・削除', admin_items_path %></li>

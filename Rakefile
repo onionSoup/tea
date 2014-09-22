@@ -6,4 +6,4 @@ require File.expand_path('../config/application', __FILE__)
 Rails.application.load_tasks
 
 require 'bundler/setup'
-require 'tachikoma/tasks'
+require 'tachikoma/tasks' if Rails.env == 'development'
