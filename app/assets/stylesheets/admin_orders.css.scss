@@ -33,6 +33,7 @@ table.admin_order_table {
     background: #f9f9f9;
   }
   div.inner_table {
+    display: -webkit-flex;
     display: flex;
     justify-content: space-between;
   }
