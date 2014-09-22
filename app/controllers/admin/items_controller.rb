@@ -24,6 +24,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.update_attributes! item_params
 
+    flash[:success] = "#{@item.name}を変更しました。"
     redirect_to :admin_items
   rescue ActiveRecord::RecordInvalid => e
     render :edit
@@ -36,7 +37,7 @@ class Admin::ItemsController < ApplicationController
       Item.destroy @item
       flash[:success] = "#{@item.name}を削除しました。"
     else
-       flash[:error] = '注文期間中以外なので、削除できません。'
+       flash[:error] = '注文期間中以外なので削除できません。'
     end
 
     redirect_to :admin_items

@@ -27,7 +27,7 @@ feature '商品の削除' do
         click_link '削除'
       end
 
-      expect(page).to have_content '注文期間中以外なので、削除できません。'
+      expect(page).to have_content '注文期間中以外なので削除できません。'
       expect(page).to have_content 'herb_tea'
     end
 

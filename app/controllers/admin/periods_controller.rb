@@ -4,10 +4,6 @@ class Admin::PeriodsController < ApplicationController
     @end_time = @period.end_time ? @period.end_time.in_time_zone('Tokyo').to_date : Time.zone.now.in_time_zone('Tokyo').days_since(7)
   end
 
-  def edit
-    @period = Period.singleton_instance
-  end
-
   def update
     @period = Period.singleton_instance
     begin
@@ -40,10 +36,17 @@ class Admin::PeriodsController < ApplicationController
     redirect_to admin_period_path, flash: {success: '注文期間と注文情報を削除しました。'}
   end
 
+  def expire
+    binding.pry
+    Period.set_out_of_date_times!
+    redirect_to admin_period_path, flash: {success: '注文期間を終了させました。'}
+  rescue
+    redirect_to admin_period_path, flash: {error: '注文期間を終了できませんでした。'}
+  end
+
   private
 
   def period_params
     params.require(:date).permit(:year, :month, :day)
   end
 end
-
