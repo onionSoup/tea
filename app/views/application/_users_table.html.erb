@@ -1,14 +1,18 @@
-<div id="admin_flex_wrapping_table">
+<div id="admin_table_wrapping_box">
   <table class="admin_order_table users_table_in_admin_orders_pages">
     <tr>
       <th>お名前</th>
-      <th>合計支払い金額</th>
+      <th>商品代金合計</th>
+      <th>支払い金額（うち送料）</th>
       <th>商品内訳</th>
     </tr>
     <% users.each do |user| %>
       <tr class=<%= dom_id(user) %>>
         <td><%= label_tag dom_id(user), user.name %></td>
-        <td><%= user.order.order_details.price_sum  %></td>
+        <td><%= user.order.order_details.price_sum %>円</td>
+        <td><%= user.order.order_details.price_sum + Postage.cost_per_person_concern_free %>円
+          <span class="postage">(<%= Postage.cost_per_person_concern_free %>円）</span>
+        </td>
         <td>
           <% user.order.order_details.each do |detail| %>
             <div class="inner_table">

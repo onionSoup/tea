@@ -1,3 +1,10 @@
+//all
+#users_copy_text {
+  display: inline-block;
+  border: solid thin #dcdcdc;
+  border-radius: 8px;
+}
+
 //registereds#show,ordereds#show
 table.admin_order_table {
   border: thin solid #dcdcdc;
@@ -52,6 +59,26 @@ table.users_table_in_admin_orders_pages {
 #caption_on_users_table_in_admin {
   padding-top: 2em;
 }
+
+#order_notice_title {
+  margin-top: 2em;
+}
+
+.admin_orders_table_and_p_wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 3em;
+  p {
+    position: absolute;
+    right: 0;
+    margin-top: 1em;
+    border-bottom: solid thin #c8c8c8;
+  }
+  span#detail_sum_yen {
+    margin-left: 1.5em;
+  }
+}
+
 
 //arrived 今はtable.users_table_in_admin_orders_pagesと同じスタイル
 //でも本質的には違うものなので別にしておいたほうが良い。

@@ -1,7 +1,12 @@
 <nav id="admin_side_nav">
   <h2>管理者用トピック</h2>
   <ul id="menu">
-    <li><%= link_to 'ダッシュボード',     admin_dashboard_path %></li>
+    <li class="include_ul">ダッシュボート
+      <span class='arrow_icon'><%= icon('chevron-right') %></span>
+      <ul class='inner_ul'>
+        <li><%= link_to 'ダッシュボード',     admin_dashboard_path %></li>
+      </ul>
+    </li>
     <li class="include_ul">注文の管理
       <span class='arrow_icon'><%= icon('chevron-right') %></span>
       <ul class='inner_ul'>

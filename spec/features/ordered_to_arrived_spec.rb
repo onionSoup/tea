@@ -23,7 +23,11 @@ feature '発送待ち商品の確認' do
       visit '/orders/ordered'
 
       expect(page).to have_content 'herb_tea'
-      expect(page).to have_content '1000円' #これのためfixturesを使わない
+
+      postage = page.find('#postage').text.match(/\d+/).to_s.to_i
+      sum     = page.find(:css, '#detail_sum_yen').text.match(/\d+/).to_s.to_i
+      expect(sum - postage).to eq 1000
+      expect(page).to have_content 1000 + postage
     end
 
     scenario 'ページにアクセスすると、ユーザーごとの詳細が見れる' do

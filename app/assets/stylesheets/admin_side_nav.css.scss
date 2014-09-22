@@ -15,8 +15,8 @@ nav#admin_side_nav {
     margin: 0;
     padding: 0;
     li {
-      margin-left: 1em;
-      padding: 1em 1em 1em 0;
+      margin-left: 0;
+      padding: 1em;
       list-style: none;
       a {
         color: #007ab7;
@@ -27,13 +27,6 @@ nav#admin_side_nav {
         text-decoration: underline;
       }
     }
-/*
-    li:hover {
-      background: #ffffff;
-      border: thin solid #dcdcdc;
-      border-radius: 8px;
-    }
-*/
   }
   li.include_ul {
     position: relative;
@@ -42,7 +35,7 @@ nav#admin_side_nav {
       display: none;
       position: absolute;
       top:  0;
-      left: 11em;
+      left: 12em;
       width: 12em;
       background: #ffffff;
       border: solid thin #dcdcdc;
@@ -52,7 +45,8 @@ nav#admin_side_nav {
     ul#enabled_ul {
       display: block;
       padding: 0;
-
+      border: thin solid #dcdcdc;
+      border-radius: 8px;
       li {
         margin: 1em;
         padding: 0;
@@ -72,7 +66,6 @@ nav#admin_side_nav {
     margin-left: 1em;
   }
 }
-
 
 .ui-menu {
   width: 12em;

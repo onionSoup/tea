@@ -24,5 +24,11 @@
         <p>ユーザーが商品を注文に追加すると、ユーザーごとの詳細を見られるようになります。</p>
       <% end %>
     </div>
+    <% if @users.present? %>
+      <h2 class="main_content_caption" id="order_notice_title">ユーザーへの通知</h2>
+      <div class="admin_content_under_caption">
+        <%= render '/registereds/copy_user_order' %>
+      </div>
+    <% end %>
   </div>
 </div>
