@@ -53,6 +53,26 @@ table.users_table_in_admin_orders_pages {
   padding-top: 2em;
 }
 
+#order_notice_title {
+  margin-top: 2em;
+}
+
+.admin_orders_table_and_p_wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 3em;
+  p {
+    position: absolute;
+    right: 0;
+    margin-top: 1em;
+    border-bottom: solid thin #c8c8c8;
+  }
+  span#detail_sum_yen {
+    margin-left: 1.5em;
+  }
+}
+
+
 //arrived 今はtable.users_table_in_admin_orders_pagesと同じスタイル
 //でも本質的には違うものなので別にしておいたほうが良い。
 table.arrived_table {
