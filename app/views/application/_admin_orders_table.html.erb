@@ -1,17 +1,23 @@
-<div id="admin_flex_wrapping_table">
-  <table class="admin_order_table all_user_sum_table">
-    <tr>
-      <th>商品名</th>
-      <th>単価</th>
-      <th>合計数量</th>
-    </tr>
-    <% paticular_state_orders_grouped_by_item.each do |record| %>
-      <tr class=<%= "#{dom_id(Item.find_by(name: record.name))}" %>>
-        <td class="name"><%= record.name %></td>
-        <td class="price"><%= record.then_price %></td>
-        <td class="sum"><%= record.quantity %></td>
+<div id="admin_table_wrapping_box">
+  <div class="admin_orders_table_and_p_wrapper">
+    <table class="admin_order_table all_user_sum_table">
+      <tr>
+        <th>商品名</th>
+        <th>単価</th>
+        <th>合計数量</th>
       </tr>
-    <% end %>
-  </table>
-  <p id="payment" class="child-align-box">支払い金額:<%= @total_sum %>円</p>
+      <% paticular_state_orders_grouped_by_item.each do |record| %>
+        <tr class=<%= "#{dom_id(Item.find_by(name: record.name))}" %>>
+          <td class="name"><%= record.name %></td>
+          <td class="price"><%= record.then_price %></td>
+          <td class="sum"><%= record.quantity %></td>
+        </tr>
+      <% end %>
+    </table>
+    <p>
+      <span id='order_details_index_sum_jp'>合計</span>
+      <span id='detail_sum_yen'><%= @total_sum + Postage.cost_per_person_concern_free %>円</span>
+      <span id='postage'>(送料<%= Postage.cost_per_person_concern_free %>円込)</span>
+    </p>
+  </div>
 </div>
