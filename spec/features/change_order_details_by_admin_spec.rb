@@ -4,8 +4,6 @@ feature '管理者ページからユーザーの注文を変更する' do
   let!(:alice) { create(:user, name: 'Alice') }
 
   background do
-    wait_untill_period_become_out_of_date
-
     alice.order.update_attributes!(
       order_details: [build(:order_detail, item: items(:herb_tea))]
     )
@@ -15,7 +13,7 @@ feature '管理者ページからユーザーの注文を変更する' do
     visit 'admin/users'
   end
 
-  context 'ネスレに発注する前に、編集ページに来た時' do
+  context '注文期間中に編集ページに来た時' do
     background do
       within ".#{ActionView::RecordIdentifier.dom_id(alice)}" do
         click_link '編集'
@@ -54,9 +52,9 @@ feature '管理者ページからユーザーの注文を変更する' do
     end
   end
 
-  context 'ネスレに発注した後で、編集ページに来た時' do
+  context '注文期間外に編集ページに来た時' do
     background do
-      alice.order.update_attributes! state: 'ordered'
+      wait_untill_period_become_out_of_date
 
       within ".#{ActionView::RecordIdentifier.dom_id(alice)}" do
         click_link '編集'
@@ -70,7 +68,30 @@ feature '管理者ページからユーザーの注文を変更する' do
     scenario 'URL直打ち、ブックマークからも、注文の変更はできない' do
       visit "/admin/users/#{alice.id}/order_details"
 
-      expect(page).to have_content '既にネスレに発注しているため、変更できません。'
+      expect(page).not_to have_link '削除'
+      expect(page).not_to have_button '追加する'
+    end
+  end
+  context '注文期間未設定の時編集ページに来た時' do
+    background do
+      alice.order.order_details.each do |detail|
+        OrderDetail.destroy detail
+      end
+
+      Period.set_undefined_times!
+
+      within ".#{ActionView::RecordIdentifier.dom_id(alice)}" do
+        click_link '編集'
+      end
+    end
+
+    scenario '注文変更ページへのリンクがない' do
+      expect(page).not_to have_link '注文変更ページ'
+    end
+
+    scenario 'URL直打ち、ブックマークからも、注文の変更はできない' do
+      visit "/admin/users/#{alice.id}/order_details"
+
       expect(page).not_to have_link '削除'
       expect(page).not_to have_button '追加する'
     end

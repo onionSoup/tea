@@ -1,6 +1,6 @@
 class Admin::ItemsController < ApplicationController
   def index
-    @items = Item.order(:id)
+    @items = Item.includes(:order_details).order(:id)
   end
 
   def new
@@ -32,10 +32,11 @@ class Admin::ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
 
-    if @item.order_details.any?
-      flash[:error] = 'この商品を使った注文情報があるので、削除できません。'
-    else
+    if @item.can_destroy?
       Item.destroy @item
+      flash[:success] = "#{@item.name}を削除しました。"
+    else
+       flash[:error] = '注文期間中以外なので、削除できません。'
     end
 
     redirect_to :admin_items

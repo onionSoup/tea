@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resource  :order,         only: %i(show update)
   resources :order_details, only: %i(destroy)
   resources :sessions,      only: %i(create)
-  resources :users,         only: %i(new create)
+  resources :users,         only: %i(new create edit update)
 
   match '/login',  to: 'sessions#new',     via: 'get'
   match '/logout', to: 'sessions#destroy', via: 'delete'

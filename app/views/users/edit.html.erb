@@ -1,0 +1,19 @@
+<%= render 'application/form_errors', {object: @user} %>
+<div class="general_user_flex">
+  <%= render 'application/general_user_side_nav' %>
+  <div>
+    <%= form_for @user do |user| %>
+      <div id="admin_first_content">
+        <h2 class="sub_title_in_admin_user_edit main_content_caption">
+          <!-- @userの更新失敗時に、失敗時の名前ではなくDBに入っている名前で出すための@user_name_in_db -->
+          <%= @user_name_in_db || @user.name %>さんのユーザー名変更
+        </h2>
+        <div class="contents_box_in_admin_user_edit">
+          <%= user.label :name, 'ユーザー名' %>
+          <%= user.text_field :name %>
+          <%= user.submit '変更する' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<p>ユーザーに引換ができることを通知する場合<br>
+以下の文章をidobataに貼り付けることで簡単に確認がとれます。</p>
+<div id="users_copy_text">
+  <div id="fe_text" name="fe_text">
+<!--コピーがインデントを認識するため、インデントを詰めている -->
+<p>お茶が届きました。引換ができます。<br>
+<% @users.each do |user| %>
+  <span class='copy_zone_user_name'><%= raw "@#{user.name}さん<br>" %></span>
+  <% user.order.order_details.each do |detail| %>
+   <%= raw("#{detail.item.name}が#{detail.quantity}個<br>")%>
+  <% end %>
+  合計<%= raw(
+  "#{user.order.order_details.price_sum + Postage.cost_per_person_concern_free}円（注文#{user.order.order_details.price_sum}円+送料#{Postage.cost_per_person_concern_free}円）です。<br>"
+  )%>
+<% end %>
+</p>
+<!--コピーがインデントを認識するため、インデントを詰めている -->
+  </div>
+</div>
+<div id="copy_tooltip_wraper">
+  <button data-clipboard-target='fe_text' id='d_clip_button'>
+    copy
+  </button>
+  <div class="copy_tooltip">クリップボードにコピーできます。
+  </div>
+</div>

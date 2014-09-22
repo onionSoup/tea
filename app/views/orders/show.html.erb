@@ -7,18 +7,6 @@
       <p><%= raw user_position_explain(@order)[:paragraph] %></p>
       <%= render 'order_state_bar' , order: @order %>
 
-      <!-- 注文期限の確認 -->
-      <% case Period.state %>
-      <% when :include_now %>
-        <%= render 'orders/periods/include_now_notice' %>
-      <% when :out_of_date %>
-        <%= render 'orders/periods/out_of_date_notice' %>
-      <% when :has_undefined_times %>
-        <%= render 'orders/periods/undefined_notice' %>
-      <% else %>
-        <% raise 'invlaid period' %>
-      <% end %>
-
       <!-- 明細一覧の確認 -->
       <% if  @order.order_details.present? %>
         <%= render "orders/details/present" %>
@@ -38,6 +26,18 @@
         <% raise 'invlaid period' %>
       <% end %>
       <p>送料は<%= Postage.cost_per_person_concern_free %>円です。<%= render 'postage_dialog' %></p>
+
+      <!-- 注文期限の確認 -->
+      <% case Period.state %>
+      <% when :include_now %>
+        <%= render 'orders/periods/include_now_notice' %>
+      <% when :out_of_date %>
+        <%= render 'orders/periods/out_of_date_notice' %>
+      <% when :has_undefined_times %>
+        <%= render 'orders/periods/undefined_notice' %>
+      <% else %>
+        <% raise 'invlaid period' %>
+      <% end %>
     </div>
   </div>
 </div>
