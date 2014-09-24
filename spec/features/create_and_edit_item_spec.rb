@@ -2,6 +2,7 @@ feature '商品の管理' do
   fixtures :items
 
   background do
+    create_user_and_login_as 'Alice'
     visit '/orders/registered'
 
     click_link '商品の管理'

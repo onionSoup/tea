@@ -1,4 +1,7 @@
 class Admin::PeriodsController < ApplicationController
+  include Login
+  before_action :need_logged_in
+
   def show
     @period   = Period.singleton_instance
     @end_time = @period.end_time ? @period.end_time.in_time_zone('Tokyo').to_date : Time.zone.now.in_time_zone('Tokyo').days_since(7)

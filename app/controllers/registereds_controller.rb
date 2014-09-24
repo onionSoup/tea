@@ -1,4 +1,7 @@
 class RegisteredsController < ApplicationController
+  include Login
+  before_action :need_logged_in
+
   def show
     @registereds = Order.registered.select_name_and_price_and_sum_of_quantity.order('nestle_index_from_the_top')
 

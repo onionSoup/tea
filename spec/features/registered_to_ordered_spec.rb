@@ -12,7 +12,7 @@ feature 'ネスレ入力用ページ' do
           build(:order_detail, item: red_tea, quantity: 9)
         ]
       )
-
+      login_as 'Alice'
       visit '/orders/registered'
     end
 

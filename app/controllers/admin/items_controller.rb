@@ -1,4 +1,7 @@
 class Admin::ItemsController < ApplicationController
+  include Login
+  before_action :need_logged_in
+
   def index
     @items = Item.includes(:order_details).order(:nestle_index_from_the_top)
   end
