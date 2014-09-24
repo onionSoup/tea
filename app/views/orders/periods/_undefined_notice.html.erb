@@ -6,8 +6,8 @@
   <!-- textare の仕様上行頭の空白を認識されてしまうので、インデントができない。-->
   <%= text_area_tag(
 'fe_text',
-'@onionSoup
-お茶を注文したいので注文期間を設定してください。',
+"@#{User.latest_admin_user.try(:name) || '@onionSoup'}
+お茶を注文したいので注文期間を設定してください。",
 rows: 5, cols: 40
   ) %>
 <div id="copy_tooltip_wraper">

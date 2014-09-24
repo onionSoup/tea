@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     resource  :period,    only: %i(show update destroy) do
       post :expire
     end
+    resource  :setting,   only: %i(show update)
+
     resources :items
     resources :users do
       resources :order_details, only: %i(index create destroy)

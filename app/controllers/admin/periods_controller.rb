@@ -37,7 +37,6 @@ class Admin::PeriodsController < ApplicationController
   end
 
   def expire
-    binding.pry
     Period.set_out_of_date_times!
     redirect_to admin_period_path, flash: {success: '注文期間を終了させました。'}
   rescue

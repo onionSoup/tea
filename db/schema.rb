@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20140912042437) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"
+    t.boolean  "admin",         default: false
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree

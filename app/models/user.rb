@@ -27,12 +27,21 @@ class User < ActiveRecord::Base
     where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
   }
 
+  #latest_updated_admin_userだとviewのなかで意図が取りづらくなるので。
+  scope :latest_admin_user, -> {
+    User.where(admin: true).order('updated_at').last
+  }
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def admin?
+    admin == true
   end
 
   private

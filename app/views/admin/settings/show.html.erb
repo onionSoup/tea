@@ -1,0 +1,40 @@
+<div id="admin_flex_box">
+  <%= render 'application/admin_side_nav' %>
+  <div>
+    <div id="admin_first_content">
+      <h2 class="main_content_caption">管理者かどうか確認</h2>
+      <div class="main_content">
+        <% if current_user.admin? %>
+          <p>現在<%= current_user.name %>さんは管理者です。<br>
+          このページで<%= current_user.name %>さんは管理者であることをやめることができます。
+          </p>
+        <% else %>
+          <p>現在<%= current_user.name %>さんは管理者ではありません。<br>
+          このページで<%= current_user.name %>さんは管理者になることができます。
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <div id="admin_first_content">
+      <h2 class="main_content_caption">管理者設定の変更</h2>
+      <div class="main_content">
+        <%= form_tag(admin_setting_path, method: :put) do %>
+        <%= label_tag 'setting[admin]', '設定：' %>
+          <%= select_tag(
+             'setting[admin]',
+             options_for_select([['管理者に設定', 1],['非管理者に設定', 0]], {selected: current_user.admin? ? '0': '1', disabled: current_user.admin? ? '1': '0'})
+          ) %>
+          <%= submit_tag '保存' %>
+        <% end %>
+      </div>
+    </div>
+    <div id="admin_first_content">
+      <h2 class="main_content_caption">管理者の説明</h2>
+      <div class="main_content">
+        <p>現在、非管理者でも<%= link_to '管理者用ページ', admin_dashboard_path %>にアクセスできる仕様です。<br>
+        現時点では、管理者の設定に意味はほとんどありません。<br>
+        （管理者への通知を出力する場所で一部使用しているのみです。)</p>
+      </div>
+    </div>
+  </div>
+</div>
