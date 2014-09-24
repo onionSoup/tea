@@ -27,9 +27,12 @@ class User < ActiveRecord::Base
     where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
   }
 
-  #latest_updated_admin_userだとviewのなかで意図が取りづらくなるので。
-  scope :latest_admin_user, -> {
-    User.where(admin: true).order('updated_at').last
+  scope :latest_admin_user_name ,-> {
+    begin
+      User.where(admin: true).order('updated_at').last.name
+    rescue NoMethodError
+      User.none         #nilにするとself.allが返ってしまうっぽい。そこでActiveRecord::Relationの[]を返す。
+    end
   }
 
   def User.new_remember_token

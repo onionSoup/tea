@@ -6,7 +6,7 @@
   <!-- textare の仕様上行頭の空白を認識されてしまうので、インデントができない。-->
   <%= text_area_tag(
 'fe_text',
-"@#{User.latest_admin_user.try(:name) || '@onionSoup'}
+"@#{User.latest_admin_user_name.presence || 'onionSoup'}
 お茶を注文したいので注文期間を設定してください。",
 rows: 5, cols: 40
   ) %>

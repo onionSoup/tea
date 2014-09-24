@@ -10,7 +10,7 @@ class Admin::SettingsController < ApplicationController
 
     current_user.update_attributes! setting_params
 
-    redirect_to admin_setting_path, flash: {success: "#{current_user.name}さんの管理者設定を指定しました。"}
+    redirect_to admin_setting_path, flash: {success: "#{current_user.name}さんの管理者設定を変更しました。"}
   end
 
   private
