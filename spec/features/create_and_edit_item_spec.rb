@@ -1,6 +1,6 @@
 feature '商品の管理' do
   fixtures :items
-  
+
   background do
     visit '/orders/registered'
 
@@ -12,8 +12,9 @@ feature '商品の管理' do
       click_link '編集'
     end
 
-    fill_in '商品名', with: 'new_tea'
-    fill_in '価格', with: '125'
+    fill_in '商品名',  with: 'new_tea'
+    fill_in '価格',    with: '125'
+    select '一番最後', from: '並び順'
 
     click_button '保存する'
 
@@ -24,8 +25,9 @@ feature '商品の管理' do
   scenario '新商品登録リンクを押せば、NameとPriceを入力して商品を作れる' do
     click_link '新商品登録ページ'
 
-    fill_in '商品名', with: 'new_tea'
-    fill_in '価格', with: '1255'
+    fill_in '商品名',  with: 'new_tea'
+    fill_in '価格',    with: '1255'
+    select '一番最後', from: '並び順'
 
     click_button '保存する'
 

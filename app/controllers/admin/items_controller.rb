@@ -4,16 +4,18 @@ class Admin::ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
+    @item  = Item.new
     @items = Item.all.order(:nestle_index_from_the_top)
   end
 
   def create
-    @items = Item.all.order(:nestle_index_from_the_top)
+    displace_posteriorly! item_params[:nestle_index_from_the_top]
+
     @item = Item.create!(item_params)
 
-    displace_anteriorly! item_params[:nestle_index_from_the_top]
     be_non_negative_integer!
+
+
 
     redirect_to :admin_items, flash: {success: "#{@item.name}を追加登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
@@ -27,11 +29,11 @@ class Admin::ItemsController < ApplicationController
   end
 
   def update
-    @items = Item.all.order(:nestle_index_from_the_top)
+    displace_posteriorly! item_params[:nestle_index_from_the_top]
+
     @item = Item.find(params[:id])
     @item.update_attributes! item_params
 
-    displace_anteriorly! item_params[:nestle_index_from_the_top]
     be_non_negative_integer!
 
     flash[:success] = "#{@item.name}を変更しました。"
@@ -42,8 +44,8 @@ class Admin::ItemsController < ApplicationController
   end
 
   def destroy
-    @items = Item.all.order(:nestle_index_from_the_top)
     @item = Item.find(params[:id])
+    @items = Item.all.order(:nestle_index_from_the_top)
 
     if @item.can_destroy?
       Item.destroy @item
@@ -63,19 +65,23 @@ class Admin::ItemsController < ApplicationController
     params.require(:item).permit(:name, :price, :nestle_index_from_the_top)
   end
 
-  #挿入する位置にあるか、挿入位置より前にあるものを１つずつ前にずらす
-  def displace_anteriorly!(params_inserted_index)
+  #挿入位置にあるか、挿入位置より後ろにあるものを１つずつ後ろにずらす
+  def displace_posteriorly!(params_inserted_index)
+    items_before_insert = Item.all.order(:nestle_index_from_the_top)
+
     inserted_index = params_inserted_index.to_s.to_i
 
-    @items.select {|item| item.nestle_index_from_the_top <= inserted_index}.
-        reverse_each.with_index do |item, i|
-          item.update_attributes! nestle_index_from_the_top: (item.nestle_index_from_the_top - 1 -i)
-        end
+    items_before_insert.select {|item| item.nestle_index_from_the_top >= inserted_index}.
+      each do |target_item|
+        target_item.update_attributes!(nestle_index_from_the_top: (target_item.nestle_index_from_the_top + 1))
+      end
   end
 
-  #0 1 2 になるように並び替える
+  #0 1 2.. になるように並び替える
   def be_non_negative_integer!
-    @items.each_with_index do |item, i|
+    items_after_insert = Item.all.order(:nestle_index_from_the_top)
+
+    items_after_insert.each_with_index do |item, i|
       item.update_attributes! nestle_index_from_the_top: i
     end
   end

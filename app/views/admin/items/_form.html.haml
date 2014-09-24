@@ -9,7 +9,7 @@
   = f.label :price, '価格'
   = f.number_field :price
 
-  = f.label :nestle_index_from_the_top, 'ネスレでの並び順'
+  = f.label :nestle_index_from_the_top, '並び順'
   = f.select(:nestle_index_from_the_top, options_for_select(item_order_options(@items), {selected: @items.length.to_s}))
 
   = f.submit '保存する'
