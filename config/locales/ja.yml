@@ -73,6 +73,7 @@ ja:
         item:
           blank:        '%{attribute}が入力されていません。'
           not_a_number: '%{attribute}は数字を入力してください。'
+          too_long:     '%{attribute}が長すぎます。'
           attributes:
             name:
               taken: 同じ名前の商品が既にあります。

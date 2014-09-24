@@ -15,11 +15,10 @@ class Admin::ItemsController < ApplicationController
 
     be_non_negative_integer!
 
-
-
     redirect_to :admin_items, flash: {success: "#{@item.name}を追加登録しました。"}
   rescue ActiveRecord::RecordInvalid => e
     @item = e.record
+    @items = Item.all.order(:nestle_index_from_the_top)
     render :new
   end
 
@@ -40,6 +39,7 @@ class Admin::ItemsController < ApplicationController
     redirect_to :admin_items
   rescue ActiveRecord::RecordInvalid => e
     @item = e.record
+    @items = Item.all.order(:nestle_index_from_the_top)
     render :edit
   end
 
