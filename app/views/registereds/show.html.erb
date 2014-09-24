@@ -9,9 +9,8 @@
                      {paticular_state_orders_grouped_by_item: @registereds} %>
           <%= render Period.include_now? ? 'disabled_button' : 'enabled_button' %>
         <% else %>
-          <p>ユーザーが商品を注文に追加すると、商品ごとの発注数量と金額の一覧表が見れるようになります。</p>
-          <p>その一覧表を元に<%= about_page_link %>で注文ができます。</p>
-          <p>一覧表がある場合、ネスレに発注したことをこのシステムに登録することができます。</p>
+          <%= render 'application/admin_orders_empty_table' %>
+          <%= render 'disabled_button_when_empty' %>
         <% end %>
       </div>
     </div>

@@ -17,8 +17,8 @@
                          data: {confirm: 'お茶の受領を登録してもよろしいですか？'} %>
           <% end %>
         <% else %>
-          <p>ネスレに発注し、ネスレからの発送を待っている商品がある場合、ここに表示されます。</p>
-          <p>システムにお茶の受領を登録することもできるようになります。<p>
+          <%= render 'application/admin_orders_empty_table' %>
+          <%= render 'disabled_button_when_empty' %>
         <% end %>
       </div>
     </div>
