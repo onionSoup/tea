@@ -21,7 +21,7 @@ feature '商品を指定した順番に並べる' do
   background do
     create_user_and_login_as 'Alice'
     click_link '管理者用'
-    click_link '商品の管理'
+    click_link '商品の編集・削除'
   end
 
   context '商品一覧を見るとき' do

@@ -43,7 +43,7 @@ feature '商品の削除' do
       choose_date(days_since: 1)
       click_button '注文期限の設定'
 
-      click_link '商品の管理'
+      click_link '商品の編集・削除'
 
       within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
         click_link '削除'

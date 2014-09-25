@@ -5,7 +5,7 @@ feature '商品の管理' do
     create_user_and_login_as 'Alice'
     visit '/orders/registered'
 
-    click_link '商品の管理'
+    click_link '商品の編集・削除'
   end
 
   scenario '編集リンクを押せば、既存の商品の名前と価格の変更ができる' do
