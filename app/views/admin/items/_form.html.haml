@@ -1,8 +1,4 @@
 #admin_item_form
-  %ul
-    - @item.errors.full_messages.each do |message|
-      %li= message
-
   = form_for [:admin, @item] do |f|
     .item_input_controll
       = f.label :name, '商品名'
