@@ -2,7 +2,7 @@
 feature '注文期限を確認、指定、削除する' do
   fixtures :items
   background do
-    create_user_and_login_as 'Dace'
+    create_user_and_login_as 'Dave'
 
     Period.singleton_instance.destroy
     visit '/admin/period'

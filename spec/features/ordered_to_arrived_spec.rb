@@ -50,9 +50,33 @@ feature '発送待ち商品の確認' do
     end
   end
 
-  scenario 'ネスレの発送を待っているお茶がないとき、ボタンが表示されない。' do
-    visit '/orders/ordered'
+  context '何も注文されてない時' do
+    background do
+      create_user_and_login_as 'Alice'
 
-    expect(page).not_to have_button 'お茶の受領をシステムに登録'
+      wait_untill_period_become_out_of_date
+
+      visit '/orders/ordered'
+    end
+
+    scenario 'ボタンを押すことができない' do
+      expect(page).not_to have_button 'お茶の受領をシステムに登録'
+      expect(page).to     have_css    '[type=submit][disabled=disabled]'
+
+      disabled_text = find('[type=submit][disabled=disabled]').value
+      expect(disabled_text).to eq 'お茶の受領をシステムに登録'
+    end
+
+    scenario '該当するお茶がないことがわかる' do
+      within '.all_user_sum_table' do
+        expect(page).to have_content '該当するお茶がありません'
+      end
+    end
+
+    scenario '該当するユーザーがいないことがわかる' do
+      within '.users_table_in_admin_orders_pages' do
+        expect(page).to have_content '該当するユーザーがいません'
+      end
+    end
   end
 end

@@ -29,6 +29,13 @@ feature 'ネスレ入力用ページ' do
       expect(table_of_order_by_user).to have_content '1000'
     end
 
+    scenario 'ユーザーへの通知用フィールドに@付きのユーザー名と合計金額が表示されている' do
+      within '#fe_text' do
+        expect(page).to have_content '@Alice'
+        expect(page).to have_content '1000'
+      end
+    end
+
     context '注文期間中のとき' do
       background do
         raise 'Period must include_now' unless Period.include_now?
@@ -54,9 +61,36 @@ feature 'ネスレ入力用ページ' do
     end
   end
 
-  scenario '何も注文されていないとき、ボタンがページに表示されない。' do
-    visit '/orders/registered'
+  context '何も注文されてない時' do
+    background do
+      create_user_and_login_as 'Alice'
 
-    expect(page).not_to  have_button '注文の完了をシステムに登録'
+      visit '/orders/registered'
+    end
+
+    scenario 'ボタンを押すことができない' do
+      expect(page).not_to  have_button '注文の完了をシステムに登録'
+      expect(page).to      have_css '[type=submit][disabled=disabled]'
+
+      disabled_text = find('[type=submit][disabled=disabled]').value
+      expect(disabled_text).to eq '注文の完了をシステムに登録'
+    end
+
+    scenario '該当するお茶がないことがわかる' do
+      within '.all_user_sum_table' do
+        expect(page).to have_content '該当するお茶がありません'
+      end
+    end
+
+    scenario '該当するユーザーがいないことがわかる' do
+      within '.users_table_in_admin_orders_pages' do
+        expect(page).to have_content '該当するユーザーがいません'
+      end
+    end
+    scenario '通知用フィールドから該当するユーザーがいないことがわかる' do
+      within '#fe_text' do
+        expect(page).to have_content '該当するユーザーがいません'
+      end
+    end
   end
 end
