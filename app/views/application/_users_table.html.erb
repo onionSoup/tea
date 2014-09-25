@@ -9,8 +9,8 @@
     <% users.each do |user| %>
       <tr class=<%= dom_id(user) %>>
         <td><%= label_tag dom_id(user), user.name %></td>
-        <td><%= user.order.order_details.price_sum %>円</td>
-        <td><%= user.order.order_details.price_sum + Postage.cost_per_person_concern_free %>円
+        <td class='sum'><%= user.order.order_details.price_sum %>円</td>
+        <td class='sum'><%= user.order.order_details.price_sum + Postage.cost_per_person_concern_free %>円
           <span class="postage">(<%= Postage.cost_per_person_concern_free %>円）</span>
         </td>
         <td>

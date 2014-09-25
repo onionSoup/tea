@@ -70,7 +70,7 @@ table.users_table_in_admin_orders_pages {
 }
 
 #order_notice_title {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .admin_orders_table_and_p_wrapper {
@@ -103,4 +103,9 @@ table.arrived_table {
       background: #ececec;
     }
   }
+}
+
+//exchange
+p.explain_exchange_table {
+  margin-top: 2em;
 }

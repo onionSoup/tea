@@ -7,10 +7,10 @@
         <p>以下のお茶は、引換が終了しています。</p>
         <%= render 'application/users_table.html', {users: @users} %>
         <% if Period.can_destroy? %>
-          <p>すべてのユーザーとの引換が終了したため<%=link_to '注文期間の再設定', admin_period_path %>ができます。</br>
+          <p class='explain_exchange_table'>すべてのユーザーとの引換が終了したため<%=link_to '注文期間の再設定', admin_period_path %>ができます。</br>
           注文期間を再設定するとこのページの注文情報は空になります。</p>
         <% else %>
-          <p>すべてのユーザーの引換が終了すれば<%=link_to '注文期間の再設定', admin_period_path %>ができます。</p>
+          <p class='explain_exchange_table'>すべてのユーザーの引換が終了すれば<%=link_to '注文期間の再設定', admin_period_path %>ができます。</p>
         <% end %>
       <% else %>
         <p>引換をしていません。<br>
