@@ -13,8 +13,9 @@
           <p>すべてのユーザーの引換が終了すれば<%=link_to '注文期間の再設定', admin_period_path %>ができます。</p>
         <% end %>
       <% else %>
-        <p>引換をしていません。</p>
-        <p>引換を行い、<%= link_to 'システムに引換を登録した場合', arrived_path %>、引換情報を書いた表が表示されます。</p>
+        <p>引換をしていません。<br>
+        引換を行い、<%= link_to 'システムに引換を登録した場合', arrived_path %>、表に詳細が表示されます。</p>
+        <%= render 'application/empty_users_table.html' %>
       <% end %>
     </div>
   </div>

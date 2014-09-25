@@ -20,14 +20,13 @@
           <p>お茶が届き、<%= link_to 'システムに受領を登録した場合', ordered_path %>は<br>
           表でユーザーごとの詳細が確認できます。<br>
           この表を元に、お茶とお金の引換を行うことができます。</p>
-          <p>また、引換を行ったことをシステムに登録できます。</p>
           <%= form_tag exchange_arrived_path, method: :post do %>
             <%= render 'disabled_arriveds_table' %>
-            <p id="p_for_arrive_to_exchange_button">引換が終わったら以下のボタンを押してください。
-            引換が終了したことを、システムに登録します。</p>
+            <p id="p_for_arrive_to_exchange_button">お茶がある場合以下のボタンを押して<br>
+            引換を行ったことをシステムに登録できるようになります。</p>
             <%= submit_tag '引換の完了をシステムに登録',
-                           data: {confirm: '引換の完了を登録してもよろしいですか？'},
-                           disabeld: true %>
+                           {data: {confirm: '引換の完了を登録してもよろしいですか？'},
+                           disabled: 'disabled'} %>
           <% end %>
         <% end %>
       </div>

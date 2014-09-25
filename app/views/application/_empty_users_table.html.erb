@@ -1,23 +1,19 @@
 <div id="admin_table_wrapping_box">
-  <table class="admin_order_table arrived_table">
+  <table class="admin_order_table users_table_in_admin_orders_pages">
     <tr>
-      <th>引換完了チェック</th>
       <th>お名前</th>
+      <th>商品代金合計</th>
       <th>合計支払い金額</th>
       <th>商品内訳</th>
     </tr>
     <tr>
-      <td><%= check_box_tag 'order_ids[]',
-                            0,
-                            false,
-                            disabled: true %></td>
       <td>該当するユーザーがいません</td>
+      <td>0円</td>
       <td>0円</td>
       <td>
         <div class="inner_table">
             <div class="name">該当するお茶がありません</div>
         </div>
-      </td>
     </tr>
   </table>
 </div>

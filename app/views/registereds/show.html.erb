@@ -17,10 +17,11 @@
     <h2 id="caption_on_users_table_in_admin" class="main_content_caption">ユーザーごとの詳細</h2>
     <div class="admin_content_under_caption">
       <% if @users.present? %>
-        <p>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
+        <p class='p_about_users_table'>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
         <%= render 'application/users_table.html', {users: @users} %>
       <% else %>
-        <p>ユーザーが商品を注文に追加すると、ユーザーごとの詳細を見られるようになります。</p>
+        <p class='p_about_users_table'>ユーザーが商品を注文に追加すると、ユーザーごとの詳細を見られるようになります。</p>
+        <%= render 'application/empty_users_table.html' %>
       <% end %>
     </div>
     <% if @users.present? %>

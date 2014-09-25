@@ -25,12 +25,13 @@
     <h2 id="caption_on_users_table_in_admin" class="main_content_caption">ユーザごとの詳細</h2>
     <div class="admin_content_under_caption">
       <% if @users.present? %>
-        <p>注文した商品が発送待ち状態であるユーザーは以下のとおりです。</p>
+        <p class='p_about_users_table'>注文した商品が発送待ち状態であるユーザーは以下のとおりです。</p>
         <%= render 'application/users_table.html', {users: @users} %>
       <% else %>
-        <p>注文が発送待ち状態のユーザーはいません。<p>
-        <p><%= link_to 'ネスレに発注したことをシステムに登録する', registered_path %>と、発注待ちになります。</p>
-        <p>注文が発送待ち状態のユーザーがいる場合、このページで一覧表を見ることができます。<p>
+        <p class='p_about_users_table'>注文が発送待ち状態のユーザーはいません。<br>
+        <%= link_to 'ネスレに発注したことをシステムに登録する', registered_path %>と、発注待ちになります。</p>
+        <p>注文が発送待ち状態のユーザーがいる場合、表で詳細を見ることができます。</p>
+        <%= render 'application/empty_users_table.html' %>
       <% end %>
     </div>
   </div>
