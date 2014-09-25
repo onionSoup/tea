@@ -15,8 +15,11 @@
         <% if @period.out_of_date? %>
           <%= render 'destroy_old_period_unless_order' %>
         <% else %>
-          <p>注文期限を設定できます。</p>
-          <p>期限は、本日より後である必要があります。</p>
+          <p>注文期限を設定できます。<br>
+          期限は、本日より後である必要があります。</p>
+          <p>本日以前の注文期間を設定して注文期間を期限切れにしたい場合は<br>
+          注文期間の終了(<%= link_to 'ページ内リンク', '#fragment_id_of_end_period' %>)より行ってください。</p>
+
           <%= form_tag(admin_period_path, method: :put) do %>
             <!-- start_yeatの欄に１年前があるのは、１年後の期限を誤操作で指定した時のやり直し用。-->
             <p id="period_states_form_p">注文期限:
@@ -35,7 +38,7 @@
           <p><%= button_to '注文期間を削除する', {action: 'destroy'}, {disabled: true, method: :delete, data: :delete} %></p>
         <% end %>
       </div>
-      <h2 class="set_period_in_show main_content_caption">注文期間の終了</h2>
+      <h2 class="set_period_in_show main_content_caption" id='fragment_id_of_end_period'>注文期間の終了</h2>
       <div class="admin_periods_content">
         <p>注文期間中に限り、以下のボタンを押すことで注文期間を終了させることができます。<br>
         （注文期限が昨日までだったことになります。）</p>
