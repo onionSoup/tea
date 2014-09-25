@@ -6,6 +6,9 @@
       <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_explain(@order)[:title] %></h2>
       <p><%= raw user_position_explain(@order)[:paragraph] %></p>
       <%= render 'order_state_bar' , order: @order %>
+    <div id='order_dialog_wrapper'>
+      <%= render 'order_dialog' %>
+    </div>
 
       <!-- 明細一覧の確認 -->
       <% if  @order.order_details.present? %>
@@ -28,16 +31,21 @@
       <p>送料は<%= Postage.cost_per_person_concern_free %>円です。<%= render 'postage_dialog' %></p>
 
       <!-- 注文期限の確認 -->
-      <% case Period.state %>
-      <% when :include_now %>
-        <%= render 'orders/periods/include_now_notice' %>
-      <% when :out_of_date %>
-        <%= render 'orders/periods/out_of_date_notice' %>
-      <% when :has_undefined_times %>
-        <%= render 'orders/periods/undefined_notice' %>
-      <% else %>
-        <% raise 'invlaid period' %>
-      <% end %>
+      <div id='period_link_fragment_id'>
+        <% case Period.state %>
+        <% when :include_now %>
+          <%= render 'orders/periods/include_now_notice' %>
+        <% when :out_of_date %>
+          <%= render 'orders/periods/out_of_date_notice' %>
+        <% when :has_undefined_times %>
+          <%= render 'orders/periods/undefined_notice' %>
+        <% else %>
+          <% raise 'invlaid period' %>
+        <% end %>
+        <div id='period_dialog_wrapper'>
+          <%= render 'period_dialog' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
