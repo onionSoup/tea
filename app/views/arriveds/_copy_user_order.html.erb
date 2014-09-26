@@ -5,13 +5,13 @@
 <!--コピーがインデントを認識するため、インデントを詰めている -->
 <p>お茶が届きました。引換ができます。<br>
 <% @users.each do |user| %>
-  <span class='copy_zone_user_name'><%= raw "@#{user.name}さん<br>" %></span>
-  <% user.order.order_details.each do |detail| %>
-   <%= raw("#{detail.item.name}が#{detail.quantity}個<br>")%>
-  <% end %>
-  合計<%= raw(
-  "#{user.order.order_details.price_sum + Postage.cost_per_person_concern_free}円（注文#{user.order.order_details.price_sum}円+送料#{Postage.cost_per_person_concern_free}円）です。<br>"
-  )%>
+<span class='copy_zone_user_name'><%= raw "@#{user.name}さん<br>" %></span>
+<% user.order.order_details.each do |detail| %>
+ <%= raw("#{detail.item.name}が#{detail.quantity}個<br>")%>
+<% end %>
+合計<%= raw(
+"#{user.order.order_details.price_sum + Postage.cost_per_person_concern_free}円（注文#{user.order.order_details.price_sum}円+送料#{Postage.cost_per_person_concern_free}円）です。<br>"
+)%>
 <% end %>
 </p>
 <!--コピーがインデントを認識するため、インデントを詰めている -->
