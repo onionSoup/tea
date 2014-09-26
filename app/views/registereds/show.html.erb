@@ -20,7 +20,7 @@
         <p class='p_about_users_table'>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
         <%= render 'application/users_table.html', {users: @users} %>
       <% else %>
-        <p class='p_about_users_table'>ユーザーが商品を注文に追加すると、ユーザーごとの詳細を見られるようになります。</p>
+        <p class='p_about_users_table'>ユーザーが注文すると、ユーザーごとの詳細を見られるようになります。</p>
         <%= render 'application/empty_users_table.html' %>
       <% end %>
     </div>

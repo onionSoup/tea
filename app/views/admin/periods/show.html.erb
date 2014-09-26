@@ -19,7 +19,7 @@
           <p>注文期限を新規作成できます。<br>
           期限は、本日より後である必要があります。</p>
           <p>期限の作成前には<%= link_to 'ダッシュボート', admin_dashboard_path %>にある通り<br>
-          送料と商品がネスレとあっているか確認をしてください。</p>
+          <%= link_to '送料', admin_postage_path %>と<%= link_to '商品', admin_items_path %>がネスレのものとあっているか確認をしてください。</p>
           <%= render 'form' %>
         <% elsif @period.include_now? %>
           <p>注文期限を設定できます。<br>
