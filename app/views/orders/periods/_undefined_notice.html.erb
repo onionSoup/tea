@@ -1,7 +1,7 @@
 <h2 class="main_content_caption order_show_cap" >注文期間の状況: 未設定</h2>
-<p>注文期限が設定されていません。<br>
-<%= current_user.name %>さんがお茶を注文をするためには、管理者に依頼して注文期限を設定してもらうことが必要です。</p>
-<p>以下の文章をコピーしてidobataに貼り付けると、簡単に依頼ができます。</p>
+<p>注文期限が設定されていません。 <%= render 'period_dialog' %></p>
+<p><%= current_user.name %>さんがお茶を注文をするためには、管理者に依頼して注文期限を設定してもらうことが必要です。<br>
+以下の文章をコピーしてidobataに貼り付けると、簡単に依頼ができます。</p>
 <div id="request_to_set_period">
   <!-- textare の仕様上行頭の空白を認識されてしまうので、インデントができない。-->
   <%= text_area_tag(
