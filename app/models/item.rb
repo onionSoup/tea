@@ -20,6 +20,6 @@ class Item < ActiveRecord::Base
                     numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   def can_destroy?
-    Period.include_now?
+    Period.out_of_date?.!
   end
 end

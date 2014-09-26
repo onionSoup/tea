@@ -1,7 +1,7 @@
 <% if @period.include_now? %>
-  <p>注文期間は<%= l(@period.end_time) %>までです。</p>
+  <p>注文期間は<%= l(@period.end_time) %>までです。注文期間中の状態です。</p>
 <% elsif @period.out_of_date? %>
-  <p>注文期間は<%= l(@period.end_time) %>まででした。</p>
+  <p>注文期間は<%= l(@period.end_time) %>まででした。注文期間は期限切れの状態です。</p>
 <% else %>
   <p>注文期限が設定されていません。</p>
   <p>ユーザーが注文をするために、管理者が注文期限を設定することが必要です。</p>

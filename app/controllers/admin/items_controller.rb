@@ -56,7 +56,7 @@ class Admin::ItemsController < ApplicationController
 
       flash[:success] = "#{@item.name}を削除しました。"
     else
-       flash[:error] = '注文期間中以外なので削除できません。'
+      flash[:error] = '注文期間が期限切れのため、削除できません。'
     end
 
     redirect_to :admin_items

@@ -19,7 +19,6 @@ feature '商品の削除' do
   end
 
   context 'herb_teaを注文しているAliceがログインしている時'do
-
     include_context 'herb_teaを注文しているAliceとしてログイン'
     include_context '注文期間がすぎるまで待つ'
 
@@ -30,26 +29,44 @@ feature '商品の削除' do
         click_link '削除'
       end
 
-      expect(page).to have_content '注文期間中以外なので削除できません。'
+      within '#flash_error_p' do
+        expect(page).to have_content '削除できません。'
+      end
       expect(page).to have_content 'herb_tea'
     end
 
-    scenario '注文期間を再設定した後なら、herb_teaを削除できる。' do
-      #管理者用ページで注文の状態を更新していき、引換までする。
-      form_visiting_registered_to_exchanged_of alice
+    context '注文期間を削除した場合' do
+      background do
+        #管理者用ページで注文の状態を更新していき、引換までする。
+        form_visiting_registered_to_exchanged_of alice
 
-      visit '/admin/period'
-      click_button '注文期間を削除する'
-      choose_date(days_since: 1)
-      click_button '注文期限の設定'
-
-      click_link '商品の編集・削除'
-
-      within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
-        click_link '削除'
+        visit '/admin/period'
+        click_button '注文期間を削除する'
       end
+      scenario 'herb_teaを削除できる。' do
+        click_link '商品の編集・削除'
 
-      expect(page).to have_content 'herb_teaを削除しました。'
+        within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
+          click_link '削除'
+        end
+
+        expect(page).to have_content 'herb_teaを削除しました。'
+      end
+      context '注文期間を削除後、注文期間を再設定した場合' do
+        background do
+          choose_date(days_since: 1)
+          click_button '注文期限の設定'
+        end
+        scenario 'herb_teaを削除できる。' do
+          click_link '商品の編集・削除'
+
+          within ".#{ActionView::RecordIdentifier.dom_id(items(:herb_tea), :change)}" do
+            click_link '削除'
+          end
+
+          expect(page).to have_content 'herb_teaを削除しました。'
+        end
+      end
     end
   end
 end

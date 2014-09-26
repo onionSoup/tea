@@ -23,10 +23,12 @@
         <% if Period.include_now? %>
           <p><%= link_to '注文変更ページ', admin_user_order_details_path(@user) %>で可能です。</p>
           <p>ネスレの<%= shipping_cost_page_link %>を見て、送料無料の条件に注意しながら注文の変更を行ってください。</p>
-        <% else %>
+        <% elsif Period.out_of_date? %>
           <p>注文期間外のため、変更ができません。<br>
           変更した場合、代金を回収できなくなる可能性があるためです。</p>
           <p>変更が必要な場合は製作者にお問い合わせください。</p>
+        <% else %>
+          <p>注文期間未設定のため、変更できません。</p>
         <% end %>
       </div>
     </div>
