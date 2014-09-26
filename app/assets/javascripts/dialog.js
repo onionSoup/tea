@@ -23,4 +23,10 @@ $(function() {
       $( "#admin_period_dialog" ).dialog( "open" );
       $('.ui-dialog-titlebar-close').focus();
   });
+
+  $( "#admin_period_what_can_do_dialog" ).dialog({ autoOpen: false });
+  $( "#admin_period_what_can_do_opener" ).click(function() {
+      $( "#admin_period_what_can_do_dialog" ).dialog( "open" );
+      $('.ui-dialog-titlebar-close').focus();
+  });
 });
