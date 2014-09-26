@@ -52,7 +52,7 @@ feature 'ネスレ入力用ページ' do
       end
 
       scenario '注文完了登録ボタンを押すと、ネスレ発送待ちページに移動して成功メッセージがでる' do
-        click_button '注文の完了をシステムに登録'
+        click_button '発注の完了をシステムに登録'
 
         expect(page.current_path).to eq '/orders/ordered'
         expect(page).to have_content 'ネスレ公式へ注文したことを登録しました。'
@@ -69,11 +69,11 @@ feature 'ネスレ入力用ページ' do
     end
 
     scenario 'ボタンを押すことができない' do
-      expect(page).not_to  have_button '注文の完了をシステムに登録'
+      expect(page).not_to  have_button '発注の完了をシステムに登録'
       expect(page).to      have_css '[type=submit][disabled=disabled]'
 
       disabled_text = find('[type=submit][disabled=disabled]').value
-      expect(disabled_text).to eq '注文の完了をシステムに登録'
+      expect(disabled_text).to eq '発注の完了をシステムに登録'
     end
 
     scenario '該当するお茶がないことがわかる' do

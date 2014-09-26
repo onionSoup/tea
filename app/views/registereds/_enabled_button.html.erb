@@ -2,6 +2,6 @@
 <p>ネスレでの注文が終わったら以下のボタンを押してください。<br/>
 注文が終わったことをシステムに登録します。</p>
 <%= form_for :order, url: order_registered_path, method: :post do |f| %>
-  <%= f.submit '注文の完了をシステムに登録',
+  <%= f.submit '発注の完了をシステムに登録',
                data: {confirm: '本当に注文完了を登録してもよろしいですか？'} %>
 <% end %>
