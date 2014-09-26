@@ -10,11 +10,9 @@
 
     .item_input_controll
       = f.label :nestle_index_from_the_top, '並び順'
-      = f.select(:nestle_index_from_the_top, options_for_select(item_order_options(@items), {selected: @items.length.to_s}))
+      = f.select(:nestle_index_from_the_top, options_for_select(item_order_options(@items, @item), {selected: selected}))
       = f.submit '保存する'
 
   %p
     並び順は#{about_page_link}と同じにすると
     #{link_to 'ネスレ入力用ページ', registered_path}で便利です。
-
-

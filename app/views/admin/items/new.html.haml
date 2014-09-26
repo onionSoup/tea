@@ -4,4 +4,4 @@
 
   #item_create_content
     %h2#create_new_item.main_content_caption 商品の登録
-    = render 'form'
+    = render 'form', selected: @items.length.to_s

@@ -29,6 +29,14 @@ feature '商品を指定した順番に並べる' do
   end
 
   context '商品を作るとき' do
+    scenario '順番を変更しない という選択肢がない' do
+      click_link '新商品登録ページ'
+      within 'select#item_nestle_index_from_the_top' do
+        expect(page).to have_content     '一番最後'
+        expect(page).not_to have_content '順番を変更しない'
+      end
+    end
+
     context 'herb_teaの前に挿入するとき' do
       background do
         click_link '新商品登録ページ'
@@ -63,6 +71,48 @@ feature '商品を指定した順番に並べる' do
       end
 
       it_behaves_like 'item_namesの順に並んでいる', item_names: ['herb_tea', 'red_tea', 'ice_mint', 'new_tea']
+    end
+  end
+
+  context '商品を編集するとき' do
+    context 'herb_teaを編集するとき' do
+      background do
+        within ".#{ActionView::RecordIdentifier.dom_id(herb_tea, :change)}" do
+          click_link '編集'
+        end
+      end
+      context '順番を変更しないを選ぶとき' do
+        background do
+          fill_in '商品名',      with: 'herb_tea'
+          fill_in '価格',        with: '100'
+          select  '順番を変更しない', from: '並び順'
+          click_button '保存する'
+        end
+        it_behaves_like 'item_namesの順に並んでいる', item_names: ['herb_tea', 'red_tea', 'ice_mint']
+      end
+
+      context '一番最後を選ぶとき' do
+        background do
+          fill_in '商品名',      with: 'herb_tea'
+          fill_in '価格',        with: '100'
+          select  '一番最後',    from: '並び順'
+          click_button '保存する'
+        end
+        it_behaves_like 'item_namesの順に並んでいる', item_names: ['red_tea', 'ice_mint', 'herb_tea']
+      end
+    end
+    context 'ice_mintを編集するとき' do
+      background do
+        within ".#{ActionView::RecordIdentifier.dom_id(ice_mint, :change)}" do
+          click_link '編集'
+        end
+      end
+      scenario '一番最後という選択肢がない' do
+        within 'select#item_nestle_index_from_the_top' do
+          expect(page).not_to have_content     '一番最後'
+          expect(page).to     have_content '順番を変更しない'
+        end
+      end
     end
   end
 

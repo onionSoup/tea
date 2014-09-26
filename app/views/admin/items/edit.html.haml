@@ -4,4 +4,4 @@
 
   #edit_item_content_box
     %h2#update_one_item_title.main_content_caption= "#{@item.name} の編集"
-    = render 'form'
+    = render 'form', selected: @item.nestle_index_from_the_top
