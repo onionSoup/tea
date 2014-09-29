@@ -72,7 +72,7 @@ module AdminStatusBarHelper
         <li>#{link_to 'ネスレ入力用ページ', registered_path}でボタンを押して、発注したことを記録します。次の「発送待ち」に移ります。</li>
       </ol>"
     when 'nothing_added'
-      "#{link_to '注文期間の削除', admin_period_path}をして新しく注文を受け付けることができます。<br>注文期限を削除すれば「期間設定」に移ります。"
+      "#{link_to '注文期間の削除', admin_period_path}をしてください。<br>注文期限を削除すれば「期間設定」に移ります。"
     when 'ordered'
       "お茶が支社に届いた場合、#{link_to '発送待ち商品の確認ページ', ordered_path}でボタンを押してください。<br>引換ができるようになり、次の「引換」に移ります。"
     when 'arrived'
@@ -84,8 +84,7 @@ module AdminStatusBarHelper
         <li>すべての人の分について、引換が終了すれば、次の「終了処理」に移ります。</li>
       </ol>"
     when 'finish'
-      "#{link_to '注文期間の削除', admin_period_path}をして新しく注文を受け付けることができます。<br>
-      注文期間の削除後は、「期間設定」に移ります。"
+      "#{link_to '注文期間の削除', admin_period_path}をしてください。<br>注文期限を削除すれば「期間設定」に移ります。"
     else
       raise "bag in #{__method__}"
     end
