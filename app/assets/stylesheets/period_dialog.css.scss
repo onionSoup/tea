@@ -1,0 +1,42 @@
+#admin_period_dialog, #admin_period_what_can_do_dialog {
+  h3 {
+    margin: 2em 0 0;
+  }
+  h3:first-child {
+    margin: 1em 0 0;
+  }
+  h4 {
+    margin: 0.5em 0 0 1em;
+  }
+  p {
+    margin: 0  0 0 1em;
+    padding: 0;
+  }
+  ul {
+    margin: 0 0 0 1em;;
+    padding: 0;
+  }
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    color: #007ab7;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #edad0b;
+    text-decoration: underline;
+  }
+}
+
+.amazon_like_link {
+  color: #007ab7;
+  text-decoration: none;
+}
+
+.amazon_like_link:hover {
+  color: #edad0b;
+  text-decoration: underline;
+}

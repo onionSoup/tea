@@ -34,12 +34,11 @@ def make_items!
     ['レッド フルーツ ディライト', 756],
     ['ブルーベリー マフィン', 756],
     ['レッドロマンス', 756],
-    ['ダージリンファーストフラッシュ', 1296],
-    ['オーグリーン', 864]
+    ['カプセル ピュアティー', 756],
   ]
 
-  items.each do |item|
-    Item.create!(name: item[0], price: item[1])
+  items.each_with_index do |item, i|
+    Item.create!(name: item[0], price: item[1], nestle_index_from_the_top: i)
   end
 end
 

@@ -58,7 +58,7 @@ module ExampleHelper
       click_link 'ネスレ入力用ページ'
     end
 
-    click_button '注文の完了をシステムに登録'
+    click_button '発注の完了をシステムに登録'
 
     click_button 'お茶の受領をシステムに登録'
 

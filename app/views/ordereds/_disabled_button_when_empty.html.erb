@@ -1,0 +1,8 @@
+
+<p id="p_for_order_to_arrive_button">ネスレに発注し、ネスレからの発送を待っている商品がある場合、ここに表示されます。</p>
+<p>システムにお茶の受領を登録することもできるようになります。<p>
+<%= form_for :order, url: arrive_ordered_path, method: :post do |f| %>
+  <%= f.submit 'お茶の受領をシステムに登録',
+               {data: {confirm: 'お茶の受領を登録してもよろしいですか？'},
+               disabled: true} %>
+<% end %>

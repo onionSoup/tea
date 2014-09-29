@@ -1,5 +1,5 @@
 <h2 class="main_content_caption order_show_cap" id="add_tea_title">注文の追加： 可能</h2>
 <p>追加したい商品と個数を選んで、「追加する」ボタンを押してください<br>
-追加したお茶は、管理者が<%= l Period.singleton_instance.end_time %>以降にネスレから購入します。<br>
+追加したお茶は、管理者が<%= l Period.singleton_instance.end_time + 1.days %>以降にネスレから購入します。<br>
 <%= render 'orders/forms/select', disabled: false %>
 </p>

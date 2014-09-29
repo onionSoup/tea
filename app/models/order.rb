@@ -64,7 +64,7 @@ class Order < ActiveRecord::Base
     def select_name_and_price_and_sum_of_quantity
       joins(order_details: :item).
         group('items.id', 'order_details.then_price').
-          select('items.name, order_details.then_price, SUM(quantity) AS quantity')
+          select('items.name, order_details.then_price, SUM(quantity) AS quantity, items.nestle_index_from_the_top')
     end
 
     def all_empty?

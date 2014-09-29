@@ -11,15 +11,13 @@
         発注前には<%= shipping_cost_page_link(link_text: 'ネスレのサイト') %>を参照し、最新の送料情報を確認してください。</p>
       </div>
       <h2 class="set_period_in_show main_content_caption">送料・無料条件の変更</h2>
-      <div class="main_content">
-        <%= form_for [:admin, @postage] do |f| %>
-            <%= f.label :cost, '送料:' %>
-            <%= f.number_field :cost, min: 0 %>
-            <%= f.label :border, '無料条件:' %>
-            <%= f.number_field :border,  min: 0 %>
-          <%= f.submit '保存する' %>
-        <% end %>
-      </div>
+      <% if Order.all.any? {|order| order.not_registered? } %>
+        <p id='why_cannot_change_postage_p'>発注済みの注文があるため、送料・無料条件の変更ができません。<br>
+        変更すると、ユーザーへの請求金額が変わるおそれがあるためです。</p>
+        <%= render 'form', disabled: true %>
+      <% else %>
+        <%= render 'form', disabled: false %>
+      <% end %>
     </div>
   </div>
 </div>

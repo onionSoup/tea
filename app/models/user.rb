@@ -27,12 +27,24 @@ class User < ActiveRecord::Base
     where('EXISTS (SELECT 1 FROM order_details WHERE order_details.order_id = orders.id)')
   }
 
+  scope :latest_admin_user_name ,-> {
+    begin
+      User.where(admin: true).order('updated_at').last.name
+    rescue NoMethodError
+      User.none         #nilにするとself.allが返ってしまうっぽい。そこでActiveRecord::Relationの[]を返す。
+    end
+  }
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
 
   def User.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def admin?
+    admin == true
   end
 
   private

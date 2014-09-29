@@ -19,27 +19,28 @@
     <li class="include_ul">商品の管理
       <span class='arrow_icon'><%= icon('chevron-right') %></span>
       <ul class='inner_ul'>
-        <li><%= link_to '商品の管理',        admin_items_path %></li>
-        <li><%= link_to '商品の作成',         new_admin_item_path %></li>
+        <li><%= link_to '商品の編集・削除', admin_items_path %></li>
+        <li><%= link_to '商品の作成',       new_admin_item_path %></li>
       </ul>
     </li>
     <li class="include_ul">ユーザーの管理
       <span class='arrow_icon'><%= icon('chevron-right') %></span>
       <ul class='inner_ul'>
-        <li><%= link_to 'ユーザーの管理',    admin_users_path %></li>
-        <li><%= link_to 'ユーザーの作成',    new_admin_user_path %></li>
+        <li><%= link_to 'ユーザーの編集・削除', admin_users_path %></li>
+        <li><%= link_to 'ユーザーの作成',       new_admin_user_path %></li>
+        <li><%= link_to '管理者の設定',         admin_setting_path %></li>
       </ul>
     </li>
     <li class="include_ul">注文期間の管理
       <span class='arrow_icon'><%= icon('chevron-right') %></span>
       <ul class='inner_ul'>
-        <li><%= link_to '注文期間の設定',    admin_period_path %></li>
+        <li><%= link_to '注文期間の設定', admin_period_path %></li>
       </ul>
     </li>
     <li class="include_ul">送料の管理
       <span class='arrow_icon'><%= icon('chevron-right') %></span>
       <ul class='inner_ul'>
-        <li><%= link_to '送料の設定',        admin_postage_path %></li>
+        <li><%= link_to '送料の設定', admin_postage_path %></li>
       </ul>
     </li>
   </ul>

@@ -5,6 +5,14 @@
   border-radius: 8px;
 }
 
+.order_notice_to_user {
+  margin-bottom: 3em;
+}
+
+p.p_about_users_table {
+  margin-top: 2em;
+}
+
 //registereds#show,ordereds#show
 table.admin_order_table {
   border: thin solid #dcdcdc;
@@ -29,6 +37,7 @@ table.admin_order_table {
     background: #f9f9f9;
   }
   div.inner_table {
+    display: -webkit-flex;
     display: flex;
     justify-content: space-between;
   }
@@ -61,7 +70,7 @@ table.users_table_in_admin_orders_pages {
 }
 
 #order_notice_title {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .admin_orders_table_and_p_wrapper {
@@ -94,4 +103,13 @@ table.arrived_table {
       background: #ececec;
     }
   }
+}
+
+//exchange
+p.explain_exchange_table {
+  margin-top: 2em;
+}
+
+p#conifirm_about_copy_user_text {
+  margin-top: 0;
 }

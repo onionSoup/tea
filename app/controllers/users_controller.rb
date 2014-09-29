@@ -3,10 +3,6 @@ class UsersController < ApplicationController
   before_action :need_logged_in, only: [:edit, :update]
   before_action :reject_update_giving_self_name, only: [:update]
 
-  def index
-    @users = User.all
-  end
-
   def new
     @user = User.new
   end

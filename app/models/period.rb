@@ -56,8 +56,8 @@ class Period < ActiveRecord::Base
 
     def set_out_of_date_times!
       take.update_attributes!(
-        begin_time: Time.zone.now.years_ago(30).in_time_zone('Tokyo'),
-        end_time:   Time.zone.now.years_ago(20).in_time_zone('Tokyo')
+        begin_time: Time.zone.now.days_ago(2).in_time_zone('Tokyo').at_beginning_of_day,
+        end_time:   Time.zone.now.days_ago(1).in_time_zone('Tokyo').at_end_of_day
       )
     end
 
@@ -71,7 +71,7 @@ class Period < ActiveRecord::Base
     #validationにはできない。時間が経過すればend_timeは現在以前の値を当然取る。
     #UIから、現在を含む注文期間を生成するときだけ、このメソッドの縛りをかける。
     def end_time_is_tomorrow_or_later?(end_time)
-      end_time > Time.zone.now.in_time_zone('UTC').tomorrow.at_beginning_of_day
+      end_time > Time.zone.now.in_time_zone('Tokyo').tomorrow.at_beginning_of_day
     end
 
     def state

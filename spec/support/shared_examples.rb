@@ -151,3 +151,11 @@ shared_examples '１人あたりの送料はprice円' do |price: nil|
   end
 end
 
+shared_examples 'item_namesの順に並んでいる' do |item_names: []|
+  it '' do
+    item_names.each_with_index do |item_name, i|
+      expect(page.all('tr[class^="change"]')[i]). to  have_content item_name
+    end
+  end
+end
+

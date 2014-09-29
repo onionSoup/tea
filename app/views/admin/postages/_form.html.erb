@@ -1,0 +1,9 @@
+<div class="main_content">
+  <%= form_for [:admin, @postage] do |f| %>
+      <%= f.label :cost, '送料:' %>
+      <%= f.number_field :cost, min: 0, disabled: disabled %>
+      <%= f.label :border, '無料条件:' %>
+      <%= f.number_field :border,  min: 0, disabled: disabled %>
+    <%= f.submit '保存する', disabled: disabled %>
+  <% end %>
+</div>

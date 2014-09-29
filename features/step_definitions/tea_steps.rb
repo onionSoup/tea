@@ -74,7 +74,7 @@ end
 
 When /^注文をネスレに発注する$/ do
   visit '/orders/registered'
-  click_button '注文の完了をシステムに登録'
+  click_button '発注の完了をシステムに登録'
 end
 
 When /^お茶が発送されたことを登録する$/ do

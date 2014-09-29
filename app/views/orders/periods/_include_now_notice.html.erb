@@ -1,3 +1,4 @@
 <h2 class="main_content_caption order_show_cap" >注文期間の状況: 注文期間中</h2>
-<p>注文期間は<%= l(Period.singleton_instance.end_time) %>までです。<br>
-現在注文期間中のため、注文の追加・削除ができます。</p>
+<p>注文期間は<%= l(Period.singleton_instance.end_time) %>までです。<%= render 'period_dialog' %></p>
+<!-- TODO ダイアログ非表示時の p のマージンをカットして、この２つの要素の間にできる空白を消す -->
+<p><%= l(Period.singleton_instance.end_time + 1.days) %>の深夜0時になると、注文が確定し変更ができなくなります。</p>

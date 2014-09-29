@@ -68,8 +68,10 @@ feature '管理者ページからユーザーの注文を変更する' do
     scenario 'URL直打ち、ブックマークからも、注文の変更はできない' do
       visit "/admin/users/#{alice.id}/order_details"
 
+      Capybara.exact = true
       expect(page).not_to have_link '削除'
       expect(page).not_to have_button '追加する'
+      Capybara.exact = false
     end
   end
   context '注文期間未設定の時編集ページに来た時' do
@@ -92,8 +94,10 @@ feature '管理者ページからユーザーの注文を変更する' do
     scenario 'URL直打ち、ブックマークからも、注文の変更はできない' do
       visit "/admin/users/#{alice.id}/order_details"
 
+      Capybara.exact = true
       expect(page).not_to have_link '削除'
       expect(page).not_to have_button '追加する'
+      Capybara.exact = false
     end
   end
 end

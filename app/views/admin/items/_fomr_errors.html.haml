@@ -1,0 +1,4 @@
+- if object.errors.present?
+  %ul#error_message_ul
+    - object.errors.full_messages.each do |msg|
+      %li.error_message_li= msg

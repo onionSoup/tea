@@ -1,4 +1,7 @@
 class Admin::OrderDetailsController < ApplicationController
+  include Login
+  before_action :need_logged_in
+
   def index
     @user  = User.find(params[:user_id])
     @items = Item.order(:id)

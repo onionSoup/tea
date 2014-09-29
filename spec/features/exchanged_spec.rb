@@ -29,4 +29,19 @@ feature '引換済み商品の確認ページ' do
       expect(page).to have_content 'Alice'
     end
   end
+
+  context '引換後として登録されているお茶がないとき' do
+    before do
+      wait_untill_period_become_out_of_date
+
+      login_as 'Alice'
+      visit '/orders/exchanged'
+    end
+
+    scenario '該当するユーザーがいないことがわかる' do
+      within '.users_table_in_admin_orders_pages' do
+        expect(page).to have_content '該当するユーザーがいません'
+      end
+    end
+  end
 end

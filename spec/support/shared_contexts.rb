@@ -32,7 +32,7 @@ end
 shared_context 'ネスレ入力用ページに行って、注文を発注する' do
   background do
     visit '/orders/registered'
-    click_button '注文の完了をシステムに登録'
+    click_button '発注の完了をシステムに登録'
   end
 end
 

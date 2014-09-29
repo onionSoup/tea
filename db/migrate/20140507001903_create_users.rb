@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :remember_token
       t.timestamps
+      t.boolean :admin, default: false
     end
   end
 end

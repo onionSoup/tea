@@ -1,0 +1,8 @@
+<p id="p_for_register_to_order_button">ユーザーが注文すると、表に表示されます。<br>
+この表を元に<%= about_page_link %>で注文ができます。</p>
+<p>またネスレに発注したことをボタンを押して登録することができます。</p>
+<%= form_for :order, url: order_registered_path, method: :post do |f| %>
+  <%= f.submit '発注の完了をシステムに登録',
+               {data: {confirm: '本当に注文完了を登録してもよろしいですか？'},
+                disabled: true} %>
+<% end %>

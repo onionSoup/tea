@@ -11,13 +11,16 @@
 #
 
 herb_tea:
-  name : 'herb_tea'
-  price: 100
+  name :                     'herb_tea'
+  price:                     100
+  nestle_index_from_the_top: 0
 
 red_tea:
-  name : 'red_tea'
-  price: 100
+  name :                     'red_tea'
+  price:                     100
+  nestle_index_from_the_top: 1
 
 ice_mint:
-  name : 'アイスミント'
-  price: 100
+  name :                     'アイスミント'
+  price:                     100
+  nestle_index_from_the_top: 2

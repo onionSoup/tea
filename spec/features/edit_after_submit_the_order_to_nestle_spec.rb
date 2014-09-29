@@ -7,7 +7,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
   scenario 'ネスレ入力用ページでボタンを押した後、注文の修正はできない' do
     visit '/orders/registered'
 
-    click_button '注文の完了をシステムに登録'
+    click_button '発注の完了をシステムに登録'
 
     click_link 'ユーザー用'
 
@@ -24,7 +24,7 @@ feature 'ネスレ公式に発注した後の注文修正'do
     scenario '注文期間がすぎた後、Alice以外の人の注文修正もできない。' do
       #Aliceの注文をネスレ公式に発注したことを、このアプリteaに登録する。
       visit '/orders/registered'
-      click_button '注文の完了をシステムに登録'
+      click_button '発注の完了をシステムに登録'
 
       #Bobも注文できない。注文期間がすぎたため。
       click_link 'ユーザー用'

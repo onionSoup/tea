@@ -1,6 +1,7 @@
+= render 'form_errors', {object: @item}
 #admin_flex_box
   = render 'application/admin_side_nav'
 
   #item_create_content
     %h2#create_new_item.main_content_caption 商品の登録
-    = render 'form'
+    = render 'form', selected: @items.length.to_s

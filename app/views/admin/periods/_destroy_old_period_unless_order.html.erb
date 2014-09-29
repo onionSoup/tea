@@ -6,15 +6,3 @@
       <%= submit_tag '注文期限の設定', {disabled: true ,data: 'select_date'} %>
     </p>
 <% end %>
-
-<% if Period.can_destroy? %>
-  <p>注文期間を削除・再設定して、ユーザーがお茶を注文できるようにするために<br>
-  以下のボタンを押してください。</p>
-  <p>注文期間を削除・再設定することで新規注文を受け付けることができるようになります。<p>
-  <%= button_to '注文期間を削除する', {action: 'destroy'}, {disabled: false, method: :delete} %>
-<% else %>
-  <p>期間の削除はできません。注文期間中に、ユーザーがお茶を注文しています。<br>
-  すべての注文を引換し<%= link_to '引換情報を削除', exchanged_path %>した後、ボタンを押せます。</p>
-  <p>注文期間を削除・再設定することで新規注文を受け付けることができるようになります。<p>
-  <%= button_to '注文期間を削除する', {action: 'destroy'}, {disabled: true,  method: :delete, data: 'delete'} %>
-<% end %>

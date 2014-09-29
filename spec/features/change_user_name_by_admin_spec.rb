@@ -6,7 +6,7 @@ feature 'ユーザー名を管理者画面から変更' do
     login_as 'Alice'
 
     click_link '管理者用'
-    click_link 'ユーザーの管理'
+    click_link 'ユーザーの編集・削除'
    end
 
   context '編集ページにいったとき' do

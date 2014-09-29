@@ -13,7 +13,7 @@
                               false,
                               id: dom_id(user) %></td>
         <td><%= label_tag dom_id(user), user.name %></td>
-        <td><%= user.order.order_details.price_sum  %></td>
+        <td class='sum'><%= user.order.order_details.price_sum  %></td>
         <td>
           <% user.order.order_details.each do |detail| %>
             <div class="inner_table">

@@ -9,26 +9,28 @@
                      {paticular_state_orders_grouped_by_item: @registereds} %>
           <%= render Period.include_now? ? 'disabled_button' : 'enabled_button' %>
         <% else %>
-          <p>ユーザーが商品を注文に追加すると、商品ごとの発注数量と金額の一覧表が見れるようになります。</p>
-          <p>その一覧表を元に<%= about_page_link %>で注文ができます。</p>
-          <p>一覧表がある場合、ネスレに発注したことをこのシステムに登録することができます。</p>
+          <%= render 'application/admin_orders_empty_table' %>
+          <%= render 'disabled_button_when_empty' %>
         <% end %>
       </div>
     </div>
     <h2 id="caption_on_users_table_in_admin" class="main_content_caption">ユーザーごとの詳細</h2>
     <div class="admin_content_under_caption">
       <% if @users.present? %>
-        <p>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
+        <p class='p_about_users_table'>ネスレ入力用ページにある商品の、ユーザーごとの詳細は以下のとおりです。</p>
         <%= render 'application/users_table.html', {users: @users} %>
       <% else %>
-        <p>ユーザーが商品を注文に追加すると、ユーザーごとの詳細を見られるようになります。</p>
+        <p class='p_about_users_table'>ユーザーが注文すると、ユーザーごとの詳細を見られるようになります。</p>
+        <%= render 'application/empty_users_table.html' %>
       <% end %>
     </div>
-    <% if @users.present? %>
-      <h2 class="main_content_caption" id="order_notice_title">ユーザーへの通知</h2>
-      <div class="admin_content_under_caption">
+    <h2 class="main_content_caption" id="order_notice_title">ユーザーへの通知</h2>
+    <div class="admin_content_under_caption">
+      <% if @users.present? %>
         <%= render '/registereds/copy_user_order' %>
-      </div>
-    <% end %>
+      <% else %>
+        <%= render 'registereds/copy_empty_user_order' %>
+      <% end %>
+    </div>
   </div>
 </div>

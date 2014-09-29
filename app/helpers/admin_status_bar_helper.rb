@@ -54,7 +54,12 @@ module AdminStatusBarHelper
     cart_position_names = Order.admin_cart_position_names(nothing_added: true)
     explain = case Order.admin_status_with_period
     when 'undefined_period'
-      "#{link_to '注文期間の設定', admin_period_path}をしてください。<br>注文期間を設定することで、ユーザーからの注文を募集でき、次の「注文待ち」に移ります。"
+      "注文期間が設定されていないので、ユーザーの注文を受け付ていない状態です。<br>受け付けるには以下の手順で作業をすることを推奨します。
+      <ol>
+        <li>#{link_to '商品の管理ページ', admin_items_path }の商品が#{about_page_link(link_text: 'ネスレ')}のものと合っているか確認・修正します。</li>
+        <li>#{link_to '送料の管理ページ', admin_postage_path }で送料と無料条件が#{shipping_cost_page_link(link_text: 'ネスレ')}のものと合っているか確認・修正します</li>
+        <li>#{link_to '注文期間の管理ページ', admin_period_path }でボタンを押して、注文期間を新規設定します。<br>ユーザーからの注文を募集できるようになり、次の「注文待ち」に移ります。</li>
+      </ol>"
     when 'can_add_detail'
       "管理者として、すべきことはありません。<br>ユーザーの注文は#{link_to 'ネスレ入力用ページ', registered_path}で確認できます。
       <p>注文期間が切れる#{l(Period.singleton_instance.end_time + 1.days)}以降は、「発注」または「注文なし」に移ります。</p>"
@@ -74,7 +79,7 @@ module AdminStatusBarHelper
       "お茶とお金の引換ができます。以下の手順で作業ができます。
       <ol>
         <li>#{link_to '引換用ページ', arrived_path}で引換できるお茶とユーザーを確認してください。</li>
-        <li>お金を受け取ってお茶を渡してください。（引換してください。）</li>
+        <li>idobataなどでユーザーに通知し、お金を受け取ってお茶を渡してください。（引換してください。）</li>
         <li>#{link_to '引換用ページ', arrived_path}で引換た人の分にチェックを入れ<br>ボタンを押して引換をシステムに記録してください。</li>
         <li>すべての人の分について、引換が終了すれば、次の「終了処理」に移ります。</li>
       </ol>"

@@ -5,8 +5,8 @@
       <h2 class="main_content_caption">引換用ページ</h2>
       <div class="admin_content_under_caption">
         <% if @users.present? %>
-          <p>以下の方に、お茶をお渡ししてお金を受け取ってください。</p>
-          <p>引換を完了した方の欄に、引換完了チェックを入れてください。</p>
+          <p>以下の方に、お茶をお渡ししてお金を受け取ってください。<br>
+          引換を完了した方の欄に、引換完了チェックを入れてください。</p>
           <p>確認ボタンを押すと、引換完了チェックを入れた注文について、引換が終了したことが登録されます。</p>
           <%= form_tag exchange_arrived_path, method: :post do %>
             <%= render 'arriveds_table' %>
@@ -17,18 +17,27 @@
           <% end %>
         <% else %>
           <p>お茶が届いていません。</p>
-          <p>お茶が届き、<%= link_to 'システムに受領を登録した場合', ordered_path %>は</p>
-          <p>ユーザーごとの詳細を書いた表が表示されます。</p>
-          <p>この表を元に、お茶とお金の引換を行うことができます。</p>
-          <p>また、引換を行ったことをシステムに登録できます。</p>
+          <p>お茶が届き、<%= link_to 'システムに受領を登録した場合', ordered_path %>は<br>
+          表でユーザーごとの詳細が確認できます。<br>
+          この表を元に、お茶とお金の引換を行うことができます。</p>
+          <%= form_tag exchange_arrived_path, method: :post do %>
+            <%= render 'disabled_arriveds_table' %>
+            <p id="p_for_arrive_to_exchange_button">お茶がある場合以下のボタンを押して<br>
+            引換を行ったことをシステムに登録できるようになります。</p>
+            <%= submit_tag '引換の完了をシステムに登録',
+                           {data: {confirm: '引換の完了を登録してもよろしいですか？'},
+                           disabled: 'disabled'} %>
+          <% end %>
         <% end %>
       </div>
     </div>
-    <% if @users.present? %>
-      <h2 class="main_content_caption" id="order_notice_title">ユーザーへの通知</h2>
-      <div class="admin_content_under_caption">
+    <h2 class="main_content_caption" id="order_notice_title">ユーザーへの通知</h2>
+    <div class="admin_content_under_caption order_notice_to_user">
+      <% if @users.present? %>
         <%= render '/arriveds/copy_user_order' %>
-      </div>
-    <% end %>
+      <% else %>
+        <%= render '/arriveds/copy_empty_user_order' %>
+      <% end %>
+    </div>
   </div>
 </div>
