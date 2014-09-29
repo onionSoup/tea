@@ -26,7 +26,8 @@ letter-spacing: -0.35em;
     width: 8px;
   }
   .state {
-    width: 4em;
+    //フォントによっては、width: 4em; ではみ出すらしい。
+    width: 4.2em;
     font-size: 0.9em;
     text-align: center;
     position: absolute;
