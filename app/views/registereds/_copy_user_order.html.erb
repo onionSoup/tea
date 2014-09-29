@@ -2,9 +2,7 @@
   <p>ネスレのサイトで入力する前、ユーザーに確認を求めたい場合<br>
   以下の文章をidobataに貼り付けることで簡単に確認がとれます。</p>
   <div id="users_copy_text">
-    <div id="fe_text" name="fe_text">
-<!--コピーがインデントを認識するため、インデントを詰めている -->
-<p>ネスレ購入前の、注文最終確認です。<br>
+    <div id="fe_text" name="fe_text"><p>ネスレ購入前の、注文最終確認です。<br>
 訂正が必要な場合、連絡をお願いします。</p>
 <p>
 <% @users.each do |user| %>
@@ -16,9 +14,7 @@
 "#{user.order.order_details.price_sum + Postage.cost_per_person_concern_free}円（注文#{user.order.order_details.price_sum}円+送料#{Postage.cost_per_person_concern_free}円）です。<br>"
 )%>
 <% end %>
-</p>
-<!--コピーがインデントを認識するため、インデントを詰めている -->
-    </div>
+</p></div>
   </div>
   <div id="copy_tooltip_wraper">
     <button data-clipboard-target='fe_text' id='d_clip_button'>
