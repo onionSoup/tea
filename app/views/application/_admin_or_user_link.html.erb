@@ -1,5 +1,5 @@
 <!-- TODO もっと適切な場所に置く -->
-<% non_admin_paths = [root_path, order_path, new_user_path, edit_user_path(current_user),user_path(current_user), login_path] %>
+<% non_admin_paths = [root_path, order_path, new_user_path, edit_user_path(current_user),user_path(current_user), login_path, help_path] %>
 <% if non_admin_paths.include? request.path_info %>
   <p><%= link_to '管理者用', admin_dashboard_path %></p>
 <% else %>

@@ -1,6 +1,11 @@
 $(document).ready(function() {
   var clip = new ZeroClipboard($("#d_clip_button"))
 
+  //configure for linux
+  ZeroClipboard.config({
+    forceEnhancedClipboard: true
+  });
+
   $("#d_clip_button").hover(
     function() {
       $(".copy_tooltip").css("display", "block")

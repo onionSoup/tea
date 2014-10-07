@@ -1,0 +1,15 @@
+.help_title {
+  margin: 3em 0 0 0;
+}
+
+.help_content {
+  table {
+    border: solid thin #dcdcdc;
+    tr:first-child {
+      background: #e3eaf6;
+    }
+    tr:nth-child(2n+3) {
+      background: #f9f9f9;
+    }
+  }
+}

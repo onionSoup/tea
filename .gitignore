@@ -28,6 +28,7 @@
 *.sw[po]
 tags
 .ruby-version
+vender/bundle
 
 /repos/*
 !/repos/.gitkeep

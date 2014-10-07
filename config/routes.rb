@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'orders#show'
 
+  resource  :help,          only: %i(show)
   resource  :order,         only: %i(show update)
   resources :order_details, only: %i(destroy)
   resources :sessions,      only: %i(create)

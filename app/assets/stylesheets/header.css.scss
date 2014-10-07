@@ -3,9 +3,10 @@ header {
     width: 60%;
     display: -webkit-inline-flex;
     display: inline-flex;
+    -webkit-justify-content: flex-end;
     justify-content: flex-end;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    //flex-direction: row;
+    //flex-wrap: nowrap;
     position: absolute;
     right: 0;
     bottom: 0;
