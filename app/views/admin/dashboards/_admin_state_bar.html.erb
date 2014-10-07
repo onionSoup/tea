@@ -1,6 +1,6 @@
 <% target   = admin_cart_position %>
 <% explains = Order.admin_cart_position_names %>
-<div id='status_bar' class='admin_version'>
+<div id='admin_status_bar'>
   <% if target.kind_of?(Integer) %>
       <%= render 'bar_enable_first', target: target, explains: explains %>
   <% else %>
