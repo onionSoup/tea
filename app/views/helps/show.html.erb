@@ -1,0 +1,43 @@
+<div class="general_user_flex">
+  <%= render 'application/general_user_side_nav' %>
+  <div>
+    <h2 class="help_title main_content_caption">動作環境</h2>
+    <div class="main_content help_content">
+      <p>モバイル端末からの動作は確認していません。<br>
+      PCより以下のブラウザでアクセスした場合、動作することを確認しています。</p>
+      <table>
+        <tr>
+          <th id="UA">ブラウザ</th>
+          <th id="ver">バージョン</th>
+        </tr>
+        <tr>
+          <td>Google Chrome（推奨）</td>
+          <td>37</td>
+        </tr>
+        <tr>
+          <td>Firefox</td>
+          <td>32</td>
+        </tr>
+        <tr>
+          <td>Internet Explorer</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>Opera</td>
+          <td>24</td>
+        </tr>
+        <tr>
+          <td>Safari</td>
+          <td>7</td>
+        </tr>
+      </table>
+    </div>
+    <h2 class="help_title main_content_caption">クリップボードにコピーする機能が動かない場合</h2>
+    <div class="main_content">
+      <p>この機能には<%= link_to 'Adobe Flash', 'http://get.adobe.com/jp/flashplayer/' %>が必要です。<br>
+      デフォルトでインストール済みのGoogle Chrome, Internet Explorer以外のブラウザでは<br>
+      AdobeFlashのインストールが必要になる場合があります。
+      </p＞
+    </div>
+  </div>
+</div>
