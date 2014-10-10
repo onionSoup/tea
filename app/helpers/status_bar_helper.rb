@@ -49,4 +49,44 @@ module StatusBarHelper
     end
     {title: explain[0], paragraph: explain[1]}
   end
+
+  def user_position_instruction(order)
+    explain = case order.status_with_period
+    when 'undefined_period'
+      <<-"EOS".strip_heredoc
+      管理者が注文期間を設定して、注文の募集を始めるのを待っています。
+      EOS
+    when 'can_add_detail'
+      <<-"EOS".strip_heredoc
+      注文ができます。<br>
+      フォームから欲しいお茶の品名と個数を選んで追加・削除してください。
+      EOS
+    when 'wait_ordered'
+      <<-"EOS".strip_heredoc
+      近日中に管理者がネスレに発注します。<br>
+      発注とは、管理者がユーザーの注文しているお茶を#{about_page_link(link_text: 'ネスレ')}から購入することを指します。
+      EOS
+    when 'nothing_added'
+      <<-"EOS".strip_heredoc
+      注文をせずに注文期間が終了しました。<br>
+      管理者が次回の注文を募集するまでお待ちください。
+      EOS
+    when 'ordered'
+      <<-"EOS".strip_heredoc
+      お茶が発注されました。支社に届くのを待っています。
+      EOS
+    when 'arrived'
+      <<-"EOS".strip_heredoc
+      注文したお茶が支社に届きました。<br>
+      管理者にお金を渡してお茶を受け取れます。
+      EOS
+    when 'exchanged'
+      <<-"EOS".strip_heredoc
+      引換が完了しました。<br>
+      管理者が次回の注文を募集するまでお待ちください。
+      EOS
+    else
+      raise "bag in #{__method__}"
+    end
+  end
 end

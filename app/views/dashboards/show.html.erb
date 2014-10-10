@@ -10,5 +10,11 @@
       </div>
       <%= render 'order_state_bar' , order: @order %>
     </div>
+    <div>
+      <h2 class="main_content_caption" id='what_admin_shold_do_title'>注文状況の詳細</h2>
+      <div class="main_content">
+        <p><%= raw user_position_instruction(@order) %></p>
+      </div>
+    </div>
   </div>
 </div>
