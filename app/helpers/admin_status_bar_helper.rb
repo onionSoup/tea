@@ -51,7 +51,6 @@ module AdminStatusBarHelper
   end
 
   def admin_position_instruction
-    cart_position_names = Order.admin_cart_position_names(nothing_added: true)
     explain = case Order.admin_status_with_period
     when 'undefined_period'
       "注文期間が設定されていないので、ユーザーの注文を受け付ていない状態です。<br>受け付けるには以下の手順で作業をすることを推奨します。
