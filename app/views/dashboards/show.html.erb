@@ -3,11 +3,7 @@
   <%= render "application/general_user_side_nav" %>
   <div>
     <div id="show_order_content">
-      <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_explain(@order)[:title] %></h2>
-      <p><%= raw user_position_explain(@order)[:paragraph] %></p>
-      <div id='order_dialog_wrapper'>
-        <%= render 'order_dialog' %>
-      </div>
+      <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_title(@order) %></h2>
       <%= render 'order_state_bar' , order: @order %>
     </div>
     <div>
