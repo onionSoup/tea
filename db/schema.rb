@@ -19,18 +19,18 @@ ActiveRecord::Schema.define(version: 20140912042437) do
   create_table "items", force: true do |t|
     t.string   "name"
     t.integer  "price"
+    t.integer  "nestle_index_from_the_top"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "nestle_index_from_the_top"
   end
 
   create_table "order_details", force: true do |t|
     t.integer  "order_id"
     t.integer  "item_id"
     t.integer  "quantity"
+    t.integer  "then_price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "then_price"
   end
 
   create_table "orders", force: true do |t|
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(version: 20140912042437) do
 
   create_table "users", force: true do |t|
     t.string   "name"
+    t.string   "remember_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token"
-    t.boolean  "admin",         default: false
+    t.boolean  "admin",          default: false
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
