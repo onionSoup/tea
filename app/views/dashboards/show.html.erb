@@ -1,0 +1,16 @@
+<%= render 'application/form_errors', {object: @order_detail} if @order_detail %>
+<div class="general_user_flex">
+  <%= render "application/general_user_side_nav" %>
+  <div>
+    <div id="show_order_content">
+      <h2 class="main_content_caption order_show_cap" id='order_state_bar_title'>注文の状況: <%= user_position_title(@order) %></h2>
+      <%= render 'order_state_bar' , order: @order %>
+    </div>
+    <div>
+      <h2 class="main_content_caption" id='what_admin_shold_do_title'>注文状況の詳細</h2>
+      <div class="main_content">
+        <p><%= raw user_position_instruction(@order) %></p>
+      </div>
+    </div>
+  </div>
+</div>

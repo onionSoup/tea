@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root to: 'orders#show'
 
+  resource  :dashboard,     only: %i(show)
   resource  :help,          only: %i(show)
   resource  :order,         only: %i(show update)
+  resource  :period,        only: %i(show)
   resources :order_details, only: %i(destroy)
   resources :sessions,      only: %i(create)
   resources :users,         only: %i(new create edit update)
