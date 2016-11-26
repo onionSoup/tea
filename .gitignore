@@ -32,3 +32,6 @@ vender/bundle
 
 /repos/*
 !/repos/.gitkeep
+
+# Ignore environment variable file
+.env
