@@ -1,3 +1,3 @@
 notify:
   webhooks:
-    - url: ENV["IDOBATA_HOOK_URL"]
+    - url: https://idobata.io/hook/circle_ci/636ab32a-8679-4e9a-9519-fd107f14244c
