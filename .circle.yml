@@ -1,0 +1,3 @@
+notify:
+  webhooks:
+    - url: ENV["IDOBATA_HOOK_URL"]
